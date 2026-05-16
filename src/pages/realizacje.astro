@@ -1,0 +1,171 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+
+const projects = [
+  { slug:'modeka',              name:'Modeka — B2B e-commerce',     tag:'E-commerce B2B · WooCommerce · 2026', pill1:'4 kraje, 1000+ produktów', pill2:'Interaktywna mapa', bg:'pbg-7',  glow:'pg-7',  featured:false, img:'/modeka-hero.jpg',              desc:'Platforma B2B dla producenta odzieży motocyklowej na rynki PL/SK/CZ/RO z mapą 150+ dealerów.' },
+  { slug:'eduinspirations',     name:'EduInspirations.pl',           tag:'E-commerce · Redesign · 2026',       pill1:'PageSpeed 90+',            pill2:'Custom Plugins',    bg:'pbg-9',  glow:'pg-9',  featured:false, img:'/eduinspirations-hero.jpg',     desc:'Redesign sklepu WooCommerce z materiałami edukacyjnymi — własny system faktur, FAQ i optymalizacja.' },
+  { slug:'techopiekun',         name:'TechOpiekun.pl',               tag:'Strona firmowa · WordPress · 2026',  pill1:'Serwis + SEO',             pill2:'Custom Theme',      bg:'pbg-8',  glow:'pg-8',  featured:false, img:'/techopiekun-hero.jpg',         desc:'Dedykowana strona WordPress dla serwisu elektronicznego i specjalisty SEO.' },
+  { slug:'ayra-jubiler',        name:'Ayra Jubiler',                 tag:'E-commerce · WooCommerce · 2026',    pill1:'Automatyzacja produktów',  pill2:'Custom Theme',      bg:'pbg-10', glow:'pg-10', featured:false, img:'/ayra-hero.jpg',                desc:'Sklep z biżuterią WooCommerce z automatyzacją dodawania produktów na podstawie zdjęć.' },
+  { slug:'ksiegowosc-online-365', name:'Księgowość Online 365',     tag:'Landing Page · WordPress · 2026',    pill1:'Kalkulator wyceny',        pill2:'Integracja API',    bg:'pbg-11', glow:'pg-11', featured:false, img:'/ksiegowosc-hero.jpg',          desc:'Landing page biura rachunkowego z kalkulatorem kosztu księgowości i integracją z podatkipodatki.pl.' },
+  { slug:'old-gold-garage',     name:'Old Gold Garage',              tag:'One Page · WordPress · 2026',        pill1:'Dźwięk silnika 🔑',        pill2:'Custom Dev',        bg:'pbg-12', glow:'pg-12', featured:false, img:'/oldgoldgarage.jpg',            desc:'Strona wypożyczalni klasycznych samochodów z unikalną funkcją odtwarzania dźwięku silnika.' },
+  { slug:'jakub-kasprowicz',    name:'Jakub Kasprowicz',             tag:'Personal Brand · WordPress · 2026',  pill1:'30+ kont reklamowych',     pill2:'SEM Specialist',    bg:'pbg-13', glow:'pg-13', featured:false, img:'/jakubkasprowicz-hero.jpg',     desc:'Strona osobista specjalisty SEM — Google Ads, Meta Ads, GA4, GSC przy ponad 30 aktywnych kontach.' },
+  { slug:'konieczny-konstrukcje', name:'Konieczny Konstrukcje',      tag:'Strona firmowa · WordPress · 2026',  pill1:'Modele 3D w przeglądarce', pill2:'Custom Dev',        bg:'pbg-14', glow:'pg-14', featured:false, img:'/konieczny-hero.jpg',           desc:'Producent wiat i pergoli premium z interaktywnymi modelami 3D konstrukcji na stronie.' },
+  { slug:'beskid-stolarstwo',   name:'Beskid Stolarstwo',            tag:'Strona firmowa · WordPress · 2026',  pill1:'Okna · Drzwi · Panele',    pill2:'Katalog produktów', bg:'pbg-15', glow:'pg-15', featured:false, img:'/beskid-hero.jpg',              desc:'Sklep z materiałami wykończeniowymi z Andrychowa — okna, drzwi, panele, akcesoria.' },
+  { slug:'gabriela-piwowarska', name:'Gabriela Piwowarska-Szuba',    tag:'Personal Brand · WordPress · 2026',  pill1:'Marketing Manager',        pill2:'Social Media',      bg:'pbg-16', glow:'pg-16', featured:false, img:'/gabrielapiwowarska-hero.jpg',  desc:'Strona personal brand dla właścicielki agencji marketingowej z Myślenic.' },
+  { slug:'dziki-gym',           name:'Dziki Gym',                    tag:'Redesign · WordPress · 2026',        pill1:'Next.js → WordPress',      pill2:'SEO + CMS',         bg:'pbg-17', glow:'pg-17', featured:false, img:'/dzikigym-hero.jpg',            desc:'Przepisanie siłowni z Next.js na WordPress z optymalizacją SEO, blogiem i poprawą mobilnej wersji.' },
+];
+
+const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'Astro.js'];
+---
+
+<Layout title="Realizacje — CtrlZ Studio" description="Portfolio projektów CtrlZ Studio — strony firmowe, sklepy WooCommerce, landing pages, custom solutions.">
+
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .page-hero { padding-top:140px; padding-bottom:64px; text-align:center; position:relative; overflow:hidden; }
+  .filter-bar { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:52px; }
+  .filter-btn { font-size:12px; padding:8px 18px; border-radius:var(--radius-pill); border:1px solid rgba(255,255,255,.1); background:transparent; color:rgba(255,255,255,.45); cursor:none; transition:all var(--transition); font-family:var(--font-body); }
+  .filter-btn:hover { color:rgba(255,255,255,.8); border-color:rgba(255,255,255,.25); }
+  .filter-btn.active { background:rgba(124,107,255,.18); border-color:rgba(124,107,255,.42); color:#c4b5fd; }
+  .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .project-card { border-radius:var(--radius-lg); overflow:hidden; position:relative; height:280px; cursor:none; transition:transform .35s cubic-bezier(.34,1.56,.64,1); text-decoration:none; display:block; }
+  .project-card:hover { transform:scale(1.02); }
+  .project-card .port-info { position:absolute; bottom:0; left:0; right:0; z-index:2; opacity:1; transform:none; }
+  .project-card:hover .port-glow { transform:scale(1.3); }
+  .project-card.featured { height:280px; }
+  .cta-strip { background:rgba(124,107,255,.07); border:1px solid rgba(124,107,255,.18); border-radius:var(--radius-lg); padding:48px; text-align:center; margin-top:64px; }
+  .cta-strip-title { font-family:var(--font-display); font-size:32px; font-weight:700; color:#fff; letter-spacing:-.03em; margin-bottom:12px; }
+  .cta-strip-sub { font-size:15px; color:rgba(255,255,255,.5); margin-bottom:28px; }
+  @media(max-width:1024px){ .projects-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:640px){ .projects-grid{grid-template-columns:1fr;} .filter-bar{gap:6px;} .filter-btn{font-size:11px;padding:7px 14px;} .cta-strip{padding:32px 20px;} }
+</style>
+
+<section class="page-hero" style="background:var(--bg-base);position:relative;overflow:hidden">
+  <div class="orb orb-1"></div><div class="orb orb-2"></div>
+  <div class="grid-bg"></div>
+  <div class="container" style="position:relative">
+    <div class="eyebrow" style="justify-content:center;margin-bottom:20px" id="ph-ey">Nasze portfolio</div>
+    <h1 class="display-xl" style="text-align:center;margin-bottom:18px" id="ph-title">
+      Projekty, z których<br><span class="grad">jesteśmy dumni.</span>
+    </h1>
+    <p id="ph-sub" style="font-size:16px;color:rgba(255,255,255,.45);text-align:center;max-width:480px;margin:0 auto 48px;font-weight:300;line-height:1.7">
+      Każdy projekt to unikalne rozwiązanie — zero szablonów, tylko przemyślany design i precyzyjny kod.
+    </p>
+    <div class="filter-bar" id="filter-bar">
+      {cats.map((cat,i) => <button class={`filter-btn${i===0?' active':''}`} data-cat={cat}>{cat}</button>)}
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--bg-base);padding-top:0">
+  <div class="container">
+    <div class="projects-grid" id="projects-grid">
+      {projects.map((p, i) => (
+        <a
+          href={`/realizacje/${p.slug}`}
+          class={`project-card ${p.bg}${p.featured?' featured':''} js-scale`}
+          data-delay={String((i % 3) * 0.08)}
+          data-cat={p.tag}
+        >
+          {p.img
+            ? <img src={p.img} alt={p.name} class="port-bg-img" loading="lazy" />
+            : <><div class={`port-glow ${p.glow}`}></div>{p.featured && <div class="port-mock"><div class="mock-line"></div><div class="mock-line"></div><div class="mock-line"></div></div>}</>
+          }
+          <div class="port-info">
+            <div class="port-tag">{p.tag}</div>
+            <div class="port-name">{p.name}</div>
+            <p style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:8px">{p.desc}</p>
+            <div class="port-pills">
+              <span class="port-pill accent">{p.pill1}</span>
+              <span class="port-pill">{p.pill2}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <div class="cta-strip js-reveal">
+      <div class="cta-strip-title">Chcesz dołączyć do grona klientów?</div>
+      <p class="cta-strip-sub">Każdy projekt zaczyna się od rozmowy. Pierwsza konsultacja jest bezpłatna.</p>
+      <a href="/#kontakt" class="btn-primary"><span>Porozmawiaj o projekcie →</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+</Layout>
+
+<script>
+import { initPage } from '../utils/pageInit';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+initPage();
+
+gsap.fromTo('#ph-ey',   {opacity:0,y:16},{opacity:1,y:0,duration:.7,ease:'power3.out',delay:.2});
+gsap.fromTo('#ph-title',{opacity:0,y:28},{opacity:1,y:0,duration:.9,ease:'power3.out',delay:.35});
+gsap.fromTo('#ph-sub',  {opacity:0,y:18},{opacity:1,y:0,duration:.7,ease:'power3.out',delay:.5});
+gsap.fromTo('#filter-bar',{opacity:0,y:14},{opacity:1,y:0,duration:.6,ease:'power3.out',delay:.65});
+
+document.querySelectorAll<HTMLElement>('.js-scale').forEach(el=>{
+  const d=parseFloat(el.dataset.delay||'0');
+  gsap.fromTo(el,{opacity:0,scale:.93},{opacity:1,scale:1,duration:.85,ease:'power3.out',delay:d,
+    scrollTrigger:{trigger:el,start:'top 92%',toggleActions:'play none none none'}});
+});
+document.querySelectorAll<HTMLElement>('.js-reveal').forEach(el=>{
+  gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.8,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}});
+});
+
+// Tilt on project cards
+document.querySelectorAll<HTMLElement>('.project-card').forEach(card=>{
+  card.addEventListener('mousemove',(e:MouseEvent)=>{
+    const r=card.getBoundingClientRect();
+    gsap.to(card,{rotateX:-((e.clientY-r.top)/r.height-.5)*8,rotateY:((e.clientX-r.left)/r.width-.5)*8,
+      duration:.4,ease:'power2.out',transformPerspective:1000});
+  });
+  card.addEventListener('mouseleave',()=>gsap.to(card,{rotateX:0,rotateY:0,duration:.5,ease:'power3.out'}));
+});
+
+// Filter buttons
+const filterBtns=document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+const cards=document.querySelectorAll<HTMLElement>('.project-card');
+
+function applyFilter(cat: string) {
+  filterBtns.forEach(b=>b.classList.remove('active'));
+  const match = Array.from(filterBtns).find(b=>
+    (b.dataset.cat||'').toLowerCase().includes(cat.toLowerCase()) ||
+    cat.toLowerCase().includes((b.dataset.cat||'').toLowerCase())
+  );
+  if (match) match.classList.add('active');
+  else filterBtns[0]?.classList.add('active');
+  const activeCat = match?.dataset.cat || 'Wszystkie';
+  cards.forEach(card=>{
+    const cardCat=card.dataset.cat||'';
+    const show=activeCat==='Wszystkie'||cardCat.toLowerCase().includes(activeCat.toLowerCase());
+    gsap.to(card,{opacity:show?1:.12,scale:show?1:.97,duration:.3,ease:'power2.out'});
+    card.style.pointerEvents=show?'auto':'none';
+  });
+}
+
+filterBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>applyFilter(btn.dataset.cat||'Wszystkie'));
+});
+
+// Apply filter from URL ?cat= param (linked from project pages)
+const urlCat = new URLSearchParams(window.location.search).get('cat');
+if (urlCat) {
+  setTimeout(() => {
+    applyFilter(urlCat);
+    document.getElementById('filter-bar')?.scrollIntoView({behavior:'smooth', block:'center'});
+  }, 400);
+}
+</script>

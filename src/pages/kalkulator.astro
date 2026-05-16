@@ -1,0 +1,1404 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+---
+
+<Layout
+  title="Kalkulator wyceny — CtrlZ Studio"
+  description="Oblicz orientacyjny koszt swojego projektu w 2 minuty. Strony firmowe, sklepy WooCommerce, landing pages — z realnymi widełkami cenowymi."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+/* ── HERO ─────────────────────────────── */
+.calc-hero {
+  padding: 140px 0 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-base);
+}
+.calc-hero-sub {
+  font-size: 16px;
+  color: rgba(255,255,255,.42);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ── LAYOUT ────────────────────────────── */
+.calc-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px 96px;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 48px;
+  align-items: start;
+  background: var(--bg-base);
+}
+
+/* ── STEPS ─────────────────────────────── */
+.calc-steps { display: flex; flex-direction: column; gap: 24px; }
+
+.calc-step {
+  background: rgba(255,255,255,.022);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  padding: 28px 32px;
+  transition: border-color .25s;
+}
+.calc-step.active { border-color: rgba(124,107,255,.35); background: rgba(124,107,255,.03); }
+
+.step-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.step-num {
+  width: 28px; height: 28px;
+  min-width: 28px; min-height: 28px;
+  border-radius: 50%;
+  background: rgba(124,107,255,.15);
+  border: 1px solid rgba(124,107,255,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 11px; font-weight: 700; line-height: 1;
+  color: var(--violet-light);
+  flex-shrink: 0;
+  margin-top: 1px;
+  box-sizing: border-box;
+}
+.step-title {
+  font-family: var(--font-display);
+  font-size: 17px; font-weight: 700;
+  color: #fff; letter-spacing: -.02em;
+}
+.step-subtitle { font-size: 12px; color: rgba(255,255,255,.3); margin-top: 2px; }
+
+/* ── OPTION GRIDS ──────────────────────── */
+.opts { display: grid; gap: 10px; }
+.opts-2 { grid-template-columns: 1fr 1fr; }
+.opts-3 { grid-template-columns: 1fr 1fr 1fr; }
+.opts-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.opt { position: relative; cursor: none; }
+.opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+.opt-label {
+  display: flex; flex-direction: column; gap: 5px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 12px;
+  cursor: none;
+  transition: all .2s;
+  user-select: none;
+  height: 100%;
+}
+.opt-label:hover {
+  border-color: rgba(124,107,255,.3);
+  background: rgba(124,107,255,.05);
+}
+.opt input:checked + .opt-label {
+  border-color: var(--violet);
+  background: rgba(124,107,255,.12);
+  box-shadow: 0 0 0 1px rgba(124,107,255,.25) inset;
+}
+/* Disabled opt */
+.opt.disabled .opt-label {
+  opacity: .32;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.opt.disabled .opt-label:hover {
+  border-color: rgba(255,255,255,.09);
+  background: rgba(255,255,255,.03);
+}
+.opt-icon { width:28px; height:28px; display:flex; align-items:center; justify-content:center; }
+.opt-icon svg { width:22px; height:22px; stroke:rgba(255,255,255,.45); transition:stroke .2s; }
+.opt input:checked + .opt-label .opt-icon svg { stroke:var(--violet-light); }
+.opt-name {
+  font-family: var(--font-display);
+  font-size: 14px; font-weight: 600; color: #fff;
+}
+.opt-desc { font-size: 12px; color: rgba(255,255,255,.36); line-height: 1.5; }
+.opt-price { font-size: 11px; font-weight: 600; color: var(--violet-light); margin-top: auto; padding-top: 4px; }
+.opt input:checked + .opt-label .opt-price { color: #c4b5fd; }
+.opt-badge {
+  display: inline-flex;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  background: rgba(236,72,153,.18);
+  color: #f9a8d4;
+  border: 1px solid rgba(236,72,153,.25);
+  border-radius: 100px;
+  padding: 2px 7px;
+  margin-top: 2px;
+  width: fit-content;
+}
+
+/* ── SIZE OPTIONS ─────────────────────── */
+.size-group { display: none; flex-direction: column; gap: 8px; }
+.size-group.visible { display: flex; }
+
+/* Slider labels */
+.slider-wrap { padding: 4px 0; }
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 4px;
+}
+.slider-label {
+  font-size: 12px;
+  color: rgba(255,255,255,.3);
+  text-align: center;
+  flex: 1;
+  cursor: none;
+  line-height: 1.4;
+  transition: color .2s;
+}
+.slider-label.active { color: var(--violet-light); font-weight: 600; }
+
+/* Force sliders to full width */
+.slider-wrap input[type=range] {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* ── ADDON TOGGLES ─────────────────────── */
+.addon {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 16px;
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 10px;
+  cursor: none;
+  transition: all .2s;
+  user-select: none;
+}
+.addon:hover { border-color: rgba(124,107,255,.25); background: rgba(124,107,255,.04); }
+.addon.checked { border-color: rgba(124,107,255,.4); background: rgba(124,107,255,.08); }
+.addon.dimmed {
+  opacity: .28;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.addon-cb {
+  width: 18px; height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid rgba(255,255,255,.22);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+}
+.addon.checked .addon-cb { background: var(--violet); border-color: var(--violet); }
+.addon-check { font-size: 11px; color: #fff; display: none; }
+.addon.checked .addon-check { display: block; }
+.addon-body { flex: 1; min-width: 0; }
+.addon-name { font-size: 13px; font-weight: 600; color: #fff; }
+.addon-desc { font-size: 11px; color: rgba(255,255,255,.35); margin-top: 2px; }
+.addon-price { font-size: 12px; font-weight: 600; color: var(--violet-light); flex-shrink: 0; }
+
+/* ── FORM ──────────────────────────────── */
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-label {
+  font-size: 11px; color: rgba(255,255,255,.32);
+  letter-spacing: .1em; text-transform: uppercase;
+}
+.form-input {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 9px;
+  padding: 11px 14px;
+  color: #fff; font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s;
+  width: 100%;
+}
+.form-input:focus { border-color: rgba(124,107,255,.45); }
+textarea.form-input { resize: none; }
+
+/* ── RESULT SIDEBAR ────────────────────── */
+.calc-result { position: sticky; top: 100px; }
+.result-card {
+  background: rgba(124,107,255,.07);
+  border: 1px solid rgba(124,107,255,.22);
+  border-radius: 18px;
+  padding: 26px;
+  margin-bottom: 14px;
+}
+.result-lbl {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(255,255,255,.28); font-weight: 600; margin-bottom: 8px;
+}
+.result-price {
+  font-family: var(--font-display);
+  font-size: 44px; font-weight: 800; letter-spacing: -.05em;
+  background: var(--grad-hero);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1; margin-bottom: 4px;
+  transition: opacity .25s;
+}
+.result-divider { height: 1px; background: rgba(255,255,255,.07); margin: 18px 0; }
+.result-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.result-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 13px;
+}
+.result-row-name { color: rgba(255,255,255,.38); }
+.result-row-val { color: rgba(255,255,255,.72); font-weight: 500; font-family: var(--font-display); text-align: right; max-width: 55%; line-height: 1.3; }
+.result-note { font-size: 11px; color: rgba(255,255,255,.22); line-height: 1.6; margin-bottom: 18px; text-align: center; }
+
+.info-card {
+  background: rgba(255,255,255,.022);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 18px; margin-bottom: 12px;
+}
+.info-card h4 { font-family:var(--font-display); font-size:13px; font-weight:600; color:rgba(255,255,255,.52); margin-bottom:8px; }
+.info-card p { font-size:12px; color:rgba(255,255,255,.3); line-height:1.6; margin:0; }
+.trust-list { display: flex; flex-direction: column; gap: 7px; margin-top: 12px; }
+.trust-item { display:flex; align-items:center; gap:8px; font-size:12px; color:rgba(255,255,255,.35); }
+
+/* ── RESPONSIVE ────────────────────────── */
+@media (max-width: 1100px) {
+  .calc-wrap { grid-template-columns: 1fr; gap: 32px; padding: 0 28px 64px; }
+  .calc-result { position: static; }
+  .opts-4 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .calc-wrap { padding: 0 16px 48px; }
+  .calc-step { padding: 20px; }
+  .opts-2, .opts-3, .opts-4 { grid-template-columns: 1fr; }
+  .result-price { font-size: 36px; }
+}
+</style>
+
+<!-- HERO -->
+<section class="calc-hero">
+  <div class="orb orb-1" style="opacity:.5"></div>
+  <div class="orb orb-2" style="opacity:.4"></div>
+  <div class="grid-bg"></div>
+  <div class="container" style="position:relative">
+    <div class="eyebrow" style="justify-content:center;margin-bottom:18px">Transparentna wycena</div>
+    <h1 class="display-xl" style="margin-bottom:16px">
+      Ile będzie kosztował<br><span class="grad">Twój projekt?</span>
+    </h1>
+    <p class="calc-hero-sub">
+      Skonfiguruj projekt i otrzymaj orientacyjną wycenę w 2 minuty.<br>
+      Bez zostawiania danych, bez czekania.
+    </p>
+  </div>
+</section>
+
+<div class="calc-wrap" id="calculator">
+
+  <!-- ════════════════════════════════
+       LEFT: STEPS
+       ════════════════════════════════ -->
+  <div class="calc-steps">
+
+    <!-- ── STEP 1: Project type ── -->
+    <div class="calc-step active" id="step-1">
+      <div class="step-head">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Rodzaj projektu</div>
+          <div class="step-subtitle">Co chcesz zbudować?</div>
+        </div>
+      </div>
+      <div class="opts opts-4" id="opts-type">
+        <label class="opt">
+          <input type="radio" name="type" value="landing" checked>
+          <div class="opt-label">
+            <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+            <div class="opt-name">Landing Page</div>
+            <div class="opt-desc">Jedna strona sprzedażowa lub wizytówka. Idealna do kampanii i konwersji.</div>
+            <div class="opt-price">od 2 000 zł</div>
+          </div>
+        </label>
+        <label class="opt">
+          <input type="radio" name="type" value="firmowa">
+          <div class="opt-label">
+            <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="opt-name">Strona firmowa</div>
+            <div class="opt-desc">Wielopodstronowa witryna WordPress z blogiem, sekcjami i CMS.</div>
+            <div class="opt-price">od 4 000 zł</div>
+          </div>
+        </label>
+        <label class="opt">
+          <input type="radio" name="type" value="sklep">
+          <div class="opt-label">
+            <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+            <div class="opt-name">Sklep internetowy</div>
+            <div class="opt-desc">WooCommerce z pełnym procesem zakupowym, koszyk, płatności, zamówienia.</div>
+            <div class="opt-price">od 8 000 zł</div>
+          </div>
+        </label>
+        <label class="opt">
+          <input type="radio" name="type" value="custom">
+          <div class="opt-label">
+            <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+            <div class="opt-name">Custom / Aplikacja</div>
+            <div class="opt-desc">Dedykowane rozwiązanie, konfigurator, platforma, integracje API.</div>
+            <div class="opt-price">od 12 000 zł</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: Tech stack ── -->
+    <div class="calc-step" id="step-2">
+      <div class="step-head">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Technologia</div>
+          <div class="step-subtitle">Na czym chcesz zbudować projekt?</div>
+        </div>
+      </div>
+      <div class="opts opts-2" id="opts-tech">
+        <label class="opt" id="opt-wp">
+          <input type="radio" name="tech" value="wp" checked>
+          <div class="opt-label">
+            <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <div class="opt-name">WordPress</div>
+            <div class="opt-desc">Sprawdzony CMS — łatwy w obsłudze, ekosystem WooCommerce, samodzielne zarządzanie treścią.</div>
+            <div class="opt-price">Ceny standardowe</div>
+          </div>
+        </label>
+        <label class="opt" id="opt-next">
+          <input type="radio" name="tech" value="next">
+          <div class="opt-label">
+            <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+            <div class="opt-name">Next.js / Astro.js</div>
+            <div class="opt-desc">Maksymalna wydajność, wynik Lighthouse 98+, zaawansowane animacje. Tylko dla LP i stron firmowych.</div>
+            <div class="opt-price">+60% do wyceny</div>
+            <div class="opt-badge">Premium tech</div>
+          </div>
+        </label>
+      </div>
+      <p id="tech-note" style="display:none;font-size:12px;color:rgba(252,165,165,.7);margin-top:12px;padding:10px 14px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.18);border-radius:8px">
+         Next.js / Astro.js niedostępne dla sklepów i aplikacji custom — automatycznie ustawiono WordPress.
+      </p>
+    </div>
+
+    <!-- ── STEP 4: Size (conditional) ── -->
+    <div class="calc-step" id="step-3">
+      <div class="step-head">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title" id="size-step-title">Zakres projektu</div>
+          <div class="step-subtitle" id="size-step-sub">Ile podstron / jak duży projekt?</div>
+        </div>
+      </div>
+
+      <!-- LANDING: one-page, no size choice -->
+      <div class="size-group visible" id="sg-landing">
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(124,107,255,.06);border:1px solid rgba(124,107,255,.18);border-radius:10px">
+          <span style="font-size:20px"></span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#fff;font-family:var(--font-display)">One-page — jedna strona</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.38);margin-top:2px">Landing page to zawsze format one-page — jedna długa strona ze wszystkimi sekcjami.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FIRMOWA: slider -->
+      <div class="size-group" id="sg-firmowa">
+        <div class="slider-wrap">
+          <div class="slider-labels" id="sl-firmowa-labels">
+            <span class="slider-label active" data-idx="0">1–3 podstrony<br><span style="color:rgba(255,255,255,.22);font-size:10px">4 000 zł</span></span>
+            <span class="slider-label" data-idx="1">4–8 podstron<br><span style="color:rgba(255,255,255,.22);font-size:10px">5 500 zł</span></span>
+            <span class="slider-label" data-idx="2">9–15 podstron<br><span style="color:rgba(255,255,255,.22);font-size:10px">6 800 zł</span></span>
+            <span class="slider-label" data-idx="3">Powyżej 15<br><span style="color:rgba(255,255,255,.22);font-size:10px">Wycena indyw.</span></span>
+          </div>
+          <input type="range" id="slider-firmowa" min="0" max="3" value="0" step="1" style="width:100%">
+          <div id="sl-firmowa-desc" style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.38);line-height:1.5;padding:12px 14px;background:rgba(255,255,255,.025);border-radius:9px;border:1px solid rgba(255,255,255,.06)">
+            Strona główna + 2 podstrony (np. O nas, Kontakt).
+          </div>
+        </div>
+      </div>
+
+      <!-- SKLEP: slider -->
+      <div class="size-group" id="sg-sklep">
+        <div style="font-size:12px;color:rgba(167,139,250,.8);background:rgba(124,107,255,.08);border:1px solid rgba(124,107,255,.18);border-radius:8px;padding:10px 14px;margin-bottom:14px">
+          ✓ W cenie zawsze: pełny proces zakupowy WooCommerce — koszyk, checkout, płatności (Przelewy24/PayU), strona zamówienia, panel klienta.
+        </div>
+        <div class="slider-wrap">
+          <div class="slider-labels" id="sl-sklep-labels">
+            <span class="slider-label active" data-idx="0">1–3 podstrony<br><span style="color:rgba(255,255,255,.22);font-size:10px">8 000 zł</span></span>
+            <span class="slider-label" data-idx="1">4–8 podstron<br><span style="color:rgba(255,255,255,.22);font-size:10px">11 000 zł</span></span>
+            <span class="slider-label" data-idx="2">9–15 podstron<br><span style="color:rgba(255,255,255,.22);font-size:10px">15 000 zł</span></span>
+            <span class="slider-label" data-idx="3">Powyżej 15<br><span style="color:rgba(255,255,255,.22);font-size:10px">Wycena indyw.</span></span>
+          </div>
+          <input type="range" id="slider-sklep" min="0" max="3" value="0" step="1" style="width:100%">
+          <div id="sl-sklep-desc" style="margin-top:14px;font-size:13px;color:rgba(255,255,255,.38);line-height:1.5;padding:12px 14px;background:rgba(255,255,255,.025);border-radius:9px;border:1px solid rgba(255,255,255,.06)">
+            Sklep z gotowym motywem, strona główna + do 3 dodatkowych.
+          </div>
+        </div>
+      </div>
+
+      <!-- CUSTOM: fixed -->
+      <div class="size-group" id="sg-custom">
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(124,107,255,.06);border:1px solid rgba(124,107,255,.18);border-radius:10px">
+          <span style="font-size:20px">⚙️</span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#fff;font-family:var(--font-display)">Zakres ustalany indywidualnie</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.38);margin-top:2px">Projekt custom wyceniamy po rozmowie — zakres, czas i cena zależą od wymagań.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STEP 5: Add-ons ── -->
+    <div class="calc-step" id="step-4">
+      <div class="step-head">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Dodatkowe usługi</div>
+          <div class="step-subtitle">Opcjonalnie — wybierz co jeszcze potrzebujesz</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="addon" id="addon-seo-basic" data-price="1500" data-label="SEO Podstawowe" data-mutex="addon-seo-adv">
+          <div class="addon-cb"><span class="addon-check">✓</span></div>
+          <div class="addon-body">
+            <div class="addon-name">SEO Podstawowe</div>
+            <div class="addon-desc">Optymalizacja techniczna, meta tagi, sitemap, schema markup, Google Search Console</div>
+          </div>
+          <div class="addon-price">+1 500 zł</div>
+        </div>
+        <div class="addon" id="addon-seo-adv" data-price="3000" data-label="SEO Zaawansowane" data-mutex="addon-seo-basic">
+          <div class="addon-cb"><span class="addon-check">✓</span></div>
+          <div class="addon-body">
+            <div class="addon-name">SEO Zaawansowane</div>
+            <div class="addon-desc">Audyt słów kluczowych, optymalizacja treści, linkowanie, 3 miesiące monitoringu</div>
+          </div>
+          <div class="addon-price">+3 000 zł</div>
+        </div>
+        <div class="addon" data-price="800" data-label="Copywriting">
+          <div class="addon-cb"><span class="addon-check">✓</span></div>
+          <div class="addon-body">
+            <div class="addon-name">Copywriting</div>
+            <div class="addon-desc">Profesjonalne teksty sprzedażowe pisane pod konwersję i SEO — do 5 podstron</div>
+          </div>
+          <div class="addon-price">+800 zł</div>
+        </div>
+        <div class="addon" data-price="1200" data-label="Integracje (CRM/API)">
+          <div class="addon-cb"><span class="addon-check">✓</span></div>
+          <div class="addon-body">
+            <div class="addon-name">Integracje (CRM / API)</div>
+            <div class="addon-desc">Połączenie z Salesforce, HubSpot, własnym API lub systemem ERP</div>
+          </div>
+          <div class="addon-price">+1 200 zł</div>
+        </div>
+        <div class="addon" data-price="500" data-label="Szkolenie z CMS">
+          <div class="addon-cb"><span class="addon-check">✓</span></div>
+          <div class="addon-body">
+            <div class="addon-name">Rozszerzone szkolenie z CMS</div>
+            <div class="addon-desc">2h szkolenie online + nagranie + dokumentacja dla całego zespołu</div>
+          </div>
+          <div class="addon-price">+500 zł</div>
+        </div>
+        <div class="addon" data-price="350" data-label="Opieka techniczna (1 rok)">
+          <div class="addon-cb"><span class="addon-check">✓</span></div>
+          <div class="addon-body">
+            <div class="addon-name">Opieka techniczna — 1 rok</div>
+            <div class="addon-desc">Aktualizacje, backup, monitoring dostępności, 1h zmian miesięcznie</div>
+          </div>
+          <div class="addon-price">+350 zł/mies.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STEP 5: Contact ── -->
+    <div class="calc-step" id="step-5">
+      <div class="step-head">
+        <div class="step-num">5</div>
+        <div>
+          <div class="step-title">Wyślij zapytanie o indywidualną wycenę</div>
+          <div class="step-subtitle">Odpiszemy w ciągu 24h z dokładną ofertą dopasowaną do projektu</div>
+        </div>
+      </div>
+      <form id="calc-form" style="display:flex;flex-direction:column;gap:14px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-field">
+            <label class="form-label">Imię i nazwisko *</label>
+            <input class="form-input" type="text" name="name" placeholder="Jan Kowalski" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Firma (opcjonalnie)</label>
+            <input class="form-input" type="text" name="company" placeholder="Nazwa firmy">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-field">
+            <label class="form-label">Email *</label>
+            <input class="form-input" type="email" name="email" placeholder="jan@firma.pl">
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Opisz projekt (opcjonalnie)</label>
+          <textarea class="form-input" name="desc" rows="3" placeholder="Np. sklep z odzieżą sportową, ok. 200 produktów, potrzebujemy też bloga..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="font-size:14px;padding:14px;width:100%;justify-content:center;border-radius:12px">
+          <span>Wyślij zapytanie z wyceną →</span>
+        </button>
+        <p style="font-size:11px;color:rgba(255,255,255,.2);text-align:center;margin:0">
+          Pierwsza konsultacja bezpłatna · Odpiszę w ciągu 24h · Bez zobowiązań
+        </p>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- ════════════════════════════════
+       RIGHT: RESULT SIDEBAR
+       ════════════════════════════════ -->
+  <div class="calc-result">
+    <div class="result-card">
+      <div class="result-lbl">Orientacyjna wycena</div>
+      <div class="result-price" id="r-price">2 000 zł</div>
+
+      <div class="result-divider"></div>
+
+      <div class="result-rows">
+        <div class="result-row">
+          <span class="result-row-name">Typ</span>
+          <span class="result-row-val" id="r-type">Landing Page</span>
+        </div>
+        <div class="result-row">
+          <span class="result-row-name">Technologia</span>
+          <span class="result-row-val" id="r-tech">WordPress</span>
+        </div>
+        <div class="result-row" id="r-size-row">
+          <span class="result-row-name">Zakres</span>
+          <span class="result-row-val" id="r-size">One-page</span>
+        </div>
+        <div class="result-row" id="r-addons-row" style="display:none">
+          <span class="result-row-name">Dodatki</span>
+          <span class="result-row-val" id="r-addons">—</span>
+        </div>
+      </div>
+
+      <div id="r-individual" style="display:none;padding:12px 14px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.22);border-radius:10px;margin-bottom:16px;font-size:13px;color:rgba(253,230,138,.8);line-height:1.5">
+        📋 Ten projekt wymaga indywidualnej wyceny. Skontaktuj się z nami — pierwsza konsultacja jest bezpłatna.
+      </div>
+
+      <p class="result-note">Wycena orientacyjna. Dokładna oferta po bezpłatnej konsultacji.</p>
+
+      <a href="#step-5" class="btn-primary" style="width:100%;justify-content:center;border-radius:12px;font-size:14px">
+        <span>Wyślij zapytanie →</span>
+      </a>
+    </div>
+
+    <div class="info-card">
+      <h3 style="font-size:13px;font-weight:600;color:rgba(255,255,255,.52);margin-bottom:8px">Masz niestandardowy projekt?</h3>
+      <p>Jeśli kalkulator nie obejmuje Twoich potrzeb — napisz bezpośrednio. Każdy projekt wyceniamy indywidualnie.</p>
+      <div class="trust-list">
+        <div class="trust-item"><span></span> Stała cena przed startem</div>
+        <div class="trust-item"><span></span> Bez ukrytych kosztów</div>
+        <div class="trust-item"><span></span> Faktura</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     KALKULATOR SEM
+     ═══════════════════════════════════════════════════ -->
+
+<style>
+/* ── SEM SECTION ─────────────────────── */
+.sem-section {
+  background: var(--bg-surface);
+  padding: 96px 0;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+.sem-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 56px;
+  align-items: start;
+}
+
+/* Budget slider */
+.sem-budget-track {
+  position: relative;
+  margin: 8px 0 24px;
+}
+.sem-budget-display {
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -.05em;
+  background: var(--grad-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 4px;
+  transition: opacity .2s;
+}
+.sem-budget-label {
+  font-size: 13px;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 20px;
+}
+.sem-budget-marks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding: 0 2px;
+}
+.sem-budget-mark {
+  font-size: 11px;
+  color: rgba(255,255,255,.22);
+  text-align: center;
+}
+
+/* Package card */
+.sem-package {
+  background: rgba(251,146,60,.06);
+  border: 1px solid rgba(251,146,60,.2);
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-top: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all .3s ease;
+}
+.sem-package::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #fb923c, #f97316);
+  opacity: .7;
+}
+.sem-package-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -.02em;
+  margin-bottom: 4px;
+}
+.sem-package-range {
+  font-size: 12px;
+  color: rgba(251,146,60,.8);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.sem-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.sem-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(255,255,255,.025);
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  font-size: 13px;
+  transition: background .2s;
+}
+.sem-row:last-child { border-bottom: none; }
+.sem-row:hover { background: rgba(255,255,255,.04); }
+.sem-row-name {
+  color: rgba(255,255,255,.55);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.sem-row-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sem-row-val { font-weight: 600; color: rgba(255,255,255,.82); font-family: var(--font-display); }
+.sem-row-val.na { color: rgba(255,255,255,.22); font-weight: 400; font-family: inherit; font-size: 12px; }
+.sem-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 16px;
+  border-top: 1px solid rgba(251,146,60,.2);
+}
+.sem-total-label { font-size: 13px; color: rgba(255,255,255,.45); }
+.sem-total-m1 {
+  text-align: right;
+}
+.sem-total-price {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  color: #fdba74;
+  line-height: 1;
+}
+.sem-total-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,.28);
+  margin-top: 2px;
+}
+
+/* Month tabs */
+.sem-month-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.sem-tab {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 100px;
+  cursor: none;
+  transition: all .2s;
+  border: 1px solid;
+  font-family: inherit;
+}
+.sem-tab.active {
+  background: rgba(251,146,60,.18);
+  border-color: rgba(251,146,60,.4);
+  color: #fdba74;
+}
+.sem-tab:not(.active) {
+  background: transparent;
+  border-color: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.35);
+}
+.sem-tab:not(.active):hover {
+  border-color: rgba(255,255,255,.25);
+  color: rgba(255,255,255,.65);
+}
+
+/* Sidebar */
+.sem-sidebar { position: sticky; top: 100px; }
+.sem-info-card {
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+}
+.sem-info-card h4 {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 10px;
+}
+.sem-info-card p {
+  font-size: 13px;
+  color: rgba(255,255,255,.35);
+  line-height: 1.65;
+  margin: 0;
+}
+.sem-note {
+  font-size: 11px;
+  color: rgba(255,255,255,.2);
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 10px;
+  padding: 12px 14px;
+  line-height: 1.6;
+}
+
+/* Indiv. wycena */
+.sem-individual {
+  display: none;
+  padding: 24px;
+  background: rgba(245,158,11,.06);
+  border: 1px solid rgba(245,158,11,.2);
+  border-radius: 14px;
+  margin-top: 16px;
+  text-align: center;
+}
+.sem-individual.visible { display: block; }
+.sem-individual p { font-size:14px; color:rgba(253,230,138,.75); line-height:1.65; margin:0 0 14px; }
+
+@media(max-width:1100px){
+  .sem-wrap { grid-template-columns:1fr; gap:36px; padding:0 28px; }
+  .sem-sidebar { position:static; }
+}
+@media(max-width:640px){
+  .sem-wrap { padding:0 16px; }
+  .sem-section { padding:64px 0; }
+  .sem-budget-display { font-size:32px; }
+}
+</style>
+
+<section class="sem-section" id="kalkulator-sem">
+  <div style="max-width:1280px;margin:0 auto;padding:0 48px 48px">
+    <div class="eyebrow" style="margin-bottom:16px">Kalkulator SEM</div>
+    <h2 class="display-md" style="margin-bottom:12px">
+      Ile kosztuje obsługa<br><span class="grad-v">reklam Google i Meta?</span>
+    </h2>
+    <p style="font-size:16px;color:rgba(255,255,255,.42);max-width:560px;line-height:1.7;font-weight:300">
+      Przesuń suwak i sprawdź koszt obsługi kampanii dla Twojego budżetu reklamowego.
+      Ceny dotyczą wyłącznie obsługi — budżet reklamowy przekazujesz bezpośrednio do Google/Meta.
+    </p>
+  </div>
+
+  <div class="sem-wrap">
+    <!-- LEFT: slider + package -->
+    <div>
+      <!-- Budget slider -->
+      <div style="background:rgba(255,255,255,.022);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:32px">
+        <div style="font-size:11px;color:rgba(255,255,255,.28);letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:12px">Miesięczny budżet reklamowy</div>
+        <div class="sem-budget-display" id="sem-budget-disp">3 000 zł</div>
+        <div class="sem-budget-label">miesięcznie przekazujesz na Google Ads + Meta Ads</div>
+        <input type="range" id="sem-slider" min="0" max="8" value="1" step="1" style="width:100%">
+        <div class="sem-budget-marks">
+          <span class="sem-budget-mark">1k</span>
+          <span class="sem-budget-mark">2k</span>
+          <span class="sem-budget-mark">3k</span>
+          <span class="sem-budget-mark">5k</span>
+          <span class="sem-budget-mark">8k</span>
+          <span class="sem-budget-mark">10k</span>
+          <span class="sem-budget-mark">15k</span>
+          <span class="sem-budget-mark">20k</span>
+          <span class="sem-budget-mark">30k+</span>
+        </div>
+      </div>
+
+      <!-- Package output -->
+      <div class="sem-package" id="sem-package" style="margin-top:20px">
+        <div class="sem-package-name" id="sem-pkg-name">Pozyskiwanie kontaktów</div>
+        <div class="sem-package-range" id="sem-pkg-range">Budżet reklamowy: do 5 000 zł/mies.</div>
+
+        <!-- Month tabs -->
+        <div class="sem-month-tabs">
+          <button class="sem-tab active" id="tab-m1" onclick="semSetMonth(1)">Miesiąc 1</button>
+          <button class="sem-tab" id="tab-m2" onclick="semSetMonth(2)">Miesiąc 2+</button>
+        </div>
+
+        <!-- Breakdown -->
+        <div class="sem-breakdown" id="sem-breakdown">
+          <div class="sem-row">
+            <span class="sem-row-name">
+              <span class="sem-row-dot" style="background:#4ade80"></span>
+              Google Ads (obsługa + acc)
+            </span>
+            <span class="sem-row-val" id="sb-gads">650 zł</span>
+          </div>
+          <div class="sem-row">
+            <span class="sem-row-name">
+              <span class="sem-row-dot" style="background:#fb923c"></span>
+              Meta Ads (obsługa + acc)
+            </span>
+            <span class="sem-row-val" id="sb-meta">750 zł</span>
+          </div>
+          <div class="sem-row">
+            <span class="sem-row-name">
+              <span class="sem-row-dot" style="background:#38bdf8"></span>
+              Treści / kreacje
+            </span>
+            <span class="sem-row-val" id="sb-tresci">500 zł</span>
+          </div>
+          <div class="sem-row" id="sb-strat-row">
+            <span class="sem-row-name">
+              <span class="sem-row-dot" style="background:#f472b6"></span>
+              Strategia
+            </span>
+            <span class="sem-row-val" id="sb-strat">—</span>
+          </div>
+        </div>
+
+        <!-- Total -->
+        <div class="sem-total-row">
+          <div>
+            <div class="sem-total-label" id="sem-month-label">Koszt obsługi — Miesiąc 1</div>
+            <div class="sem-total-sub">+ Twój budżet reklamowy przekazany do Google / Meta</div>
+          </div>
+          <div class="sem-total-m1">
+            <div class="sem-total-price" id="sem-total">1 900 zł</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Individual -->
+      <div class="sem-individual" id="sem-individual">
+        <p>Dla budżetów powyżej 30 000 zł/mies. przygotowujemy indywidualną strategię i wycenę obsługi.</p>
+        <a href="/#kontakt" class="btn-primary" style="font-size:13px;padding:11px 24px"><span>Porozmawiajmy →</span></a>
+      </div>
+    </div>
+
+    <!-- RIGHT: sidebar info -->
+    <div class="sem-sidebar">
+      <div class="sem-info-card">
+        <h3 class="sem-info-h">Co zawiera obsługa?</h3>
+        <p>Każdy pakiet obejmuje konfigurację i bieżącą optymalizację kont reklamowych, tworzenie i testowanie kreacji, raportowanie wyników oraz rekomendacje. Przy wyższych budżetach — pełna strategia mediowa.</p>
+      </div>
+      <div class="sem-info-card">
+        <h3 class="sem-info-h">Jak działa budżet reklamowy?</h3>
+        <p>Budżet reklamowy to pieniądze, które Google i Meta pobierają za wyświetlanie reklam. Przekazujesz go bezpośrednio na swoje konto reklamowe — my go wyłącznie zarządzamy i optymalizujemy.</p>
+      </div>
+      <div class="sem-info-card" style="border-color:rgba(251,146,60,.2);background:rgba(251,146,60,.04)">
+        <h3 class="sem-info-h">Miesiąc 1 vs Miesiąc 2+</h3>
+        <p>Pierwszy miesiąc jest droższy — obejmuje setup kont, tworzenie struktury kampanii, przygotowanie kreacji i strategii. Od drugiego miesiąca odpada jednorazowy koszt wdrożenia.</p>
+      </div>
+      <div class="sem-note">
+        ⚡ Obsługujemy Google Ads, Meta Ads (Facebook + Instagram), Performance Max i kampanie remarketingowe. Pytaj o dedykowaną wycenę dla specyficznych kanałów.
+      </div>
+      <a href="/#kontakt" class="btn-primary" style="width:100%;justify-content:center;border-radius:12px;margin-top:14px;font-size:14px">
+        <span>Zapytaj o wycenę SEM →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script>
+// ═══════════════ SEM CALCULATOR LOGIC ════════════════
+// Packages based on the pricing table:
+// Packet 1 (Pozyskiwanie kontaktów): budget < 6k
+//   M1: acc 300 + meta 600 + gads 500 + treści 500 = 1900
+//   M2: acc 300 + meta 600 + gads 500 = 1400
+// Packet 2 (Mały e-commerce, ~6k budżetu):
+//   M1: acc 300 + meta 600 + gads 500 + treści ecomm 300 = 1700
+//   M2: acc 300 + meta 600 + gads 500 = 1400
+// Packet 4 (Średni e-commerce, 6-30k):
+//   M1: acc 400 + meta 1000 + gads 800 + treści 500 + strategia 500 = 3200
+//   M2: acc 400 + meta 1000 + gads 800 = 2200
+// Packet 3 (Duży e-commerce, 30k+):
+//   M1: acc 500 + meta 2000 + gads 1600 + treści 500 + strategia 1000 = 5600
+//   M2: acc 500 + meta 2000 + gads 1600 = 4100
+
+interface SemPkg {
+  name: string;
+  range: string;
+  m1: { acc:number; gads:number; meta:number; tresci:number; strat:number; };
+  m2: { acc:number; gads:number; meta:number; tresci:number; strat:number; };
+  individual?: boolean;
+}
+
+const SEM_BUDGETS = [1000,2000,3000,5000,8000,10000,15000,20000,30000];
+
+// ACC merged 50/50 into gads + meta (per Kuba's request)
+// Google Ads shown first (higher amount)
+const SEM_PACKAGES: SemPkg[] = [
+  // idx 0-2: Pozyskiwanie kontaktów (budget ≤ 5k)
+  // acc=300 → gads+150=650, meta+150=750 | M1: 650+750+500=1900, M2: 650+750=1400
+  {
+    name: 'Pozyskiwanie kontaktów',
+    range: 'Budżet reklamowy: do 5 000 zł/mies.',
+    m1: {acc:0, gads:650, meta:750, tresci:500, strat:0},
+    m2: {acc:0, gads:650, meta:750, tresci:0,   strat:0},
+  },
+  // idx 3-4: Mały e-commerce (5k-10k)
+  // acc=300 → gads+150=650, meta+150=750 | M1: 650+750+300=1700, M2: 650+750=1400
+  {
+    name: 'Mały e-commerce',
+    range: 'Budżet reklamowy: 5 000–10 000 zł/mies.',
+    m1: {acc:0, gads:650, meta:750, tresci:300, strat:0},
+    m2: {acc:0, gads:650, meta:750, tresci:0,   strat:0},
+  },
+  // idx 5-7: Średni e-commerce (10k-30k)
+  // acc=400 → gads+200=1000, meta+200=1200 | M1: 1000+1200+500+500=3200, M2: 1000+1200=2200
+  {
+    name: 'Średni e-commerce',
+    range: 'Budżet reklamowy: 10 000–30 000 zł/mies.',
+    m1: {acc:0, gads:1000, meta:1200, tresci:500, strat:500},
+    m2: {acc:0, gads:1000, meta:1200, tresci:0,   strat:0},
+  },
+  // idx 8: Duży e-commerce (30k+)
+  // acc=500 → gads+250=1850, meta+250=2250 | M1: 1850+2250+500+1000=5600, M2: 1850+2250=4100
+  {
+    name: 'Duży e-commerce',
+    range: 'Budżet reklamowy: 30 000+ zł/mies.',
+    m1: {acc:0, gads:1850, meta:2250, tresci:500, strat:1000},
+    m2: {acc:0, gads:1850, meta:2250, tresci:0,   strat:0},
+    individual: true,
+  },
+];
+
+function getPkgForSlider(idx: number): SemPkg {
+  if (idx <= 2) return SEM_PACKAGES[0];
+  if (idx <= 4) return SEM_PACKAGES[1];
+  if (idx <= 7) return SEM_PACKAGES[2];
+  return SEM_PACKAGES[3];
+}
+
+let semMonth = 1;
+
+function fmt(n: number): string {
+  return n > 0 ? n.toLocaleString('pl-PL') + ' zł' : '—';
+}
+
+function semRender(sliderIdx: number) {
+  const pkg = getPkgForSlider(sliderIdx);
+  const data = semMonth === 1 ? pkg.m1 : pkg.m2;
+  const total = data.acc + data.meta + data.gads + data.tresci + data.strat;
+
+  // Budget display
+  const budgetEl = document.getElementById('sem-budget-disp')!;
+  const bval = SEM_BUDGETS[sliderIdx];
+  budgetEl.textContent = sliderIdx === 8 ? '30 000+ zł' :
+    bval.toLocaleString('pl-PL') + ' zł';
+
+  // Package info
+  document.getElementById('sem-pkg-name')!.textContent = pkg.name;
+  document.getElementById('sem-pkg-range')!.textContent = pkg.range;
+
+  // Breakdown
+  document.getElementById('sb-gads')!.textContent  = fmt(data.gads);
+  document.getElementById('sb-meta')!.textContent  = fmt(data.meta);
+  document.getElementById('sb-tresci')!.textContent= fmt(data.tresci);
+  document.getElementById('sb-strat')!.textContent = fmt(data.strat);
+  document.getElementById('sem-total')!.textContent= total.toLocaleString('pl-PL') + ' zł';
+  document.getElementById('sem-month-label')!.textContent =
+    `Koszt obsługi — Miesiąc ${semMonth === 1 ? '1' : '2+'}`;
+
+  // Individual
+  const indEl = document.getElementById('sem-individual')!;
+  const pkgEl = document.getElementById('sem-package')!;
+  indEl.classList.toggle('visible', !!pkg.individual);
+  pkgEl.style.display = pkg.individual ? 'none' : 'block';
+}
+
+(window as any).semSetMonth = function(m: number) {
+  semMonth = m;
+  document.getElementById('tab-m1')!.classList.toggle('active', m === 1);
+  document.getElementById('tab-m2')!.classList.toggle('active', m === 2);
+  const sl = document.getElementById('sem-slider') as HTMLInputElement;
+  semRender(parseInt(sl.value));
+};
+
+const semSlider = document.getElementById('sem-slider') as HTMLInputElement;
+semSlider.addEventListener('input', () => semRender(parseInt(semSlider.value)));
+
+// Init
+semRender(1);
+</script>
+
+<script>
+import { initPage } from '../utils/pageInit';
+import gsap from 'gsap';
+initPage();
+
+// ════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════
+type ProjectType = 'landing' | 'firmowa' | 'sklep' | 'custom';
+type TechType    = 'wp' | 'next';
+
+const state = {
+  type:         'landing' as ProjectType,
+  tech:         'wp'      as TechType,
+  basePrice:    2000,  // landing default
+  isIndividual: false,
+  addonTotal:   0,
+  addonLabels:  [] as string[],
+};
+
+// ════════════════════════════════════════════
+// PRICING TABLES
+// ════════════════════════════════════════════
+// Landing: base price range, no size tiers
+const LANDING_BASE = { low: 2000, high: 3000 };
+
+// Firmowa: per tier
+const FIRMOWA_TIERS: Record<string,number> = {
+  f1: 4000, f2: 5500, f3: 6800,
+};
+
+// Sklep: per tier
+const SKLEP_TIERS: Record<string,number> = {
+  s1: 8000, s2: 11000, s3: 15000, s4: 0,
+};
+
+// Custom: base
+const CUSTOM_BASE = 12000;
+
+// ════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════
+function fmt(n: number): string {
+  return n.toLocaleString('pl-PL') + ' zł';
+}
+function animVal(el: HTMLElement, val: string) {
+  gsap.fromTo(el, {opacity:.3,y:-5}, {opacity:1,y:0,duration:.28,ease:'power2.out'});
+  el.textContent = val;
+}
+function getActiveSizePrice(): number {
+  if (state.type === 'landing') return LANDING_BASE.low;
+  if (state.type === 'firmowa') return FIRMOWA_DATA[firmowaSizeIdx]?.price ?? 4000;
+  if (state.type === 'sklep')   return SKLEP_DATA[sklepSizeIdx]?.price ?? 8000;
+  return CUSTOM_BASE;
+}
+function getSizeLabel(): string {
+  if (state.type === 'landing')  return 'One-page';
+  if (state.type === 'firmowa') return FIRMOWA_DATA[firmowaSizeIdx]?.label ?? '1–3 podstrony';
+  if (state.type === 'sklep')   return SKLEP_DATA[sklepSizeIdx]?.label ?? '1–3 podstrony';
+  return 'Indywidualny';
+}
+
+// ════════════════════════════════════════════
+// CALCULATE & RENDER
+// ════════════════════════════════════════════
+function calc() {
+  const base   = getActiveSizePrice();
+  const isInd  = (state.type === 'custom')
+    || (state.type === 'sklep'   && SKLEP_DATA[sklepSizeIdx]?.individual === true)
+    || (state.type === 'firmowa' && FIRMOWA_DATA[firmowaSizeIdx]?.individual === true);
+  state.isIndividual = isInd;
+
+  const techMult = state.tech === 'next' ? 1.6 : 1.0;
+
+  const low = Math.round(base * techMult / 100) * 100;
+  const high  = Math.round(low * 1.25 / 100) * 100;
+  const total = low + state.addonTotal;
+  const totalHigh = high + state.addonTotal;
+
+  // Update result card
+  const priceEl = document.getElementById('r-price')!;
+  const rangeEl = document.getElementById('r-range')!;
+  const indEl   = document.getElementById('r-individual')!;
+
+  if (isInd) {
+    animVal(priceEl, 'Wycena indyw.');
+    animVal(rangeEl, 'Skontaktuj się');
+    indEl.style.display = 'block';
+    priceEl.style.fontSize = '28px';
+  } else {
+    animVal(priceEl, fmt(total));
+    animVal(rangeEl, '— ' + fmt(totalHigh));
+    indEl.style.display = 'none';
+    priceEl.style.fontSize = '';
+  }
+
+  // Row labels
+  const typeNames: Record<string,string> = {
+    landing: 'Landing Page', firmowa: 'Strona firmowa', sklep: 'Sklep internetowy', custom: 'Custom / Aplikacja'
+  };
+  animVal(document.getElementById('r-type')!,   typeNames[state.type]);
+  animVal(document.getElementById('r-tech')!,   state.tech === 'next' ? 'Next.js / Astro.js' : 'WordPress');
+  animVal(document.getElementById('r-size')!,   getSizeLabel());
+
+  // Addons
+  const addonsRow = document.getElementById('r-addons-row')!;
+  if (state.addonLabels.length > 0) {
+    addonsRow.style.display = 'flex';
+    animVal(document.getElementById('r-addons')!, '+' + fmt(state.addonTotal));
+  } else {
+    addonsRow.style.display = 'none';
+  }
+}
+
+// ════════════════════════════════════════════
+// SIZE GROUP VISIBILITY
+// ════════════════════════════════════════════
+function showSizeGroup(type: ProjectType) {
+  ['landing','firmowa','sklep','custom'].forEach(t => {
+    const el = document.getElementById(`sg-${t}`)!;
+    el.classList.toggle('visible', t === type);
+  });
+  // Update step title
+  const titles: Record<string,string> = {
+    landing: 'One-page', firmowa: 'Liczba podstron', sklep: 'Liczba podstron', custom: 'Zakres projektu'
+  };
+  document.getElementById('size-step-title')!.textContent = type === 'landing'
+    ? 'Format projektu' : 'Liczba podstron';
+}
+
+// ════════════════════════════════════════════
+// TECH STACK LOCK (sklep & custom → WP only)
+// ════════════════════════════════════════════
+function updateTechAvailability(type: ProjectType) {
+  const nextOpt   = document.getElementById('opt-next')!;
+  const wpInput   = document.querySelector<HTMLInputElement>('input[name="tech"][value="wp"]')!;
+  const techNote  = document.getElementById('tech-note')!;
+  const locked    = type === 'sklep' || type === 'custom';
+
+  nextOpt.classList.toggle('disabled', locked);
+  techNote.style.display = 'none';
+
+  if (locked && state.tech === 'next') {
+    wpInput.checked = true;
+    state.tech = 'wp';
+    techNote.style.display = 'block';
+  }
+}
+
+// ════════════════════════════════════════════
+// EVENT LISTENERS
+// ════════════════════════════════════════════
+
+// Type
+document.querySelectorAll<HTMLInputElement>('input[name="type"]').forEach(inp => {
+  inp.addEventListener('change', () => {
+    state.type = inp.value as ProjectType;
+    showSizeGroup(state.type);
+    updateTechAvailability(state.type);
+    // Reset slider positions
+    firmowaSizeIdx = 0; sklepSizeIdx = 0;
+    const sf = document.getElementById('slider-firmowa') as HTMLInputElement|null;
+    const ss = document.getElementById('slider-sklep')   as HTMLInputElement|null;
+    if(sf) sf.value='0'; if(ss) ss.value='0';
+    updateSliderLabels('sl-firmowa-labels',0);
+    updateSliderLabels('sl-sklep-labels',0);
+    calc();
+    document.getElementById('step-1')!.classList.add('active');
+    document.getElementById('step-4')!.classList.add('active');
+  });
+});
+
+// Tech
+document.querySelectorAll<HTMLInputElement>('input[name="tech"]').forEach(inp => {
+  inp.addEventListener('change', () => {
+    state.tech = inp.value as TechType;
+    calc();
+  });
+});
+
+// ── Size sliders ─────────────────────────────────────
+const FIRMOWA_DATA = [
+  {price: 4000, label: '1–3 podstrony', desc: 'Strona główna + 2 podstrony (np. O nas, Kontakt).', individual: false},
+  {price: 5500, label: '4–8 podstron',  desc: 'Rozbudowana strona firmowa z ofertą, blogiem, referencjami.', individual: false},
+  {price: 6800, label: '9–15 podstron', desc: 'Portal firmowy, wielobranżowa strona, rozbudowane portfolio.', individual: false},
+  {price: 0,    label: 'Powyżej 15',    desc: 'Indywidualna wycena — skontaktuj się z nami bezpośrednio.', individual: true},
+];
+const SKLEP_DATA = [
+  {price: 8000,  label: '1–3 podstrony',   desc: 'Sklep z gotowym motywem, strona główna + do 3 dodatkowych.', individual: false},
+  {price: 11000, label: '4–8 podstron',    desc: 'Custom motyw, kategorie, blogi, landing dla kampanii.', individual: false},
+  {price: 15000, label: '9–15 podstron',   desc: 'Rozbudowany sklep premium z konfiguratorem, filtrowaniem, wishlistą.', individual: false},
+  {price: 0,     label: 'Powyżej 15',      desc: 'Indywidualna wycena — skontaktuj się z nami bezpośrednio.', individual: true},
+];
+
+let firmowaSizeIdx = 0;
+let sklepSizeIdx   = 0;
+
+function updateSliderLabels(labelsId: string, activeIdx: number) {
+  document.querySelectorAll<HTMLElement>(`#${labelsId} .slider-label`).forEach((el, i) => {
+    el.classList.toggle('active', i === activeIdx);
+  });
+}
+
+const slFirmowa = document.getElementById('slider-firmowa') as HTMLInputElement | null;
+if (slFirmowa) {
+  slFirmowa.addEventListener('input', () => {
+    firmowaSizeIdx = parseInt(slFirmowa.value);
+    updateSliderLabels('sl-firmowa-labels', firmowaSizeIdx);
+    const desc = document.getElementById('sl-firmowa-desc');
+    if (desc) desc.textContent = FIRMOWA_DATA[firmowaSizeIdx].desc;
+    calc();
+  });
+}
+
+const slSklep = document.getElementById('slider-sklep') as HTMLInputElement | null;
+if (slSklep) {
+  slSklep.addEventListener('input', () => {
+    sklepSizeIdx = parseInt(slSklep.value);
+    updateSliderLabels('sl-sklep-labels', sklepSizeIdx);
+    const desc = document.getElementById('sl-sklep-desc');
+    if (desc) desc.textContent = SKLEP_DATA[sklepSizeIdx].desc;
+    calc();
+  });
+}
+
+// Addons (with SEO mutex)
+document.querySelectorAll<HTMLElement>('.addon').forEach(addon => {
+  addon.addEventListener('click', () => {
+    if (addon.classList.contains('dimmed')) return;
+
+    const isChecked = addon.classList.toggle('checked');
+    const price     = parseInt(addon.dataset.price || '0');
+    const label     = addon.dataset.label || '';
+    const mutexId   = addon.dataset.mutex;
+
+    if (isChecked) {
+      state.addonTotal += price;
+      state.addonLabels.push(label);
+      // Dim the mutex partner
+      if (mutexId) {
+        const partner = document.getElementById(mutexId)!;
+        partner.classList.add('dimmed');
+        // Uncheck partner if it was checked
+        if (partner.classList.contains('checked')) {
+          partner.classList.remove('checked');
+          const partnerPrice = parseInt(partner.dataset.price || '0');
+          const partnerLabel = partner.dataset.label || '';
+          state.addonTotal -= partnerPrice;
+          state.addonLabels = state.addonLabels.filter(l => l !== partnerLabel);
+        }
+      }
+    } else {
+      state.addonTotal -= price;
+      state.addonLabels = state.addonLabels.filter(l => l !== label);
+      // Re-enable mutex partner
+      if (mutexId) {
+        document.getElementById(mutexId)!.classList.remove('dimmed');
+      }
+    }
+    calc();
+  });
+});
+
+// Step highlight on interaction
+document.querySelectorAll('.calc-step').forEach(step => {
+  step.addEventListener('click', () => {
+    document.querySelectorAll('.calc-step').forEach(s => s.classList.remove('active'));
+    step.classList.add('active');
+  });
+});
+
+// Form submit — mailto
+document.getElementById('calc-form')!.addEventListener('submit', e => {
+  e.preventDefault();
+  const form     = e.currentTarget as HTMLFormElement;
+  const fd       = new FormData(form);
+  const name     = fd.get('name')    as string || '';
+  const email    = fd.get('email')   as string || '';
+  const phone    = fd.get('phone')   as string || '';
+  const company  = fd.get('company') as string || '';
+  const priceText = document.getElementById('r-price')!.textContent || '';
+
+  const subject = encodeURIComponent(`Zapytanie o wycenę — ${name} — ${priceText}`);
+  const body    = encodeURIComponent(
+    `Imię: ${name}\nEmail: ${email}\nTelefon: ${phone}\nFirma: ${company}\n\nOrientacyjna wycena kalkulatora: ${priceText}\n\n---\nWysłano z kalkulatora wyceny ctrlzstudio.pl`
+  );
+  window.location.href = `mailto:kontakt@ctrlzstudio.pl?subject=${subject}&body=${body}`;
+});
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+showSizeGroup('landing');
+updateTechAvailability('landing');
+calc();
+
+// Entrance animations
+gsap.fromTo('.calc-hero h1',    {opacity:0,y:28},{opacity:1,y:0,duration:.9,ease:'power3.out',delay:.2});
+gsap.fromTo('.calc-hero-sub',   {opacity:0,y:18},{opacity:1,y:0,duration:.7,ease:'power3.out',delay:.38});
+gsap.fromTo('.calc-step',       {opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:'power3.out',stagger:.07,delay:.5});
+gsap.fromTo('.calc-result',     {opacity:0,x:20},{opacity:1,x:0,duration:.7,ease:'power3.out',delay:.65});
+</script>

@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'CtrlZ Studio — Agencja Kreatywna & Digital',
+  description = 'Projektujemy i wdrażamy cyfrowe doświadczenia dla firm, którym zależy na jakości ponad przeciętność. Strony, sklepy, identyfikacja wizualna.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ctrlzstudio.pl" />
+  <meta property="og:image" content="https://ctrlzstudio.pl/og-ctrlzstudio.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="CtrlZ Studio — agencja kreatywna i web development z Polski" />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:site_name" content="CtrlZ Studio" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://ctrlzstudio.pl/og-ctrlzstudio.jpg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Preconnect do Google Fonts (eliminuje DNS lookup z critical path) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Non-blocking font load: media="print" + onload trick -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
+    media="print"
+    onload="this.media='all'"
+  />
+  <!-- Fallback dla przeglądarek bez JS -->
+  <noscript>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
+    />
+  </noscript>
+
+  <title>{title}</title>
+  <style>
+    /* Fallback font stack — widoczny zanim załaduje się Google Font */
+    :root {
+      --font-display: 'Syne', 'Arial Black', system-ui, sans-serif;
+      --font-body:    'DM Sans', system-ui, -apple-system, sans-serif;
+    }
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      z-index: 9999;
+      background: #7c6bff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 0 0 8px 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: top .2s;
+    }
+    .skip-link:focus { top: 0; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Przejdź do treści</a>
+  <div class="noise-overlay"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+  <button class="stt" id="stt" aria-label="Wróć na górę">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+  <slot />
+</body>
+</html>

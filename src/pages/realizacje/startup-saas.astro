@@ -1,0 +1,51 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+---
+<ProjectLayout
+  title="Startup SaaS — platforma analityczna"
+  description="High-converting landing page dla startupu tworzącego narzędzie analityczne dla e-commerce. Projekt obejmował UX research, copywriting i wdrożenie z A/B testingiem."
+  cat="Landing Page"
+  year="2024"
+  tags={['Astro.js','GSAP','A/B Testing','CRO']}
+  result="+180% współczynnik konwersji (trial)"
+  bgClass="pbg-3"
+  glowClass="pg-3"
+  glowColor="rgba(168,85,247,.3)"
+  prevSlug="kancelaria-prawna"
+  prevName="Kancelaria Prawna XYZ"
+  nextSlug="fine-dining"
+  nextName="Fine Dining Restaurant"
+>
+
+<h2>O projekcie</h2>
+<p>Startup budujący narzędzie analityczne dla sklepów e-commerce — agregujące dane z wielu źródeł (GA4, Meta Ads, Google Ads, WooCommerce) w jeden czytelny dashboard. Produkt był gotowy, miał pierwszych paying customers i dobre opinie — ale strona nie konwertowała. Miesięczna liczba trial signups: 23. Cel: 65+.</p>
+
+<div class="proj-results-grid">
+  <div class="proj-result-card"><div class="prc-num">+180%</div><div class="prc-label">wzrost trial signups po 60 dniach od launchu</div></div>
+  <div class="proj-result-card"><div class="prc-num">4.2%</div><div class="prc-label">konwersja visitor→trial (branżowa średnia: 1.8%)</div></div>
+  <div class="proj-result-card"><div class="prc-num">99</div><div class="prc-label">Lighthouse score — jeden z najwyższych możliwych</div></div>
+</div>
+
+<h2>Diagnoza problemu</h2>
+<p>Pierwsze 30 minut z Hotjar powiedziało nam wszystko: użytkownicy wchodzili na stronę, scrollowali do połowy i wychodzili. Hero mówił "Platforma analityczna dla e-commerce" — czyli nic, bo wszyscy tak mówią. Nie było ani jednej liczby, ani jednej historii sukcesu, ani jasno komunikowanej przewagi.</p>
+
+<h2>Nasze rozwiązanie</h2>
+<p>Zaczęliśmy od copywritingu — wywiadów z istniejącymi klientami. Pytaliśmy: "Dlaczego zostałeś? Co by się stało gdybyś stracił dostęp?" Odpowiedzi stały się copywritingiem strony. Żadnych wymyślonych haseł — słowa klientów.</p>
+
+<h3>Kluczowe decyzje projektowe</h3>
+<ul>
+  <li><strong>Animated product demo</strong> — zamiast zdjęcia dashboardu, interaktywna animacja pokazująca jak narzędzie działa</li>
+  <li><strong>Social proof w hero</strong> — zdjęcia prawdziwych klientów z avatarami, liczba aktywnych sklepów, MRR (za zgodą)</li>
+  <li><strong>Pricing na pierwszej stronie</strong> — większość SaaS-ów ukrywa ceny. My pokazaliśmy, bo filtruje złe leady</li>
+  <li><strong>Trial bez karty kredytowej</strong> — CTA zmienione z "Zacznij trial" na "Zacznij za darmo, karta nie wymagana"</li>
+</ul>
+
+<div class="proj-highlight">
+  <h3>A/B testing</h3>
+  <p>Przetestowaliśmy 4 warianty hero i 3 warianty CTA. Zwycięski wariant: hero z konkretnymi liczbami ("Zaoszczędź 8h tygodniowo na raportowaniu") vs generyczne hasło. Różnica w konwersji: 47% na korzyść konkretów.</p>
+</div>
+
+<h2>Technologia</h2>
+<p>Strona zbudowana w Astro.js — wynik Lighthouse 99/100, czas ładowania 0.6s. Animacje produktu w GSAP ScrollTrigger. Formularz signup integrowany z Stripe + własnym backendem klienta przez webhooks.</p>
+
+</ProjectLayout>

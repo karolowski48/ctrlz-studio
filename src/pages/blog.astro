@@ -1,0 +1,223 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+
+const posts = [
+  {
+    slug: 'dlaczego-szybka-strona-sprzedaje',
+    title: 'Dlaczego szybka strona to więcej sprzedaży — i jak to naprawić w 7 krokach',
+    excerpt: 'Każda sekunda opóźnienia ładowania kosztuje Cię realnych klientów. Google to wie, użytkownicy to czują, a Twoja konkurencja już to poprawia. Sprawdź jak Core Web Vitals przekładają się na konwersje.',
+    cat: 'Performance',
+    time: '12 min',
+    date: 'Maj 2025',
+    featured: true,
+    bg: 'linear-gradient(135deg,#0e0b3a 0%,#1c1680 40%,#2d0f5c 100%)',
+    glowColor: 'rgba(124,107,255,.5)',
+  },
+  {
+    slug: 'wordpress-vs-custom',
+    title: 'WordPress vs strona na zamówienie — co wybrać dla swojego biznesu?',
+    excerpt: 'WordPress to potężne narzędzie — ale nie dla każdego. Kiedy warto postawić na gotowy CMS, a kiedy custom dev zwróci się wielokrotnie? Odpowiedź zależy od jednej rzeczy.',
+    cat: 'Technologie',
+    time: '8 min',
+    date: 'Kwiecień 2025',
+    featured: false,
+    bg: 'linear-gradient(135deg,#071a10 0%,#0d3a1c 50%,#0a2810 100%)',
+    glowColor: 'rgba(34,197,94,.4)',
+  },
+  {
+    slug: 'seo-2025',
+    title: 'SEO w 2025 — co naprawdę działa, a co to strata czasu i pieniędzy?',
+    excerpt: 'Algorytmy Google zmieniły się drastycznie. Stare techniki nie tylko nie działają — aktywnie szkodzą. Oto co wdrażamy u naszych klientów i jakie wyniki to przynosi.',
+    cat: 'SEO',
+    time: '10 min',
+    date: 'Marzec 2025',
+    featured: false,
+    bg: 'linear-gradient(135deg,#1a0830 0%,#2d0f5c 50%,#160520 100%)',
+    glowColor: 'rgba(167,139,250,.5)',
+  },
+  {
+    slug: 'ux-ktory-konwertuje',
+    title: 'UX, który konwertuje — 12 błędów, które kosztują Cię sprzedaż każdego dnia',
+    excerpt: 'Większość stron traci klientów nie dlatego, że są brzydkie — ale dlatego, że są mylące. Zebrałem 12 najczęstszych błędów UX z audytów, które przeprowadziliśmy w ostatnim roku.',
+    cat: 'Design',
+    time: '9 min',
+    date: 'Luty 2025',
+    featured: false,
+    bg: 'linear-gradient(135deg,#1a0e06 0%,#3a2210 50%,#0c0804 100%)',
+    glowColor: 'rgba(245,158,11,.45)',
+  },
+  {
+    slug: 'woocommerce-optymalizacja',
+    title: 'WooCommerce — 8 ustawień, które natychmiast zwiększą konwersje w sklepie',
+    excerpt: 'Masz sklep WooCommerce, ale sprzedaż nie zadowala? Zanim zaczniesz wydawać pieniądze na reklamy, sprawdź czy nie tracisz klientów przez podstawowe błędy konfiguracji.',
+    cat: 'E-commerce',
+    time: '7 min',
+    date: 'Styczeń 2025',
+    featured: false,
+    bg: 'linear-gradient(135deg,#071520 0%,#0e2e46 50%,#040c12 100%)',
+    glowColor: 'rgba(14,165,233,.45)',
+  },
+  {
+    slug: 'branding-dla-malej-firmy',
+    title: 'Branding dla małej firmy — dlaczego wygląd strony decyduje o cenie, którą możesz pobierać',
+    excerpt: 'Klienci płacą tyle, ile myślą, że jesteś wart — a pierwsze wrażenie robisz stroną internetową. Jak identyfikacja wizualna wpływa na postrzeganie i jaką cenę możesz wtedy żądać za swoje usługi.',
+    cat: 'Branding',
+    time: '6 min',
+    date: 'Grudzień 2024',
+    featured: false,
+    bg: 'linear-gradient(135deg,#160520 0%,#2e0e3c 50%,#0c0414 100%)',
+    glowColor: 'rgba(236,72,153,.45)',
+  },
+];
+
+const svgIllustrations: Record<string, string> = {
+  'dlaczego-szybka-strona-sprzedaje': `
+    <ellipse cx="200" cy="110" rx="180" ry="120" fill="url(#rg1)" opacity=".4"/>
+    <ellipse cx="450" cy="80" rx="120" ry="80" fill="#ec4899" opacity=".15" filter="blur(20px)"/>
+    <rect x="60" y="60" width="200" height="130" rx="12" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+    <rect x="76" y="78" width="80" height="8" rx="4" fill="rgba(124,107,255,.7)"/>
+    <rect x="76" y="94" width="140" height="5" rx="2.5" fill="rgba(255,255,255,.2)"/>
+    <rect x="76" y="106" width="110" height="5" rx="2.5" fill="rgba(255,255,255,.15)"/>
+    <rect x="76" y="126" width="60" height="24" rx="12" fill="rgba(124,107,255,.5)"/>
+    <circle cx="400" cy="110" r="60" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="12"/>
+    <circle cx="400" cy="110" r="60" fill="none" stroke="rgba(124,107,255,.6)" stroke-width="12" stroke-dasharray="314" stroke-dashoffset="80" stroke-linecap="round" transform="rotate(-90 400 110)"/>
+    <text x="400" y="106" text-anchor="middle" fill="rgba(255,255,255,.9)" font-size="22" font-weight="700" font-family="sans-serif">98</text>
+    <text x="400" y="122" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="10" font-family="sans-serif">Lighthouse</text>`,
+  default: `<ellipse cx="300" cy="130" rx="250" ry="150" fill="rgba(124,107,255,.12)"/>`,
+};
+
+const cats = ['Wszystkie', 'Performance', 'SEO', 'Design', 'E-commerce', 'Technologie', 'Branding'];
+---
+
+<Layout title="Blog — CtrlZ Studio" description="Artykuły o web designie, SEO, WordPressie i sprzedaży online. Wiedza, którą możesz wdrożyć od razu.">
+
+<SharedNav />
+
+<main id="main-content">
+
+<!-- HERO -->
+<section class="page-hero" style="background:var(--bg-base);position:relative;overflow:hidden">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="grid-bg"></div>
+  <div class="container" style="position:relative">
+    <div class="eyebrow" style="justify-content:center;margin-bottom:18px" id="bh-ey">Wiedza & Inspiracje</div>
+    <h1 class="display-xl" style="text-align:center;margin-bottom:16px" id="bh-h">
+      Blog <span class="grad">CtrlZ Studio</span>
+    </h1>
+    <p id="bh-s" style="font-size:16px;color:rgba(255,255,255,.45);text-align:center;max-width:500px;margin:0 auto 40px;font-weight:300;line-height:1.7">
+      Piszemy o tym, co naprawdę pomaga — web design, SEO, sprzedaż online i technologie. Zero bullshitu.
+    </p>
+    <div class="blog-tags" id="bh-tags">
+      {cats.map((c,i) => <button class={`blog-tag-btn${i===0?' active':''}`} data-cat={c}>{c}</button>)}
+    </div>
+  </div>
+</section>
+
+<!-- POSTS GRID -->
+<section class="section" style="background:var(--bg-base);padding-top:0">
+  <div class="container">
+    <div class="blog-page-grid" id="posts-grid">
+      {posts.map((p, i) => (
+        <a href={`/blog/${p.slug}`} class="blog-card js-scale" data-delay={String((i%3)*0.08)} data-cat={p.cat}>
+          <div class="blog-img">
+            <div class="blog-img-inner" style={`background:${p.bg}`}>
+              <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.65" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <radialGradient id={`rg-${p.slug}`} cx="40%" cy="50%">
+                    <stop offset="0%" stop-color={p.glowColor}/>
+                    <stop offset="100%" stop-color="transparent"/>
+                  </radialGradient>
+                </defs>
+                <ellipse cx="200" cy="100" rx="220" ry="140" fill={`url(#rg-${p.slug})`}/>
+                <ellipse cx="480" cy="60" rx="140" ry="100" fill={p.glowColor} opacity=".12"/>
+                <!-- Abstract lines -->
+                <path d={`M${40+i*10} 160 L${100+i*5} ${80+i*8} L${180+i*3} ${120+i*5} L${260+i*4} ${60+i*6} L${340} ${90+i*4}`}
+                  stroke="rgba(255,255,255,.12)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              </svg>
+            </div>
+            <div class="blog-img-overlay"></div>
+            <div class="blog-cat">{p.cat}</div>
+          </div>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span>{p.time} czytania</span>
+              <div class="blog-meta-dot"></div>
+              <span>{p.date}</span>
+            </div>
+            <div class="blog-title">{p.title}</div>
+            <div class="blog-excerpt">{p.excerpt}</div>
+            <div class="blog-read-more">
+              Czytaj artykuł
+              <svg viewBox="0 0 24 24"><polyline points="5 12 19 12"/><polyline points="13 6 19 12 13 18"/></svg>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER CTA -->
+<section class="section" style="background:var(--bg-surface)">
+  <div class="container">
+    <div class="cta-strip js-reveal">
+      <div class="eyebrow" style="justify-content:center;margin-bottom:14px">Newsletter</div>
+      <div class="cta-strip-title">Wiedza co miesiąc — prosto na maila</div>
+      <p class="cta-strip-sub">Nowe artykuły, case studies i wskazówki dla firm, które chcą rosnąć online. Zero spamu.</p>
+      <form onsubmit="return false" style="display:flex;gap:8px;max-width:380px;margin:0 auto;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:6px 6px 6px 20px">
+        <input type="email" placeholder="twój@email.pl" style="flex:1;background:none;border:none;outline:none;color:#fff;font-size:13px;font-family:inherit"/>
+        <button type="submit" class="btn-primary" style="padding:10px 20px;font-size:12px;border-radius:100px"><span>Zapisz się</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+</Layout>
+
+<script>
+import { initPage } from '../utils/pageInit';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+initPage();
+
+// Page hero animations
+gsap.fromTo('#bh-ey',   {opacity:0,y:16},{opacity:1,y:0,duration:.7,ease:'power3.out',delay:.2});
+gsap.fromTo('#bh-h',    {opacity:0,y:28},{opacity:1,y:0,duration:.9,ease:'power3.out',delay:.35});
+gsap.fromTo('#bh-s',    {opacity:0,y:18},{opacity:1,y:0,duration:.7,ease:'power3.out',delay:.5});
+gsap.fromTo('#bh-tags', {opacity:0,y:14},{opacity:1,y:0,duration:.6,ease:'power3.out',delay:.65});
+
+// Scroll reveals
+document.querySelectorAll<HTMLElement>('.js-reveal').forEach(el=>{
+  gsap.fromTo(el,{opacity:0,y:28},{opacity:1,y:0,duration:.8,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none none'}});
+});
+document.querySelectorAll<HTMLElement>('.js-scale').forEach(el=>{
+  const d=parseFloat(el.dataset.delay||'0');
+  gsap.fromTo(el,{opacity:0,scale:.94},{opacity:1,scale:1,duration:.85,ease:'power3.out',delay:d,
+    scrollTrigger:{trigger:el,start:'top 92%',toggleActions:'play none none none'}});
+});
+
+// Tag filter
+const tagBtns=document.querySelectorAll<HTMLButtonElement>('.blog-tag-btn');
+const cards=document.querySelectorAll<HTMLElement>('.blog-card');
+tagBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    tagBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat=btn.dataset.cat||'Wszystkie';
+    cards.forEach(card=>{
+      const show=cat==='Wszystkie'||card.dataset.cat===cat;
+      gsap.to(card,{opacity:show?1:.12,scale:show?1:.97,duration:.3,ease:'power2.out'});
+      (card as HTMLElement).style.pointerEvents=show?'auto':'none';
+    });
+  });
+});
+</script>

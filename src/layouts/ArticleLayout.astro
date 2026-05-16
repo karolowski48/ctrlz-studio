@@ -1,0 +1,582 @@
+---
+import Layout from './Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  cat: string;
+  readTime: string;
+  date: string;
+  glowColor?: string;
+  slug?: string;
+}
+
+const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.25)', slug } = Astro.props;
+---
+
+<Layout title={`${title} — Blog CtrlZ Studio`} description={description}>
+
+<SharedNav />
+
+<style is:global>
+  /* ── ARTICLE HERO ───────────────────────── */
+  .art-hero {
+    padding: 140px 0 56px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-base);
+    border-bottom: 1px solid rgba(255,255,255,.05);
+  }
+  .art-hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .art-cat-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .art-cat-pill {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 100px;
+    background: rgba(124,107,255,.15);
+    color: #c4b5fd;
+    border: 1px solid rgba(124,107,255,.3);
+  }
+  .art-meta {
+    font-size: 13px;
+    color: rgba(255,255,255,.32);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .art-meta-dot { width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,.2); }
+  .art-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px,4.5vw,58px);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -.04em;
+    color: #fff;
+    max-width: 900px;
+    margin-bottom: 22px;
+  }
+  .art-hero-desc {
+    font-size: 17px;
+    color: rgba(255,255,255,.45);
+    line-height: 1.7;
+    max-width: 680px;
+    font-weight: 300;
+  }
+
+  /* ── ARTICLE BODY — full 1280px, two-column ── */
+  .art-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 48px 96px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 64px;
+    align-items: start;   /* sidebar sticks from top */
+  }
+  .art-content { min-width: 0; }
+  .art-content .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba(255,255,255,.35);
+    margin-bottom: 40px;
+    transition: color var(--transition);
+  }
+  .art-content .back-link:hover { color: rgba(255,255,255,.7); }
+
+  /* ── TYPOGRAPHY — readable, spacious, pleasant ─────── */
+
+  /* Measure: optimal line length for readability */
+  .art-content { --measure: 68ch; }
+
+  /* Lead paragraph — larger, lighter, sets the tone */
+  .art-content > p:first-of-type {
+    font-size: 19px;
+    color: rgba(255,255,255,.78);
+    line-height: 1.78;
+    font-weight: 300;
+    margin-bottom: 36px;
+    max-width: var(--measure);
+  }
+
+  /* Body paragraphs */
+  .art-content p {
+    font-size: 17px;
+    color: rgba(255,255,255,.68);
+    line-height: 1.88;
+    margin-bottom: 28px;
+    max-width: var(--measure);
+  }
+  .art-content p strong {
+    color: rgba(255,255,255,.92);
+    font-weight: 600;
+  }
+  .art-content p em {
+    color: rgba(255,255,255,.75);
+    font-style: italic;
+  }
+
+  /* H2 — section break with breathing room */
+  .art-content h2 {
+    font-family: var(--font-display);
+    font-size: clamp(22px, 2.4vw, 28px);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -.03em;
+    line-height: 1.2;
+    margin: 72px 0 20px;
+    padding-left: 20px;
+    border-left: 3px solid var(--violet);
+  }
+  /* First h2 has less top margin */
+  .art-content h2:first-of-type { margin-top: 16px; }
+
+  /* H3 — sub-section */
+  .art-content h3 {
+    font-family: var(--font-display);
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 700;
+    color: rgba(255,255,255,.92);
+    letter-spacing: -.02em;
+    line-height: 1.3;
+    margin: 48px 0 14px;
+  }
+
+  /* Lists — clear visual hierarchy, breathing room */
+  .art-content ul,
+  .art-content ol {
+    padding-left: 0;
+    margin: 8px 0 36px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: var(--measure);
+  }
+  .art-content li {
+    font-size: 16.5px;
+    color: rgba(255,255,255,.68);
+    line-height: 1.75;
+    padding-left: 24px;
+    position: relative;
+  }
+  .art-content ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--violet-light);
+    opacity: .75;
+    flex-shrink: 0;
+  }
+  .art-content ol { counter-reset: art-c; }
+  .art-content ol li { counter-increment: art-c; }
+  .art-content ol li::before {
+    content: counter(art-c) '.';
+    position: absolute;
+    left: 0;
+    top: 1px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--violet-light);
+    opacity: .85;
+    font-family: var(--font-display);
+  }
+  .art-content li strong { color: rgba(255,255,255,.88); }
+  .art-content li p { margin-bottom: 0; }
+
+  /* Inline links */
+  .art-content a:not(.back-link):not(.btn-primary) {
+    color: var(--violet-light);
+    border-bottom: 1px solid rgba(124,107,255,.35);
+    transition: border-color var(--transition), color var(--transition);
+  }
+  .art-content a:not(.back-link):not(.btn-primary):hover {
+    color: #fff;
+    border-color: rgba(124,107,255,.8);
+  }
+
+  /* Horizontal rule as section separator */
+  .art-content hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,.08);
+    margin: 56px 0;
+  }
+
+  /* Inline code */
+  .art-content code {
+    background: rgba(124,107,255,.1);
+    border: 1px solid rgba(124,107,255,.2);
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-size: 14px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    color: var(--violet-light);
+  }
+
+  /* Blockquote */
+  .art-content blockquote {
+    border-left: 3px solid var(--violet);
+    padding: 4px 0 4px 24px;
+    margin: 36px 0;
+  }
+  .art-content blockquote p {
+    font-size: 18px;
+    font-style: italic;
+    color: rgba(255,255,255,.72);
+    margin: 0;
+  }
+
+  /* Shared article components */
+  .art-tip {
+    background: rgba(124,107,255,.07);
+    border: 1px solid rgba(124,107,255,.22);
+    border-left: 4px solid var(--violet);
+    border-radius: 0 14px 14px 0;
+    padding: 22px 28px;
+    margin: 40px 0;
+    max-width: 68ch;
+    position: relative;
+  }
+  .art-tip p {
+    margin: 0;
+    font-size: 15.5px;
+    color: rgba(255,255,255,.7);
+    line-height: 1.75;
+    max-width: none;
+  }
+  .art-tip strong { color: var(--violet-light); font-style: normal; }
+
+  .art-stat-box {
+    background: rgba(124,107,255,.07);
+    border: 1px solid rgba(124,107,255,.2);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin: 36px 0;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
+    text-align: center;
+  }
+  .art-stat-box .s-num {
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -.04em;
+    background: var(--grad-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .art-stat-box .s-label { font-size: 12px; color: rgba(255,255,255,.55); margin-top: 6px; line-height: 1.5; }
+
+  .art-step-card {
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: border-color var(--transition);
+  }
+  .art-step-card:hover { border-color: rgba(124,107,255,.28); background: rgba(124,107,255,.04); transform: translateX(4px); }
+  .art-step-card .sn {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 800;
+    background: var(--grad-violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+  }
+  .art-step-card h3 { font-family:var(--font-display); font-size:17px; color:#fff; margin:0 0 6px; font-weight:600; }
+  .art-step-card p  { font-size:14px; color:rgba(255,255,255,.45); line-height:1.65; margin:0; }
+
+  .art-cta-box {
+    background: linear-gradient(135deg,rgba(124,107,255,.12),rgba(236,72,153,.06));
+    border: 1px solid rgba(124,107,255,.25);
+    border-radius: 18px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 64px;
+  }
+  .art-cta-box h3 { font-family:var(--font-display); font-size:24px; color:#fff; margin:0 0 10px; }
+  .art-cta-box p  { font-size:15px; color:rgba(255,255,255,.62); margin-bottom:24px; max-width:none; }
+
+  /* ── SIDEBAR — fully sticky aside ────────── */
+  .art-sidebar {
+    position: sticky;
+    top: 92px;
+    align-self: start;          /* crucial — makes sticky work in grid */
+    max-height: calc(100svh - 110px);
+    overflow-y: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .art-sidebar::-webkit-scrollbar { display: none; }
+  .sidebar-card {
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 16px;
+  }
+  .sidebar-card h4 {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,.35);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .toc-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .toc-list li { padding-left: 0 !important; }
+  .toc-list li::before { display: none !important; }
+  .toc-list a {
+    font-size: 13px;
+    color: rgba(255,255,255,.38);
+    display: block;
+    padding: 6px 8px;
+    border-radius: 7px;
+    transition: all var(--transition);
+    line-height: 1.4;
+    border-bottom: none !important;
+  }
+  .toc-list a:hover { color: rgba(255,255,255,.8); background: rgba(255,255,255,.04); }
+  .toc-list a.active { color: var(--violet-light) !important; background: rgba(124,107,255,.1); }
+  .sidebar-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .sidebar-av {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--grad-btn);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .sidebar-av-name { font-family:var(--font-display); font-size:14px; font-weight:600; color:#fff; }
+  .sidebar-av-role { font-size:12px; color:rgba(255,255,255,.3); margin-top:1px; }
+  .sidebar-share { display:flex; gap:8px; margin-top:4px; }
+  .share-btn {
+    font-size:11px; padding:6px 12px;
+    border-radius:var(--radius-pill);
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.09);
+    color:rgba(255,255,255,.4);
+    cursor:none;
+    transition:all var(--transition);
+  }
+  .share-btn:hover { background:rgba(124,107,255,.12); border-color:rgba(124,107,255,.3); color:#c4b5fd; }
+  .related-post {
+    display:flex; align-items:center; gap:12px; padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    cursor:none;
+    transition:all var(--transition);
+    text-decoration:none;
+  }
+  .related-post:last-child { border-bottom:none; }
+  .related-post:hover .rp-title { color:var(--violet-light); }
+  .rp-dot { width:5px; height:5px; border-radius:50%; background:var(--violet); flex-shrink:0; opacity:.6; margin-top:5px; }
+  .rp-title { font-size:13px; color:rgba(255,255,255,.5); line-height:1.4; transition:color var(--transition); }
+
+  /* ── RESPONSIVE ──────────────────────────── */
+  @media (max-width: 1024px) {
+    .art-wrap { grid-template-columns:1fr; gap:40px; padding:40px 28px 72px; }
+    .art-sidebar { position:static; max-height:none; overflow-y:visible; }
+    .art-hero-inner { padding:0 28px; }
+    .art-stat-box { grid-template-columns:1fr; }
+    .art-content > p:first-of-type { font-size:17px; }
+    .art-content p { font-size:16px; }
+    .art-content h2 { margin:52px 0 16px; font-size:22px; }
+    .art-content h3 { margin:36px 0 12px; font-size:19px; }
+  }
+  @media (max-width: 640px) {
+    .art-wrap { padding:32px 16px 56px; }
+    .art-hero-inner { padding:0 16px; }
+    .art-step-card { flex-direction:column; gap:10px; }
+    .art-hero h1 { font-size:clamp(28px,8vw,40px); }
+  }
+</style>
+
+<main id="main-content">
+<section class="art-hero">
+  <div class="orb" style={`width:500px;height:500px;background:radial-gradient(circle,${glowColor} 0%,transparent 65%);top:-200px;right:-100px;filter:blur(60px)`}></div>
+  <div class="grid-bg"></div>
+  <div class="art-hero-inner">
+    <div class="art-cat-row">
+      <span class="art-cat-pill">{cat}</span>
+      <div class="art-meta">
+        <span>{readTime} czytania</span>
+        <div class="art-meta-dot"></div>
+        <span>{date}</span>
+      </div>
+    </div>
+    <h1>{title}</h1>
+    <p class="art-hero-desc">{description}</p>
+  </div>
+</section>
+
+<div class="art-wrap" style="background:var(--bg-base)">
+  <article class="art-content">
+    <a href="/blog" class="back-link">← Wróć do bloga</a>
+    <slot />
+    <div class="art-cta-box">
+      <slot name="cta" />
+    </div>
+  </article>
+
+  <aside class="art-sidebar">
+    <div class="sidebar-card">
+      <h3>Spis treści</h3>
+      <ul class="toc-list" id="toc-list"></ul>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Autor</h3>
+      <div class="sidebar-author">
+        <div class="sidebar-av">K</div>
+        <div>
+          <div class="sidebar-av-name">Karol</div>
+          <div class="sidebar-av-role">Founder, CtrlZ Studio</div>
+        </div>
+      </div>
+      <div class="sidebar-share">
+        <button class="share-btn" onclick="navigator.clipboard.writeText(window.location.href)">Kopiuj link</button>
+        <button class="share-btn" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href))">Facebook</button>
+      </div>
+    </div>
+
+    <div class="sidebar-card">
+      <h3>Inne artykuły</h3>
+      <a href="/blog/dlaczego-szybka-strona-sprzedaje" class="related-post"><div class="rp-dot"></div><div class="rp-title">Dlaczego szybka strona to więcej sprzedaży</div></a>
+      <a href="/blog/seo-2025" class="related-post"><div class="rp-dot"></div><div class="rp-title">SEO w 2025 — co naprawdę działa</div></a>
+      <a href="/blog/ux-ktory-konwertuje" class="related-post"><div class="rp-dot"></div><div class="rp-title">UX, który konwertuje — 12 błędów</div></a>
+      <a href="/blog/wordpress-vs-custom" class="related-post"><div class="rp-dot"></div><div class="rp-title">WordPress vs strona na zamówienie</div></a>
+      <a href="/blog/woocommerce-optymalizacja" class="related-post"><div class="rp-dot"></div><div class="rp-title">WooCommerce — 8 ustawień dla konwersji</div></a>
+      <a href="/blog/branding-dla-malej-firmy" class="related-post"><div class="rp-dot"></div><div class="rp-title">Branding dla małej firmy</div></a>
+    </div>
+
+    <a href="/#kontakt" class="btn-primary" style="width:100%;justify-content:center;border-radius:12px">
+      <span>Bezpłatna konsultacja →</span>
+    </a>
+  </aside>
+</div>
+
+</main>
+
+<SharedFooter />
+
+</Layout>
+
+<script>
+import { initPage } from '../utils/pageInit';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+initPage();
+
+// ── Reading progress bar ──────────────────────
+const bar = document.createElement('div');
+bar.className = 'reading-progress';
+document.body.prepend(bar);
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const pct = (window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100;
+  bar.style.width = Math.min(pct, 100) + '%';
+}, { passive: true });
+
+// ── Auto-generate TOC from h2 elements ───────
+const h2s = document.querySelectorAll<HTMLElement>('.art-content h2');
+const toc  = document.getElementById('toc-list')!;
+
+h2s.forEach((h, i) => {
+  const id = `section-${i}`;
+  h.id = id;
+  // Strip the ::before pseudo content from text
+  const rawText = Array.from(h.childNodes)
+    .filter(n => n.nodeType === Node.TEXT_NODE)
+    .map(n => n.textContent?.trim())
+    .join('') || h.textContent?.trim() || '';
+
+  const li = document.createElement('li');
+  const a  = document.createElement('a');
+  a.href = `#${id}`;
+  a.textContent = rawText;
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const offset = 110; // nav height
+    const top = h.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+  li.appendChild(a);
+  toc.appendChild(li);
+});
+
+// ── Highlight active TOC on scroll ───────────
+const tocLinks = toc.querySelectorAll<HTMLAnchorElement>('a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      toc.querySelector(`a[href="#${entry.target.id}"]`)?.classList.add('active');
+    }
+  });
+}, { rootMargin: '-15% 0px -75% 0px' });
+h2s.forEach(h => observer.observe(h));
+
+// ── Page entrance animations ──────────────────
+gsap.fromTo('.art-cat-row',  {opacity:0,y:16},{opacity:1,y:0,duration:.7,ease:'power3.out',delay:.2});
+gsap.fromTo('.art-hero h1',  {opacity:0,y:28},{opacity:1,y:0,duration:.9,ease:'power3.out',delay:.35});
+gsap.fromTo('.art-hero-desc',{opacity:0,y:18},{opacity:1,y:0,duration:.7,ease:'power3.out',delay:.5});
+gsap.fromTo('.art-content',  {opacity:0,y:24},{opacity:1,y:0,duration:.8,ease:'power3.out',delay:.3});
+gsap.fromTo('.art-sidebar',  {opacity:0,x:20},{opacity:1,x:0,duration:.8,ease:'power3.out',delay:.5});
+
+// ── Animate article elements on scroll ───────
+document.querySelectorAll<HTMLElement>('.art-step-card').forEach((el, i) => {
+  gsap.fromTo(el, {opacity:0,x:-16}, {opacity:1,x:0,duration:.6,ease:'power3.out',delay:i*.06,
+    scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none none'}});
+});
+document.querySelectorAll<HTMLElement>('.art-stat-box,.art-tip,.art-cta-box').forEach(el => {
+  gsap.fromTo(el, {opacity:0,y:20}, {opacity:1,y:0,duration:.7,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 90%',toggleActions:'play none none none'}});
+});
+</script>

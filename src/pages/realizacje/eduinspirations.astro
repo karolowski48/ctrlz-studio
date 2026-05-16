@@ -1,0 +1,77 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+---
+<ProjectLayout
+  title="EduInspirations — redesign sklepu z materiałami edukacyjnymi"
+  description="Redesign sklepu WooCommerce z kolorowankami i materiałami edukacyjnymi dla nauczycieli. PageSpeed 90+, nowy proces zakupowy, FAQ z wyszukiwarką, własny system faktur i customowe wtyczki WordPress."
+  cat="E-commerce · Redesign"
+  year="2026"
+  tags={['WordPress','WooCommerce','Custom Plugin','FAQ','System faktur','PageSpeed 90+']}
+  result="PageSpeed 90+ · Nowy UX · System faktur od zera"
+  bgClass="pbg-9"
+  glowClass="pg-9"
+  glowColor="rgba(167,139,250,.28)"
+  heroImage="/eduinspirations-hero.jpg"
+  heroImageAlt="eduinspirations"
+  prevSlug="modeka"
+  prevName="Modeka — B2B e-commerce"
+  nextSlug="techopiekun"
+  nextName="TechOpiekun.pl"
+>
+
+<h2>O projekcie</h2>
+
+<p>EduInspirations to sklep internetowy stworzony z pasji do edukacji — kolorowanki, karty pracy, pakiety tematyczne i gry dydaktyczne dla nauczycieli wychowania przedszkolnego i wczesnoszkolnego. Produkty cyfrowe do pobrania, tworzone ręcznie, sprawdzone w codziennej pracy z dziećmi.</p>
+
+<p>Sklep działał na WooCommerce, miał klientów i sprzedawał produkty — ale UX, wydajność i kilka kluczowych funkcji wymagały gruntownego przeprojektowania. Właścicielka potrzebowała kogoś kto ogarnie <strong>całość techniczną</strong>: od prędkości ładowania po własny system faktur dla nauczycieli rozliczających się z placówkami.</p>
+
+<div class="proj-results-grid">
+  <div class="proj-result-card"><div class="prc-num">90+</div><div class="prc-label">PageSpeed po redesignie — was znacznie niżej</div></div>
+  <div class="proj-result-card"><div class="prc-num">FAQ</div><div class="prc-label">nowa podstrona z działającą wyszukiwarką pytań</div></div>
+  <div class="proj-result-card"><div class="prc-num">100%</div><div class="prc-label">custom — własne wtyczki pisane od zera</div></div>
+</div>
+
+<h2>Wyzwania projektowe</h2>
+
+<p>Sklep obsługuje specyficzną grupę odbiorców — nauczycieli kupujących materiały często na potrzeby placówek oświatowych, co wiąże się z koniecznością wystawiania faktur VAT. Standardowy WooCommerce tego nie ogarnia w sposób który spełniałby realne potrzeby tej grupy.</p>
+
+<ul>
+  <li><strong>Wydajność</strong> — sklep był powolny, wynik PageSpeed daleki od satysfakcjonującego. Każda sekunda ładowania na e-commerce bezpośrednio przekłada się na porzucone koszyki.</li>
+  <li><strong>Proces zakupowy</strong> — checkout wymagał uproszczenia i lepszego prowadzenia klienta przez kolejne kroki, szczególnie przy produktach cyfrowych gdzie proces powinien być maksymalnie krótki.</li>
+  <li><strong>System faktur</strong> — nauczyciele często potrzebują faktury VAT dla szkoły lub przedszkola. Domyślne rozwiązania WooCommerce nie spełniały wymagań, konieczny był własny system generowania dokumentów.</li>
+  <li><strong>Filtrowanie notatek w panelu</strong> — właścicielka potrzebowała możliwości przeglądania i filtrowania notatek do zamówień bez instalowania ciężkich wtyczek zarządzania.</li>
+  <li><strong>FAQ z wyszukiwarką</strong> — rosnąca liczba pytań od klientów wymagała dedykowanej podstrony gdzie każdy znajdzie odpowiedź bez pisania maila.</li>
+</ul>
+
+<h2>Nasze rozwiązanie</h2>
+
+<p>Zacząłem od audytu technicznego — przeszedłem przez każdą warstwę WordPressa: motywy, wtyczki, zapytania do bazy danych, zasoby blokujące rendering. Wynik PageSpeed skoczył do <strong>ponad 90 punktów w kategorii wydajności</strong> dzięki optymalizacji ładowania zasobów, poprawie struktury CSS i usunięciu zbędnych skryptów wczytywanych na każdej podstronie.</p>
+
+<div class="proj-highlight">
+  <h3>Własny system generowania faktur</h3>
+  <p>Największe wyzwanie techniczne projektu — własna wtyczka WordPress napisana od zera, która generuje faktury VAT w formacie PDF bezpośrednio z poziomu panelu zamówień. Nauczyciel po zakupie może pobrać fakturę ze swoim numerem NIP lub danymi placówki, a właścicielka ma pełną historię dokumentów bez zewnętrznych serwisów. Zero abonamentów za fakturowanie, pełna kontrola nad formatem i danymi.</p>
+</div>
+
+<h2>Kolorowe podstrony i spójny styl</h2>
+
+<p>EduInspirations to marka z charakterem — kolorowa, ciepła, dedykowana nauczycielom którzy sami tworzą piękne pomoce dydaktyczne. Nowe podstrony zostały przeprojektowane z myślą o spójności wizualnej: konsekwentna paleta kolorów, czytelna typografia, wyraźna hierarchia treści.</p>
+
+<p>Każda kategoria produktów ma teraz własną kolorową identyfikację — przeglądanie sklepu jest intuicyjne, a produkty tematyczne łatwo rozróżnialne. To detale które robią różnicę przy zakupach impulsywnych — a w e-commerce z produktami cyfrowymi po kilka-kilkanaście złotych, impuls decyduje.</p>
+
+<h2>FAQ z wyszukiwarką</h2>
+
+<p>Nowa podstrona Pytania i odpowiedzi (dostępna pod <code>/najczesciej-zadawane-pytania/</code>) zbiera odpowiedzi na najczęstsze pytania klientów — o pobieranie plików, faktury, formaty, zgodność z programem nauczania. Kluczowy element: <strong>wyszukiwarka działająca w czasie rzeczywistym</strong> — wystarczy wpisać słowo kluczowe i lista pytań filtruje się na bieżąco bez przeładowania strony. Mniej maili do właścicielki, szybsza odpowiedź dla klienta.</p>
+
+<h2>Customowe wtyczki WordPress</h2>
+
+<p>Zamiast instalować kilka gotowych wtyczek (z których każda dokłada dług techniczny i potencjalne luki bezpieczeństwa), napisałem dedykowane rozwiązania pod konkretne potrzeby:</p>
+
+<ul>
+  <li><strong>Generator faktur PDF</strong> — pełny system wystawiania dokumentów VAT zintegrowany z WooCommerce</li>
+  <li><strong>Filtrowanie notatek w panelu zamówień</strong> — możliwość szybkiego przeszukiwania i filtrowania notatek do zamówień po dacie, statusie i treści</li>
+  <li><strong>Wyszukiwarka FAQ</strong> — lekki JavaScript bez zewnętrznych bibliotek, działa natychmiastowo</li>
+</ul>
+
+<p>Każda wtyczka robiła dokładnie to co potrzeba — i nic więcej.</p>
+
+</ProjectLayout>

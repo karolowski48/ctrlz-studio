@@ -1,0 +1,75 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+---
+<ProjectLayout
+  title="Modeka — B2B e-commerce dla producenta odzieży motocyklowej"
+  description="Dedykowana platforma WooCommerce B2B dla europejskiego producenta odzieży motocyklowej. Wielojęzyczny sklep na 4 rynki z interaktywną mapą ponad 150 dealerów, własnym systemem walutowym i eksportem produktowym."
+  cat="E-commerce B2B"
+  year="2026"
+  tags={['WordPress','WooCommerce','ACF Pro','Polylang','Custom Theme','B2B','Interaktywna mapa']}
+  result="4 kraje, 1000+ produktów, 150+ dealerów — 1 miesiąc"
+  bgClass="pbg-7"
+  glowClass="pg-7"
+  glowColor="rgba(234,88,12,.3)"
+  heroImage="/modeka-hero.jpg"
+  heroImageAlt="Motocyklista w kurtce Modeka na Kawasaki Versys"
+  prevSlug="konfigurator"
+  prevName="Konfigurator Produktów"
+  nextSlug="techopiekun"
+  nextName="TechOpiekun.pl"
+>
+
+<h2>O projekcie</h2>
+
+<p>Modeka to jeden z czołowych europejskich producentów odzieży i akcesoriów motocyklowych — kurtki, spodnie, kombinezony i rękawice trafiające do dealerów w całej Europie. Firma posiada rozbudowaną sieć dystrybucji na czterech rynkach: Polsce, Słowacji, Czechach i Rumunii.</p>
+
+<p>Celem projektu było stworzenie <strong>centralnej platformy B2B</strong> — miejsca gdzie dystrybutorzy mogą przeglądać pełny katalog produktów z aktualnymi cenami w lokalnej walucie, sprawdzać dostępność u dealerów w swojej okolicy i pobierać dane produktowe do własnych systemów. Nie klasyczny sklep internetowy — narzędzie biznesowe dla partnerów handlowych.</p>
+
+<div class="proj-results-grid">
+  <div class="proj-result-card"><div class="prc-num">1 000+</div><div class="prc-label">produktów w katalogu na 4 rynki jednocześnie</div></div>
+  <div class="proj-result-card"><div class="prc-num">150+</div><div class="prc-label">lokalizacji dealerów naniesiona na interaktywną mapę</div></div>
+  <div class="proj-result-card"><div class="prc-num">1 mies.</div><div class="prc-label">czas realizacji pełnego wdrożenia na 4 kraje</div></div>
+</div>
+
+<h2>Wyzwania projektowe</h2>
+
+<p>Modeka to projekt, który na każdym etapie wymagał niestandardowego podejścia. Gotowe rozwiązania WooCommerce sprawdzają się świetnie przy klasycznym B2C — przy B2B z wielorynkową strukturą cenową przestają wystarczać.</p>
+
+<ul>
+  <li><strong>B2B zamiast B2C</strong> — platforma służy wyłącznie partnerom handlowym, nie klientom końcowym. Proces zakupowy musiał zostać zablokowany, a dostęp do cen i katalogu odpowiednio zabezpieczony.</li>
+  <li><strong>Cztery rynki, cztery waluty</strong> — PLN, EUR (SK/CZ) i RON. Żadna z dostępnych wtyczek wielowalutowych nie obsługiwała tej kombinacji tak jak potrzebowała Modeka — ceny musiały być przypisane do konkretnego rynku, nie przeliczane kursem.</li>
+  <li><strong>Wielojęzyczność na poziomie technicznym</strong> — Polylang jako silnik tłumaczeń wymagał głębokiej integracji z systemem cenowym i strukturą produktów ACF.</li>
+  <li><strong>Mapa 150+ dealerów</strong> — dane lokalizacyjne dla czterech krajów, podzielone na regiony, filtrowane po kraju — z płynnym UX na mobile.</li>
+  <li><strong>Eksport produktowy</strong> — dealerzy potrzebują danych produktowych (zdjęcia, opisy, ceny, EAN) w formatach nadających się do importu do własnych systemów sprzedażowych.</li>
+</ul>
+
+<h2>Nasze rozwiązanie</h2>
+
+<p>Podjęliśmy decyzję o budowie dedykowanego motywu WordPress od absolutnego zera — zero gotowych frameworków motywowych, zero page builderów. Czysty HTML, SCSS z własnym design systemem, JavaScript bez jQuery tam gdzie to możliwe. Efekt: lekka, szybka platforma bez kilogramów nieużywanego kodu.</p>
+
+<p>Architektura opiera się na <strong>Advanced Custom Fields Pro</strong> jako systemie zarządzania danymi produktowymi. Każdy produkt ma rozbudowany zestaw pól — warianty, rozmiarówka, certyfikaty bezpieczeństwa, zdjęcia w wysokiej rozdzielczości, dane techniczne. Wszystko zarządzane przez intuicyjny panel bez potrzeby znajomości kodu przez redaktorów Modeki.</p>
+
+<div class="proj-highlight">
+  <h3>Własny system walutowy</h3>
+  <p>Polylang odpowiada za tłumaczenia treści — do niego dopisaliśmy własny skrypt który rozdziela cenniki na cztery niezależne tabele walutowe: PLN dla Polski, EUR dla Słowacji i Czech, RON dla Rumunii. Ceny nie są przeliczane kursem — każdy rynek ma własne, niezależnie zarządzane cenniki. Zmiana ceny na rynku rumuńskim nie wpływa na pozostałe. Dealer z Czech widzi zawsze ceny w EUR, dealer z Rumunii zawsze w RON — bez względu na ustawienia przeglądarki.</p>
+</div>
+
+<h2>Interaktywna mapa dealerów</h2>
+
+<p>Jednym z kluczowych elementów platformy jest <strong>interaktywna mapa całej sieci dystrybucyjnej</strong> — ponad 150 lokalizacji w czterech krajach naniesiona na jedną mapę z możliwością filtrowania po kraju, regionie i typie punktu.</p>
+
+<p>Każdy lokal ma własną kartę z danymi kontaktowymi, godzinami otwarcia i linkiem do strony dealera. Mapa działa płynnie na urządzeniach mobilnych — co jest kluczowe, bo motocykliści często szukają najbliższego sklepu w trasie. Integracja opiera się na własnym customowym rozwiązaniu zarządzanym przez ACF — dodawanie i edycja lokalizacji przez panel WordPress bez dotykania kodu.</p>
+
+<h2>Eksport produktowy dla dealerów</h2>
+
+<p>Dealerzy potrzebują danych produktowych w formatach gotowych do importu do własnych systemów e-commerce lub ERP. Napisaliśmy dedykowane skrypty eksportowe generujące pliki z pełnymi danymi produktowymi — zdjęcia, opisy w czterech językach, ceny w odpowiedniej walucie, kody EAN, kategorie. Eksport jednym kliknięciem, bez angażowania zespołu technicznego Modeki.</p>
+
+<h2>To dopiero początek współpracy</h2>
+
+<p>Wdrożenie platformy B2B to pierwszy etap długofalowej współpracy z Modeką. To co zostało zbudowane stanowi solidny fundament — architektura celowo zaprojektowana z myślą o rozbudowie.</p>
+
+<p>Już niedługo zostanie uruchomiony <strong>system stanów magazynowych</strong> — każdy produkt w każdym lokalu dealerskim będzie miał swój aktualny stan na żywo. Dealer z Krakowa zobaczy od razu które rozmiary kurtki X są dostępne u dystrybutora w jego regionie. System zsynchronizuje dane z magazynów dealerów i wyświetli je bezpośrednio na stronie Modeki w czasie rzeczywistym.</p>
+
+<p>To rozwiązanie, które nie istnieje w standardowych platformach B2B dla tej branży w Polsce — i właśnie dlatego budujemy je od zera, na miarę.</p>
+
+</ProjectLayout>

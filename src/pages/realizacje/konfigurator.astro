@@ -1,0 +1,49 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+---
+<ProjectLayout
+  title="Konfigurator Produktów na Zamówienie"
+  description="Interaktywna aplikacja webowa do konfigurowania produktów na zamówienie dla producenta mebli. Integracja z WooCommerce, własna logika wyceny i podgląd wizualny konfiguracji."
+  cat="Custom Application"
+  year="2024"
+  tags={['WordPress','ACF Pro','REST API','JavaScript','WooCommerce']}
+  result="Automatyzacja wyceny — oszczędność 40h/tydzień pracy handlowców"
+  bgClass="pbg-6"
+  glowClass="pg-6"
+  glowColor="rgba(236,72,153,.28)"
+  prevSlug="sklep-sportowy"
+  prevName="Sklep Sportowy Pro"
+  nextSlug="modeka"
+  nextName="Modeka — B2B e-commerce"
+>
+
+<h2>O projekcie</h2>
+<p>Producent mebli na zamówienie — kuchni, szaf, mebli łazienkowych. Każdy produkt to setki kombinacji: wymiary, kolory, materiały, akcesoria, systemy otwierania. Dotychczasowy proces: klient przychodził do salonu, handlowiec spędzał 2-3h na wycenie w Excelu, wysyłał PDF. Czas od zapytania do oferty: 3-5 dni roboczych.</p>
+
+<div class="proj-results-grid">
+  <div class="proj-result-card"><div class="prc-num">40h</div><div class="prc-label">tygodniowo oszczędzone przez handlowców na wycenach</div></div>
+  <div class="proj-result-card"><div class="prc-num">15min</div><div class="prc-label">czas od konfiguracji klienta do otrzymania wyceny (było 3-5 dni)</div></div>
+  <div class="proj-result-card"><div class="prc-num">+65%</div><div class="prc-label">wzrost liczby zapytań ofertowych miesięcznie</div></div>
+</div>
+
+<h2>Zakres projektu</h2>
+<ul>
+  <li><strong>Konfigurator krok po kroku</strong> — wizard z 6 etapami konfiguracji, podgląd wybranej opcji na każdym etapie</li>
+  <li><strong>Silnik wyceny</strong> — własna logika w PHP/ACF Pro obliczająca cenę na podstawie 200+ zmiennych</li>
+  <li><strong>Podgląd wizualny</strong> — SVG-based preview aktualizowany w czasie rzeczywistym przy zmianie opcji</li>
+  <li><strong>Integracja z WooCommerce</strong> — konfiguracja trafia do koszyka jako produkt custom z pełnymi parametrami</li>
+  <li><strong>Panel administracyjny</strong> — prosty interfejs do zarządzania cenami, opcjami, dostępnością wariantów</li>
+</ul>
+
+<h2>Architektura techniczna</h2>
+<p>WordPress + ACF Pro jako backend i CMS dla opcji konfiguratora. REST API custom endpoints serwujące dane konfiguratora do frontendu. Frontend: vanilla JavaScript z własnym state management (żadnych frameworków — szybkość), SVG renderer dla podglądu wizualnego.</p>
+
+<div class="proj-highlight">
+  <h3>Najtrudniejszy element</h3>
+  <p>Silnik wyceny uwzględniający wzajemne zależności opcji — niektóre kombinacje są niemożliwe technicznie, inne wpływają na cenę nieliniowo. Napisaliśmy system reguł w PHP który waliduje konfigurację w czasie rzeczywistym i informuje klienta o niedostępnych opcjach wraz z sugestią alternatywy.</p>
+</div>
+
+<h2>Efekt biznesowy</h2>
+<p>Pierwsza "samodzielna" wycena przez konfigurator online — bez udziału handlowca — pojawiła się 3 godziny po launchu. W pierwszym miesiącu 47% wszystkich zapytań ofertowych przyszło przez konfigurator. Handlowcy zamiast tworzyć wyceny — zajmują się sprzedażą.</p>
+
+</ProjectLayout>

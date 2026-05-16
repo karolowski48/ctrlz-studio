@@ -1,0 +1,414 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+
+const lastUpdated = "1 maja 2025";
+---
+
+<Layout
+  title="Polityka Prywatności — CtrlZ Studio"
+  description="Polityka prywatności CtrlZ Studio. Informacje o przetwarzaniu danych osobowych, prawach użytkowników i zasadach ochrony prywatności zgodnie z RODO."
+>
+
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .pp-hero {
+    padding: 140px 0 56px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-base);
+    border-bottom: 1px solid rgba(255,255,255,.05);
+  }
+  .pp-hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .pp-wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 64px 48px 96px;
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 64px;
+    align-items: start;
+    background: var(--bg-base);
+  }
+  .pp-content { min-width: 0; }
+  .pp-content h2 {
+    font-family: var(--font-display);
+    font-size: clamp(18px,2vw,22px);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -.025em;
+    margin: 48px 0 14px;
+    padding-left: 16px;
+    border-left: 3px solid var(--violet);
+    line-height: 1.3;
+  }
+  .pp-content h2:first-of-type { margin-top: 0; }
+  .pp-content p {
+    font-size: 15.5px;
+    color: rgba(255,255,255,.56);
+    line-height: 1.85;
+    margin-bottom: 18px;
+  }
+  .pp-content p strong { color: rgba(255,255,255,.82); font-weight: 600; }
+  .pp-content ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .pp-content li {
+    font-size: 15px;
+    color: rgba(255,255,255,.54);
+    line-height: 1.75;
+    padding-left: 18px;
+    position: relative;
+  }
+  .pp-content li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 9px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--violet-light);
+    opacity: .65;
+  }
+  .pp-content li strong { color: rgba(255,255,255,.8); }
+  .pp-content a {
+    color: var(--violet-light);
+    border-bottom: 1px solid rgba(124,107,255,.3);
+    transition: border-color .2s;
+  }
+  .pp-content a:hover { border-color: var(--violet-light); }
+
+  /* Info box */
+  .pp-box {
+    background: rgba(124,107,255,.06);
+    border: 1px solid rgba(124,107,255,.18);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+  .pp-box p { font-size: 14px; color: rgba(255,255,255,.5); margin: 0; }
+  .pp-box strong { color: var(--violet-light); }
+
+  /* Table */
+  .pp-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 14px;
+  }
+  .pp-table th {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,.3);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .pp-table td {
+    padding: 12px 14px;
+    color: rgba(255,255,255,.52);
+    line-height: 1.6;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    vertical-align: top;
+  }
+  .pp-table tr:last-child td { border-bottom: none; }
+  .pp-table td:first-child { color: rgba(255,255,255,.75); font-weight: 500; white-space: nowrap; }
+
+  /* Sidebar */
+  .pp-sidebar { position: sticky; top: 100px; }
+  .pp-nav-card {
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 14px;
+  }
+  .pp-nav-card h4 {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,.28);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .pp-nav-list { display: flex; flex-direction: column; gap: 2px; }
+  .pp-nav-list a {
+    font-size: 13px;
+    color: rgba(255,255,255,.4);
+    display: block;
+    padding: 6px 8px;
+    border-radius: 7px;
+    transition: all .2s;
+    border-bottom: none !important;
+    line-height: 1.4;
+  }
+  .pp-nav-list a:hover { color: rgba(255,255,255,.8); background: rgba(255,255,255,.04); border-color: transparent !important; }
+  .pp-nav-list a.active { color: var(--violet-light) !important; background: rgba(124,107,255,.1); }
+  .pp-contact-card {
+    background: linear-gradient(135deg, rgba(124,107,255,.1), rgba(236,72,153,.05));
+    border: 1px solid rgba(124,107,255,.22);
+    border-radius: 14px;
+    padding: 20px;
+  }
+  .pp-contact-card h4 { font-family:var(--font-display); font-size:14px; font-weight:600; color:#fff; margin-bottom:8px; }
+  .pp-contact-card p { font-size:12px; color:rgba(255,255,255,.4); line-height:1.6; margin-bottom:12px; }
+  .pp-update {
+    font-size: 12px;
+    color: rgba(255,255,255,.22);
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 1024px) {
+    .pp-wrap { grid-template-columns: 1fr; gap: 40px; padding: 40px 28px 64px; }
+    .pp-sidebar { position: static; }
+    .pp-hero-inner { padding: 0 28px; }
+  }
+  @media (max-width: 640px) {
+    .pp-wrap { padding: 28px 16px 48px; }
+    .pp-hero-inner { padding: 0 16px; }
+    .pp-table { font-size: 13px; }
+    .pp-table td, .pp-table th { padding: 10px; }
+  }
+</style>
+
+<!-- HERO -->
+<section class="pp-hero">
+  <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(124,107,255,.15) 0%,transparent 65%);top:-150px;right:-60px;filter:blur(60px)"></div>
+  <div class="grid-bg"></div>
+  <div class="pp-hero-inner">
+    <a href="/" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.32);margin-bottom:28px;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.32)'">← Wróć na stronę główną</a>
+    <div class="eyebrow" style="margin-bottom:16px">Dokument prawny</div>
+    <h1 class="display-lg" style="margin-bottom:14px">Polityka Prywatności</h1>
+    <p style="font-size:16px;color:rgba(255,255,255,.42);font-weight:300;line-height:1.7;max-width:600px">
+      Informacje o tym jak przetwarzamy Twoje dane osobowe, jakie prawa Ci przysługują i jak możesz je egzekwować — zgodnie z Rozporządzeniem RODO.
+    </p>
+    <div style="margin-top:20px;font-size:12px;color:rgba(255,255,255,.22)">
+      Ostatnia aktualizacja: <strong style="color:rgba(255,255,255,.4)">{lastUpdated}</strong>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<div class="pp-wrap">
+  <div class="pp-content">
+
+    <h2 id="s1">1. Administrator danych osobowych</h2>
+    <p>Administratorem Twoich danych osobowych jest <strong>Karol Jasiówka</strong>, prowadzący działalność pod nazwą <strong>CtrlZ Studio</strong> z siedzibą w Polsce.</p>
+    <p>We wszystkich sprawach dotyczących ochrony danych osobowych możesz się skontaktować:</p>
+    <ul>
+      <li>Adres e-mail: <a href="mailto:kontakt@ctrlzstudio.pl">kontakt@ctrlzstudio.pl</a></li>
+      <li>Strona kontaktowa: <a href="/#kontakt">ctrlzstudio.pl/#kontakt</a></li>
+    </ul>
+
+    <h2 id="s2">2. Jakie dane zbieramy i w jakim celu</h2>
+    <p>Przetwarzamy wyłącznie dane, które dobrowolnie nam przekazujesz. Poniżej opisujemy poszczególne sytuacje:</p>
+
+    <table class="pp-table">
+      <thead>
+        <tr>
+          <th>Źródło danych</th>
+          <th>Zakres danych</th>
+          <th>Cel przetwarzania</th>
+          <th>Podstawa prawna</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Formularz kontaktowy</td>
+          <td>Imię, adres e-mail, treść wiadomości</td>
+          <td>Odpowiedź na zapytanie, nawiązanie współpracy</td>
+          <td>Art. 6 ust. 1 lit. f RODO (uzasadniony interes)</td>
+        </tr>
+        <tr>
+          <td>Kalkulator wyceny</td>
+          <td>Imię, adres e-mail, opis projektu</td>
+          <td>Przygotowanie i przesłanie wyceny projektu</td>
+          <td>Art. 6 ust. 1 lit. f RODO (uzasadniony interes)</td>
+        </tr>
+        <tr>
+          <td>Korespondencja e-mail</td>
+          <td>Adres e-mail, dane zawarte w treści</td>
+          <td>Realizacja umowy lub kontakt przedumowny</td>
+          <td>Art. 6 ust. 1 lit. b RODO (wykonanie umowy)</td>
+        </tr>
+        <tr>
+          <td>Pliki cookies analityczne</td>
+          <td>Anonimowe dane o aktywności na stronie</td>
+          <td>Analiza ruchu, poprawa jakości strony</td>
+          <td>Art. 6 ust. 1 lit. a RODO (zgoda)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Nie zbieramy żadnych danych wrażliwych w rozumieniu art. 9 RODO (np. danych dotyczących zdrowia, poglądów politycznych, przekonań religijnych).</p>
+
+    <h2 id="s3">3. Podstawy prawne przetwarzania</h2>
+    <p>Przetwarzamy Twoje dane na podstawie jednej lub kilku z poniższych podstaw prawnych, w zależności od celu:</p>
+    <ul>
+      <li><strong>Art. 6 ust. 1 lit. a RODO</strong> — Twoja dobrowolna zgoda (np. na analitykę strony, newsletter).</li>
+      <li><strong>Art. 6 ust. 1 lit. b RODO</strong> — niezbędność do wykonania umowy lub podjęcia działań przed jej zawarciem (np. przygotowanie oferty na Twoje zapytanie).</li>
+      <li><strong>Art. 6 ust. 1 lit. f RODO</strong> — prawnie uzasadniony interes administratora, którym jest komunikacja z osobami zainteresowanymi usługami CtrlZ Studio, bezpieczeństwo strony i obrona przed roszczeniami.</li>
+    </ul>
+
+    <div class="pp-box">
+      <p><strong>Uzasadniony interes</strong> — gdy powołujemy się na tę podstawę, zawsze oceniamy czy nie narusza ona Twoich praw i wolności. Masz prawo wnieść sprzeciw wobec takiego przetwarzania w każdej chwili.</p>
+    </div>
+
+    <h2 id="s4">4. Udostępnianie danych osobom trzecim</h2>
+    <p>Twoje dane osobowe <strong>nie są sprzedawane</strong> ani udostępniane innym podmiotom w celach marketingowych. Dane mogą być przekazywane wyłącznie:</p>
+    <ul>
+      <li><strong>Dostawcy hostingu i serwera pocztowego</strong> — w ramach infrastruktury technicznej niezbędnej do działania strony i obsługi korespondencji. Dostawcy działają wyłącznie na nasze polecenie i na podstawie umowy powierzenia danych.</li>
+      <li><strong>Narzędziom analitycznym</strong> — jeśli wyraziłeś/aś zgodę na pliki cookies analityczne (np. Google Analytics). Dane są anonimizowane lub pseudonimizowane.</li>
+      <li><strong>Organom publicznym</strong> — wyłącznie w przypadku, gdy obowiązek przekazania danych wynika z obowiązujących przepisów prawa.</li>
+    </ul>
+    <p>Wszystkie podmioty, którym powierzamy przetwarzanie danych, zapewniają odpowiedni poziom ochrony i działają zgodnie z RODO.</p>
+
+    <h2 id="s5">5. Okres przechowywania danych</h2>
+    <p>Przechowujemy Twoje dane przez okres niezbędny do realizacji celu, w jakim zostały zebrane:</p>
+    <ul>
+      <li><strong>Dane z formularzy kontaktowych</strong> — do 12 miesięcy od zakończenia korespondencji, chyba że nawiążemy współpracę — wtedy przez czas trwania umowy i wymagany przepisami okres po jej zakończeniu.</li>
+      <li><strong>Dane klientów (umowy, faktury)</strong> — przez 5 lat od końca roku podatkowego, zgodnie z przepisami prawa podatkowego.</li>
+      <li><strong>Dane analityczne</strong> — zgodnie z polityką dostawcy narzędzia (domyślnie do 14 miesięcy dla Google Analytics).</li>
+      <li><strong>Korespondencja e-mail</strong> — do 12 miesięcy od ostatniej wiadomości w danym wątku.</li>
+    </ul>
+    <p>Po upływie okresu przechowywania dane są trwale usuwane lub anonimizowane.</p>
+
+    <h2 id="s6">6. Twoje prawa</h2>
+    <p>Na podstawie RODO przysługują Ci następujące prawa w odniesieniu do swoich danych osobowych:</p>
+    <ul>
+      <li><strong>Prawo dostępu</strong> — możesz zapytać czy przetwarzamy Twoje dane i otrzymać ich kopię.</li>
+      <li><strong>Prawo do sprostowania</strong> — możesz zażądać poprawienia nieprawidłowych lub uzupełnienia niekompletnych danych.</li>
+      <li><strong>Prawo do usunięcia ("prawo do bycia zapomnianym")</strong> — możesz zażądać usunięcia danych, jeśli nie ma podstawy prawnej do ich dalszego przetwarzania.</li>
+      <li><strong>Prawo do ograniczenia przetwarzania</strong> — możesz żądać wstrzymania przetwarzania w określonych przypadkach (np. gdy kwestionujesz prawidłowość danych).</li>
+      <li><strong>Prawo do przenoszenia danych</strong> — możesz otrzymać dane w ustrukturyzowanym, powszechnie używanym formacie nadającym się do odczytu maszynowego.</li>
+      <li><strong>Prawo do sprzeciwu</strong> — możesz w każdej chwili wnieść sprzeciw wobec przetwarzania danych na podstawie uzasadnionego interesu administratora.</li>
+      <li><strong>Prawo do cofnięcia zgody</strong> — jeśli przetwarzanie odbywa się na podstawie zgody, możesz ją cofnąć w dowolnym momencie bez wpływu na zgodność z prawem przetwarzania dokonanego przed cofnięciem.</li>
+    </ul>
+
+    <div class="pp-box">
+      <p>Aby skorzystać z któregokolwiek z powyższych praw, napisz do nas na adres <strong><a href="mailto:kontakt@ctrlzstudio.pl">kontakt@ctrlzstudio.pl</a></strong>. Odpowiemy w ciągu 30 dni od otrzymania żądania — bezpłatnie.</p>
+    </div>
+
+    <p>Jeśli uważasz, że przetwarzamy Twoje dane niezgodnie z prawem, masz również prawo wnieść skargę do organu nadzorczego — w Polsce jest nim <strong>Prezes Urzędu Ochrony Danych Osobowych (UODO)</strong>, ul. Stawki 2, 00-193 Warszawa, <a href="https://uodo.gov.pl" target="_blank" rel="noopener">uodo.gov.pl</a>.</p>
+
+    <h2 id="s7">7. Pliki cookies</h2>
+    <p>Nasza strona może wykorzystywać pliki cookies (ciasteczka) — małe pliki tekstowe zapisywane w przeglądarce. Wyróżniamy:</p>
+    <ul>
+      <li><strong>Cookies niezbędne</strong> — konieczne do poprawnego działania strony. Nie wymagają zgody.</li>
+      <li><strong>Cookies analityczne</strong> — pozwalają nam mierzyć ruch na stronie i poprawiać jej jakość (np. Google Analytics). Wymagają Twojej zgody.</li>
+      <li><strong>Cookies funkcjonalne</strong> — zapamiętują Twoje preferencje (np. wybór języka). Mogą wymagać zgody.</li>
+    </ul>
+    <p>Możesz w dowolnym momencie zmienić ustawienia cookies w swojej przeglądarce lub cofnąć zgodę. Instrukcje znajdziesz w pomocy przeglądarki, z której korzystasz. Wyłączenie cookies analitycznych nie wpłynie na działanie strony.</p>
+
+    <h2 id="s8">8. Bezpieczeństwo danych</h2>
+    <p>Stosujemy odpowiednie środki techniczne i organizacyjne w celu ochrony Twoich danych przed nieuprawnionym dostępem, utratą lub zniszczeniem:</p>
+    <ul>
+      <li>Szyfrowane połączenie HTTPS (certyfikat SSL) na całej stronie.</li>
+      <li>Dostęp do danych osobowych mają wyłącznie upoważnione osoby, zobowiązane do zachowania poufności.</li>
+      <li>Regularne kopie zapasowe i aktualizacje oprogramowania.</li>
+      <li>Minimalizacja zakresu zbieranych danych — zbieramy tylko to, co niezbędne.</li>
+    </ul>
+
+    <h2 id="s9">9. Przekazywanie danych poza EOG</h2>
+    <p>Co do zasady dane osobowe przetwarzamy na terenie Europejskiego Obszaru Gospodarczego (EOG). W przypadku korzystania z narzędzi analitycznych (np. Google Analytics) dane mogą być przekazywane do Stanów Zjednoczonych — wyłącznie do podmiotów uczestniczących w mechanizmach zapewniających odpowiedni poziom ochrony zgodny z decyzją wykonawczą Komisji Europejskiej (Data Privacy Framework).</p>
+
+    <h2 id="s10">10. Linki do zewnętrznych stron</h2>
+    <p>Nasza strona może zawierać linki do zewnętrznych serwisów (np. portali społecznościowych). Nie jesteśmy odpowiedzialni za polityki prywatności tych serwisów — zachęcamy do zapoznania się z ich dokumentami przed skorzystaniem z usług.</p>
+
+    <h2 id="s11">11. Zmiany polityki prywatności</h2>
+    <p>Zastrzegamy sobie prawo do aktualizacji niniejszej polityki prywatności w związku ze zmianami przepisów prawa lub sposobu działania strony. O istotnych zmianach poinformujemy przez zamieszczenie nowej wersji dokumentu na tej stronie z datą aktualizacji.</p>
+    <p>Zachęcamy do okresowego sprawdzania tej strony. Korzystanie ze strony po wprowadzeniu zmian oznacza akceptację zaktualizowanej polityki.</p>
+
+    <div class="pp-box" style="margin-top:48px">
+      <p>Masz pytania dotyczące ochrony prywatności? Napisz do nas: <strong><a href="mailto:kontakt@ctrlzstudio.pl">kontakt@ctrlzstudio.pl</a></strong> — odpiszemy w ciągu 24 godzin.</p>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="pp-sidebar">
+    <div class="pp-nav-card">
+      <h3>Spis treści</h3>
+      <nav class="pp-nav-list">
+        <a href="#s1">1. Administrator danych</a>
+        <a href="#s2">2. Jakie dane zbieramy</a>
+        <a href="#s3">3. Podstawy prawne</a>
+        <a href="#s4">4. Udostępnianie danych</a>
+        <a href="#s5">5. Okres przechowywania</a>
+        <a href="#s6">6. Twoje prawa</a>
+        <a href="#s7">7. Pliki cookies</a>
+        <a href="#s8">8. Bezpieczeństwo</a>
+        <a href="#s9">9. Przekazywanie poza EOG</a>
+        <a href="#s10">10. Linki zewnętrzne</a>
+        <a href="#s11">11. Zmiany polityki</a>
+      </nav>
+    </div>
+
+    <div class="pp-contact-card">
+      <h3>Pytania o prywatność?</h3>
+      <p>Skontaktuj się bezpośrednio w sprawach dotyczących Twoich danych osobowych.</p>
+      <a href="mailto:kontakt@ctrlzstudio.pl" class="btn-primary" style="font-size:12px;padding:10px 18px;width:100%;justify-content:center;border-radius:10px">
+        <span>Napisz do nas →</span>
+      </a>
+      <div class="pp-update">Aktualizacja: {lastUpdated}</div>
+    </div>
+  </aside>
+</div>
+
+</main>
+
+<SharedFooter />
+
+</Layout>
+
+<script>
+import { initPage } from '../utils/pageInit';
+import gsap from 'gsap';
+initPage();
+
+// Sticky TOC highlight
+const sections = document.querySelectorAll<HTMLElement>('.pp-content h2[id]');
+const navLinks  = document.querySelectorAll<HTMLAnchorElement>('.pp-nav-list a');
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      document.querySelector(`.pp-nav-list a[href="#${e.target.id}"]`)?.classList.add('active');
+    }
+  });
+}, { rootMargin: '-15% 0px -75% 0px' });
+sections.forEach(s => obs.observe(s));
+
+// Reading progress bar
+const bar = document.createElement('div');
+bar.className = 'reading-progress';
+document.body.prepend(bar);
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  bar.style.width = Math.min((window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100, 100) + '%';
+}, { passive: true });
+
+// Entrance
+gsap.fromTo('.pp-hero h1',    {opacity:0,y:24},{opacity:1,y:0,duration:.8,ease:'power3.out',delay:.2});
+gsap.fromTo('.pp-hero p',     {opacity:0,y:16},{opacity:1,y:0,duration:.7,ease:'power3.out',delay:.38});
+gsap.fromTo('.pp-content',    {opacity:0,y:20},{opacity:1,y:0,duration:.8,ease:'power3.out',delay:.3});
+gsap.fromTo('.pp-sidebar',    {opacity:0,x:16},{opacity:1,x:0,duration:.7,ease:'power3.out',delay:.5});
+</script>

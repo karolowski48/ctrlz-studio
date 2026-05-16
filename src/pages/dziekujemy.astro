@@ -1,0 +1,367 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+---
+
+<Layout
+  title="Dziękujemy! — CtrlZ Studio"
+  description="Twoja wiadomość dotarła. Odezwiemy się w ciągu 24 godzin z odpowiedzią na Twoje zapytanie."
+>
+
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+.ty-wrap {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-base);
+  text-align: center;
+}
+.ty-icon {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(34,197,94,.2), rgba(34,197,94,.05));
+  border: 1px solid rgba(34,197,94,.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+  margin: 0 auto 28px;
+  position: relative;
+}
+.ty-icon-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(34,197,94,.15);
+  animation: ringPulse 2.5s ease-in-out infinite;
+}
+@keyframes ringPulse {
+  0%,100% { transform: scale(1); opacity:.6; }
+  50%      { transform: scale(1.08); opacity:.2; }
+}
+.ty-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px,5vw,60px);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1.05;
+  color: #fff;
+  margin-bottom: 16px;
+}
+.ty-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,.45);
+  max-width: 440px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+.ty-estimate {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(34,197,94,.08);
+  border: 1px solid rgba(34,197,94,.2);
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-size: 13px;
+  color: rgba(134,239,172,.9);
+  font-weight: 500;
+  margin-bottom: 48px;
+}
+.ty-dot { width:7px;height:7px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;animation:pulseDot 2s infinite; }
+
+.ty-wycena-box {
+  display: none;
+  background: rgba(124,107,255,.07);
+  border: 1px solid rgba(124,107,255,.2);
+  border-radius: 14px;
+  padding: 20px 28px;
+  margin-bottom: 36px;
+  text-align: center;
+}
+.ty-wycena-label { font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:6px; }
+.ty-wycena-val {
+  font-family: var(--font-display);
+  font-size: 28px; font-weight: 800;
+  letter-spacing: -.04em;
+  background: var(--grad-hero);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ty-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 64px;
+}
+
+.ty-steps {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px;
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.ty-step {
+  background: rgba(255,255,255,.025);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+}
+.ty-step-icon { font-size: 28px; margin-bottom: 10px; }
+.ty-step-title {
+  font-family: var(--font-display);
+  font-size: 14px; font-weight: 600;
+  color: #fff; margin-bottom: 6px;
+}
+.ty-step-desc { font-size: 12px; color: rgba(255,255,255,.35); line-height: 1.5; }
+
+.ty-social {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 40px;
+  position: relative;
+  z-index: 1;
+}
+.ty-social-label { font-size: 12px; color: rgba(255,255,255,.25); margin-bottom: 12px; }
+.ty-soc {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+  cursor: none;
+}
+.ty-soc:hover { background: rgba(124,107,255,.15); border-color: rgba(124,107,255,.3); transform: translateY(-2px); }
+.ty-soc svg { width:16px;height:16px;stroke:rgba(255,255,255,.45);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
+
+/* Blog teasers */
+.ty-blog {
+  max-width: 800px;
+  margin: 64px auto 0;
+  position: relative;
+  z-index: 1;
+}
+.ty-blog-title { font-size:13px;color:rgba(255,255,255,.28);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px; }
+.ty-blog-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:12px; }
+.ty-blog-card {
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+  transition: all var(--transition);
+  cursor: none;
+  text-decoration: none;
+  display: block;
+}
+.ty-blog-card:hover { border-color:rgba(124,107,255,.25);background:rgba(124,107,255,.04);transform:translateY(-2px); }
+.ty-blog-cat { font-size:10px;color:var(--violet-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px; }
+.ty-blog-name { font-family:var(--font-display);font-size:13px;font-weight:600;color:#fff;line-height:1.4; }
+
+@media(max-width:768px){
+  .ty-steps { grid-template-columns:1fr; }
+  .ty-blog-grid { grid-template-columns:1fr; }
+  .ty-btns { flex-direction:column; align-items:center; }
+}
+</style>
+
+<div class="ty-wrap">
+  <div class="orb orb-1" style="opacity:.4"></div>
+  <div class="orb orb-3" style="opacity:.35"></div>
+  <div class="grid-bg"></div>
+
+  <!-- Checkmark -->
+  <div class="ty-icon" id="ty-icon" style="opacity:0">
+    <div class="ty-icon-ring"></div>
+    ✓
+  </div>
+
+  <h1 class="ty-title" id="ty-title" style="opacity:0">
+    Gotowe!<br><span class="grad">Dziękujemy za zapytanie.</span>
+  </h1>
+
+  <p class="ty-sub" id="ty-sub" style="opacity:0">
+    Twoja wiadomość dotarła do nas bezpiecznie.<br>
+    Odezwiemy się <strong style="color:rgba(255,255,255,.7)">w ciągu 24 godzin</strong> z odpowiedzią.
+  </p>
+
+  <!-- Wycena z kalkulatora (jeśli dotyczy) -->
+  <div class="ty-wycena-box" id="ty-wycena-box">
+    <div class="ty-wycena-label">Twoja orientacyjna wycena</div>
+    <div class="ty-wycena-val" id="ty-wycena-val">—</div>
+  </div>
+
+  <div class="ty-estimate" id="ty-est" style="opacity:0">
+    <div class="ty-dot"></div>
+    Odpiszemy do: <strong style="color:#fff;margin-left:4px" id="ty-deadline">jutro do 18:00</strong>
+  </div>
+
+  <div class="ty-btns" id="ty-btns" style="opacity:0">
+    <a href="/" class="btn-primary"><span>← Wróć na stronę główną</span></a>
+    <a href="/realizacje" class="btn-ghost">Zobacz nasze realizacje</a>
+  </div>
+
+  <!-- Co dalej -->
+  <div class="ty-steps" id="ty-steps" style="opacity:0">
+    <div class="ty-step">
+      <div class="ty-step-icon">📬</div>
+      <div class="ty-step-title">Potwierdzenie emailem</div>
+      <div class="ty-step-desc">Sprawdź skrzynkę — wysłaliśmy potwierdzenie na podany adres.</div>
+    </div>
+    <div class="ty-step">
+      <div class="ty-step-icon">💬</div>
+      <div class="ty-step-title">Kontakt w 24h</div>
+      <div class="ty-step-desc">Odezwiemy się z pytaniami lub wstępną wyceną w ciągu doby.</div>
+    </div>
+    <div class="ty-step">
+      <div class="ty-step-icon">🚀</div>
+      <div class="ty-step-title">Bezpłatna konsultacja</div>
+      <div class="ty-step-desc">Umówimy 30-minutową rozmowę żeby poznać Twój projekt.</div>
+    </div>
+  </div>
+
+  <!-- Social proof -->
+  <div style="position:relative;z-index:1;margin-top:40px" id="ty-social" style="opacity:0">
+    <div class="ty-social-label">Obserwuj nas</div>
+    <div class="ty-social">
+      <a href="#" class="ty-soc" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="#" class="ty-soc" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="#" class="ty-soc" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog teasers while you wait -->
+  <div class="ty-blog" id="ty-blog" style="opacity:0">
+    <div class="ty-blog-title">Poczytaj coś na dobry start</div>
+    <div class="ty-blog-grid">
+      <a href="/blog/dlaczego-szybka-strona-sprzedaje" class="ty-blog-card">
+        <div class="ty-blog-cat">Performance</div>
+        <div class="ty-blog-name">Dlaczego szybka strona to więcej sprzedaży</div>
+      </a>
+      <a href="/blog/ux-ktory-konwertuje" class="ty-blog-card">
+        <div class="ty-blog-cat">Design</div>
+        <div class="ty-blog-name">12 błędów UX, które kosztują Cię sprzedaż</div>
+      </a>
+      <a href="/blog/seo-2025" class="ty-blog-card">
+        <div class="ty-blog-cat">SEO</div>
+        <div class="ty-blog-name">SEO w 2025 — co naprawdę działa</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<SharedFooter />
+
+</Layout>
+
+<script>
+import { initPage } from '../utils/pageInit';
+import gsap from 'gsap';
+initPage();
+
+// ── Read URL params ─────────────────────────────────────
+const params = new URLSearchParams(window.location.search);
+const fromCalc = params.get('from') === 'kalkulator';
+const wycena   = params.get('wycena');
+
+// ── Show wycena box if from calculator ─────────────────
+if (fromCalc && wycena) {
+  const box = document.getElementById('ty-wycena-box')!;
+  const val = document.getElementById('ty-wycena-val')!;
+  box.style.display = 'block';
+  val.textContent = decodeURIComponent(wycena);
+}
+
+// ── Calculate deadline (next business day before 18:00) ─
+function getDeadline() {
+  const now = new Date();
+  const h = now.getHours();
+  const d = now.getDay(); // 0=Sun, 6=Sat
+
+  // If after 16:00 or weekend → next business day
+  if (h >= 16 || d === 6 || d === 0) {
+    let next = new Date(now);
+    next.setDate(next.getDate() + 1);
+    while (next.getDay() === 0 || next.getDay() === 6) {
+      next.setDate(next.getDate() + 1);
+    }
+    const days = ['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
+    return `${days[next.getDay()]} do 18:00`;
+  }
+  return 'dziś do 18:00';
+}
+(document.getElementById('ty-deadline') as HTMLElement).textContent = getDeadline();
+
+// ── Entrance animation sequence ─────────────────────────
+const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+tl
+  .fromTo('#ty-icon',   { opacity:0, scale:.5, rotate:-10 }, { opacity:1, scale:1, rotate:0, duration:.7, ease:'back.out(2)' }, .3)
+  .fromTo('#ty-title',  { opacity:0, y:28 }, { opacity:1, y:0, duration:.8 }, '-=.3')
+  .fromTo('#ty-sub',    { opacity:0, y:18 }, { opacity:1, y:0, duration:.6 }, '-=.5')
+  .fromTo('#ty-est',    { opacity:0, y:12 }, { opacity:1, y:0, duration:.5 }, '-=.4')
+  .fromTo('#ty-btns',   { opacity:0, y:12 }, { opacity:1, y:0, duration:.5 }, '-=.3')
+  .fromTo('#ty-steps .ty-step', { opacity:0, y:16 }, { opacity:1, y:0, duration:.5, stagger:.08 }, '-=.2')
+  .fromTo('#ty-social', { opacity:0 }, { opacity:1, duration:.4 }, '-=.1')
+  .fromTo('#ty-blog',   { opacity:0, y:16 }, { opacity:1, y:0, duration:.5 }, '-=.1');
+
+// ── Confetti burst (subtle) ─────────────────────────────
+function spawnParticle() {
+  const el = document.createElement('div');
+  const colors = ['#7c6bff','#a78bfa','#ec4899','#22c55e','#f59e0b'];
+  const size = Math.random() * 8 + 4;
+  Object.assign(el.style, {
+    position: 'fixed',
+    width: size + 'px',
+    height: size + 'px',
+    borderRadius: Math.random() > .5 ? '50%' : '2px',
+    background: colors[Math.floor(Math.random() * colors.length)],
+    left: (20 + Math.random() * 60) + 'vw',
+    top: '-10px',
+    pointerEvents: 'none',
+    zIndex: '9999',
+    opacity: '0.8',
+  });
+  document.body.appendChild(el);
+  gsap.to(el, {
+    y: window.innerHeight + 20,
+    x: (Math.random() - .5) * 200,
+    rotation: Math.random() * 720,
+    opacity: 0,
+    duration: 2 + Math.random() * 2,
+    ease: 'power1.in',
+    onComplete: () => el.remove(),
+  });
+}
+setTimeout(() => {
+  for (let i = 0; i < 30; i++) {
+    setTimeout(spawnParticle, i * 40);
+  }
+}, 500);
+</script>

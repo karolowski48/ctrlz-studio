@@ -1,0 +1,251 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+---
+
+<ArticleLayout
+  title="UX, który konwertuje — 12 błędów, które kosztują Cię sprzedaż każdego dnia"
+  description="Większość stron traci klientów nie dlatego że są brzydkie, ale dlatego że są mylące. Oto 12 najczęstszych błędów UX z audytów, które przeprowadziliśmy — i jak je naprawić."
+  cat="Design"
+  readTime="9 min"
+  date="22 lutego 2025"
+  glowColor="rgba(245,158,11,.18)"
+>
+
+<style>
+.ux-error {
+  background: rgba(255,255,255,.022);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 14px;
+  transition: border-color .25s, background .25s;
+}
+.ux-error:hover { border-color: rgba(124,107,255,.25); background: rgba(124,107,255,.03); }
+.ux-error-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.ux-num {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--violet-light);
+  background: rgba(124,107,255,.12);
+  border: 1px solid rgba(124,107,255,.2);
+  border-radius: 100px;
+  padding: 3px 10px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ux-error h3 {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -.02em;
+  margin: 0;
+  line-height: 1.3;
+}
+.ux-desc {
+  font-size: 14.5px;
+  color: rgba(255,255,255,.52);
+  line-height: 1.75;
+  margin-bottom: 12px;
+  padding-left: 0;
+}
+.ux-fix {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(34,197,94,.06);
+  border: 1px solid rgba(34,197,94,.18);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: rgba(134,239,172,.8);
+  line-height: 1.6;
+}
+.ux-fix-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.ux-impact {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 12px;
+}
+.impact-high { background: rgba(239,68,68,.1); color: rgba(252,165,165,.85); border: 1px solid rgba(239,68,68,.2); }
+.impact-med  { background: rgba(245,158,11,.1); color: rgba(253,230,138,.8); border: 1px solid rgba(245,158,11,.2); }
+</style>
+
+<p>Kiedy robimy audyt UX strony, zawsze pojawia się ten sam moment: właściciel firmy widzi nagranie z sesji użytkownika na swojej stronie i mówi "nie wierzę, że oni tego nie rozumieją".</p>
+
+<p>Problem w tym, że to nie użytkownicy są winni. <strong>Dobry UX to nie sztuka tworzenia pięknych interfejsów. To sztuka tworzenia oczywistych interfejsów.</strong> Użytkownik nie powinien myśleć. Powinien działać.</p>
+
+<p>Poniżej zebrałem 12 najczęstszych błędów z audytów UX, które przeprowadziliśmy w ostatnim roku — każdy z realnym wpływem na konwersję.</p>
+
+<div class="art-tip">
+  <p><strong>Zanim zaczniesz czytać:</strong> Otwórz swoją stronę na telefonie i oceń każdy punkt. Ile z tych błędów rozpoznajesz u siebie?</p>
+</div>
+
+<h2>Błędy wpływające na pierwszą decyzję (0–5 sekund)</h2>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">01</span>
+    <h3>CTA w złym miejscu lub o złym kolorze</h3>
+  </div>
+  <span class="ux-impact impact-high">⚡ Wysoki wpływ na konwersję</span>
+  <p class="ux-desc">Przycisk "Kup teraz" ukryty na dole strony, tym samym kolorem co tło, bez kontrastu. Użytkownik go dosłownie nie widzi. Eye-tracking studies pokazują, że CTA musi być widoczne bez scrollowania — inaczej większość użytkowników po prostu go nie zobaczy.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Jaskrawy przycisk widoczny bez scrollowania, kontrast minimum 4.5:1, wyróżniający się od tła kolorem i kształtem.</div>
+</div>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">02</span>
+    <h3>Strona, która nie mówi CO oferujesz w 5 sekund</h3>
+  </div>
+  <span class="ux-impact impact-high">⚡ Wysoki wpływ na konwersję</span>
+  <p class="ux-desc">Hero z hasłem "Razem osiągniemy więcej" i stockowym zdjęciem uśmiechniętych ludzi przy laptopie. Użytkownik nie wie co sprzedajesz, komu i po ile. Odchodzi. To jeden z najczęstszych i najkosztowniejszych błędów na stronach firmowych.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Hero = co robisz + dla kogo + co zyska klient. Konkretnie, bez metafor. "Strony WordPress dla firm usługowych — gotowe w 4 tygodnie" bije "Razem osiągniemy więcej" o kilkaset procent konwersji.</div>
+</div>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">03</span>
+    <h3>Za dużo opcji naraz — paradoks wyboru</h3>
+  </div>
+  <span class="ux-impact impact-high">⚡ Wysoki wpływ na konwersję</span>
+  <p class="ux-desc">Strona z 8 różnymi produktami na pierwszym ekranie, 5 różnymi CTA i 3 pop-upami. Mózg ludzki w obliczu nadmiaru opcji wybiera opcję czwartą: "wychodzę stąd". To znane zjawisko zwane paradoksem wyboru — im więcej opcji, tym mniejsza szansa na decyzję.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Jedno główne CTA na hero. Reszta dopiero po scrollu, gdy użytkownik już zdecydował że chce wiedzieć więcej.</div>
+</div>
+
+<h2>Błędy w nawigacji i strukturze</h2>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">04</span>
+    <h3>Nawigacja, która nie mówi gdzie jesteś</h3>
+  </div>
+  <span class="ux-impact impact-med">● Średni wpływ</span>
+  <p class="ux-desc">Większość użytkowników nie trafia na Twoją stronę ze strony głównej. Wchodzą z Google prosto na podstronę produktu lub artykuł. Jeśli nie wiedzą gdzie są i jak dotrzeć do innych sekcji — wychodzą.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Breadcrumbs, aktywny (podświetlony) element w nawigacji, sticky menu widoczne przez cały czas scrollowania.</div>
+</div>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">05</span>
+    <h3>Brak widocznego numeru telefonu lub emaila</h3>
+  </div>
+  <span class="ux-impact impact-high">⚡ Wysoki wpływ na konwersję</span>
+  <p class="ux-desc">Użytkownik chce zadzwonić. Nie chce szukać. Jeśli kontakt jest ukryty za trzema kliknięciami, zadzwoni do konkurencji, której numer widać od razu. To szczególnie ważne dla firm lokalnych i usługowych.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Numer telefonu widoczny w headerze, klikalny na mobile (tel:). Email w stopce i na stronie kontaktowej — zawsze jeden klik od użytkownika.</div>
+</div>
+
+<h2>Błędy w treści i komunikacji</h2>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">06</span>
+    <h3>Tekst, którego nikt nie czyta</h3>
+  </div>
+  <span class="ux-impact impact-med">● Średni wpływ</span>
+  <p class="ux-desc">Bloki tekstu bez nagłówków, bez list, bez wyróżnień. Badania Nielsen Norman Group pokazują, że użytkownicy skanują strony — nie czytają od słowa do słowa. Jeśli nie wyłapią sensu w 3 sekundy, scrollują dalej lub wychodzą.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Krótkie akapity (max 3-4 zdania), nagłówki co 150-200 słów, bold na kluczowych frazach, listy zamiast bloku tekstu.</div>
+</div>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">07</span>
+    <h3>Brak informacji o cenie lub jej przybliżeniu</h3>
+  </div>
+  <span class="ux-impact impact-high">⚡ Wysoki wpływ na konwersję</span>
+  <p class="ux-desc">"Wyceń indywidualnie" przy każdej usłudze. Użytkownik nie wie czy mówisz o 500 zł czy 50 000 zł. Niepewność = brak konwersji. Widełki cenowe mogą dramatycznie zwiększyć jakość leadów i zmniejszyć czas marnowany na niekwalifikowane zapytania.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Podaj chociaż "od X zł" lub "w zależności od zakresu: 2 000–15 000 zł". Filtruje złe leady i buduje zaufanie przez transparentność.</div>
+</div>
+
+<h2>Błędy w budowaniu zaufania</h2>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">08</span>
+    <h3>Brak social proof w kluczowych momentach</h3>
+  </div>
+  <span class="ux-impact impact-high">⚡ Wysoki wpływ na konwersję</span>
+  <p class="ux-desc">Opinie klientów schowane na samym dole strony, daleko od miejsca decyzji zakupowej. Tymczasem recenzja widoczna obok przycisku "Kup" może zwiększyć konwersję o 30-40%. Użytkownik szuka potwierdzenia swojej decyzji dokładnie w momencie gdy ją podejmuje.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Krótka opinia + gwiazdki bezpośrednio obok głównego CTA. Liczba klientów lub zrealizowanych projektów w sekcji hero.</div>
+</div>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">09</span>
+    <h3>Zdjęcia stockowe zamiast prawdziwych</h3>
+  </div>
+  <span class="ux-impact impact-med">● Średni wpływ</span>
+  <p class="ux-desc">Eye-tracking studies pokazują, że ludzie patrzą na twarze — szczególnie gdy patrzą w kierunku treści lub CTA. Zdjęcie stockowe uśmiechniętego biznesmena przy laptopie nie buduje zaufania. Wręcz przeciwnie — sygnalizuje "tu nie ma prawdziwych ludzi".</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Prawdziwe zdjęcia Ciebie, zespołu, realizacji, miejsca pracy. Sesja zdjęciowa za 500-1000 zł zwróci się w zwiększonych konwersjach.</div>
+</div>
+
+<h2>Błędy techniczne wpływające na UX</h2>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">10</span>
+    <h3>Formularz kontaktowy z 12 polami</h3>
+  </div>
+  <span class="ux-impact impact-high">⚡ Wysoki wpływ na konwersję</span>
+  <p class="ux-desc">Każde dodatkowe pole w formularzu zmniejsza konwersję o 5-10%. Imię, email, telefon, firma, stanowisko, budżet, termin, skąd nas znasz... Serio? Po co to wszystko przed pierwszym kontaktem? Resztę możesz dowiedzieć się w rozmowie.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Maksymalnie 3 pola: imię, email, wiadomość. Telefon dopiero jeśli naprawdę niezbędny. Każde usunięte pole to więcej konwersji.</div>
+</div>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">11</span>
+    <h3>Pop-upy blokujące treść przy wejściu</h3>
+  </div>
+  <span class="ux-impact impact-med">● Średni wpływ</span>
+  <p class="ux-desc">Pop-up z newsletterem pojawiający się 2 sekundy po wejściu na stronę. Użytkownik jeszcze nie wie czy Twoja strona jest dla niego wartościowa — a już go atakujesz prośbą o email. To jak proszenie kogoś o numer telefonu zanim się przywitasz.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Pop-up po minimum 45-60 sekundach lub przy zamiarze wyjścia (exit intent). Użytkownik musi najpierw zobaczyć wartość.</div>
+</div>
+
+<div class="ux-error">
+  <div class="ux-error-header">
+    <span class="ux-num">12</span>
+    <h3>Brak funkcjonalnej wersji mobilnej</h3>
+  </div>
+  <span class="ux-impact impact-high">⚡ Wysoki wpływ na konwersję</span>
+  <p class="ux-desc">Ponad 60% ruchu w Polsce pochodzi z urządzeń mobilnych. Strona z tekstem 10px, przyciskami do których nie da się trafić palcem i formularzem wyskakującym poza ekran — traci ponad połowę potencjalnych klientów. A Google to widzi i każe niższymi pozycjami.</p>
+  <div class="ux-fix"><span class="ux-fix-icon">→</span> Projektuj mobile-first. Testuj na prawdziwym telefonie, nie tylko w trybie responsive w Chrome. Minimalna wielkość przycisku: 44×44px.</div>
+</div>
+
+<div class="art-tip">
+  <p><strong>Szybki test UX bez narzędzi:</strong> Poproś kogoś niezwiązanego z Twoją branżą — sąsiada, rodzica — żeby odwiedził Twoją stronę i na głos mówił co widzi i co robi. Obserwuj. Nie pomagaj, nie tłumacz. Te 20 minut nauczy Cię więcej niż godziny w Google Analytics.</p>
+</div>
+
+<h2>Jak zacząć naprawiać?</h2>
+
+<p>Nie musisz naprawiać wszystkiego naraz. Zacznij od błędów z oznaczeniem "Wysoki wpływ" — one dają najszybszy zwrot. Typowa kolejność:</p>
+
+<ol>
+  <li>Popraw CTA i komunikat hero (1 dzień, zerowy koszt jeśli masz dostęp do CMS)</li>
+  <li>Uprość formularz kontaktowy (1 godzina)</li>
+  <li>Dodaj social proof obok CTA (1-2 dni)</li>
+  <li>Sprawdź i popraw wersję mobilną (1 tydzień)</li>
+  <li>Zainstaluj Hotjar lub Microsoft Clarity i obejrzyj nagrania sesji</li>
+</ol>
+
+<fragment slot="cta">
+  <h3>Ile błędów jest na Twojej stronie?</h3>
+  <p>Robimy profesjonalne audyty UX — nagrania sesji, mapy cieplne, konkretne rekomendacje z priorytetami. Dowiedz się gdzie tracisz klientów.</p>
+  <a href="/#kontakt" class="btn-primary"><span>Zamów audyt UX →</span></a>
+</fragment>
+
+</ArticleLayout>

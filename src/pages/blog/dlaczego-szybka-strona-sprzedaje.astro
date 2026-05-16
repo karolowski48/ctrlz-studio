@@ -1,0 +1,97 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+---
+
+<ArticleLayout
+  title="Dlaczego szybka strona to więcej sprzedaży — i jak to naprawić w 7 krokach"
+  description="Każda sekunda opóźnienia ładowania strony kosztuje Cię realnych klientów i pieniędzy. Sprawdź jak Core Web Vitals przekładają się na konwersje i co możesz poprawić już dziś."
+  cat="Performance"
+  readTime="12 min"
+  date="12 maja 2025"
+  glowColor="rgba(124,107,255,.28)"
+>
+
+<p>Masz stronę internetową. Wydałeś na nią pieniądze, może nawet sporo. Wygląda przyzwoicie. Ale sprzedaż nie rośnie tak, jak powinna. <strong>Jednym z najczęstszych, a najrzadziej diagnozowanych powodów jest prędkość ładowania.</strong></p>
+
+<p>Nie chodzi o odczucie. Chodzi o twarde dane, które Google publikuje od lat — a które większość właścicieli firm po prostu ignoruje.</p>
+
+<div class="art-stat-box">
+  <div><div class="s-num">53%</div><div class="s-label">użytkowników opuszcza stronę, jeśli ładuje się dłużej niż 3 sekundy</div></div>
+  <div><div class="s-num">7%</div><div class="s-label">spadek konwersji za każdą dodatkową sekundę ładowania</div></div>
+  <div><div class="s-num">+28%</div><div class="s-label">wyższy współczynnik konwersji przy poprawie LCP o 0.1s</div></div>
+</div>
+
+<h2>Co to są Core Web Vitals i dlaczego mają znaczenie?</h2>
+
+<p>Google od 2021 roku oficjalnie uwzględnia tzw. <strong>Core Web Vitals</strong> w algorytmie rankingowym. To trzy metryki, które mierzą rzeczywiste doświadczenie użytkownika — nie to, co widzi robot Google, ale to, co odczuwa człowiek.</p>
+
+<ul>
+  <li><strong>LCP (Largest Contentful Paint)</strong> — jak szybko pojawia się główna treść. Cel: poniżej 2.5 sekundy.</li>
+  <li><strong>INP (Interaction to Next Paint)</strong> — jak szybko strona reaguje na kliknięcie. Cel: poniżej 200ms.</li>
+  <li><strong>CLS (Cumulative Layout Shift)</strong> — czy elementy "skaczą" podczas ładowania. Cel: poniżej 0.1.</li>
+</ul>
+
+<div class="art-tip">
+  <p><strong>Praktyczna wskazówka:</strong> Sprawdź swoje wyniki za darmo na <em>pagespeed.web.dev</em>. Wpisz adres swojej strony i kliknij "Analizuj". Wynik poniżej 50 na mobile to sygnał alarmowy.</p>
+</div>
+
+<h2>Dlaczego wolna strona traci klientów nie tylko w Google</h2>
+
+<p>Pozycja w Google to jedno. Ale nawet jeśli ktoś trafi na Twoją stronę z reklamy lub polecenia — wolne ładowanie go odstraszy. <strong>Jesteśmy ukształtowani przez Google, Allegro i Zalando.</strong> Strony ładujące się błyskawicznie to nasz punkt odniesienia. Wolniejsza witryna jest automatycznie oceniana jako mniej profesjonalna.</p>
+
+<p>W badaniu Deloitte dla retailerów e-commerce: <strong>przyspieszenie strony mobilnej o 0.1 sekundy zwiększyło przychody o 8.4%</strong>. To nie marginalny efekt — to różnica między zyskownym a tracącym biznesem.</p>
+
+<h2>7 kroków do szybszej strony — zacznij od razu</h2>
+
+<div class="art-step-card">
+  <div class="sn">01</div>
+  <div><h3>Skompresuj i zamień obrazy na WebP</h3><p>Obrazy odpowiadają za 60-80% wagi przeciętnej strony. Format WebP waży o 25-35% mniej niż JPG przy tej samej jakości. Użyj Squoosh.app lub wtyczki Smush w WordPress — to bezpłatne i zajmuje 20 minut.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">02</div>
+  <div><h3>Włącz lazy loading dla obrazów</h3><p>Obrazy, których użytkownik jeszcze nie widzi, nie muszą ładować się od razu. Dodaj <code style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;font-size:13px">loading="lazy"</code> do elementów img. WordPress robi to automatycznie od wersji 5.5.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">03</div>
+  <div><h3>Usuń nieużywane wtyczki i skrypty JS</h3><p>Każda wtyczka WordPress ładuje pliki CSS i JavaScript — nawet jeśli używasz jej na jednej podstronie. Sprawdź listę wtyczek i bezlitośnie usuń zbędne. Użyj Query Monitor, by zobaczyć co spowalnia backend.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">04</div>
+  <div><h3>Wdróż cache strony</h3><p>Bez cache WordPress generuje stronę dynamicznie przy każdym wejściu — odpytuje bazę danych, przetwarza PHP, renderuje HTML. Z cache serwuje gotowy plik. WP Rocket lub W3 Total Cache mogą skrócić czas ładowania o 70%.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">05</div>
+  <div><h3>Użyj CDN do serwowania zasobów</h3><p>CDN serwuje Twoje pliki z serwera geograficznie bliższego użytkownikowi. Cloudflare (plan darmowy) może skrócić czas odpowiedzi o 30-50% dla użytkowników spoza Twojego regionu.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">06</div>
+  <div><h3>Zoptymalizuj hosting i PHP</h3><p>Tani shared hosting oznacza rywalizację o zasoby serwera z setkami innych stron. Upewnij się, że używasz PHP 8.2+, masz włączone OPcache i Redis. Jeśli Twój hosting tego nie oferuje — czas na zmianę.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">07</div>
+  <div><h3>Zoptymalizuj Critical Rendering Path</h3><p>Dodaj <code style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;font-size:13px">rel="preload"</code> dla krytycznych fontów, odsuń ładowanie JS przez <code style="background:rgba(255,255,255,.08);padding:2px 6px;border-radius:4px;font-size:13px">defer</code> i usuń render-blocking resources wskazane przez PageSpeed Insights.</p></div>
+</div>
+
+<h2>Co zrobić jeśli wynik jest poniżej 50?</h2>
+
+<p>Jeśli PageSpeed Insights pokazuje wynik poniżej 50 na mobile — nie wystarczy kilka poprawek. Problem leży głębiej: zbyt ciężki motyw WordPress, zły hosting, lub strona zbudowana na page builderze generującym setki kilobajtów nieużywanego CSS.</p>
+
+<p>W takich przypadkach jedynym skutecznym rozwiązaniem jest <strong>przeprojektowanie strony z myślą o wydajności od początku</strong>. Dedykowany motyw, zoptymalizowany kod, właściwy hosting — to fundament dający wyniki 90+ w Lighthouse.</p>
+
+<div class="art-tip">
+  <p><strong>Wynik 90+ w Lighthouse</strong> to nasz standard dla każdego projektu w CtrlZ Studio. Nie oddajemy strony, która tego nie spełnia — bo wiemy, że poniżej tego progu tracisz pieniądze każdego dnia.</p>
+</div>
+
+<h2>Podsumowanie</h2>
+
+<p>Prędkość strony to nie "technikalia dla nerdów". To bezpośrednia linia do przychodów Twojego biznesu. Google premiuje szybkie strony wyższymi pozycjami, użytkownicy nagradzają je zaufaniem i zakupami, a Ty zyskujesz przewagę nad konkurencją, która tego jeszcze nie rozumie.</p>
+
+<p>Zacznij od audytu PageSpeed. Jeśli wynik jest poniżej 70 — działaj natychmiast. Jeśli poniżej 50 — porozmawiaj z nami o przeprojektowaniu. <strong>Każdy dzień z wolną stroną to konkretna kwota, którą tracisz.</strong></p>
+
+<fragment slot="cta">
+  <h3>Chcesz wiedzieć ile tracisz przez wolną stronę?</h3>
+  <p>Robimy bezpłatny audyt PageSpeed i Core Web Vitals. Dostaniesz konkretną listę problemów i plan działania.</p>
+  <a href="/#kontakt" class="btn-primary"><span>Zamów bezpłatny audyt →</span></a>
+</fragment>
+
+</ArticleLayout>
