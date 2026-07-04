@@ -43,6 +43,7 @@ const {
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content="https://ctrlzstudio.pl/og-ctrlzstudio.jpg" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href={`https://ctrlzstudio.pl${Astro.url.pathname}`} />
 
   <!-- Preconnect do Google Fonts (eliminuje DNS lookup z critical path) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -86,6 +87,27 @@ const {
     }
     .skip-link:focus { top: 0; }
   </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "CtrlZ Studio",
+  "url": "https://ctrlzstudio.pl",
+  "logo": "https://ctrlzstudio.pl/favicon.svg",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+48575043985",
+    "email": "kontakt@ctrlzstudio.pl",
+    "contactType": "customer service",
+    "availableLanguage": "Polish"
+  },
+  "sameAs": [
+    "https://www.instagram.com/ctrlz_studio_agency/",
+    "https://www.linkedin.com/in/karol-jasiowka"
+  ]
+}
+</script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Przejdź do treści</a>
