@@ -1,0 +1,154 @@
+/**
+ * JEDNO ŹRÓDŁO PRAWDY DLA WPISÓW BLOGOWYCH
+ * ════════════════════════════════════════
+ * Używane przez `/blog` (pełna lista) i przez sekcję na stronie głównej
+ * (trzy najnowsze wpisy). Dodajesz nowy artykuł? Dopisz go NA POCZĄTKU tej tablicy
+ * i stwórz plik w `src/pages/blog/<slug>.astro`. Strona główna zaktualizuje się sama.
+ */
+
+export interface Post {
+  slug: string;
+  title: string;
+  excerpt: string;
+  cat: string;
+  time: string;
+  date: string;
+  featured: boolean;
+  bg: string;
+  glowColor: string;
+}
+
+export const posts: Post[] = [
+  {
+    slug: 'strona-nie-przynosi-klientow-7-powodow',
+    title: 'Masz stronę, ale nie przynosi klientów? 7 powodów, które widzimy w co drugim audycie',
+    excerpt: 'Strona stoi, wygląda nieźle, a telefon milczy. W większości przypadków przyczyna jest jedna z siedmiu — i sześć z nich naprawisz sam, bez wydawania złotówki na nową stronę.',
+    cat: 'SEO',
+    time: '11 min',
+    date: 'Sierpień 2026',
+    featured: false,
+    bg: 'linear-gradient(135deg,#04141f 0%,#0e3550 50%,#04101a 100%)',
+    glowColor: 'rgba(14,165,233,.45)',
+  },
+  {
+    slug: 'wizytowka-google-dla-firmy-z-malopolski',
+    title: 'Wizytówka Google krok po kroku — najtańszy sposób na klientów z okolicy',
+    excerpt: 'Kosztuje zero złotych, zajmuje godzinę i dla lokalnej firmy robi zwykle więcej niż strona internetowa. Kompletna instrukcja z błędami, które kosztują pozycje.',
+    cat: 'SEO',
+    time: '10 min',
+    date: 'Sierpień 2026',
+    featured: false,
+    bg: 'linear-gradient(135deg,#04140c 0%,#0d3a1c 50%,#061a0f 100%)',
+    glowColor: 'rgba(34,197,94,.45)',
+  },
+  {
+    slug: 'ile-kosztuje-strona-internetowa-malopolska',
+    title: 'Ile kosztuje strona internetowa w Małopolsce? Realny cennik 2026',
+    excerpt: 'Od 800 zł do 40 000 zł — dlaczego widełki są tak szerokie i za co naprawdę płacisz? Konkretne przedziały cenowe, ukryte koszty i sposób na rozpoznanie oferty, która skończy się stratą pieniędzy.',
+    cat: 'Biznes',
+    time: '11 min',
+    date: 'Sierpień 2026',
+    featured: true,
+    bg: 'linear-gradient(135deg,#04140c 0%,#0d3a1c 45%,#071f12 100%)',
+    glowColor: 'rgba(34,197,94,.45)',
+  },
+  {
+    slug: 'tworzenie-stron-sulkowice-jak-wybrac-wykonawce',
+    title: 'Tworzenie stron internetowych w Sułkowicach i okolicy — jak wybrać wykonawcę i nie przepłacić',
+    excerpt: 'Freelancer z ogłoszenia, lokalne studio czy agencja z Krakowa? 11 pytań, które musisz zadać przed podpisaniem umowy, i czerwone flagi, po których poznasz, że lepiej uciekać.',
+    cat: 'Biznes',
+    time: '12 min',
+    date: 'Sierpień 2026',
+    featured: false,
+    bg: 'linear-gradient(135deg,#0e0b3a 0%,#241a7a 50%,#12082e 100%)',
+    glowColor: 'rgba(124,107,255,.45)',
+  },
+  {
+    slug: 'strona-internetowa-dla-firmy-z-malej-miejscowosci',
+    title: 'Firma z małej miejscowości a strona internetowa — czy to się w ogóle opłaca?',
+    excerpt: '„U nas wszyscy się znają, strona mi niepotrzebna” — to zdanie słyszę co tydzień. Sprawdźmy, ile realnie kosztuje jego wyznawanie i kiedy strona faktycznie nie ma sensu.',
+    cat: 'Biznes',
+    time: '9 min',
+    date: 'Lipiec 2026',
+    featured: false,
+    bg: 'linear-gradient(135deg,#1a0e06 0%,#3a2210 50%,#0c0804 100%)',
+    glowColor: 'rgba(245,158,11,.45)',
+  },
+  {
+    slug: 'lokalne-seo-dla-firm-z-malopolski',
+    title: 'Lokalne SEO dla firm z Myślenic, Kalwarii i okolic — jak trafiać do klientów z Twojego terenu',
+    excerpt: 'Jak wyjść na pierwsze miejsce w Google na frazy z nazwą swojej miejscowości. Wizytówka Google, opinie, strony lokalne i dane strukturalne — kompletny plan działania krok po kroku.',
+    cat: 'SEO',
+    time: '12 min',
+    date: 'Lipiec 2026',
+    featured: false,
+    bg: 'linear-gradient(135deg,#1a0830 0%,#2d0f5c 50%,#160520 100%)',
+    glowColor: 'rgba(167,139,250,.45)',
+  },
+  {
+    slug: 'dlaczego-szybka-strona-sprzedaje',
+    title: 'Dlaczego szybka strona to więcej sprzedaży — i jak to naprawić w 7 krokach',
+    excerpt: 'Każda sekunda opóźnienia ładowania kosztuje Cię realnych klientów. Google to wie, użytkownicy to czują, a Twoja konkurencja już to poprawia. Sprawdź jak Core Web Vitals przekładają się na konwersje.',
+    cat: 'Performance',
+    time: '12 min',
+    date: 'Maj 2025',
+    featured: false,
+    bg: 'linear-gradient(135deg,#0e0b3a 0%,#1c1680 40%,#2d0f5c 100%)',
+    glowColor: 'rgba(124,107,255,.5)',
+  },
+  {
+    slug: 'wordpress-vs-custom',
+    title: 'WordPress vs strona na zamówienie — co wybrać dla swojego biznesu?',
+    excerpt: 'WordPress to potężne narzędzie — ale nie dla każdego. Kiedy warto postawić na gotowy CMS, a kiedy custom dev zwróci się wielokrotnie? Odpowiedź zależy od jednej rzeczy.',
+    cat: 'Technologie',
+    time: '8 min',
+    date: 'Kwiecień 2025',
+    featured: false,
+    bg: 'linear-gradient(135deg,#071a10 0%,#0d3a1c 50%,#0a2810 100%)',
+    glowColor: 'rgba(34,197,94,.4)',
+  },
+  {
+    slug: 'seo-2025',
+    title: 'SEO w 2025 — co naprawdę działa, a co to strata czasu i pieniędzy?',
+    excerpt: 'Algorytmy Google zmieniły się drastycznie. Stare techniki nie tylko nie działają — aktywnie szkodzą. Oto co wdrażamy u naszych klientów i jakie wyniki to przynosi.',
+    cat: 'SEO',
+    time: '10 min',
+    date: 'Marzec 2025',
+    featured: false,
+    bg: 'linear-gradient(135deg,#1a0830 0%,#2d0f5c 50%,#160520 100%)',
+    glowColor: 'rgba(167,139,250,.5)',
+  },
+  {
+    slug: 'ux-ktory-konwertuje',
+    title: 'UX, który konwertuje — 12 błędów, które kosztują Cię sprzedaż każdego dnia',
+    excerpt: 'Większość stron traci klientów nie dlatego, że są brzydkie — ale dlatego, że są mylące. Zebrałem 12 najczęstszych błędów UX z audytów, które przeprowadziliśmy w ostatnim roku.',
+    cat: 'Design',
+    time: '9 min',
+    date: 'Luty 2025',
+    featured: false,
+    bg: 'linear-gradient(135deg,#1a0e06 0%,#3a2210 50%,#0c0804 100%)',
+    glowColor: 'rgba(245,158,11,.45)',
+  },
+  {
+    slug: 'woocommerce-optymalizacja',
+    title: 'WooCommerce — 8 ustawień, które natychmiast zwiększą konwersje w sklepie',
+    excerpt: 'Masz sklep WooCommerce, ale sprzedaż nie zadowala? Zanim zaczniesz wydawać pieniądze na reklamy, sprawdź czy nie tracisz klientów przez podstawowe błędy konfiguracji.',
+    cat: 'E-commerce',
+    time: '7 min',
+    date: 'Styczeń 2025',
+    featured: false,
+    bg: 'linear-gradient(135deg,#071520 0%,#0e2e46 50%,#040c12 100%)',
+    glowColor: 'rgba(14,165,233,.45)',
+  },
+  {
+    slug: 'branding-dla-malej-firmy',
+    title: 'Branding dla małej firmy — dlaczego wygląd strony decyduje o cenie, którą możesz pobierać',
+    excerpt: 'Klienci płacą tyle, ile myślą, że jesteś wart — a pierwsze wrażenie robisz stroną internetową. Jak identyfikacja wizualna wpływa na postrzeganie i jaką cenę możesz wtedy żądać za swoje usługi.',
+    cat: 'Branding',
+    time: '6 min',
+    date: 'Grudzień 2024',
+    featured: false,
+    bg: 'linear-gradient(135deg,#160520 0%,#2e0e3c 50%,#0c0414 100%)',
+    glowColor: 'rgba(236,72,153,.45)',
+  },
+];

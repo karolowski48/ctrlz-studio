@@ -4,17 +4,21 @@ import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
 
 const projects = [
-  { slug:'modeka',              name:'Modeka — B2B e-commerce',     tag:'E-commerce B2B · WooCommerce · 2026', pill1:'4 kraje, 1000+ produktów', pill2:'Interaktywna mapa', bg:'pbg-7',  glow:'pg-7',  featured:false, img:'/modeka-hero.jpg',              desc:'Platforma B2B dla producenta odzieży motocyklowej na rynki PL/SK/CZ/RO z mapą 150+ dealerów.' },
-  { slug:'eduinspirations',     name:'EduInspirations.pl',           tag:'E-commerce · Redesign · 2026',       pill1:'PageSpeed 90+',            pill2:'Custom Plugins',    bg:'pbg-9',  glow:'pg-9',  featured:false, img:'/eduinspirations-hero.jpg',     desc:'Redesign sklepu WooCommerce z materiałami edukacyjnymi — własny system faktur, FAQ i optymalizacja.' },
-  { slug:'techopiekun',         name:'TechOpiekun.pl',               tag:'Strona firmowa · WordPress · 2026',  pill1:'Serwis + SEO',             pill2:'Custom Theme',      bg:'pbg-8',  glow:'pg-8',  featured:false, img:'/techopiekun-hero.jpg',         desc:'Dedykowana strona WordPress dla serwisu elektronicznego i specjalisty SEO.' },
-  { slug:'ayra-jubiler',        name:'Ayra Jubiler',                 tag:'E-commerce · WooCommerce · 2026',    pill1:'Automatyzacja produktów',  pill2:'Custom Theme',      bg:'pbg-10', glow:'pg-10', featured:false, img:'/ayra-hero.jpg',                desc:'Sklep z biżuterią WooCommerce z automatyzacją dodawania produktów na podstawie zdjęć.' },
-  { slug:'ksiegowosc-online-365', name:'Księgowość Online 365',     tag:'Landing Page · WordPress · 2026',    pill1:'Kalkulator wyceny',        pill2:'Integracja API',    bg:'pbg-11', glow:'pg-11', featured:false, img:'/ksiegowosc-hero.jpg',          desc:'Landing page biura rachunkowego z kalkulatorem kosztu księgowości i integracją z podatkipodatki.pl.' },
-  { slug:'old-gold-garage',     name:'Old Gold Garage',              tag:'One Page · WordPress · 2026',        pill1:'Dźwięk silnika 🔑',        pill2:'Custom Dev',        bg:'pbg-12', glow:'pg-12', featured:false, img:'/oldgoldgarage.jpg',            desc:'Strona wypożyczalni klasycznych samochodów z unikalną funkcją odtwarzania dźwięku silnika.' },
-  { slug:'jakub-kasprowicz',    name:'Jakub Kasprowicz',             tag:'Personal Brand · WordPress · 2026',  pill1:'30+ kont reklamowych',     pill2:'SEM Specialist',    bg:'pbg-13', glow:'pg-13', featured:false, img:'/jakubkasprowicz-hero.jpg',     desc:'Strona osobista specjalisty SEM — Google Ads, Meta Ads, GA4, GSC przy ponad 30 aktywnych kontach.' },
-  { slug:'konieczny-konstrukcje', name:'Konieczny Konstrukcje',      tag:'Strona firmowa · WordPress · 2026',  pill1:'Modele 3D w przeglądarce', pill2:'Custom Dev',        bg:'pbg-14', glow:'pg-14', featured:false, img:'/konieczny-hero.jpg',           desc:'Producent wiat i pergoli premium z interaktywnymi modelami 3D konstrukcji na stronie.' },
-  { slug:'beskid-stolarstwo',   name:'Beskid Stolarstwo',            tag:'Strona firmowa · WordPress · 2026',  pill1:'Okna · Drzwi · Panele',    pill2:'Katalog produktów', bg:'pbg-15', glow:'pg-15', featured:false, img:'/beskid-hero.jpg',              desc:'Sklep z materiałami wykończeniowymi z Andrychowa — okna, drzwi, panele, akcesoria.' },
-  { slug:'gabriela-piwowarska', name:'Gabriela Piwowarska-Szuba',    tag:'Personal Brand · WordPress · 2026',  pill1:'Marketing Manager',        pill2:'Social Media',      bg:'pbg-16', glow:'pg-16', featured:false, img:'/gabrielapiwowarska-hero.jpg',  desc:'Strona personal brand dla właścicielki agencji marketingowej z Myślenic.' },
-  { slug:'dziki-gym',           name:'Dziki Gym',                    tag:'Redesign · WordPress · 2026',        pill1:'Next.js → WordPress',      pill2:'SEO + CMS',         bg:'pbg-17', glow:'pg-17', featured:false, img:'/dzikigym-hero.jpg',            desc:'Przepisanie siłowni z Next.js na WordPress z optymalizacją SEO, blogiem i poprawą mobilnej wersji.' },
+  { slug:'domki-4-zywioly', city:'Wadowice',         name:'Domki 4 Żywioły',              tag:'Strona firmowa · Rezerwacje · 2026', pill1:'Autorski system rezerwacji', pill2:'Powiadomienia e-mail', bg:'pbg-9',  glow:'pg-9',  featured:false, img:'',  desc:'Strona domków na wynajem z systemem rezerwacji dwóch obiektów i automatycznymi powiadomieniami mailowymi.' },
+  { slug:'wypozyczalnia-wadowice', city:'Wadowice', name:'Wypożyczalnia Wadowice',  tag:'E-commerce · SEO lokalne · 2026',    pill1:'Audyt + sklep',              pill2:'Wizytówka Google',     bg:'pbg-11', glow:'pg-11', featured:false, img:'',  desc:'Wypożyczalnia sprzętu budowlanego — audyt strony, sklep, podstawowe SEO oraz konfiguracja Search Console i wizytówki Google.' },
+  { slug:'psgiu', city:'Zielonki',                    name:'PSGiU — stowarzyszenie',        tag:'Strona firmowa · Custom Dev · 2026', pill1:'Duży serwis',                pill2:'Formularze zgłoszeniowe', bg:'pbg-13', glow:'pg-13', featured:false, img:'',  desc:'Polskie Stowarzyszenie Ginekologii i Urologii — rozbudowany serwis z formularzami zgłoszeniowymi i indywidualnymi rozwiązaniami.' },
+  { slug:'modeka', city:'Wrocław',              name:'Modeka — B2B e-commerce',     tag:'E-commerce B2B · WooCommerce · 2026', pill1:'4 kraje, 1000+ produktów', pill2:'Interaktywna mapa', bg:'pbg-7',  glow:'pg-7',  featured:false, img:'/modeka-hero.webp',              desc:'Platforma B2B dla producenta odzieży motocyklowej na rynki PL/SK/CZ/RO z mapą 150+ dealerów.' },
+  { slug:'eduinspirations', city:'Kraków',     name:'EduInspirations.pl',           tag:'E-commerce · Redesign · 2026',       pill1:'PageSpeed 90+',            pill2:'Custom Plugins',    bg:'pbg-9',  glow:'pg-9',  featured:false, img:'/eduinspirations-hero.webp',     desc:'Redesign sklepu WooCommerce z materiałami edukacyjnymi — własny system faktur, FAQ i optymalizacja.' },
+  { slug:'techopiekun', city:'Wadowice',         name:'TechOpiekun.pl',               tag:'Strona firmowa · WordPress · 2026',  pill1:'Serwis + SEO',             pill2:'Custom Theme',      bg:'pbg-8',  glow:'pg-8',  featured:false, img:'/techopiekun-hero.webp',         desc:'Dedykowana strona WordPress dla serwisu elektronicznego i specjalisty SEO.' },
+  { slug:'ayra-jubiler', city:'Wadowice',        name:'Ayra Jubiler',                 tag:'E-commerce · WooCommerce · 2026',    pill1:'Automatyzacja produktów',  pill2:'Custom Theme',      bg:'pbg-10', glow:'pg-10', featured:false, img:'/ayra-hero.webp',                desc:'Sklep z biżuterią WooCommerce z automatyzacją dodawania produktów na podstawie zdjęć.' },
+  { slug:'ksiegowosc-online-365', city:'Skawina', name:'Księgowość Online 365',     tag:'Landing Page · WordPress · 2026',    pill1:'Kalkulator wyceny',        pill2:'Integracja API',    bg:'pbg-11', glow:'pg-11', featured:false, img:'/ksiegowosc-hero.webp',          desc:'Landing page biura rachunkowego z kalkulatorem kosztu księgowości i integracją z podatkipodatki.pl.' },
+  { slug:'old-gold-garage', city:'Kraków',     name:'Old Gold Garage',              tag:'One Page · WordPress · 2026',        pill1:'Dźwięk silnika 🔑',        pill2:'Custom Dev',        bg:'pbg-12', glow:'pg-12', featured:false, img:'/oldgoldgarage.webp',            desc:'Strona wypożyczalni klasycznych samochodów z unikalną funkcją odtwarzania dźwięku silnika.' },
+  { slug:'jakub-kasprowicz', city:'Skawina',    name:'Jakub Kasprowicz',             tag:'Personal Brand · WordPress · 2026',  pill1:'30+ kont reklamowych',     pill2:'SEM Specialist',    bg:'pbg-13', glow:'pg-13', featured:false, img:'/jakubkasprowicz-hero.webp',     desc:'Strona osobista specjalisty SEM — Google Ads, Meta Ads, GA4, GSC przy ponad 30 aktywnych kontach.' },
+  { slug:'konieczny-konstrukcje', city:'Myślenice', name:'Konieczny Konstrukcje',      tag:'Strona firmowa · WordPress · 2026',  pill1:'Modele 3D w przeglądarce', pill2:'Custom Dev',        bg:'pbg-14', glow:'pg-14', featured:false, img:'/konieczny-hero.webp',           desc:'Producent wiat i pergoli premium z interaktywnymi modelami 3D konstrukcji na stronie.' },
+  { slug:'beskid-stolarstwo', city:'Andrychów',   name:'Beskid Stolarstwo',            tag:'Strona firmowa · WordPress · 2026',  pill1:'Okna · Drzwi · Panele',    pill2:'Katalog produktów', bg:'pbg-15', glow:'pg-15', featured:false, img:'/beskid-hero.webp',              desc:'Sklep z materiałami wykończeniowymi z Andrychowa — okna, drzwi, panele, akcesoria.' },
+  { slug:'gabriela-piwowarska', city:'Myślenice', name:'Gabriela Piwowarska-Szuba',    tag:'Personal Brand · WordPress · 2026',  pill1:'Marketing Manager',        pill2:'Social Media',      bg:'pbg-16', glow:'pg-16', featured:false, img:'/gabrielapiwowarska-hero.webp',  desc:'Strona personal brand dla właścicielki agencji marketingowej z Myślenic.' },
+  { slug:'dziki-gym', city:'Kraków',           name:'Dziki Gym',                    tag:'Redesign · WordPress · 2026',        pill1:'Next.js → WordPress',      pill2:'SEO + CMS',         bg:'pbg-17', glow:'pg-17', featured:false, img:'/dzikigym-hero.webp',            desc:'Przepisanie siłowni z Next.js na WordPress z optymalizacją SEO, blogiem i poprawą mobilnej wersji.' },
+  { slug:'mw-fotografie', city:'',            name:'MW Fotografie',                 tag:'Personal Brand · Portfolio · 2024', pill1:'Wcześniejsza realizacja',    pill2:'Galeria',              bg:'pbg-16', glow:'pg-16', featured:false, img:'',  desc:'Prosta strona-portfolio dla fotografki. Jedna z naszych wcześniejszych realizacji — zostawiamy ją, bo pokazuje, skąd zaczynaliśmy.' },
 ];
 
 const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'Astro.js'];
@@ -27,9 +31,23 @@ const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'As
 <main id="main-content">
 
 <style>
+  .port-city {
+    font-size: 11px;
+    color: rgba(255,255,255,.55);
+    margin: -4px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .port-city::before {
+    content: '';
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #7c6bff;
+    flex-shrink: 0;
+  }
   .page-hero { padding-top:140px; padding-bottom:64px; text-align:center; position:relative; overflow:hidden; }
   .filter-bar { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:52px; }
-  .filter-btn { font-size:12px; padding:8px 18px; border-radius:var(--radius-pill); border:1px solid rgba(255,255,255,.1); background:transparent; color:rgba(255,255,255,.45); cursor:none; transition:all var(--transition); font-family:var(--font-body); }
+  .filter-btn { font-size:12px; padding:8px 18px; border-radius:var(--radius-pill); border:1px solid rgba(255,255,255,.1); background:transparent; color:rgba(255,255,255,.55); cursor:none; transition:all var(--transition); font-family:var(--font-body); }
   .filter-btn:hover { color:rgba(255,255,255,.8); border-color:rgba(255,255,255,.25); }
   .filter-btn.active { background:rgba(124,107,255,.18); border-color:rgba(124,107,255,.42); color:#c4b5fd; }
   .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
@@ -53,7 +71,7 @@ const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'As
     <h1 class="display-xl" style="text-align:center;margin-bottom:18px" id="ph-title">
       Projekty, z których<br><span class="grad">jesteśmy dumni.</span>
     </h1>
-    <p id="ph-sub" style="font-size:16px;color:rgba(255,255,255,.45);text-align:center;max-width:480px;margin:0 auto 48px;font-weight:300;line-height:1.7">
+    <p id="ph-sub" style="font-size:16px;color:rgba(255,255,255,.55);text-align:center;max-width:480px;margin:0 auto 48px;font-weight:300;line-height:1.7">
       Każdy projekt to unikalne rozwiązanie — zero szablonów, tylko przemyślany design i precyzyjny kod.
     </p>
     <div class="filter-bar" id="filter-bar">
@@ -73,12 +91,22 @@ const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'As
           data-cat={p.tag}
         >
           {p.img
-            ? <img src={p.img} alt={p.name} class="port-bg-img" loading="lazy" />
+            ? <img
+                src={p.img}
+                alt={`${p.name} — realizacja CtrlZ Studio, ${p.city}`}
+                class="port-bg-img"
+                width="800"
+                height="600"
+                decoding="async"
+                loading={i < 3 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : 'auto'}
+              />
             : <><div class={`port-glow ${p.glow}`}></div>{p.featured && <div class="port-mock"><div class="mock-line"></div><div class="mock-line"></div><div class="mock-line"></div></div>}</>
           }
           <div class="port-info">
             <div class="port-tag">{p.tag}</div>
             <div class="port-name">{p.name}</div>
+            {p.city && <div class="port-city">{p.city}</div>}
             <p style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:8px">{p.desc}</p>
             <div class="port-pills">
               <span class="port-pill accent">{p.pill1}</span>

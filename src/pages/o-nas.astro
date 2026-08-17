@@ -42,7 +42,7 @@ import SharedFooter from '../components/SharedFooter.astro';
   -webkit-text-fill-color:transparent; background-clip:text;
 }
 .manifesto-title { font-family:var(--font-display); font-size:16px; font-weight:700; color:#fff; margin-bottom:6px; }
-.manifesto-desc  { font-size:13px; color:rgba(255,255,255,.36); line-height:1.65; }
+.manifesto-desc  { font-size:13px; color:rgba(255,255,255,.55); line-height:1.65; }
 
 /* ── TEAM SECTION ────────────────────── */
 .team-wrap { max-width:1280px; margin:0 auto; padding:0 48px 72px; }
@@ -66,7 +66,8 @@ import SharedFooter from '../components/SharedFooter.astro';
   font-family: var(--font-display);
   font-size: clamp(24px,3vw,36px);
   font-weight: 800;
-  color: rgba(255,255,255,.15);
+  /* separator dekoracyjny, 24-36px bold — 3.69:1 spełnia AA dla dużego tekstu */
+  color: rgba(255,255,255,.4);
 }
 
 /* ── KAROL CARD (expanded, full-width) ── */
@@ -94,7 +95,7 @@ import SharedFooter from '../components/SharedFooter.astro';
 .badge-dev { background:rgba(124,107,255,.15); color:#c4b5fd; border:1px solid rgba(124,107,255,.3); }
 .badge-seo { background:rgba(74,222,128,.1);   color:#86efac; border:1px solid rgba(74,222,128,.25); }
 .badge-sem { background:rgba(251,146,60,.1);   color:#fed7aa; border:1px solid rgba(251,146,60,.25); }
-.badge-collab { background:rgba(255,255,255,.06); color:rgba(255,255,255,.45); border:1px solid rgba(255,255,255,.12); }
+.badge-collab { background:rgba(255,255,255,.06); color:rgba(255,255,255,.55); border:1px solid rgba(255,255,255,.12); }
 
 .member-av {
   width:72px; height:72px; border-radius:50%;
@@ -107,9 +108,9 @@ import SharedFooter from '../components/SharedFooter.astro';
 .av-sem { background:linear-gradient(135deg,#ea580c,#f97316); }
 
 .member-name  { font-family:var(--font-display); font-size:24px; font-weight:800; color:#fff; letter-spacing:-.03em; margin-bottom:3px; }
-.member-title { font-size:13px; color:rgba(255,255,255,.36); margin-bottom:22px; }
+.member-title { font-size:13px; color:rgba(255,255,255,.55); margin-bottom:22px; }
 .skill-tags   { display:flex; flex-wrap:wrap; gap:5px; }
-.skill-tag    { font-size:11px; padding:3px 9px; border-radius:100px; border:1px solid rgba(255,255,255,.1); color:rgba(255,255,255,.4); }
+.skill-tag    { font-size:11px; padding:3px 9px; border-radius:100px; border:1px solid rgba(255,255,255,.1); color:rgba(255,255,255,.55); }
 
 .karol-right {
   padding:44px 52px;
@@ -149,7 +150,7 @@ import SharedFooter from '../components/SharedFooter.astro';
   font-family:var(--font-display); font-size:26px; font-weight:800;
   letter-spacing:-.04em; color:#c4b5fd; line-height:1; margin-bottom:4px;
 }
-.kstat-label { font-size:11px; color:rgba(255,255,255,.3); line-height:1.4; }
+.kstat-label { font-size:11px; color:rgba(255,255,255,.55); line-height:1.4; }
 
 /* Timeline */
 .karol-timeline { display:flex; flex-direction:column; gap:0; }
@@ -172,14 +173,14 @@ import SharedFooter from '../components/SharedFooter.astro';
 .tl-item:last-child .tl-line { display:none; }
 .tl-year { font-size:11px; font-weight:600; color:var(--violet-light); width:36px; text-align:right; padding-top:3px; }
 .tl-body h4 { font-family:var(--font-display); font-size:14px; font-weight:600; color:#fff; margin-bottom:2px; }
-.tl-body p  { font-size:12px; color:rgba(255,255,255,.38); line-height:1.5; margin:0; }
+.tl-body p  { font-size:12px; color:rgba(255,255,255,.55); line-height:1.5; margin:0; }
 
 /* Fun fact */
 .fun-fact {
   display:flex; align-items:flex-start; gap:10px;
   padding:13px 16px; background:rgba(255,255,255,.025);
   border-radius:10px; border:1px solid rgba(255,255,255,.06);
-  font-size:13px; color:rgba(255,255,255,.42); line-height:1.6;
+  font-size:13px; color:rgba(255,255,255,.55); line-height:1.6;
 }
 
 /* ── COLLAB CARDS (smaller) ─────────── */
@@ -195,7 +196,7 @@ import SharedFooter from '../components/SharedFooter.astro';
   font-family: var(--font-display);
   font-size: 22px; font-weight: 800;
   letter-spacing: -.02em;
-  color: rgba(255,255,255,.22);
+  color: rgba(255,255,255,.5);
   white-space:nowrap;
   display: flex;
   align-items: center;
@@ -226,7 +227,7 @@ import SharedFooter from '../components/SharedFooter.astro';
 .collab-right { padding:32px; display:flex; flex-direction:column; gap:16px; justify-content:center; }
 .collab-desc { font-size:14px; color:rgba(255,255,255,.5); line-height:1.75; }
 .collab-desc strong { color:rgba(255,255,255,.78); font-weight:600; }
-.collab-stat { font-size:12px; color:rgba(255,255,255,.3); display:flex; flex-direction:column; gap:8px; }
+.collab-stat { font-size:12px; color:rgba(255,255,255,.55); display:flex; flex-direction:column; gap:8px; }
 .cstat-row { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
 .cstat-num { font-family:var(--font-display); font-size:20px; font-weight:700; min-width:44px; flex-shrink:0; line-height:1.2; }
 .cstat-label { font-size:12px; color:rgba(255,255,255,.55); line-height:1.4; flex:1; min-width:0; }
@@ -234,7 +235,7 @@ import SharedFooter from '../components/SharedFooter.astro';
 .num-sem { color:#fb923c; }
 .ext-link {
   display:inline-flex; align-items:center; gap:7px;
-  font-size:12px; font-weight:500; color:rgba(255,255,255,.45);
+  font-size:12px; font-weight:500; color:rgba(255,255,255,.55);
   background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09);
   border-radius:100px; padding:7px 14px; transition:all .2s;
   text-decoration:none; width:fit-content;
@@ -279,7 +280,7 @@ import SharedFooter from '../components/SharedFooter.astro';
 .wci-seo svg { stroke:#86efac; }
 .wci-sem svg { stroke:#fdba74; }
 .why-card h4 { font-family:var(--font-display); font-size:14px; font-weight:600; color:#fff; margin-bottom:3px; }
-.why-card p  { font-size:12.5px; color:rgba(255,255,255,.38); line-height:1.55; margin:0; }
+.why-card p  { font-size:12.5px; color:rgba(255,255,255,.55); line-height:1.55; margin:0; }
 
 /* ── CHARTS ──────────────────────────── */
 .charts-wrap { max-width:1280px; margin:0 auto; padding:0 48px 72px; }
@@ -290,12 +291,12 @@ import SharedFooter from '../components/SharedFooter.astro';
   border-radius:16px; padding:24px 24px 20px;
 }
 .chart-card-title { font-family:var(--font-display); font-size:14px; font-weight:600; color:#fff; margin-bottom:4px; }
-.chart-card-sub   { font-size:11px; color:rgba(255,255,255,.3); margin-bottom:20px; }
+.chart-card-sub   { font-size:11px; color:rgba(255,255,255,.55); margin-bottom:20px; }
 
 /* Bar chart */
 .bar-chart { display:flex; flex-direction:column; gap:10px; }
 .bar-row { display:flex; align-items:center; gap:10px; }
-.bar-label { font-size:11px; color:rgba(255,255,255,.35); width:60px; flex-shrink:0; }
+.bar-label { font-size:11px; color:rgba(255,255,255,.55); width:60px; flex-shrink:0; }
 .bar-track { flex:1; height:7px; background:rgba(255,255,255,.06); border-radius:4px; overflow:hidden; }
 .bar-fill  { height:100%; border-radius:4px; }
 .bar-val   { font-size:11px; font-weight:600; width:36px; text-align:right; flex-shrink:0; }
@@ -303,7 +304,7 @@ import SharedFooter from '../components/SharedFooter.astro';
 /* Donut chart (SVG) */
 .donut-wrap { display:flex; align-items:center; gap:20px; }
 .donut-legend { display:flex; flex-direction:column; gap:8px; flex:1; }
-.legend-item { display:flex; align-items:center; gap:7px; font-size:12px; color:rgba(255,255,255,.45); }
+.legend-item { display:flex; align-items:center; gap:7px; font-size:12px; color:rgba(255,255,255,.55); }
 .legend-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
 
 /* Line chart (SVG) */
@@ -328,7 +329,7 @@ import SharedFooter from '../components/SharedFooter.astro';
   letter-spacing:-.04em; color:#fff; margin-bottom:18px; position:relative;
 }
 .abn-cta-sub {
-  font-size:16px; color:rgba(255,255,255,.45);
+  font-size:16px; color:rgba(255,255,255,.55);
   max-width:520px; margin:0 auto 36px; line-height:1.7; position:relative;
 }
 .abn-cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; position:relative; }
@@ -371,7 +372,7 @@ import SharedFooter from '../components/SharedFooter.astro';
       jeden cel <span class="grad">projekty</span><br>
       <span class="italic-light">które zarabiają.</span>
     </h1>
-    <p id="ah-p" style="font-size:17px;color:rgba(255,255,255,.44);max-width:560px;line-height:1.75;font-weight:300">
+    <p id="ah-p" style="font-size:17px;color:rgba(255,255,255,.55);max-width:560px;line-height:1.75;font-weight:300">
       CtrlZ Studio to nie korporacja z działem sprzedaży. To DEV, SEO i SEM, którzy razem ogarniają projekty od designu przez wdrożenie po migracje i utrzymanie.
     </p>
   </div>
@@ -423,7 +424,7 @@ import SharedFooter from '../components/SharedFooter.astro';
         <div class="member-title">Founder · Lead Dev & Designer</div>
       </div>
       <div>
-        <div style="font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Stack</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px">Stack</div>
         <div class="skill-tags">
           <span class="skill-tag">WordPress</span>
           <span class="skill-tag">WooCommerce</span>
@@ -795,7 +796,7 @@ import SharedFooter from '../components/SharedFooter.astro';
       <div class="chart-card-title">Jakość techniczna stron</div>
       <div class="chart-card-sub">PageSpeed Lighthouse Score — nasze realizacje vs średnia rynku</div>
       <div class="bar-chart" style="margin-top:8px">
-        <div style="font-size:10px;color:rgba(255,255,255,.22);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">Performance</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px">Performance</div>
         <div class="bar-row">
           <div class="bar-label">CtrlZ</div>
           <div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(90deg,#7c6bff,#a78bfa)" data-to="94"></div></div>
@@ -804,9 +805,9 @@ import SharedFooter from '../components/SharedFooter.astro';
         <div class="bar-row">
           <div class="bar-label">Rynek</div>
           <div class="bar-track"><div class="bar-fill" style="width:0%;background:rgba(255,255,255,.18)" data-to="51"></div></div>
-          <div class="bar-val" style="color:rgba(255,255,255,.35)">51</div>
+          <div class="bar-val" style="color:rgba(255,255,255,.55)">51</div>
         </div>
-        <div style="font-size:10px;color:rgba(255,255,255,.22);letter-spacing:.08em;text-transform:uppercase;margin:16px 0 12px">SEO</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase;margin:16px 0 12px">SEO</div>
         <div class="bar-row">
           <div class="bar-label">CtrlZ</div>
           <div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(90deg,#16a34a,#4ade80)" data-to="98"></div></div>
@@ -815,9 +816,9 @@ import SharedFooter from '../components/SharedFooter.astro';
         <div class="bar-row">
           <div class="bar-label">Rynek</div>
           <div class="bar-track"><div class="bar-fill" style="width:0%;background:rgba(255,255,255,.18)" data-to="62"></div></div>
-          <div class="bar-val" style="color:rgba(255,255,255,.35)">62</div>
+          <div class="bar-val" style="color:rgba(255,255,255,.55)">62</div>
         </div>
-        <div style="font-size:10px;color:rgba(255,255,255,.22);letter-spacing:.08em;text-transform:uppercase;margin:16px 0 12px">Accessibility</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase;margin:16px 0 12px">Accessibility</div>
         <div class="bar-row">
           <div class="bar-label">CtrlZ</div>
           <div class="bar-track"><div class="bar-fill" style="width:0%;background:linear-gradient(90deg,#ea580c,#fb923c)" data-to="96"></div></div>
@@ -826,7 +827,7 @@ import SharedFooter from '../components/SharedFooter.astro';
         <div class="bar-row">
           <div class="bar-label">Rynek</div>
           <div class="bar-track"><div class="bar-fill" style="width:0%;background:rgba(255,255,255,.18)" data-to="71"></div></div>
-          <div class="bar-val" style="color:rgba(255,255,255,.35)">71</div>
+          <div class="bar-val" style="color:rgba(255,255,255,.55)">71</div>
         </div>
       </div>
     </div>

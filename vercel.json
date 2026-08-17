@@ -4,6 +4,12 @@
     { "source": "/index.php/:path*", "destination": "/", "permanent": true },
     { "source": "/index.php", "destination": "/", "permanent": true },
     { "source": "/portfolio/:path*", "destination": "/realizacje", "permanent": true },
+    { "source": "/realizacje/kancelaria-prawna", "destination": "/realizacje", "permanent": true },
+    { "source": "/realizacje/fine-dining", "destination": "/realizacje", "permanent": true },
+    { "source": "/realizacje/konfigurator", "destination": "/realizacje", "permanent": true },
+    { "source": "/realizacje/sklep-modowy", "destination": "/realizacje", "permanent": true },
+    { "source": "/realizacje/sklep-sportowy", "destination": "/realizacje", "permanent": true },
+    { "source": "/realizacje/startup-saas", "destination": "/realizacje", "permanent": true },
     { "source": "/wp-admin/:path*", "destination": "/", "permanent": true },
     { "source": "/wp-content/:path*", "destination": "/", "permanent": true },
     { "source": "/wp-includes/:path*", "destination": "/", "permanent": true }

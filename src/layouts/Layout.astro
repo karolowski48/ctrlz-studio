@@ -4,35 +4,86 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  /**
+   * Strony bez wartości dla wyszukiwarki (polityka prywatności, podziękowanie, 404).
+   * Wyłącza je z indeksu — razem z kotwicami typu #s2, które Google indeksował
+   * jako osobne adresy i które zbierały wyświetlenia zamiast realizacji.
+   */
+  noindex?: boolean;
 }
 
 const {
   title = 'CtrlZ Studio — Agencja Kreatywna & Digital',
   description = 'Projektujemy i wdrażamy cyfrowe doświadczenia dla firm, którym zależy na jakości ponad przeciętność. Strony, sklepy, identyfikacja wizualna.',
+  noindex = false,
 } = Astro.props;
+
+// Vercel serwuje adresy bez końcowego slasha (trailingSlash: false w vercel.json),
+// więc canonical musi wskazywać dokładnie na ten adres — inaczej kieruje na przekierowanie 308.
+const cleanPath = Astro.url.pathname.replace(/\/+$/, '');
+const canonicalUrl = `https://ctrlzstudio.pl${cleanPath || '/'}`;
+
+// Jeden adres arkusza fontów — używany w preload, stylesheet i noscript.
+// Syne: 500-800 (grubości realnie używane w global.css; 300 i 900 nie istnieją
+// w tym kroju i tak, więc przeglądarka i tak podstawiała najbliższą).
+// DM Sans: 300/400/500 + italic 300.
+const FONT_CSS =
+  'https://fonts.googleapis.com/css2' +
+  '?family=Syne:wght@500;600;700;800' +
+  '&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300' +
+  '&display=swap';
 ---
 
 <!doctype html>
 <html lang="pl">
 <head>
-<!-- Start cookieyes banner --> <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/11d2bbed245d91117cb418202a033abc/script.js"></script> <!-- End cookieyes banner -->
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5LYYREZRZC"></script>
+  <!-- CookieYes MUSI być pierwszym skryptem i MUSI być synchroniczny.
+       Auto-blokowanie działa tak, że skrypt przechwytuje pozostałe znaczniki <script>
+       ZANIM się wykonają. Dodanie defer/async psuje tę kolejność i grozi tym,
+       że skrypty śledzące odpalą się przed zgodą użytkownika (RODO + Prawo
+       komunikacji elektronicznej). Kosztuje ~150 ms i tak ma zostać. -->
+  <link rel="preconnect" href="https://cdn-cookieyes.com" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn-cookieyes.com" />
+  <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/11d2bbed245d91117cb418202a033abc/script.js"></script>
+  <!-- Google Analytics — ładowany po pierwszym renderze, ale ZAWSZE po CookieYes,
+       który steruje zgodą. Consent Mode ustawiony domyślnie na odmowę:
+       do czasu zgody GA nie zapisuje cookies ani identyfikatorów.
+       CookieYes podnosi te zgody automatycznie po kliknięciu „Akceptuję". -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'denied',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      wait_for_update: 2000
+    });
     gtag('js', new Date());
     gtag('config', 'G-5LYYREZRZC');
+    (function () {
+      var load = function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5LYYREZRZC';
+        document.head.appendChild(s);
+      };
+      if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 3000 });
+      else window.addEventListener('load', load);
+    })();
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ctrlzstudio.pl" />
-  <meta property="og:image" content="https://ctrlzstudio.pl/og-ctrlzstudio.jpg" />
+  <meta property="og:image" content="https://ctrlzstudio.pl/og-ctrlzstudio.webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="CtrlZ Studio — agencja kreatywna i web development z Polski" />
@@ -41,28 +92,20 @@ const {
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content="https://ctrlzstudio.pl/og-ctrlzstudio.jpg" />
+  <meta name="twitter:image" content="https://ctrlzstudio.pl/og-ctrlzstudio.webp" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="canonical" href={`https://ctrlzstudio.pl${Astro.url.pathname}`} />
+  <link rel="canonical" href={canonicalUrl} />
 
   <!-- Preconnect do Google Fonts (eliminuje DNS lookup z critical path) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <!-- Non-blocking font load: media="print" + onload trick -->
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
-    media="print"
-    onload="this.media='all'"
-  />
-  <!-- Fallback dla przeglądarek bez JS -->
-  <noscript>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
-    />
-  </noscript>
+  <!-- Fonty: ograniczone do realnie używanych wariantów (było 5 grubości Syne
+       i 6 wariantów DM Sans — każdy to osobny plik do pobrania).
+       Arkusz ładowany bez blokowania renderu, z preloadem żeby ruszył od razu. -->
+  <link rel="preload" as="style" href={FONT_CSS} />
+  <link rel="stylesheet" href={FONT_CSS} media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href={FONT_CSS} /></noscript>
 
   <title>{title}</title>
   <style>
@@ -91,20 +134,89 @@ const {
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "CtrlZ Studio",
-  "url": "https://ctrlzstudio.pl",
-  "logo": "https://ctrlzstudio.pl/favicon.svg",
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+48575043985",
-    "email": "kontakt@ctrlzstudio.pl",
-    "contactType": "customer service",
-    "availableLanguage": "Polish"
-  },
-  "sameAs": [
-    "https://www.instagram.com/ctrlz_studio_agency/",
-    "https://www.linkedin.com/in/karol-jasiowka"
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ctrlzstudio.pl/#organization",
+      "name": "CtrlZ Studio",
+      "url": "https://ctrlzstudio.pl",
+      "logo": "https://ctrlzstudio.pl/favicon.svg",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+48575043985",
+        "email": "kontakt@ctrlzstudio.pl",
+        "contactType": "customer service",
+        "availableLanguage": "Polish"
+      },
+      "sameAs": [
+        "https://www.instagram.com/ctrlz_studio_agency/",
+        "https://www.linkedin.com/in/karol-jasiowka"
+      ]
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://ctrlzstudio.pl/#localbusiness",
+      "name": "CtrlZ Studio",
+      "description": "Tworzenie stron internetowych, projektowanie UX/UI oraz SEO dla firm z Małopolski. Szybkie, responsywne i zoptymalizowane pod wyszukiwarki strony WWW w technologiach Astro, Next.js i WordPress.",
+      "url": "https://ctrlzstudio.pl",
+      "image": "https://ctrlzstudio.pl/og-ctrlzstudio.webp",
+      "logo": "https://ctrlzstudio.pl/favicon.svg",
+      "telephone": "+48575043985",
+      "email": "kontakt@ctrlzstudio.pl",
+      "priceRange": "$$",
+      "currenciesAccepted": "PLN",
+      "parentOrganization": { "@id": "https://ctrlzstudio.pl/#organization" },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ul. Dworska 40a",
+        "addressLocality": "Izdebnik",
+        "postalCode": "34-144",
+        "addressRegion": "małopolskie",
+        "addressCountry": "PL"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "17:00"
+        }
+      ],
+      "areaServed": [
+        { "@type": "City", "name": "Izdebnik" },
+        { "@type": "City", "name": "Lanckorona" },
+        { "@type": "City", "name": "Kalwaria Zebrzydowska" },
+        { "@type": "City", "name": "Sułkowice" },
+        { "@type": "City", "name": "Biertowice" },
+        { "@type": "City", "name": "Krzywaczka" },
+        { "@type": "City", "name": "Skawina" },
+        { "@type": "City", "name": "Radziszów" },
+        { "@type": "City", "name": "Wola Radziszowska" },
+        { "@type": "City", "name": "Brzeźnica" },
+        { "@type": "City", "name": "Myślenice" },
+        { "@type": "City", "name": "Wadowice" },
+        { "@type": "City", "name": "Andrychów" },
+        { "@type": "City", "name": "Kęty" },
+        { "@type": "City", "name": "Zator" },
+        { "@type": "City", "name": "Nowy Targ" },
+        { "@type": "City", "name": "Kraków" }
+      ],
+      "knowsLanguage": "pl",
+      "sameAs": [
+        "https://www.instagram.com/ctrlz_studio_agency/",
+        "https://www.linkedin.com/in/karol-jasiowka"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Usługi CtrlZ Studio",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Tworzenie stron internetowych" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Projektowanie stron WWW (UX/UI)" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sklepy internetowe i e-commerce" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pozycjonowanie i optymalizacja SEO" } }
+        ]
+      }
+    }
   ]
 }
 </script>

@@ -1,0 +1,479 @@
+---
+/**
+ * Opinie z wizytówki Google — pobierane w trakcie budowania strony.
+ *
+ * Konfiguracja (plik .env w katalogu projektu, NIE commituj go do gita):
+ *   GOOGLE_PLACES_API_KEY=xxxxxxxxxxxxxxxxxxxx
+ *   GOOGLE_PLACE_QUERY=CtrlZ Studio, Dworska 40a, Izdebnik
+ *   GOOGLE_PLACE_ID=ChIJxxxxxxxxxxxxxxxxxx   (opcjonalnie)
+ *
+ * Wystarczy KLUCZ + JEDNO z dwóch: nazwa z adresem (QUERY) albo gotowe ID.
+ * Przy samym QUERY komponent sam odpytuje wyszukiwarkę Places i wyciąga Place ID —
+ * nie trzeba go szukać ręcznie. Wypisuje je potem w logu builda, więc jak już
+ * je zobaczysz, możesz je wkleić jako GOOGLE_PLACE_ID i oszczędzić jedno zapytanie.
+ *
+ * Jak to działa:
+ *  - zapytanie do Places API leci RAZ, podczas `npm run build`
+ *  - klucz API nigdy nie trafia do kodu wysyłanego do przeglądarki
+ *  - opinie odświeżają się przy każdym deployu (Vercel buduje przy każdym pushu)
+ *  - jeśli klucza nie ma albo API nie odpowie, sekcja pokazuje dane zapasowe
+ *    i strona buduje się normalnie — build nigdy nie wywali się przez opinie
+ *
+ * Google zwraca maksymalnie 5 opinii. Nie da się pobrać wszystkich —
+ * dlatego pod slajdami jest link do pełnej listy w wizytówce.
+ */
+
+const API_KEY = import.meta.env.GOOGLE_PLACES_API_KEY;
+const PLACE_ID = import.meta.env.GOOGLE_PLACE_ID;
+const PLACE_QUERY = import.meta.env.GOOGLE_PLACE_QUERY;
+
+// ── OPINIE ─────────────────────────────────────────────────────────────
+// Przepisane ręcznie z wizytówki Google (stan: sierpień 2026).
+// Places API nie znajduje jeszcze tego profilu — świeżo zweryfikowane wizytówki
+// trafiają do wyszukiwarki Places z opóźnieniem. Gdy się pojawi, wystarczy
+// uzupełnić GOOGLE_PLACES_API_KEY w .env i opinie zaczną się odświeżać same;
+// poniższa lista stanie się wtedy tylko awaryjnym zapasem.
+//
+// Dopisujesz nową opinię? Dodaj ją NA POCZĄTKU tablicy i podnieś `total`.
+const FALLBACK = {
+  rating: 5,
+  total: 12,
+  profileUrl: 'https://www.google.com/maps/search/?api=1&query=CtrlZ+Studio+Karol+Jasi%C3%B3wka+Izdebnik',
+  reviews: [
+    {
+      author: 'Sławek Krawczyk',
+      initials: 'SK',
+      rating: 5,
+      text: 'Współpracujemy z firmą Karola. Gorąco polecam! Bardzo podoba mi się dobry kontakt, szybkie wdrożenia, doskonała jakość usług.',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: 'Patrycja Sroka',
+      initials: 'PS',
+      rating: 5,
+      text: 'Bardzo polecam! Profesjonalne podejście, świetny kontakt i terminowa realizacja. Do tego przystępne ceny i pomocny kalkulator do wyceniania usług.',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: 'Dorota Em',
+      initials: 'DE',
+      rating: 5,
+      text: 'Bardzo polecam! Świetny kontakt na każdym etapie współpracy. Karol ma bardzo dużą wiedzę i świetne wyczucie estetyki. Jestem bardzo zadowolona ze współpracy i szczerze polecam.',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: 'Marcin Rans',
+      initials: 'MR',
+      rating: 5,
+      text: 'Pan Karol robi dobre strony internetowe wraz z całym wsparciem technicznym, a w dodatku tłumaczy zawsze wprost i ludzkim językiem. Dobra współpraca, daje 5 gwiazdek.',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: 'Mariusz',
+      initials: 'M',
+      rating: 5,
+      text: 'Pełen profesjonalizm — mam u nich 2 strony internetowe, wykonane wedle moich preferencji i wszystko działa tak, jak należy. Firma jest rzetelna, bardzo dobry kontakt.',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: 'Michał Skop',
+      initials: 'MS',
+      rating: 5,
+      text: 'Świetna robota! Dobry kontakt, szybka i bezproblemowa realizacja zlecenia. Pełen profesjonalizm ze strony Pana Karola. Zdecydowanie polecam!',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: 'Katarzyna Kapela',
+      initials: 'KK',
+      rating: 5,
+      text: 'Zawsze pomocny, dokładny, profesjonalny. Polecam każdemu, kto ceni jakość.',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: 'Jakub Kasprowicz',
+      initials: 'JK',
+      rating: 5,
+      text: 'Polecam współpracę ze studiem CtrlZ. Pan Karol jest kontaktową osobą, która dowozi projekt od A do Z — zrobił dla mnie stronę wizytówkę promującą moje usługi.',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: 'Izabela Jasiówka',
+      initials: 'IJ',
+      rating: 5,
+      text: 'Jestem bardzo zadowolona ze współpracy, wszystko zostało zrobione bardzo szybko i zgodnie z wszystkimi moimi wytycznymi. Zdecydowanie polecam!',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: 'szumi',
+      initials: 'SZ',
+      rating: 5,
+      text: 'Profesjonalna obsługa od początku do końca. Wszystko wykonane terminowo i z dużą starannością. Zdecydowanie polecam!',
+      relative: 'miesiąc temu',
+    },
+  ] as Review[],
+};
+
+interface Review {
+  author: string;
+  initials: string;
+  rating: number;
+  text: string;
+  relative: string;
+  photo?: string;
+}
+
+interface ReviewsData {
+  rating: number;
+  total: number;
+  profileUrl: string;
+  reviews: Review[];
+  live: boolean;
+}
+
+function initialsOf(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() ?? '')
+    .join('');
+}
+
+/**
+ * Znajduje Place ID po nazwie i adresie, jeśli nie podano go wprost.
+ * Zwraca null, gdy Google nic nie znalazł — wtedy trzeba podać ID ręcznie.
+ */
+async function resolvePlaceId(): Promise<string | null> {
+  if (PLACE_ID) return PLACE_ID;
+  if (!PLACE_QUERY) return null;
+
+  try {
+    const res = await fetch('https://places.googleapis.com/v1/places:searchText', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': API_KEY,
+        'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress',
+      },
+      body: JSON.stringify({
+        textQuery: PLACE_QUERY,
+        languageCode: 'pl',
+        regionCode: 'PL',
+        maxResultCount: 5,
+        // Ciasny prostokąt wokół Izdebnika (~15 km). Poprzedni obejmował Kraków
+        // i to krakowskie firmy o podobnych nazwach wygrywały dopasowanie.
+        // Kraków (50.06 N) leży teraz poza górną granicą.
+        locationRestriction: {
+          rectangle: {
+            low:  { latitude: 49.75, longitude: 19.55 },
+            high: { latitude: 49.99, longitude: 19.95 },
+          },
+        },
+      }),
+    });
+
+    if (!res.ok) {
+      console.warn(`[GoogleReviews] Wyszukiwanie miejsca zwróciło ${res.status}: ${await res.text()}`);
+      return null;
+    }
+
+    const data = await res.json();
+    const candidates = data.places ?? [];
+
+    if (candidates.length === 0) {
+      console.warn(
+        `[GoogleReviews] Google nie znalazł żadnej firmy w okolicy dla zapytania: „${PLACE_QUERY}".\n` +
+        `[GoogleReviews] Spróbuj innej nazwy albo podaj GOOGLE_PLACE_ID ręcznie.`
+      );
+      return null;
+    }
+
+    // Wypisujemy WSZYSTKICH kandydatów — gdyby pierwszy był nietrafiony,
+    // wystarczy skopiować właściwe ID do .env jako GOOGLE_PLACE_ID.
+    console.info(`[GoogleReviews] Kandydaci dla „${PLACE_QUERY}":`);
+    candidates.forEach((c: any, i: number) => {
+      console.info(`  [${i + 1}] ${c.displayName?.text} — ${c.formattedAddress}`);
+      console.info(`      Place ID: ${c.id}`);
+    });
+
+    const first = candidates[0];
+    console.info(`[GoogleReviews] Używam pozycji [1]. Jeśli to nie ta firma — wklej właściwe Place ID do .env.`);
+    return first.id;
+  } catch (err) {
+    console.warn('[GoogleReviews] Błąd przy wyszukiwaniu miejsca:', err);
+    return null;
+  }
+}
+
+async function fetchReviews(): Promise<ReviewsData> {
+  if (!API_KEY) {
+    return { ...FALLBACK, live: false };
+  }
+
+  const placeId = await resolvePlaceId();
+  if (!placeId) {
+    return { ...FALLBACK, live: false };
+  }
+
+  try {
+    const res = await fetch(`https://places.googleapis.com/v1/places/${placeId}?languageCode=pl`, {
+      headers: {
+        'X-Goog-Api-Key': API_KEY,
+        'X-Goog-FieldMask': 'rating,userRatingCount,googleMapsUri,reviews',
+      },
+    });
+
+    if (!res.ok) {
+      console.warn(`[GoogleReviews] Places API zwróciło ${res.status} — używam danych zapasowych.`);
+      return { ...FALLBACK, live: false };
+    }
+
+    const data = await res.json();
+
+    const reviews: Review[] = (data.reviews ?? [])
+      .filter((r: any) => (r.rating ?? 0) >= 4 && r.text?.text)
+      .map((r: any) => ({
+        author: r.authorAttribution?.displayName ?? 'Klient',
+        initials: initialsOf(r.authorAttribution?.displayName ?? 'Klient'),
+        rating: r.rating ?? 5,
+        text: r.text.text.trim(),
+        relative: r.relativePublishTimeDescription ?? '',
+        photo: r.authorAttribution?.photoUri,
+      }));
+
+    return {
+      rating: data.rating ?? FALLBACK.rating,
+      total: data.userRatingCount ?? FALLBACK.total,
+      profileUrl: data.googleMapsUri ?? FALLBACK.profileUrl,
+      reviews,
+      live: reviews.length > 0,
+    };
+  } catch (err) {
+    console.warn('[GoogleReviews] Nie udało się pobrać opinii:', err);
+    return { ...FALLBACK, live: false };
+  }
+}
+
+const data = await fetchReviews();
+const ratingLabel = data.rating.toFixed(1).replace('.', ',');
+
+// Dane strukturalne z ocenami. Google wymaga, żeby opinie były WIDOCZNE na stronie —
+// ten schemat renderuje się tylko razem z sekcją opinii, więc warunek jest spełniony.
+const reviewSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': 'https://ctrlzstudio.pl/#localbusiness',
+  name: 'CtrlZ Studio',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: data.rating,
+    reviewCount: data.total,
+    bestRating: 5,
+    worstRating: 1,
+  },
+  review: data.reviews.slice(0, 5).map((r) => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: r.author },
+    reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5, worstRating: 1 },
+    reviewBody: r.text,
+  })),
+};
+---
+
+{data.reviews.length > 0 && (
+<section class="section" style="background:var(--bg-base);overflow:hidden" id="opinie">
+  <script type="application/ld+json" set:html={JSON.stringify(reviewSchema)} is:inline />
+
+  <div class="container">
+    <div class="gr-head js-reveal">
+      <div class="eyebrow" style="justify-content:center;margin-bottom:14px">Opinie klientów</div>
+      <h2 class="display-md" style="margin-bottom:24px">Co mówią<br><span class="grad-v">nasi klienci</span></h2>
+
+      <div class="gr-summary">
+        <div class="gr-score">{ratingLabel}</div>
+        <div class="gr-summary-mid">
+          <div class="gr-stars" aria-label={`Ocena ${ratingLabel} na 5`}>
+            {[1,2,3,4,5].map(() => <span class="gr-star">★</span>)}
+          </div>
+          <div class="gr-count">{data.total} opinii w Google</div>
+        </div>
+        <div class="gr-actions">
+          <a href={data.profileUrl} target="_blank" rel="noopener noreferrer" class="gr-link">Zobacz wszystkie →</a>
+          <a href="https://g.page/r/CaLTZLqjC0JgEBM/review" target="_blank" rel="noopener noreferrer" class="gr-add">Dodaj opinię w Google</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .gr-head { text-align: center; }
+    .gr-summary {
+      display: inline-flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 auto 44px;
+      padding: 20px 28px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.09);
+      text-align: left;
+    }
+    .gr-score {
+      font-family: var(--font-display);
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1;
+      background: var(--grad-hero);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gr-stars { display: flex; gap: 2px; margin-bottom: 5px; }
+    .gr-star { color: #fbbf24; font-size: 17px; line-height: 1; }
+    .gr-count { font-size: 13px; color: rgba(255,255,255,.62); }
+    .gr-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .gr-link {
+      font-size: 13px; font-weight: 600; color: #c4b5fd;
+      text-decoration: none; white-space: nowrap; transition: color .2s;
+    }
+    .gr-link:hover { color: #fff; }
+    .gr-add {
+      font-size: 13px; font-weight: 600; color: #fff; white-space: nowrap;
+      text-decoration: none; padding: 10px 18px; border-radius: 100px;
+      background: rgba(124,107,255,.22); border: 1px solid rgba(124,107,255,.5);
+      transition: background .2s, border-color .2s;
+    }
+    .gr-add:hover { background: rgba(124,107,255,.38); border-color: rgba(124,107,255,.75); }
+
+    /* ── Karuzela ─────────────────────────────── */
+    .gr-wrap { position: relative; max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+    .gr-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      /* padding pionowy, żeby cień i hover nie były przycinane */
+      padding: 8px 2px 20px;
+    }
+    .gr-track::-webkit-scrollbar { display: none; }
+    .gr-card {
+      /* 3 karty w rzędzie z zachowaniem odstępów — ostatnia nie jest ucinana,
+         bo szerokość liczona jest z uwzględnieniem gapów */
+      flex: 0 0 calc((100% - 48px) / 3);
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 18px;
+      padding: 28px;
+      transition: border-color .25s, transform .25s;
+    }
+    .gr-card:hover { border-color: rgba(124,107,255,.25); transform: translateY(-2px); }
+    .gr-card-stars { display: flex; gap: 2px; margin-bottom: 14px; }
+    .gr-text {
+      font-size: 15px; color: rgba(255,255,255,.78); line-height: 1.75;
+      margin: 0 0 22px; font-style: italic; flex: 1;
+    }
+    .gr-who { display: flex; align-items: center; gap: 12px; }
+    .gr-av {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--grad-violet);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0;
+      object-fit: cover;
+    }
+    .gr-name { font-size: 14px; font-weight: 600; color: #fff; }
+    .gr-when { font-size: 12px; color: rgba(255,255,255,.5); }
+
+    /* ── Strzałki ─────────────────────────────── */
+    .gr-nav { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
+    .gr-arrow {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.14);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all .2s; padding: 0;
+    }
+    .gr-arrow:hover:not(:disabled) { background: rgba(124,107,255,.18); border-color: rgba(124,107,255,.5); }
+    .gr-arrow:disabled { opacity: .3; cursor: default; }
+    .gr-arrow svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    @media (max-width: 1024px) {
+      .gr-card { flex: 0 0 calc((100% - 24px) / 2); }
+    }
+    @media (max-width: 640px) {
+      .gr-wrap { padding: 0 24px; }
+      .gr-card { flex: 0 0 100%; padding: 24px; }
+      .gr-summary { width: 100%; gap: 18px; padding: 18px 20px; }
+      .gr-actions { width: 100%; }
+      .gr-add { flex: 1; text-align: center; }
+    }
+  </style>
+
+  <div class="gr-wrap js-reveal">
+    <div class="gr-track" id="gr-track">
+      {data.reviews.map((r) => (
+        <article class="gr-card">
+          <div class="gr-card-stars" aria-label={`Ocena ${r.rating} na 5`}>
+            {Array.from({ length: r.rating }).map(() => <span class="gr-star">★</span>)}
+          </div>
+          <p class="gr-text">„{r.text}”</p>
+          <div class="gr-who">
+            {r.photo
+              ? <img class="gr-av" src={r.photo} alt="" width="40" height="40" loading="lazy" />
+              : <div class="gr-av">{r.initials}</div>}
+            <div>
+              <div class="gr-name">{r.author}</div>
+              <div class="gr-when">{r.relative}</div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="gr-nav">
+      <button type="button" class="gr-arrow" id="gr-prev" aria-label="Poprzednie opinie">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button type="button" class="gr-arrow" id="gr-next" aria-label="Następne opinie">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const track = document.getElementById('gr-track');
+      const prev = document.getElementById('gr-prev');
+      const next = document.getElementById('gr-next');
+      if (!track || !prev || !next) return;
+
+      function step() {
+        const card = track.querySelector('.gr-card');
+        if (!card) return track.clientWidth;
+        // szerokość karty + odstęp
+        return card.getBoundingClientRect().width + 24;
+      }
+
+      function refresh() {
+        const max = track.scrollWidth - track.clientWidth - 2;
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = track.scrollLeft >= max;
+      }
+
+      prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+      next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+      track.addEventListener('scroll', refresh, { passive: true });
+      window.addEventListener('resize', refresh);
+      refresh();
+    })();
+  </script>
+</section>
+)}

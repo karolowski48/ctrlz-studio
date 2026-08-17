@@ -1,8 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import GoogleReviews from '../components/GoogleReviews.astro';
+import { priceAnswer } from '../data/pricing';
+import { posts } from '../data/posts';
+
+const latestPosts = posts.slice(0, 3);
 ---
 
-<Layout>
+<Layout
+  title="Tworzenie stron internetowych — Skawina, Wadowice, Myślenice | CtrlZ Studio"
+  description="Projektowanie i tworzenie stron internetowych dla firm z Małopolski — Skawina, Sułkowice, Kalwaria Zebrzydowska, Wadowice, Myślenice i okolice. Szybkie strony WWW zoptymalizowane pod Google, które realnie przynoszą zapytania."
+>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
@@ -71,7 +79,7 @@ import Layout from '../layouts/Layout.astro';
 
   <div class="hero-inner">
     <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px" id="h-ey">
-      <div class="hero-eyebrow" style="margin:0">Agencja kreatywna & digital — Polska</div>
+      <div class="hero-eyebrow" style="margin:0">Tworzenie stron internetowych — Skawina, Wadowice, Myślenice</div>
       <div class="footer-badge" style="position:static;margin:0;font-size:11px;padding:5px 12px"><div class="badge-dot"></div>Przyjmujemy nowe projekty</div>
     </div>
     <h1 class="display-xl hero-title" id="h-title">
@@ -82,8 +90,9 @@ import Layout from '../layouts/Layout.astro';
     </h1>
     <div class="hero-bottom" id="h-bot">
       <p class="hero-desc">
-        Projektujemy i wdrażamy strony oraz sklepy internetowe,
-        dla firm którym zależy na <strong>jakości</strong>.<br>
+        Zajmujemy się <strong>tworzeniem stron internetowych</strong> i sklepów online
+        dla firm z Małopolski — Skawina, Sułkowice, Kalwaria Zebrzydowska,
+        Wadowice, Myślenice i okolice.<br>
       </p>
       <div class="hero-cta">
         <a href="#kontakt" class="btn-primary"><span>Porozmawiaj o projekcie</span></a>
@@ -156,13 +165,13 @@ import Layout from '../layouts/Layout.astro';
       <a href="/realizacje" class="work-all-link js-reveal">Zobacz wszystkie →</a>
     </div>
     <div class="portfolio-featured">
-      <a href="/realizacje/modeka" class="port-card tall pbg-7 js-scale"><img src="/modeka-hero.jpg" alt="Modeka" class="port-bg-img"/><div class="port-info"><div class="port-tag">E-commerce B2B · WooCommerce · 2026</div><div class="port-name">Modeka — B2B e-commerce</div><div class="port-pills"><span class="port-pill accent">4 kraje</span><span class="port-pill">1000+ produktów</span></div></div></a>
-      <a href="/realizacje/eduinspirations" class="port-card tall pbg-9 js-scale" data-delay="0.1"><img src="/eduinspirations-hero.jpg" alt="EduInspirations" class="port-bg-img"/><div class="port-info"><div class="port-tag">E-commerce · Redesign · 2026</div><div class="port-name">EduInspirations.pl</div><div class="port-pills"><span class="port-pill accent">PageSpeed 90+</span><span class="port-pill">Custom Plugins</span></div></div></a>
+      <a href="/realizacje/modeka" class="port-card tall pbg-7 js-scale"><img src="/modeka-hero.webp" alt="Modeka — platforma B2B, realizacja CtrlZ Studio" class="port-bg-img"/><div class="port-info"><div class="port-tag">E-commerce B2B · WooCommerce · 2026</div><div class="port-name">Modeka — B2B e-commerce</div><div class="port-pills"><span class="port-pill accent">4 kraje</span><span class="port-pill">1000+ produktów</span></div></div></a>
+      <a href="/realizacje/psgiu" class="port-card tall pbg-13 js-scale" data-delay="0.1"><div class="port-info"><div class="port-tag">Strona firmowa · Custom Dev · 2026</div><div class="port-name">PSGiU — stowarzyszenie</div><div class="port-pills"><span class="port-pill accent">Duży serwis</span><span class="port-pill">Formularze zgłoszeniowe</span></div></div></a>
     </div>
     <div class="portfolio-row">
-      <a href="/realizacje/techopiekun" class="port-card short pbg-8 js-scale"><img src="/techopiekun-hero.jpg" alt="TechOpiekun" class="port-bg-img" loading="lazy"/><div class="port-info"><div class="port-tag">Strona firmowa · WordPress · 2026</div><div class="port-name">TechOpiekun.pl</div><div class="port-pills"><span class="port-pill accent">Serwis + SEO</span></div></div></a>
-      <a href="/realizacje/ayra-jubiler" class="port-card short pbg-10 js-scale" data-delay="0.1"><img src="/ayra-hero.jpg" alt="Ayra Jubiler" class="port-bg-img" loading="lazy"/><div class="port-info"><div class="port-tag">E-commerce · WooCommerce · 2026</div><div class="port-name">Ayra Jubiler</div><div class="port-pills"><span class="port-pill accent">Automatyzacja</span></div></div></a>
-      <a href="/realizacje/old-gold-garage" class="port-card short pbg-12 js-scale" data-delay="0.2"><img src="/oldgoldgarage.jpg" alt="Old Gold Garage" class="port-bg-img" loading="lazy"/><div class="port-info"><div class="port-tag">One Page · WordPress · 2026</div><div class="port-name">Old Gold Garage</div><div class="port-pills"><span class="port-pill accent">Dźwięk silnika</span></div></div></a>
+      <a href="/realizacje/eduinspirations" class="port-card short pbg-9 js-scale"><img src="/eduinspirations-hero.webp" alt="EduInspirations — sklep WooCommerce, realizacja CtrlZ Studio" class="port-bg-img" loading="lazy"/><div class="port-info"><div class="port-tag">E-commerce · Redesign · 2026</div><div class="port-name">EduInspirations.pl</div><div class="port-pills"><span class="port-pill accent">PageSpeed 90+</span></div></div></a>
+      <a href="/realizacje/ayra-jubiler" class="port-card short pbg-10 js-scale" data-delay="0.1"><img src="/ayra-hero.webp" alt="Ayra Jubiler — sklep z biżuterią, realizacja CtrlZ Studio" class="port-bg-img" loading="lazy"/><div class="port-info"><div class="port-tag">E-commerce · WooCommerce · 2026</div><div class="port-name">Ayra Jubiler</div><div class="port-pills"><span class="port-pill accent">Automatyzacja</span></div></div></a>
+      <a href="/realizacje/wypozyczalnia-wadowice" class="port-card short pbg-11 js-scale" data-delay="0.2"><div class="port-info"><div class="port-tag">E-commerce · SEO lokalne · 2026</div><div class="port-name">Wypożyczalnia Wadowice</div><div class="port-pills"><span class="port-pill accent">Audyt + sklep</span></div></div></a>
     </div>
   </div>
 </section>
@@ -174,12 +183,12 @@ import Layout from '../layouts/Layout.astro';
     <h2 class="display-md js-reveal" style="margin-bottom:10px">Kompleksowe usługi<br><span class="grad-v">dla Twojej marki</span></h2>
     <p class="js-reveal" style="font-size:14px;color:rgba(255,255,255,.65);margin-bottom:48px;font-weight:300">Od projektu graficznego przez wdrożenie, aż po optymalizację i opiekę</p>
     <div class="services-grid">
-      <div class="service-card js-scale"><div class="service-num">01</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="service-title">Web Development</div><div class="service-desc">Strony firmowe pisane w Next.js, sklepy internetowe, dedykowane motywy WordPress. Szybkie, responsywne, bez kompromisów.</div><div class="service-tags"><span class="service-tag">WordPress</span><span class="service-tag">WooCommerce</span><span class="service-tag">IdoSell</span><span class="service-tag">Next.js</span><span class="service-tag">Astro.js</span></div><div class="service-arrow">→</div></div>
-      <div class="service-card js-scale" data-delay="0.07"><div class="service-num">02</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div><div class="service-title">UI/UX Design</div><div class="service-desc">Interfejsy, które konwertują. Od prototypu po gotowy produkt — z troską o każdy piksel.</div><div class="service-tags"><span class="service-tag">Figma</span><span class="service-tag">Prototypy</span><span class="service-tag">Animacje</span></div><div class="service-arrow">→</div></div>
-      <div class="service-card js-scale" data-delay="0.14"><div class="service-num">03</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div class="service-title">SEO & Optymalizacja</div><div class="service-desc">Audyty, optymalizacja techniczna, poprawa Core Web Vitals. Widoczność w Google.</div><div class="service-tags"><span class="service-tag">Audyt SEO</span><span class="service-tag">CWV</span><span class="service-tag">SXO</span></div><div class="service-arrow">→</div></div>
-      <div class="service-card js-scale" data-delay="0.07"><div class="service-num">04</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="service-title">Custom Solutions</div><div class="service-desc">ACF, API, konfiguratory, aplikacje webowe. Masz problem? Znajdziemy dogodne rozwiązanie.</div><div class="service-tags"><span class="service-tag">ACF</span><span class="service-tag">REST API</span><span class="service-tag">Integracje</span></div><div class="service-arrow">→</div></div>
+      <a href="/strony-internetowe" class="service-card js-scale"><div class="service-num">01</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="service-title">Web Development</div><div class="service-desc">Strony firmowe pisane w Next.js, sklepy internetowe, dedykowane motywy WordPress. Szybkie, responsywne, bez kompromisów.</div><div class="service-tags"><span class="service-tag">WordPress</span><span class="service-tag">WooCommerce</span><span class="service-tag">IdoSell</span><span class="service-tag">Next.js</span><span class="service-tag">Astro.js</span></div><div class="service-arrow">→</div></a>
+      <a href="/strony-internetowe" class="service-card js-scale" data-delay="0.07"><div class="service-num">02</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div><div class="service-title">UI/UX Design</div><div class="service-desc">Interfejsy, które konwertują. Od prototypu po gotowy produkt — z troską o każdy piksel.</div><div class="service-tags"><span class="service-tag">Figma</span><span class="service-tag">Prototypy</span><span class="service-tag">Animacje</span></div><div class="service-arrow">→</div></a>
+      <a href="/pozycjonowanie-seo" class="service-card js-scale" data-delay="0.14"><div class="service-num">03</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div class="service-title">SEO & Optymalizacja</div><div class="service-desc">Audyty, optymalizacja techniczna, poprawa Core Web Vitals. Widoczność w Google.</div><div class="service-tags"><span class="service-tag">Audyt SEO</span><span class="service-tag">CWV</span><span class="service-tag">SXO</span></div><div class="service-arrow">→</div></a>
+      <a href="/sklepy-internetowe" class="service-card js-scale" data-delay="0.07"><div class="service-num">04</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="service-title">Sklepy internetowe</div><div class="service-desc">WooCommerce, platformy B2B, konfiguratory produktu. Integracje z płatnościami, kurierami i magazynem.</div><div class="service-tags"><span class="service-tag">WooCommerce</span><span class="service-tag">B2B</span><span class="service-tag">Integracje</span><span class="service-tag">REST API</span></div><div class="service-arrow">→</div></a>
       <div class="service-card js-scale" data-delay="0.14"><div class="service-num">05</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="service-title">Wsparcie Techniczne</div><div class="service-desc">Aktualizacje, backup, monitoring, bezpieczeństwo. Stała opieka nad Twoją stroną.</div><div class="service-tags"><span class="service-tag">Backup</span><span class="service-tag">Monitoring</span><span class="service-tag">Certyfikat SSL</span></div><div class="service-arrow">→</div></div>
-      <div class="service-card js-scale" data-delay="0.21"><div class="service-num">06</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="service-title">Audyty & Modernizacja</div><div class="service-desc">Twoja strona nie działa? Przeprowadzimy pełny audyt i naprawimy ją lub stworzymy całkowicie nowy projekt.</div><div class="service-tags"><span class="service-tag">Redesign</span><span class="service-tag">Performance</span><span class="service-tag">UI/UX Audyt</span></div><div class="service-arrow">→</div></div>
+      <a href="/audyt-strony" class="service-card js-scale" data-delay="0.21"><div class="service-num">06</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="service-title">Audyty & Modernizacja</div><div class="service-desc">Twoja strona nie działa? Przeprowadzimy pełny audyt i naprawimy ją lub stworzymy całkowicie nowy projekt.</div><div class="service-tags"><span class="service-tag">Redesign</span><span class="service-tag">Performance</span><span class="service-tag">UI/UX Audyt</span></div><div class="service-arrow">→</div></a>
     </div>
   </div>
 </section>
@@ -471,7 +480,7 @@ import Layout from '../layouts/Layout.astro';
   .testi-slide-who { display:flex; align-items:center; gap:12px; }
   .tst-av { width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet-light));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;font-weight:700;color:#fff;flex-shrink:0; }
   .tst-name { font-size:13px;font-weight:600;color:#fff; }
-  .tst-role { font-size:11px;color:rgba(255,255,255,.38);margin-top:1px; }
+  .tst-role { font-size:11px;color:rgba(255,255,255,.55);margin-top:1px; }
   .testi-dots { display:flex;justify-content:center;gap:8px;margin-top:28px; }
   .testi-dot { width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);cursor:none;transition:all .25s;border:none;padding:0; }
   .testi-dot.active { background:var(--violet-light);width:24px;border-radius:4px; }
@@ -572,7 +581,7 @@ TESTI_END-->
         <div class="faq-divider"></div>
         <div class="faq-item open js-reveal">
           <div class="faq-question"><div class="faq-q-text">Ile kosztuje strona internetowa?</div><div class="faq-icon">+</div></div>
-          <div class="faq-body"><div class="faq-answer-wrap"><div class="faq-answer">Ceny zależą od zakresu. Prosta strona firmowa na WordPress to koszt od 2 000 zł, sklep WooCommerce od 8 000 zł, customowe projekty wyceniamy indywidualnie. Zawsze stała wycena przed startem — zero niespodzianek.</div></div></div>
+          <div class="faq-body"><div class="faq-answer-wrap"><div class="faq-answer">{priceAnswer()}</div></div></div>
         </div>
         <div class="faq-divider"></div>
         <div class="faq-item js-reveal">
@@ -616,27 +625,38 @@ TESTI_END-->
         <a href="/kalkulator" class="btn-primary" style="font-size:15px;padding:14px 32px;margin-top:8px"><span>Oblicz wycenę projektu →</span></a>
       </div>
       <div class="calc-strip-right">
-        <div class="calc-preview">
-          <div class="cp-bar"><div class="cp-label">Rodzaj projektu</div><div class="cp-chips"><span class="cp-chip active">Sklep WooCommerce</span><span class="cp-chip">Strona firmowa</span><span class="cp-chip">Landing Page</span></div></div>
-          <div class="cp-bar"><div class="cp-label">Poziom designu</div><div class="cp-chips"><span class="cp-chip">Standardowy</span><span class="cp-chip active">Custom Design</span><span class="cp-chip">Premium</span></div></div>
-          <div class="cp-bar"><div class="cp-label">Rozmiar projektu</div>
-            <div style="position:relative;margin-top:8px">
-              <div style="height:4px;background:rgba(255,255,255,.08);border-radius:2px"><div style="height:100%;width:55%;background:var(--grad-btn);border-radius:2px"></div></div>
-              <div style="position:absolute;left:55%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border-radius:50%;background:var(--grad-btn);box-shadow:0 0 10px rgba(124,107,255,.6)"></div>
-            </div>
-            <div style="display:flex;justify-content:space-between;margin-top:8px">
-              <span style="font-size:10px;color:rgba(255,255,255,.25)">Mały</span>
-              <span style="font-size:10px;color:var(--violet-light);font-weight:600">Średni</span>
-              <span style="font-size:10px;color:rgba(255,255,255,.25)">Duży</span>
-              <span style="font-size:10px;color:rgba(255,255,255,.25)">Bardzo duży</span>
+        <!-- Mini-kalkulator — te same stawki co /kalkulator, dane z src/data/pricing.ts -->
+        <div class="calc-preview" id="mini-calc">
+          <div class="cp-bar">
+            <div class="cp-label">Rodzaj projektu</div>
+            <div class="cp-chips">
+              <button type="button" class="cp-chip active" data-type="landing">Landing Page</button>
+              <button type="button" class="cp-chip" data-type="firmowa">Strona firmowa</button>
+              <button type="button" class="cp-chip" data-type="sklep">Sklep WooCommerce</button>
             </div>
           </div>
-          <div style="border-top:1px solid rgba(255,255,255,.07);margin:16px 0;padding-top:16px;display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div style="font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Orientacyjna wycena</div>
-              <div style="font-family:var(--font-display);font-size:32px;font-weight:800;letter-spacing:-.04em;background:var(--grad-hero);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">8 960 zł</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.55)">— 11 200 zł</div>
+          <div class="cp-bar">
+            <div class="cp-label">Technologia</div>
+            <div class="cp-chips">
+              <button type="button" class="cp-chip active" data-tech="wp">WordPress</button>
+              <button type="button" class="cp-chip" data-tech="next">Astro / Next.js</button>
             </div>
+          </div>
+          <div class="cp-bar" id="mc-size-row">
+            <div class="cp-label">Liczba podstron</div>
+            <div class="cp-chips">
+              <button type="button" class="cp-chip active" data-size="0">1–3</button>
+              <button type="button" class="cp-chip" data-size="1">4–8</button>
+              <button type="button" class="cp-chip" data-size="2">9–15</button>
+            </div>
+          </div>
+          <div style="border-top:1px solid rgba(255,255,255,.07);margin:16px 0 0;padding-top:16px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+            <div>
+              <div style="font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Orientacyjnie od</div>
+              <div id="mc-price" style="font-family:var(--font-display);font-size:32px;font-weight:800;letter-spacing:-.04em;background:var(--grad-hero);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">2 000 zł</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.55)">netto, wycena wiążąca po rozmowie</div>
+            </div>
+            <a href="/kalkulator" style="font-size:12px;font-weight:600;color:#c4b5fd;text-decoration:none;white-space:nowrap;border-bottom:1px solid rgba(124,107,255,.35);padding-bottom:2px">Pełny kalkulator →</a>
           </div>
         </div>
       </div>
@@ -644,7 +664,7 @@ TESTI_END-->
   </div>
 </section>
 
-<!-- BLOG PREVIEW -->
+<!-- BLOG PREVIEW — trzy najnowsze wpisy, dane z src/data/posts.ts -->
 <section class="section" id="blog" style="background:var(--bg-surface)">
   <div class="container">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:0;flex-wrap:wrap;gap:16px">
@@ -656,90 +676,47 @@ TESTI_END-->
     </div>
 
     <div class="blog-grid">
-      <!-- Featured post -->
-      <a href="/blog/dlaczego-szybka-strona-sprzedaje" class="blog-card blog-featured js-scale">
-        <div class="blog-img">
-          <div class="blog-img-inner" style="background: linear-gradient(135deg,#0e0b3a 0%,#1c1680 40%,#2d0f5c 100%)">
-            <!-- SVG illustration -->
-            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.6" viewBox="0 0 600 220" preserveAspectRatio="xMidYMid slice">
-              <defs><radialGradient id="rg1" cx="50%" cy="50%"><stop offset="0%" stop-color="#7c6bff" stop-opacity=".8"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
-              <ellipse cx="200" cy="110" rx="180" ry="120" fill="url(#rg1)" opacity=".4"/>
-              <ellipse cx="450" cy="80" rx="120" ry="80" fill="#ec4899" opacity=".15" filter="blur(20px)"/>
-              <rect x="60" y="60" width="200" height="130" rx="12" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-              <rect x="76" y="78" width="80" height="8" rx="4" fill="rgba(124,107,255,.7)"/>
-              <rect x="76" y="94" width="140" height="5" rx="2.5" fill="rgba(255,255,255,.2)"/>
-              <rect x="76" y="106" width="110" height="5" rx="2.5" fill="rgba(255,255,255,.15)"/>
-              <rect x="76" y="126" width="60" height="24" rx="12" fill="rgba(124,107,255,.5)"/>
-              <!-- Speed meter -->
-              <circle cx="400" cy="110" r="60" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="12"/>
-              <circle cx="400" cy="110" r="60" fill="none" stroke="rgba(124,107,255,.6)" stroke-width="12" stroke-dasharray="314" stroke-dashoffset="80" stroke-linecap="round" transform="rotate(-90 400 110)"/>
-              <text x="400" y="106" text-anchor="middle" fill="rgba(255,255,255,.9)" font-size="22" font-weight="700" font-family="sans-serif">98</text>
-              <text x="400" y="122" text-anchor="middle" fill="rgba(255,255,255,.4)" font-size="10" font-family="sans-serif">Lighthouse</text>
-            </svg>
+      {latestPosts.map((p, i) => (
+        <a href={`/blog/${p.slug}`} class={`blog-card${i === 0 ? ' blog-featured' : ''} js-scale`} data-delay={String(i * 0.08)}>
+          <div class="blog-img">
+            <div class="blog-img-inner" style={`background:${p.bg}`}>
+              <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.65" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <radialGradient id={`hrg-${p.slug}`} cx="40%" cy="50%">
+                    <stop offset="0%" stop-color={p.glowColor}/>
+                    <stop offset="100%" stop-color="transparent"/>
+                  </radialGradient>
+                </defs>
+                <ellipse cx="200" cy="100" rx="220" ry="140" fill={`url(#hrg-${p.slug})`}/>
+                <ellipse cx="480" cy="60" rx="140" ry="100" fill={p.glowColor} opacity=".12"/>
+                <path d={`M${40 + i * 12} 160 L${100 + i * 6} ${80 + i * 9} L${180 + i * 4} ${120 + i * 6} L${260 + i * 5} ${60 + i * 7} L340 ${90 + i * 5}`}
+                  stroke="rgba(255,255,255,.12)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+              </svg>
+            </div>
+            <div class="blog-img-overlay"></div>
+            <div class="blog-cat">{p.cat}</div>
           </div>
-          <div class="blog-img-overlay"></div>
-          <div class="blog-cat">Performance</div>
-        </div>
-        <div class="blog-body">
-          <div class="blog-meta">
-            <span>12 min czytania</span>
-            <div class="blog-meta-dot"></div>
-            <span>Maj 2025</span>
+          <div class="blog-body">
+            <div class="blog-meta">
+              <span>{p.time} czytania</span>
+              <div class="blog-meta-dot"></div>
+              <span>{p.date}</span>
+            </div>
+            <div class="blog-title">{p.title}</div>
+            <div class="blog-excerpt">{p.excerpt}</div>
+            <div class="blog-read-more">
+              Czytaj artykuł
+              <svg viewBox="0 0 24 24"><polyline points="5 12 19 12"/><polyline points="13 6 19 12 13 18"/></svg>
+            </div>
           </div>
-          <div class="blog-title">Dlaczego szybka strona to więcej sprzedaży — i jak to naprawić w 7 krokach</div>
-          <div class="blog-excerpt">Każda sekunda opóźnienia ładowania kosztuje Cię realnych klientów. Google to wie, użytkownicy to czują, a Twoja konkurencja już to poprawia. Sprawdź jak wyniki Core Web Vitals przekładają się na konwersje i co możesz zrobić dzisiaj.</div>
-          <div class="blog-read-more">Czytaj artykuł <svg viewBox="0 0 24 24"><polyline points="5 12 19 12"/><polyline points="13 6 19 12 13 18"/></svg></div>
-        </div>
-      </a>
-
-      <!-- Post 2 -->
-      <a href="/blog/wordpress-vs-custom" class="blog-card js-scale" data-delay="0.08">
-        <div class="blog-img">
-          <div class="blog-img-inner" style="background: linear-gradient(135deg,#071a10 0%,#0d3a1c 50%,#0a2810 100%)">
-            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.7" viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice">
-              <defs><radialGradient id="rg2" cx="40%" cy="60%"><stop offset="0%" stop-color="#22c55e" stop-opacity=".5"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
-              <ellipse cx="120" cy="100" rx="140" ry="100" fill="url(#rg2)"/>
-              <rect x="30" y="40" width="100" height="80" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(34,197,94,.2)" stroke-width="1"/>
-              <text x="80" y="76" text-anchor="middle" fill="rgba(34,197,94,.8)" font-size="18" font-weight="700" font-family="sans-serif">WP</text>
-              <path d="M145 80h20" stroke="rgba(255,255,255,.15)" stroke-width="2" stroke-dasharray="4"/>
-              <rect x="170" y="40" width="100" height="80" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(124,107,255,.2)" stroke-width="1"/>
-              <text x="220" y="76" text-anchor="middle" fill="rgba(124,107,255,.8)" font-size="11" font-weight="600" font-family="sans-serif">CUSTOM</text>
-            </svg>
-          </div>
-          <div class="blog-img-overlay"></div>
-          <div class="blog-cat">Technologie</div>
-        </div>
-        <div class="blog-body">
-          <div class="blog-meta"><span>8 min</span><div class="blog-meta-dot"></div><span>Kwiecień 2025</span></div>
-          <div class="blog-title">WordPress vs strona na zamówienie — co wybrać dla swojego biznesu?</div>
-          <div class="blog-read-more">Czytaj artykuł <svg viewBox="0 0 24 24"><polyline points="5 12 19 12"/><polyline points="13 6 19 12 13 18"/></svg></div>
-        </div>
-      </a>
-
-      <!-- Post 3 -->
-      <a href="/blog/seo-2025" class="blog-card js-scale" data-delay="0.16">
-        <div class="blog-img">
-          <div class="blog-img-inner" style="background: linear-gradient(135deg,#1a0830 0%,#2d0f5c 50%,#160520 100%)">
-            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.7" viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice">
-              <defs><radialGradient id="rg3" cx="60%" cy="40%"><stop offset="0%" stop-color="#a78bfa" stop-opacity=".5"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs>
-              <ellipse cx="180" cy="70" rx="140" ry="100" fill="url(#rg3)"/>
-              <path d="M40 130 L60 90 L80 110 L100 60 L120 80 L140 40 L160 70 L180 50 L200 80 L220 30 L240 60 L260 45" stroke="rgba(167,139,250,.7)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-              <circle cx="220" cy="30" r="6" fill="rgba(167,139,250,.9)"/>
-              <path d="M40 130 L60 90 L80 110 L100 60 L120 80 L140 40 L160 70 L180 50 L200 80 L220 30 L240 60 L260 45 L260 160 L40 160z" fill="rgba(124,107,255,.08)"/>
-            </svg>
-          </div>
-          <div class="blog-img-overlay"></div>
-          <div class="blog-cat">SEO</div>
-        </div>
-        <div class="blog-body">
-          <div class="blog-meta"><span>10 min</span><div class="blog-meta-dot"></div><span>Marzec 2025</span></div>
-          <div class="blog-title">SEO w 2025 — co naprawdę działa, a co to strata czasu i pieniędzy?</div>
-          <div class="blog-read-more">Czytaj artykuł <svg viewBox="0 0 24 24"><polyline points="5 12 19 12"/><polyline points="13 6 19 12 13 18"/></svg></div>
-        </div>
-      </a>
+        </a>
+      ))}
     </div>
   </div>
 </section>
+
+<!-- OPINIE GOOGLE — pobierane z wizytówki podczas budowania strony -->
+<GoogleReviews />
 
 <!-- CONTACT -->
 <section class="section" id="kontakt" style="background:var(--bg-base);position:relative;overflow:hidden">
@@ -792,7 +769,7 @@ TESTI_END-->
       .contact-method:hover .cm-icon svg { stroke: rgba(255,255,255,.85); }
       .cm-body { flex: 1; }
       .cm-label { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.55); transition: color .2s; }
-      .cm-sub   { font-size: 11px; color: rgba(255,255,255,.25); margin-top: 1px; }
+      .cm-sub   { font-size: 11px; color: rgba(255,255,255,.55); margin-top: 1px; }
       .contact-trust { display: flex; flex-direction: column; gap: 8px; }
       .ct-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,.58); }
       .ct-dot  { width: 5px; height: 5px; border-radius: 50%; background: var(--violet-light); opacity: .7; flex-shrink: 0; }
@@ -816,22 +793,22 @@ TESTI_END-->
         <form class="contact-form-wrap" id="contact-form-main">
           <div class="cf-row">
             <div class="cf-field">
-              <label class="cf-label">Imię i nazwisko *</label>
-              <input class="cf-input" type="text" name="name" placeholder="Jan Kowalski" required>
+              <label class="cf-label" for="contact-name">Imię i nazwisko *</label>
+              <input class="cf-input" type="text" name="name" id="contact-name" placeholder="Jan Kowalski" required>
             </div>
             <div class="cf-field">
-              <label class="cf-label">Firma</label>
-              <input class="cf-input" type="text" name="company" placeholder="Nazwa firmy">
+              <label class="cf-label" for="contact-company">Firma</label>
+              <input class="cf-input" type="text" name="company" id="contact-company" placeholder="Nazwa firmy">
             </div>
           </div>
           <div class="cf-row">
             <div class="cf-field">
-              <label class="cf-label">Email *</label>
-              <input class="cf-input" type="email" name="email" placeholder="jan@firma.pl" required>
+              <label class="cf-label" for="contact-email">Email *</label>
+              <input class="cf-input" type="email" name="email" id="contact-email" placeholder="jan@firma.pl" required>
             </div>
             <div class="cf-field">
-              <label class="cf-label">Telefon</label>
-              <input class="cf-input" type="tel" name="phone" placeholder="+48 000 000 000">
+              <label class="cf-label" for="contact-phone">Telefon</label>
+              <input class="cf-input" type="tel" name="phone" id="contact-phone" placeholder="+48 000 000 000">
             </div>
           </div>
           <div class="cf-field">
@@ -848,14 +825,14 @@ TESTI_END-->
             </select>
           </div>
           <div class="cf-field">
-            <label class="cf-label">Opisz projekt</label>
-            <textarea class="cf-input" name="message" rows="4" placeholder="Opowiedz nam o swoim projekcie — czym się zajmujesz, co chcesz osiągnąć, jaki masz budżet i termin..."></textarea>
+            <label class="cf-label" for="contact-message">Opisz projekt</label>
+            <textarea class="cf-input" name="message" id="contact-message" rows="4" placeholder="Opowiedz nam o swoim projekcie — czym się zajmujesz, co chcesz osiągnąć, jaki masz budżet i termin..."></textarea>
           </div>
           <button type="submit" class="btn-primary" style="font-size:14px;padding:14px;width:100%;justify-content:center;border-radius:12px">
             <span>Wyślij wiadomość →</span>
           </button>
           <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px">
-            <span style="font-size:11px;color:rgba(255,255,255,.2)">lub skorzystaj z</span>
+            <span style="font-size:11px;color:rgba(255,255,255,.5)">lub skorzystaj z</span>
             <a href="/kalkulator" style="font-size:11px;color:var(--violet-light);border-bottom:1px solid rgba(124,107,255,.3)">kalkulatora wyceny →</a>
           </div>
         </form>
@@ -952,6 +929,72 @@ TESTI_END-->
     </div>
   </div>
 </footer>
+
+
+<style>
+  #mini-calc .cp-chip {
+    cursor: pointer;
+    font: inherit;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.05);
+    color: rgba(255,255,255,.6);
+    transition: all .2s;
+  }
+  #mini-calc .cp-chip:hover { border-color: rgba(124,107,255,.45); color: #fff; }
+  #mini-calc .cp-chip.active {
+    background: rgba(124,107,255,.22);
+    border-color: rgba(124,107,255,.5);
+    color: #fff;
+  }
+  #mini-calc[data-type="landing"] #mc-size-row { display: none; }
+</style>
+
+<script>
+  (function () {
+    const root = document.getElementById('mini-calc');
+    if (!root) return;
+
+    // Stawki zgodne z src/data/pricing.ts i stroną /kalkulator
+    const BASE = {
+      landing: [2000, 2000, 2000],
+      firmowa: [4000, 5500, 6800],
+      sklep:   [8000, 11000, 15000],
+    };
+    const TECH_MULTIPLIER = { wp: 1, next: 1.6 };
+
+    let type = 'landing';
+    let tech = 'wp';
+    let size = 0;
+
+    const priceEl = document.getElementById('mc-price');
+
+    function fmt(n) {
+      return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' zł';
+    }
+
+    function render() {
+      root.dataset.type = type;
+      priceEl.textContent = fmt(BASE[type][size] * TECH_MULTIPLIER[tech]);
+    }
+
+    function pick(group, attr, setter) {
+      root.querySelectorAll('[' + attr + ']').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          root.querySelectorAll('[' + attr + ']').forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          setter(btn.getAttribute(attr));
+          render();
+        });
+      });
+    }
+
+    pick('type', 'data-type', function (v) { type = v; });
+    pick('tech', 'data-tech', function (v) { tech = v; });
+    pick('size', 'data-size', function (v) { size = parseInt(v, 10); });
+
+    render();
+  })();
+</script>
 
 </Layout>
 

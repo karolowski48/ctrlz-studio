@@ -1,0 +1,217 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+import { priceAnswer, addonsAnswer } from '../data/pricing';
+
+const faq = [
+  { q: 'Ile kosztuje sklep internetowy?', a: priceAnswer() },
+  { q: 'Co jeszcze można dobrać do projektu?', a: addonsAnswer() },
+  { q: 'WooCommerce, Shopify czy rozwiązanie pisane od zera?', a: 'WooCommerce sprawdza się w większości przypadków — jest elastyczny, tani w utrzymaniu i nie płacicie prowizji od sprzedaży. Shopify bywa lepszy przy prostym asortymencie i braku zaplecza technicznego, ale kosztuje abonament i prowizję. Rozwiązanie pisane od zera ma sens przy nietypowych procesach: indywidualnych cennikach dla kontrahentów, konfiguratorach produktu, integracjach z ERP.' },
+  { q: 'Ile trwa zbudowanie sklepu?', a: 'Sklep z prostym asortymentem: 8–12 tygodni. Platforma B2B z integracjami do magazynu i systemu księgowego: 12–16 tygodni i więcej. Najwięcej czasu zabiera zwykle przygotowanie danych produktowych — opisów, zdjęć, parametrów.' },
+  { q: 'Czy zajmujecie się wgraniem produktów?', a: 'Tak, ale najpierw sprawdzamy, czy nie da się tego zautomatyzować. Przy kilkuset produktach import z pliku albo z Waszego dotychczasowego systemu jest szybszy i tańszy niż ręczne wpisywanie. Przy jednym z projektów zbudowaliśmy automat dodający produkty na podstawie zdjęć.' },
+  { q: 'Integracje z płatnościami i kurierami?', a: 'Standardowo: Przelewy24, PayU, Stripe, BLIK, płatności odroczone. Kurierzy: InPost, DPD, DHL, GLS wraz z automatycznym generowaniem listów przewozowych. Do tego integracje z systemami księgowymi i magazynowymi, jeśli ich używacie.' },
+  { q: 'Czy sklep będzie widoczny w Google?', a: 'Konfigurujemy podstawy: dane strukturalne produktów, mapę witryny, tytuły i opisy kategorii, integrację z Google Merchant Center. Pozycjonowanie sklepu to jednak proces ciągły, nie jednorazowa konfiguracja — przy sklepach zwykle proponujemy osobną współpracę SEO po wdrożeniu.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Tworzenie sklepów internetowych',
+  name: 'Sklepy internetowe i platformy e-commerce',
+  description: 'Budowa sklepow internetowych na WooCommerce i rozwiazan e-commerce pisanych od zera, z integracjami platnosci, kurierow i systemow magazynowych.',
+  provider: { '@id': 'https://ctrlzstudio.pl/#localbusiness' },
+  areaServed: { '@type': 'AdministrativeArea', name: 'województwo małopolskie' },
+  url: 'https://ctrlzstudio.pl/sklepy-internetowe',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Sklepy internetowe', item: 'https://ctrlzstudio.pl/sklepy-internetowe' },
+  ],
+};
+---
+
+<Layout
+  title="Sklepy internetowe — WooCommerce i e-commerce B2B | CtrlZ Studio"
+  description="Budujemy sklepy internetowe i platformy B2B. WooCommerce lub rozwiązanie pisane od zera, integracje z płatnościami, kurierami i magazynem. Ceny od 8 000 zł."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .srv-hero { padding: 150px 0 64px; position: relative; overflow: hidden; background: var(--bg-base); }
+  .srv-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .srv-lead { font-size: 17px; color: rgba(255,255,255,.5); line-height: 1.75; max-width: 720px; font-weight: 300; }
+  .srv-lead strong { color: rgba(255,255,255,.82); font-weight: 500; }
+  .srv-chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .srv-chip {
+    font-size: 12px; padding: 7px 16px; border-radius: 100px;
+    background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.26); color: #7dd3fc;
+  }
+  .srv-section { padding: 72px 0; background: var(--bg-base); }
+  .srv-section-alt { background: var(--bg-elevated, rgba(255,255,255,.02)); }
+  .srv-h2 { margin-bottom: 18px; }
+  .srv-p { font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.8; max-width: 760px; margin-bottom: 16px; }
+  .srv-p strong { color: rgba(255,255,255,.8); font-weight: 500; }
+  .srv-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 36px; }
+  .srv-card {
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px; padding: 28px; transition: border-color .25s, transform .25s;
+  }
+  .srv-card:hover { border-color: rgba(14,165,233,.26); transform: translateY(-2px); }
+  .srv-card h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 10px; font-weight: 600; }
+  .srv-card p { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.7; margin: 0; }
+  .srv-steps { max-width: 780px; margin-top: 32px; }
+  .srv-step {
+    display: flex; gap: 22px; align-items: flex-start;
+    padding: 22px 0; border-top: 1px solid rgba(255,255,255,.07);
+  }
+  .srv-step-n {
+    font-family: var(--font-display); font-size: 26px; font-weight: 800;
+    color: #7dd3fc; line-height: 1; width: 40px; flex-shrink: 0; opacity: .85;
+  }
+  .srv-step h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 6px; font-weight: 600; }
+  .srv-step p { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.7; margin: 0; }
+  .srv-list { max-width: 760px; margin: 24px 0 0; padding: 0; list-style: none; }
+  .srv-list li {
+    font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.75;
+    padding: 0 0 0 26px; margin-bottom: 12px; position: relative;
+  }
+  .srv-list li::before { content: '→'; position: absolute; left: 0; color: #7dd3fc; font-size: 14px; }
+  .srv-list strong { color: rgba(255,255,255,.8); font-weight: 500; }
+  @media (max-width: 1024px) { .srv-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) {
+    .srv-inner { padding: 0 24px; }
+    .srv-grid { grid-template-columns: 1fr; }
+    .srv-hero { padding: 120px 0 48px; }
+  }
+</style>
+
+<section class="srv-hero">
+  <div class="orb orb-2"></div>
+  <div class="grid-bg"></div>
+  <div class="srv-inner" style="position:relative">
+    <div class="eyebrow" style="margin-bottom:18px">Usługa</div>
+    <h1 class="display-xl" style="margin-bottom:20px">Sklepy<br><span class="grad-v">internetowe</span></h1>
+    <p class="srv-lead">Od sklepu z kilkudziesięcioma produktami po <strong>platformę B2B z indywidualnymi cennikami i synchronizacją magazynu</strong>. Budujemy na WooCommerce albo piszemy od zera — zależnie od tego, co ma się dziać po kliknięciu „kup".</p>
+    <div class="srv-chips"><span class="srv-chip">WooCommerce</span>
+      <span class="srv-chip">Platformy B2B</span>
+      <span class="srv-chip">Integracje ERP</span>
+      <span class="srv-chip">Od 8 000 zł</span></div>
+  </div>
+</section>
+
+<section class="srv-section">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Cena sklepu bierze się<br>z <span class="grad">procesów</span>, nie z wyglądu</h2>
+    <p class="srv-p">
+      Sklep z pięćdziesięcioma produktami i płatnościami online to jeden projekt.
+      Platforma B2B z indywidualnymi cennikami dla kontrahentów, synchronizacją stanów
+      magazynowych i eksportem zamówień do systemu ERP to zupełnie inny — mimo że
+      z zewnątrz oba wyglądają jak „sklep".
+    </p>
+    <p class="srv-p">
+      Dlatego pierwsza rozmowa nie dotyczy grafiki. <strong>Pytamy, co dzieje się
+      po złożeniu zamówienia</strong> — kto je obsługuje, skąd biorą się stany magazynowe,
+      jak wystawiacie faktury, czy różni klienci mają różne ceny. Odpowiedzi na te pytania
+      decydują o budżecie znacznie bardziej niż liczba produktów.
+    </p>
+  </div>
+</section>
+
+<section class="srv-section srv-section-alt">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Co <span class="grad-v">budujemy</span></h2>
+    <div class="srv-grid">
+      <div class="srv-card"><h3>Sklepy WooCommerce</h3><p>Najczęstszy wybór. Pełna kontrola, brak prowizji od sprzedaży, ogromne możliwości rozbudowy. Wymaga opieki technicznej — i mówimy o tym wprost.</p></div>
+      <div class="srv-card"><h3>Platformy B2B</h3><p>Indywidualne cenniki, limity kredytowe, zamówienia hurtowe, panel kontrahenta. Tam, gdzie zwykły koszyk nie wystarcza.</p></div>
+      <div class="srv-card"><h3>Konfiguratory produktu</h3><p>Gdy klient składa produkt z opcji — wymiary, materiały, warianty — i cena liczy się w locie.</p></div>
+      <div class="srv-card"><h3>Integracje</h3><p>Płatności, kurierzy z automatycznymi listami przewozowymi, systemy magazynowe, księgowość, hurtownie i pliki produktowe.</p></div>
+      <div class="srv-card"><h3>Migracje</h3><p>Przeniesienie sklepu na nowy system bez utraty pozycji w Google. Przekierowania, mapowanie adresów, zachowanie historii zamówień.</p></div>
+      <div class="srv-card"><h3>Optymalizacja konwersji</h3><p>Macie już sklep, ale sprzedaje słabo? Zanim dołożycie budżet reklamowy, warto sprawdzić, gdzie ucieka koszyk.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="srv-section">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Kiedy sklep <span class="grad">nie ma sensu</span></h2>
+    <p class="srv-p">
+      Mówimy to klientom regularnie, mimo że oznacza mniejsze zlecenie:
+    </p>
+    <ul class="srv-list">
+      <li><strong>Produkty na wymiar.</strong> Nikt nie kupuje szafy ani pergoli przez koszyk. Lepiej działa rozbudowany katalog realizacji z formularzem zapytania.</li>
+      <li><strong>Kilka produktów o wysokiej wartości.</strong> Przy trzech produktach po kilkanaście tysięcy sklep jest przerostem formy — wystarczy dobra strona z kontaktem.</li>
+      <li><strong>Brak zaplecza do obsługi zamówień.</strong> Sklep generuje pracę: pakowanie, wysyłki, zwroty, reklamacje. Jeśli nie macie kto tym zająć, sklep stanie się problemem, nie przychodem.</li>
+      <li><strong>Asortyment dostępny wszędzie taniej.</strong> Konkurowanie ceną z dużymi platformami bez przewagi kosztowej kończy się w jeden sposób.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="srv-section">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Najczęstsze <span class="grad-v">pytania</span></h2>
+    <div class="faq-list" style="margin-top:32px">
+      {faq.map((f, i) => (
+        <>
+          <div class="faq-divider"></div>
+          <div class={`faq-item${i === 0 ? ' open' : ''}`}>
+            <div class="faq-question"><div class="faq-q-text">{f.q}</div><div class="faq-icon">+</div></div>
+            <div class="faq-body"><div class="faq-answer-wrap"><div class="faq-answer">{f.a}</div></div></div>
+          </div>
+        </>
+      ))}
+      <div class="faq-divider"></div>
+    </div>
+  </div>
+</section>
+
+<section class="srv-section srv-section-alt">
+  <div class="srv-inner" style="text-align:center">
+    <h2 class="display-md srv-h2">Porozmawiajmy<br>o <span class="grad-v">Waszej sprzedaży</span></h2>
+    <p class="srv-p" style="margin:0 auto 32px">Zacznijmy od tego, co ma się dziać po zamówieniu — cena sklepu wyjdzie z procesów, a nie z liczby podstron.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="/#kontakt" class="btn-primary"><span>Napisz do nas</span></a>
+      <a href="/kalkulator" class="btn-ghost"><span>Policz orientacyjną cenę</span></a>
+    </div>
+    <p class="srv-p" style="margin:28px auto 0;font-size:14px">Zobacz też: <a href="/strony-internetowe" style="color:#c4b5fd">strony internetowe</a> · <a href="/pozycjonowanie-seo" style="color:#c4b5fd">pozycjonowanie SEO</a> · <a href="/realizacje/modeka" style="color:#c4b5fd">case study platformy B2B</a></p>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question')?.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
+</script>
+
+</Layout>
