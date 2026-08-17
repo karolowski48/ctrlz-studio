@@ -1,0 +1,220 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+import { PRICING } from '../data/pricing';
+
+const zl = (n: number) => `${String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} zł`;
+
+const services = [
+  {
+    href: '/strony-internetowe',
+    num: '01',
+    name: 'Strony internetowe',
+    price: `od ${zl(PRICING.landing)}`,
+    desc: 'Od wizytówki dla jednoosobowej firmy po rozbudowany serwis z katalogiem usług i blogiem. Indywidualny projekt graficzny, wynik PageSpeed powyżej 90 i konfiguracja SEO w standardzie.',
+    forWhom: 'Firma, która potrzebuje strony przynoszącej zapytania, a nie tylko istniejącej.',
+    tags: ['Astro', 'Next.js', 'WordPress', 'UX/UI'],
+    accent: 'rgba(124,107,255,',
+  },
+  {
+    href: '/sklepy-internetowe',
+    num: '02',
+    name: 'Sklepy internetowe',
+    price: `od ${zl(PRICING.sklep.from)}`,
+    desc: 'WooCommerce, platformy B2B z indywidualnymi cennikami, konfiguratory produktu. Integracje z płatnościami, kurierami, magazynem i księgowością.',
+    forWhom: 'Sprzedaż online — od kilkudziesięciu produktów po hurtownię z własnymi procesami.',
+    tags: ['WooCommerce', 'B2B', 'Integracje', 'Migracje'],
+    accent: 'rgba(14,165,233,',
+  },
+  {
+    href: '/pozycjonowanie-seo',
+    num: '03',
+    name: 'Pozycjonowanie SEO',
+    price: `od ${zl(PRICING.addons.seoBasic)}`,
+    desc: 'Optymalizacja techniczna, dane strukturalne, strony lokalne, wizytówka Google i strategia treści. Bez kupowania linków i bez obiecywania pierwszego miejsca.',
+    forWhom: 'Firma, która jest w Google niewidoczna albo widoczna, ale bez kliknięć.',
+    tags: ['SEO lokalne', 'Dane strukturalne', 'Treści', 'Search Console'],
+    accent: 'rgba(167,139,250,',
+  },
+  {
+    href: '/audyt-strony',
+    num: '04',
+    name: 'Audyt strony',
+    price: '300 – 1 000 zł',
+    desc: 'Widoczność w Google, kondycja techniczna, szybkość, wizytówka i konwersja. Lista konkretnych rzeczy do poprawy, uszeregowana według stosunku wysiłku do efektu.',
+    forWhom: 'Masz stronę, ale telefon milczy — i chcesz wiedzieć dlaczego, zanim wydasz na nową.',
+    tags: ['Techniczny', 'SEO', 'Wydajność', 'Konkurencja'],
+    accent: 'rgba(34,197,94,',
+  },
+  {
+    href: '/wsparcie-techniczne',
+    num: '05',
+    name: 'Wsparcie techniczne',
+    price: `${zl(PRICING.addons.maintenanceMonthly)} / mies.`,
+    desc: 'Aktualizacje sprawdzane na kopii, cotygodniowe kopie zapasowe poza serwerem, monitoring dostępności, bezpieczeństwo i godzina na drobne zmiany.',
+    forWhom: 'Strona na WordPressie, którą ktoś musi doglądać — a nie chcecie tego robić sami.',
+    tags: ['Aktualizacje', 'Backup', 'Monitoring', 'Raporty'],
+    accent: 'rgba(251,146,60,',
+  },
+];
+
+const serviceListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Usługi CtrlZ Studio',
+  itemListElement: services.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Service',
+      name: s.name,
+      description: s.desc,
+      provider: { '@id': 'https://ctrlzstudio.pl/#localbusiness' },
+      url: `https://ctrlzstudio.pl${s.href}`,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Usługi', item: 'https://ctrlzstudio.pl/uslugi' },
+  ],
+};
+---
+
+<Layout
+  title="Usługi — strony, sklepy, SEO i opieka techniczna | CtrlZ Studio"
+  description="Pełna oferta CtrlZ Studio: tworzenie stron internetowych, sklepy WooCommerce i B2B, pozycjonowanie SEO, audyty i wsparcie techniczne."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .usl-hero { padding: 150px 0 56px; position: relative; overflow: hidden; background: var(--bg-base); }
+  .usl-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .usl-lead { font-size: 17px; color: rgba(255,255,255,.75); line-height: 1.75; max-width: 720px; font-weight: 300; }
+  .usl-lead strong { color: rgba(255,255,255,.85); font-weight: 500; }
+
+  .usl-section { padding: 56px 0 80px; background: var(--bg-base); }
+
+  .usl-card {
+    display: grid;
+    grid-template-columns: 64px 1fr 260px;
+    gap: 32px;
+    align-items: start;
+    padding: 34px 36px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.08);
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 18px;
+    transition: border-color .25s, background .25s, transform .25s;
+  }
+  .usl-card:hover { transform: translateY(-2px); }
+  .usl-num {
+    font-family: var(--font-display); font-size: 30px; font-weight: 800;
+    line-height: 1; opacity: .9;
+  }
+  .usl-name { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: #fff; margin: 0 0 10px; }
+  .usl-desc { font-size: 15px; color: rgba(255,255,255,.75); line-height: 1.75; margin: 0 0 14px; }
+  .usl-for {
+    font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.6;
+    padding-left: 14px; border-left: 2px solid rgba(255,255,255,.14); margin-bottom: 16px;
+  }
+  .usl-tags { display: flex; gap: 7px; flex-wrap: wrap; }
+  .usl-tag {
+    font-size: 12px; padding: 4px 11px; border-radius: 100px;
+    background: rgba(255,255,255,.06); color: rgba(255,255,255,.75);
+    border: 1px solid rgba(255,255,255,.1);
+  }
+  .usl-side { text-align: right; }
+  .usl-price {
+    font-family: var(--font-display); font-size: 24px; font-weight: 800;
+    color: #fff; letter-spacing: -.02em; margin-bottom: 6px; white-space: nowrap;
+  }
+  .usl-price-note { font-size: 12px; color: rgba(255,255,255,.68); margin-bottom: 18px; }
+  .usl-go { font-size: 13px; font-weight: 600; white-space: nowrap; }
+
+  .usl-strip {
+    margin-top: 44px; padding: 40px 44px; border-radius: 20px;
+    background: rgba(124,107,255,.07); border: 1px solid rgba(124,107,255,.2);
+    text-align: center;
+  }
+  .usl-strip h2 { font-family: var(--font-display); font-size: 26px; color: #fff; margin: 0 0 10px; font-weight: 700; }
+  .usl-strip p { font-size: 15px; color: rgba(255,255,255,.78); line-height: 1.7; margin: 0 auto 26px; max-width: 560px; }
+
+  @media (max-width: 900px) {
+    .usl-card { grid-template-columns: 44px 1fr; gap: 20px; padding: 28px 24px; }
+    .usl-side { grid-column: 2; text-align: left; margin-top: 4px; }
+    .usl-inner { padding: 0 24px; }
+    .usl-hero { padding: 120px 0 40px; }
+  }
+</style>
+
+<section class="usl-hero">
+  <div class="orb orb-1"></div>
+  <div class="grid-bg"></div>
+  <div class="usl-inner" style="position:relative">
+    <div class="eyebrow" style="margin-bottom:18px">Oferta</div>
+    <h1 class="display-xl" style="margin-bottom:20px">Co dla Was<br><span class="grad">robimy</span></h1>
+    <p class="usl-lead">
+      Pięć usług, każda z jasno opisanym zakresem i ceną. <strong>Bez „zapytaj o wycenę"</strong> —
+      widełki są podane od razu, żebyście wiedzieli, czy w ogóle rozmawiamy o tym samym budżecie.
+    </p>
+  </div>
+</section>
+
+<section class="usl-section">
+  <div class="usl-inner">
+    {services.map((s) => (
+      <a href={s.href} class="usl-card" style={`--a:${s.accent}`}>
+        <div class="usl-num" style={`color:${s.accent}.85)`}>{s.num}</div>
+        <div>
+          <h2 class="usl-name">{s.name}</h2>
+          <p class="usl-desc">{s.desc}</p>
+          <p class="usl-for"><strong style="color:rgba(255,255,255,.8)">Dla kogo:</strong> {s.forWhom}</p>
+          <div class="usl-tags">
+            {s.tags.map((t) => <span class="usl-tag">{t}</span>)}
+          </div>
+        </div>
+        <div class="usl-side">
+          <div class="usl-price">{s.price}</div>
+          <div class="usl-price-note">netto, wycena wiążąca przed startem</div>
+          <div class="usl-go" style={`color:${s.accent}.95)`}>Zobacz szczegóły →</div>
+        </div>
+      </a>
+    ))}
+
+    <div class="usl-strip">
+      <h2>Nie wiecie, czego potrzebujecie?</h2>
+      <p>
+        Najczęstsza sytuacja. Napiszcie w dwóch zdaniach, czym się zajmujecie i skąd macie klientów —
+        odpiszemy, co ma sens w Waszym przypadku. Także wtedy, gdy odpowiedź brzmi „na razie nic".
+      </p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="/#kontakt" class="btn-primary"><span>Napisz do nas</span></a>
+        <a href="/kalkulator" class="btn-ghost"><span>Policz orientacyjną cenę</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(serviceListSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+</script>
+
+</Layout>

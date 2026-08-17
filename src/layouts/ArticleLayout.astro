@@ -5,6 +5,9 @@ import SharedFooter from '../components/SharedFooter.astro';
 
 interface Props {
   title: string;
+  /** Krótszy tytuł dla wyszukiwarki (Google ucina ~60 znaków).
+      Gdy pusty, używany jest pełny tytuł artykułu. */
+  metaTitle?: string;
   description: string;
   cat: string;
   readTime: string;
@@ -13,10 +16,10 @@ interface Props {
   slug?: string;
 }
 
-const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.25)', slug } = Astro.props;
+const { title, metaTitle, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.25)', slug } = Astro.props;
 ---
 
-<Layout title={`${title} — Blog CtrlZ Studio`} description={description}>
+<Layout title={metaTitle ?? `${title} — Blog CtrlZ Studio`} description={description}>
 
 <SharedNav />
 
@@ -41,7 +44,7 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
     margin-bottom: 22px;
   }
   .art-cat-pill {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: .1em;
     text-transform: uppercase;
@@ -53,7 +56,7 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
   }
   .art-meta {
     font-size: 13px;
-    color: rgba(255,255,255,.55);
+    color: rgba(255,255,255,.68);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -71,7 +74,7 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
   }
   .art-hero-desc {
     font-size: 17px;
-    color: rgba(255,255,255,.55);
+    color: rgba(255,255,255,.68);
     line-height: 1.7;
     max-width: 680px;
     font-weight: 300;
@@ -93,7 +96,7 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: rgba(255,255,255,.55);
+    color: rgba(255,255,255,.68);
     margin-bottom: 40px;
     transition: color var(--transition);
   }
@@ -286,7 +289,7 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .art-stat-box .s-label { font-size: 12px; color: rgba(255,255,255,.55); margin-top: 6px; line-height: 1.5; }
+  .art-stat-box .s-label { font-size: 12px; color: rgba(255,255,255,.68); margin-top: 6px; line-height: 1.5; }
 
   .art-step-card {
     background: rgba(255,255,255,.025);
@@ -313,7 +316,7 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
     width: 40px;
   }
   .art-step-card h3 { font-family:var(--font-display); font-size:17px; color:#fff; margin:0 0 6px; font-weight:600; }
-  .art-step-card p  { font-size:14px; color:rgba(255,255,255,.55); line-height:1.65; margin:0; }
+  .art-step-card p  { font-size:14px; color:rgba(255,255,255,.68); line-height:1.65; margin:0; }
 
   .art-cta-box {
     background: linear-gradient(135deg,rgba(124,107,255,.12),rgba(236,72,153,.06));
@@ -324,7 +327,7 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
     margin-top: 64px;
   }
   .art-cta-box h3 { font-family:var(--font-display); font-size:24px; color:#fff; margin:0 0 10px; }
-  .art-cta-box p  { font-size:15px; color:rgba(255,255,255,.62); margin-bottom:24px; max-width:none; }
+  .art-cta-box p  { font-size:15px; color:rgba(255,255,255,.75); margin-bottom:24px; max-width:none; }
 
   /* ── SIDEBAR — fully sticky aside ────────── */
   .art-sidebar {
@@ -348,7 +351,7 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
     font-family: var(--font-display);
     font-size: 12px;
     font-weight: 600;
-    color: rgba(255,255,255,.55);
+    color: rgba(255,255,255,.68);
     letter-spacing: .12em;
     text-transform: uppercase;
     margin-bottom: 14px;
@@ -365,7 +368,7 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
   .toc-list li::before { display: none !important; }
   .toc-list a {
     font-size: 13px;
-    color: rgba(255,255,255,.55);
+    color: rgba(255,255,255,.68);
     display: block;
     padding: 6px 8px;
     border-radius: 7px;
@@ -394,14 +397,14 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
     flex-shrink: 0;
   }
   .sidebar-av-name { font-family:var(--font-display); font-size:14px; font-weight:600; color:#fff; }
-  .sidebar-av-role { font-size:12px; color:rgba(255,255,255,.55); margin-top:1px; }
+  .sidebar-av-role { font-size:12px; color:rgba(255,255,255,.68); margin-top:1px; }
   .sidebar-share { display:flex; gap:8px; margin-top:4px; }
   .share-btn {
-    font-size:11px; padding:6px 12px;
+    font-size:12px; padding:6px 12px;
     border-radius:var(--radius-pill);
     background:rgba(255,255,255,.04);
     border:1px solid rgba(255,255,255,.09);
-    color:rgba(255,255,255,.55);
+    color:rgba(255,255,255,.68);
     cursor:none;
     transition:all var(--transition);
   }
@@ -416,7 +419,7 @@ const { title, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.
   .related-post:last-child { border-bottom:none; }
   .related-post:hover .rp-title { color:var(--violet-light); }
   .rp-dot { width:5px; height:5px; border-radius:50%; background:var(--violet); flex-shrink:0; opacity:.6; margin-top:5px; }
-  .rp-title { font-size:13px; color:rgba(255,255,255,.5); line-height:1.4; transition:color var(--transition); }
+  .rp-title { font-size:13px; color:rgba(255,255,255,.62); line-height:1.4; transition:color var(--transition); }
 
   /* ── RESPONSIVE ──────────────────────────── */
   @media (max-width: 1024px) {

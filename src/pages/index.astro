@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SharedFooter from '../components/SharedFooter.astro';
 import GoogleReviews from '../components/GoogleReviews.astro';
 import { priceAnswer } from '../data/pricing';
 import { posts } from '../data/posts';
@@ -8,8 +9,8 @@ const latestPosts = posts.slice(0, 3);
 ---
 
 <Layout
-  title="Tworzenie stron internetowych — Skawina, Wadowice, Myślenice | CtrlZ Studio"
-  description="Projektowanie i tworzenie stron internetowych dla firm z Małopolski — Skawina, Sułkowice, Kalwaria Zebrzydowska, Wadowice, Myślenice i okolice. Szybkie strony WWW zoptymalizowane pod Google, które realnie przynoszą zapytania."
+  title="Tworzenie stron internetowych — Skawina, Wadowice | CtrlZ Studio"
+  description="Projektowanie i tworzenie stron internetowych dla firm z Małopolski — Skawina, Sułkowice, Kalwaria Zebrzydowska, Wadowice, Myślenice i okolice."
 >
 
 <!-- NAV -->
@@ -18,16 +19,16 @@ const latestPosts = posts.slice(0, 3);
     <a href="#home" class="nav-logo">Ctrl<em>Z</em> Studio</a>
     <div class="nav-links">
       <a href="#realizacje">Realizacje</a>
-      <a href="#uslugi">Usługi</a>
+      <a href="/uslugi">Usługi</a>
       <a href="#proces">Proces</a>
       <a href="/o-nas">O nas</a>
       <a href="#faq">FAQ</a>
       <a href="/blog">Blog</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="/kontakt">Kontakt</a>
     </div>
     <div style="display:flex;align-items:center;gap:12px">
       <a href="/kalkulator" class="btn-ghost nav-cta-desktop" style="font-size:12px;padding:9px 18px">Wycena</a>
-      <a href="#kontakt" class="btn-primary nav-cta-desktop" style="font-size:12px;padding:9px 20px"><span>Zacznijmy →</span></a>
+      <a href="/kontakt" class="btn-primary nav-cta-desktop" style="font-size:12px;padding:9px 20px"><span>Zacznijmy →</span></a>
       <button class="ham-btn" id="ham-btn" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -41,15 +42,15 @@ const latestPosts = posts.slice(0, 3);
     <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
   </button>
   <a href="#realizacje">Realizacje</a>
-  <a href="#uslugi">Usługi</a>
+  <a href="/uslugi">Usługi</a>
   <a href="#proces">Proces</a>
   <a href="/o-nas">O nas</a>
   <a href="#faq">FAQ</a>
   <a href="/blog">Blog</a>
-  <a href="#kontakt">Kontakt</a>
+  <a href="/kontakt">Kontakt</a>
   <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;width:80%;max-width:280px">
     <a href="/kalkulator" class="btn-ghost" style="font-size:14px;padding:13px 22px;border-radius:var(--radius-pill);text-align:center;width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:center">Wycena</a>
-    <a href="#kontakt" class="btn-primary" style="font-size:14px;padding:13px 22px;border-radius:var(--radius-pill);text-align:center;width:100%;box-sizing:border-box;justify-content:center"><span>Zacznijmy →</span></a>
+    <a href="/kontakt" class="btn-primary" style="font-size:14px;padding:13px 22px;border-radius:var(--radius-pill);text-align:center;width:100%;box-sizing:border-box;justify-content:center"><span>Zacznijmy →</span></a>
   </div>
   <div class="mob-contact-row">
     <a href="mailto:kontakt@ctrlzstudio.pl" class="mob-contact-icon" aria-label="Email">
@@ -80,7 +81,7 @@ const latestPosts = posts.slice(0, 3);
   <div class="hero-inner">
     <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px" id="h-ey">
       <div class="hero-eyebrow" style="margin:0">Tworzenie stron internetowych — Skawina, Wadowice, Myślenice</div>
-      <div class="footer-badge" style="position:static;margin:0;font-size:11px;padding:5px 12px"><div class="badge-dot"></div>Przyjmujemy nowe projekty</div>
+      <div class="footer-badge" style="position:static;margin:0;font-size:12px;padding:5px 12px"><div class="badge-dot"></div>Przyjmujemy nowe projekty</div>
     </div>
     <h1 class="display-xl hero-title" id="h-title">
       Budujemy marki,<br>
@@ -166,12 +167,12 @@ const latestPosts = posts.slice(0, 3);
     </div>
     <div class="portfolio-featured">
       <a href="/realizacje/modeka" class="port-card tall pbg-7 js-scale"><img src="/modeka-hero.webp" alt="Modeka — platforma B2B, realizacja CtrlZ Studio" class="port-bg-img"/><div class="port-info"><div class="port-tag">E-commerce B2B · WooCommerce · 2026</div><div class="port-name">Modeka — B2B e-commerce</div><div class="port-pills"><span class="port-pill accent">4 kraje</span><span class="port-pill">1000+ produktów</span></div></div></a>
-      <a href="/realizacje/psgiu" class="port-card tall pbg-13 js-scale" data-delay="0.1"><div class="port-info"><div class="port-tag">Strona firmowa · Custom Dev · 2026</div><div class="port-name">PSGiU — stowarzyszenie</div><div class="port-pills"><span class="port-pill accent">Duży serwis</span><span class="port-pill">Formularze zgłoszeniowe</span></div></div></a>
+      <a href="/realizacje/psgiu" class="port-card tall pbg-13 js-scale" data-delay="0.1"><img src="/psgiu-hero.webp" alt="PSGiU — serwis stowarzyszenia medycznego, realizacja CtrlZ Studio" class="port-bg-img"/><div class="port-info"><div class="port-tag">Strona firmowa · Custom Dev · 2026</div><div class="port-name">PSGiU — stowarzyszenie</div><div class="port-pills"><span class="port-pill accent">Duży serwis</span><span class="port-pill">Formularze zgłoszeniowe</span></div></div></a>
     </div>
     <div class="portfolio-row">
       <a href="/realizacje/eduinspirations" class="port-card short pbg-9 js-scale"><img src="/eduinspirations-hero.webp" alt="EduInspirations — sklep WooCommerce, realizacja CtrlZ Studio" class="port-bg-img" loading="lazy"/><div class="port-info"><div class="port-tag">E-commerce · Redesign · 2026</div><div class="port-name">EduInspirations.pl</div><div class="port-pills"><span class="port-pill accent">PageSpeed 90+</span></div></div></a>
       <a href="/realizacje/ayra-jubiler" class="port-card short pbg-10 js-scale" data-delay="0.1"><img src="/ayra-hero.webp" alt="Ayra Jubiler — sklep z biżuterią, realizacja CtrlZ Studio" class="port-bg-img" loading="lazy"/><div class="port-info"><div class="port-tag">E-commerce · WooCommerce · 2026</div><div class="port-name">Ayra Jubiler</div><div class="port-pills"><span class="port-pill accent">Automatyzacja</span></div></div></a>
-      <a href="/realizacje/wypozyczalnia-wadowice" class="port-card short pbg-11 js-scale" data-delay="0.2"><div class="port-info"><div class="port-tag">E-commerce · SEO lokalne · 2026</div><div class="port-name">Wypożyczalnia Wadowice</div><div class="port-pills"><span class="port-pill accent">Audyt + sklep</span></div></div></a>
+      <a href="/realizacje/wypozyczalnia-wadowice" class="port-card short pbg-11 js-scale" data-delay="0.2"><img src="/wypozyczalnia-hero.webp" alt="Wypożyczalnia Wadowice — sklep ze sprzętem budowlanym, realizacja CtrlZ Studio" class="port-bg-img" loading="lazy"/><div class="port-info"><div class="port-tag">E-commerce · SEO lokalne · 2026</div><div class="port-name">Wypożyczalnia Wadowice</div><div class="port-pills"><span class="port-pill accent">Audyt + sklep</span></div></div></a>
     </div>
   </div>
 </section>
@@ -181,13 +182,14 @@ const latestPosts = posts.slice(0, 3);
   <div class="container">
     <div class="eyebrow js-reveal" style="margin-bottom:14px">Co robimy</div>
     <h2 class="display-md js-reveal" style="margin-bottom:10px">Kompleksowe usługi<br><span class="grad-v">dla Twojej marki</span></h2>
-    <p class="js-reveal" style="font-size:14px;color:rgba(255,255,255,.65);margin-bottom:48px;font-weight:300">Od projektu graficznego przez wdrożenie, aż po optymalizację i opiekę</p>
+    <p class="js-reveal" style="font-size:14px;color:rgba(255,255,255,.78);margin-bottom:20px;font-weight:300">Od projektu graficznego przez wdrożenie, aż po optymalizację i opiekę</p>
+    <a href="/uslugi" class="js-reveal" style="display:inline-block;margin-bottom:44px;font-size:13px;font-weight:600;color:#c4b5fd;text-decoration:none;border-bottom:1px solid rgba(124,107,255,.35);padding-bottom:2px">Zobacz pełną ofertę z cenami →</a>
     <div class="services-grid">
       <a href="/strony-internetowe" class="service-card js-scale"><div class="service-num">01</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="service-title">Web Development</div><div class="service-desc">Strony firmowe pisane w Next.js, sklepy internetowe, dedykowane motywy WordPress. Szybkie, responsywne, bez kompromisów.</div><div class="service-tags"><span class="service-tag">WordPress</span><span class="service-tag">WooCommerce</span><span class="service-tag">IdoSell</span><span class="service-tag">Next.js</span><span class="service-tag">Astro.js</span></div><div class="service-arrow">→</div></a>
       <a href="/strony-internetowe" class="service-card js-scale" data-delay="0.07"><div class="service-num">02</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg></div><div class="service-title">UI/UX Design</div><div class="service-desc">Interfejsy, które konwertują. Od prototypu po gotowy produkt — z troską o każdy piksel.</div><div class="service-tags"><span class="service-tag">Figma</span><span class="service-tag">Prototypy</span><span class="service-tag">Animacje</span></div><div class="service-arrow">→</div></a>
       <a href="/pozycjonowanie-seo" class="service-card js-scale" data-delay="0.14"><div class="service-num">03</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div class="service-title">SEO & Optymalizacja</div><div class="service-desc">Audyty, optymalizacja techniczna, poprawa Core Web Vitals. Widoczność w Google.</div><div class="service-tags"><span class="service-tag">Audyt SEO</span><span class="service-tag">CWV</span><span class="service-tag">SXO</span></div><div class="service-arrow">→</div></a>
       <a href="/sklepy-internetowe" class="service-card js-scale" data-delay="0.07"><div class="service-num">04</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="service-title">Sklepy internetowe</div><div class="service-desc">WooCommerce, platformy B2B, konfiguratory produktu. Integracje z płatnościami, kurierami i magazynem.</div><div class="service-tags"><span class="service-tag">WooCommerce</span><span class="service-tag">B2B</span><span class="service-tag">Integracje</span><span class="service-tag">REST API</span></div><div class="service-arrow">→</div></a>
-      <div class="service-card js-scale" data-delay="0.14"><div class="service-num">05</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="service-title">Wsparcie Techniczne</div><div class="service-desc">Aktualizacje, backup, monitoring, bezpieczeństwo. Stała opieka nad Twoją stroną.</div><div class="service-tags"><span class="service-tag">Backup</span><span class="service-tag">Monitoring</span><span class="service-tag">Certyfikat SSL</span></div><div class="service-arrow">→</div></div>
+      <a href="/wsparcie-techniczne" class="service-card js-scale" data-delay="0.14"><div class="service-num">05</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="service-title">Wsparcie Techniczne</div><div class="service-desc">Aktualizacje, backup, monitoring, bezpieczeństwo. Stała opieka nad Twoją stroną.</div><div class="service-tags"><span class="service-tag">Backup</span><span class="service-tag">Monitoring</span><span class="service-tag">Certyfikat SSL</span></div><div class="service-arrow">→</div></a>
       <a href="/audyt-strony" class="service-card js-scale" data-delay="0.21"><div class="service-num">06</div><div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="service-title">Audyty & Modernizacja</div><div class="service-desc">Twoja strona nie działa? Przeprowadzimy pełny audyt i naprawimy ją lub stworzymy całkowicie nowy projekt.</div><div class="service-tags"><span class="service-tag">Redesign</span><span class="service-tag">Performance</span><span class="service-tag">UI/UX Audyt</span></div><div class="service-arrow">→</div></a>
     </div>
   </div>
@@ -276,7 +278,7 @@ const latestPosts = posts.slice(0, 3);
   <div class="container">
     <div class="eyebrow js-reveal" style="margin-bottom:14px">Nasze technologie</div>
     <h2 class="display-md js-reveal" style="margin-bottom:6px">Narzędzia, które<br><span class="grad-v">dają wyniki</span></h2>
-    <p class="js-reveal" style="font-size:14px;color:rgba(255,255,255,.62);font-weight:300;max-width:480px">Korzystamy z wielu nowoczesnych technologii, które konwertują.</p>
+    <p class="js-reveal" style="font-size:14px;color:rgba(255,255,255,.75);font-weight:300;max-width:480px">Korzystamy z wielu nowoczesnych technologii, które konwertują.</p>
 
     <div class="tech-grid js-reveal" style="--reveal-delay:0.1">
       <!-- CMS & Platformy -->
@@ -480,7 +482,7 @@ const latestPosts = posts.slice(0, 3);
   .testi-slide-who { display:flex; align-items:center; gap:12px; }
   .tst-av { width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet-light));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;font-weight:700;color:#fff;flex-shrink:0; }
   .tst-name { font-size:13px;font-weight:600;color:#fff; }
-  .tst-role { font-size:11px;color:rgba(255,255,255,.55);margin-top:1px; }
+  .tst-role { font-size:12px;color:rgba(255,255,255,.68);margin-top:1px; }
   .testi-dots { display:flex;justify-content:center;gap:8px;margin-top:28px; }
   .testi-dot { width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);cursor:none;transition:all .25s;border:none;padding:0; }
   .testi-dot.active { background:var(--violet-light);width:24px;border-radius:4px; }
@@ -652,9 +654,9 @@ TESTI_END-->
           </div>
           <div style="border-top:1px solid rgba(255,255,255,.07);margin:16px 0 0;padding-top:16px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
             <div>
-              <div style="font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Orientacyjnie od</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.68);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Orientacyjnie od</div>
               <div id="mc-price" style="font-family:var(--font-display);font-size:32px;font-weight:800;letter-spacing:-.04em;background:var(--grad-hero);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">2 000 zł</div>
-              <div style="font-size:11px;color:rgba(255,255,255,.55)">netto, wycena wiążąca po rozmowie</div>
+              <div style="font-size:12px;color:rgba(255,255,255,.68)">netto, wycena wiążąca po rozmowie</div>
             </div>
             <a href="/kalkulator" style="font-size:12px;font-weight:600;color:#c4b5fd;text-decoration:none;white-space:nowrap;border-bottom:1px solid rgba(124,107,255,.35);padding-bottom:2px">Pełny kalkulator →</a>
           </div>
@@ -735,7 +737,7 @@ TESTI_END-->
       .contact-form-wrap { display: flex; flex-direction: column; gap: 14px; }
       .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
       .cf-field { display: flex; flex-direction: column; gap: 6px; }
-      .cf-label { font-size: 11px; color: rgba(255,255,255,.58); letter-spacing: .1em; text-transform: uppercase; }
+      .cf-label { font-size: 12px; color: rgba(255,255,255,.7); letter-spacing: .1em; text-transform: uppercase; }
       .cf-input {
         background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
         border-radius: 10px; padding: 12px 14px; color: #fff; font-size: 13px;
@@ -750,7 +752,7 @@ TESTI_END-->
       }
       .contact-info-card h4 {
         font-family: var(--font-display); font-size: 14px; font-weight: 600;
-        color: rgba(255,255,255,.55); margin-bottom: 14px;
+        color: rgba(255,255,255,.68); margin-bottom: 14px;
       }
       .contact-method {
         display: flex; align-items: center; gap: 12px; padding: 10px 0;
@@ -768,10 +770,10 @@ TESTI_END-->
       .cm-icon svg { width: 16px; height: 16px; stroke: rgba(255,255,255,.55); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
       .contact-method:hover .cm-icon svg { stroke: rgba(255,255,255,.85); }
       .cm-body { flex: 1; }
-      .cm-label { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.55); transition: color .2s; }
-      .cm-sub   { font-size: 11px; color: rgba(255,255,255,.55); margin-top: 1px; }
+      .cm-label { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.68); transition: color .2s; }
+      .cm-sub   { font-size: 12px; color: rgba(255,255,255,.68); margin-top: 1px; }
       .contact-trust { display: flex; flex-direction: column; gap: 8px; }
-      .ct-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,.58); }
+      .ct-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,.7); }
       .ct-dot  { width: 5px; height: 5px; border-radius: 50%; background: var(--violet-light); opacity: .7; flex-shrink: 0; }
       .contact-office {
         background: linear-gradient(135deg, rgba(124,107,255,.07), rgba(236,72,153,.03));
@@ -832,8 +834,8 @@ TESTI_END-->
             <span>Wyślij wiadomość →</span>
           </button>
           <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px">
-            <span style="font-size:11px;color:rgba(255,255,255,.5)">lub skorzystaj z</span>
-            <a href="/kalkulator" style="font-size:11px;color:var(--violet-light);border-bottom:1px solid rgba(124,107,255,.3)">kalkulatora wyceny →</a>
+            <span style="font-size:12px;color:rgba(255,255,255,.62)">lub skorzystaj z</span>
+            <a href="/kalkulator" style="font-size:12px;color:var(--violet-light);border-bottom:1px solid rgba(124,107,255,.3)">kalkulatora wyceny →</a>
           </div>
         </form>
       </div>
@@ -842,12 +844,12 @@ TESTI_END-->
       <div class="js-reveal" data-delay="0.12">
 
         <div class="contact-office">
-          <div style="font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-weight:600">Dostępność</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.68);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-weight:600">Dostępność</div>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;animation:pulseDot 2s infinite;flex-shrink:0"></div>
             <span style="font-size:14px;font-weight:600;color:#fff">Przyjmujemy nowe projekty</span>
           </div>
-          <p style="font-size:13px;color:rgba(255,255,255,.58);margin:0;line-height:1.6">Odpiszemy w ciągu 48 godzin w dni robocze. Pierwsza konsultacja jest zawsze bezpłatna i do niczego nie zobowiązuje.</p>
+          <p style="font-size:13px;color:rgba(255,255,255,.7);margin:0;line-height:1.6">Odpiszemy w ciągu 48 godzin w dni robocze. Pierwsza konsultacja jest zawsze bezpłatna i do niczego nie zobowiązuje.</p>
         </div>
 
         <div class="contact-info-card">
@@ -879,56 +881,7 @@ TESTI_END-->
 </main>
 
 <!-- FOOTER — uproszczona -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-main">
-      <div>
-        <span class="footer-logo">Ctrl<em>Z</em> Studio</span>
-        <p class="footer-tagline">Tworzymy marki, które konwertują. Agencja kreatywna & digital z Polski.</p>
-        <div class="footer-socials">
-          <a href="https://www.instagram.com/ctrlz_studio_agency/" class="footer-soc" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-          <a href="https://www.linkedin.com/in/karol-jasiowka" class="footer-soc" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-        </div>
-        <div class="footer-badge"><div class="badge-dot"></div>Przyjmujemy nowe projekty</div>
-      </div>
-      <div>
-        <div class="footer-col-title">Usługi</div>
-        <div class="footer-links">
-          <a href="#uslugi">Web Development</a>
-          <a href="#uslugi">UI/UX Design</a>
-          <a href="#uslugi">SEO & Optymalizacja</a>
-          <a href="#uslugi">Custom Solutions</a>
-          <a href="#uslugi">Wsparcie Techniczne</a>
-          <a href="#uslugi">Audyty & Modernizacja</a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-col-title">Firma</div>
-        <div class="footer-links">
-          <a href="/o-nas">O nas</a>
-          <a href="/realizacje">Realizacje</a>
-          <a href="#proces">Proces</a>
-          <a href="#faq">FAQ</a>
-          <a href="/blog">Blog</a>
-          <a href="#kontakt">Kontakt</a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-col-title">Kontakt</div>
-        <div class="footer-links">
-          <a href="mailto:kontakt@ctrlzstudio.pl">kontakt@ctrlzstudio.pl</a>
-          <a href="tel:+48575043985">+48 575 043 985</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bot" style="justify-content:space-between">
-      <div class="footer-copy">© 2026 CtrlZ Studio · NIP: 5512672426 · Wszelkie prawa zastrzeżone</div>
-      <div class="footer-legal">
-        <a href="/polityka-prywatnosci">Polityka prywatności</a>
-      </div>
-    </div>
-  </div>
-</footer>
+<SharedFooter />
 
 
 <style>
@@ -937,7 +890,7 @@ TESTI_END-->
     font: inherit;
     border: 1px solid rgba(255,255,255,.14);
     background: rgba(255,255,255,.05);
-    color: rgba(255,255,255,.6);
+    color: rgba(255,255,255,.72);
     transition: all .2s;
   }
   #mini-calc .cp-chip:hover { border-color: rgba(124,107,255,.45); color: #fff; }

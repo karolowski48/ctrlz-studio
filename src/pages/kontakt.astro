@@ -1,0 +1,250 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Kontakt — CtrlZ Studio',
+  url: 'https://ctrlzstudio.pl/kontakt',
+  mainEntity: { '@id': 'https://ctrlzstudio.pl/#localbusiness' },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Kontakt', item: 'https://ctrlzstudio.pl/kontakt' },
+  ],
+};
+
+const MAPS = 'https://www.google.com/maps/search/?api=1&query=Dworska+40a,+34-144+Izdebnik';
+---
+
+<Layout
+  title="Kontakt — CtrlZ Studio, Izdebnik"
+  description="Napisz, zadzwoń albo wpadnij: ul. Dworska 40a, 34-144 Izdebnik, pon–pt 9:00–17:00. Tel. 575 043 985. Pierwsza rozmowa o projekcie jest bezpłatna."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .kt-hero { padding: 150px 0 48px; position: relative; overflow: hidden; background: var(--bg-base); }
+  .kt-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .kt-lead { font-size: 17px; color: rgba(255,255,255,.75); line-height: 1.75; max-width: 640px; font-weight: 300; }
+
+  .kt-section { padding: 24px 0 88px; background: var(--bg-base); }
+  .kt-layout { display: grid; grid-template-columns: 1fr 400px; gap: 48px; align-items: start; }
+
+  .kt-panel {
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 32px;
+  }
+  .kt-panel + .kt-panel { margin-top: 18px; }
+  .kt-panel h2 {
+    font-family: var(--font-display); font-size: 18px; color: #fff;
+    margin: 0 0 20px; font-weight: 700;
+  }
+
+  .kt-row { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-top: 1px solid rgba(255,255,255,.06); }
+  .kt-row:first-of-type { border-top: 0; padding-top: 0; }
+  .kt-ico {
+    width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0;
+    background: rgba(124,107,255,.14); border: 1px solid rgba(124,107,255,.28);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .kt-ico svg { width: 17px; height: 17px; stroke: #c4b5fd; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .kt-k { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 4px; }
+  .kt-v { font-size: 15px; color: #fff; line-height: 1.6; }
+  .kt-v a { color: #c4b5fd; text-decoration: none; }
+  .kt-v a:hover { color: #fff; }
+  .kt-note { font-size: 13px; color: rgba(255,255,255,.68); line-height: 1.65; margin: 18px 0 0; }
+
+  .kt-map {
+    display: block; margin-top: 18px; padding: 14px 18px; border-radius: 12px;
+    background: rgba(124,107,255,.12); border: 1px solid rgba(124,107,255,.3);
+    color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; text-align: center;
+    transition: background .2s;
+  }
+  .kt-map:hover { background: rgba(124,107,255,.24); }
+
+  .kt-form { display: grid; gap: 16px; }
+  .kt-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .kt-field label {
+    display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+    color: rgba(255,255,255,.68); margin-bottom: 7px;
+  }
+  .kt-input {
+    width: 100%; box-sizing: border-box;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 11px; padding: 13px 15px;
+    color: #fff; font-size: 14px; font-family: inherit;
+    transition: border-color .2s, background .2s;
+  }
+  .kt-input:focus { outline: none; border-color: rgba(124,107,255,.6); background: rgba(255,255,255,.06); }
+  .kt-input::placeholder { color: rgba(255,255,255,.4); }
+  textarea.kt-input { resize: vertical; min-height: 130px; }
+  .kt-consent { font-size: 12px; color: rgba(255,255,255,.62); line-height: 1.6; }
+  .kt-consent a { color: #c4b5fd; }
+
+  @media (max-width: 900px) {
+    .kt-layout { grid-template-columns: 1fr; gap: 28px; }
+    .kt-inner { padding: 0 24px; }
+    .kt-hero { padding: 120px 0 32px; }
+    .kt-2 { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section class="kt-hero">
+  <div class="orb orb-1"></div>
+  <div class="grid-bg"></div>
+  <div class="kt-inner" style="position:relative">
+    <div class="eyebrow" style="margin-bottom:18px">Kontakt</div>
+    <h1 class="display-xl" style="margin-bottom:20px">Porozmawiajmy<br>o <span class="grad">Waszym projekcie</span></h1>
+    <p class="kt-lead">
+      Pierwsza rozmowa nic nie kosztuje i do niczego nie zobowiązuje. Odpowiadamy zwykle
+      tego samego albo następnego dnia roboczego.
+    </p>
+  </div>
+</section>
+
+<section class="kt-section">
+  <div class="kt-inner">
+    <div class="kt-layout">
+
+      <div class="kt-panel">
+        <h2>Napiszcie, co macie na myśli</h2>
+        <form class="kt-form" id="kontakt-form">
+          <div class="kt-2">
+            <div class="kt-field">
+              <label for="kt-name">Imię i nazwisko *</label>
+              <input class="kt-input" type="text" name="name" id="kt-name" placeholder="Jan Kowalski" required />
+            </div>
+            <div class="kt-field">
+              <label for="kt-company">Firma</label>
+              <input class="kt-input" type="text" name="company" id="kt-company" placeholder="Nazwa firmy" />
+            </div>
+          </div>
+          <div class="kt-2">
+            <div class="kt-field">
+              <label for="kt-email">Email *</label>
+              <input class="kt-input" type="email" name="email" id="kt-email" placeholder="jan@firma.pl" required />
+            </div>
+            <div class="kt-field">
+              <label for="kt-phone">Telefon</label>
+              <input class="kt-input" type="tel" name="phone" id="kt-phone" placeholder="+48 000 000 000" />
+            </div>
+          </div>
+          <div class="kt-field">
+            <label for="kt-service">Czego dotyczy zapytanie</label>
+            <select class="kt-input" name="service" id="kt-service">
+              <option value="" style="background:#0a0a1a">Wybierz…</option>
+              <option value="strona" style="background:#0a0a1a">Strona internetowa</option>
+              <option value="sklep" style="background:#0a0a1a">Sklep internetowy</option>
+              <option value="seo" style="background:#0a0a1a">Pozycjonowanie SEO</option>
+              <option value="audyt" style="background:#0a0a1a">Audyt strony</option>
+              <option value="opieka" style="background:#0a0a1a">Wsparcie techniczne</option>
+              <option value="inne" style="background:#0a0a1a">Coś innego</option>
+            </select>
+          </div>
+          <div class="kt-field">
+            <label for="kt-message">Opiszcie krótko projekt</label>
+            <textarea class="kt-input" name="message" id="kt-message"
+              placeholder="Czym się zajmujecie, co chcecie osiągnąć, jaki macie budżet i termin. Im więcej szczegółów, tym konkretniejsza odpowiedź."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="justify-self:start"><span>Wyślij zapytanie →</span></button>
+          <p class="kt-consent">
+            Wysyłając formularz zgadzacie się na kontakt w sprawie zapytania.
+            Szczegóły w <a href="/polityka-prywatnosci">polityce prywatności</a>.
+          </p>
+        </form>
+      </div>
+
+      <div>
+        <div class="kt-panel">
+          <h2>Dane kontaktowe</h2>
+
+          <div class="kt-row">
+            <div class="kt-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div>
+              <div class="kt-k">Telefon</div>
+              <div class="kt-v"><a href="tel:+48575043985">575 043 985</a></div>
+            </div>
+          </div>
+
+          <div class="kt-row">
+            <div class="kt-ico"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></svg></div>
+            <div>
+              <div class="kt-k">E-mail</div>
+              <div class="kt-v"><a href="mailto:kontakt@ctrlzstudio.pl">kontakt@ctrlzstudio.pl</a></div>
+            </div>
+          </div>
+
+          <div class="kt-row">
+            <div class="kt-ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div>
+              <div class="kt-k">Adres</div>
+              <div class="kt-v">CtrlZ Studio<br>ul. Dworska 40a<br>34-144 Izdebnik</div>
+            </div>
+          </div>
+
+          <div class="kt-row">
+            <div class="kt-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div>
+              <div class="kt-k">Godziny pracy</div>
+              <div class="kt-v">Poniedziałek – piątek<br>9:00 – 17:00</div>
+            </div>
+          </div>
+
+          <a href={MAPS} target="_blank" rel="noopener noreferrer" class="kt-map">Wyznacz trasę w Mapach Google →</a>
+
+        </div>
+
+        <div class="kt-panel">
+          <h2>Zanim napiszecie</h2>
+          <p class="kt-note" style="margin-top:0">
+            Jeśli chcecie od razu poznać orientacyjny budżet, wypełnijcie
+            <a href="/kalkulator" style="color:#c4b5fd">kalkulator wyceny</a> — zajmuje dwie minuty
+            i nie wymaga zostawiania numeru. A jeśli nie wiecie jeszcze, czego potrzebujecie,
+            zerknijcie na <a href="/uslugi" style="color:#c4b5fd">pełną ofertę z cenami</a>.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(contactSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+
+  document.getElementById('kontakt-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.currentTarget as HTMLFormElement;
+    const fd = new FormData(form);
+    const g = (k: string) => (fd.get(k) || '').toString();
+
+    const subject = encodeURIComponent(`Zapytanie ze strony — ${g('name')}`);
+    const body = encodeURIComponent(
+      `Imię: ${g('name')}\nFirma: ${g('company')}\nEmail: ${g('email')}\n` +
+      `Telefon: ${g('phone')}\nUsługa: ${g('service')}\n\nWiadomość:\n${g('message')}`
+    );
+    window.location.href = `mailto:kontakt@ctrlzstudio.pl?subject=${subject}&body=${body}`;
+  });
+</script>
+
+</Layout>

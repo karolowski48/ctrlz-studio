@@ -297,10 +297,7 @@ const reviewSchema = {
           </div>
           <div class="gr-count">{data.total} opinii w Google</div>
         </div>
-        <div class="gr-actions">
-          <a href={data.profileUrl} target="_blank" rel="noopener noreferrer" class="gr-link">Zobacz wszystkie →</a>
-          <a href="https://g.page/r/CaLTZLqjC0JgEBM/review" target="_blank" rel="noopener noreferrer" class="gr-add">Dodaj opinię w Google</a>
-        </div>
+        <a href={data.profileUrl} target="_blank" rel="noopener noreferrer" class="gr-link">Zobacz wszystkie →</a>
       </div>
     </div>
   </div>
@@ -333,20 +330,23 @@ const reviewSchema = {
     }
     .gr-stars { display: flex; gap: 2px; margin-bottom: 5px; }
     .gr-star { color: #fbbf24; font-size: 17px; line-height: 1; }
-    .gr-count { font-size: 13px; color: rgba(255,255,255,.62); }
-    .gr-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .gr-count { font-size: 13px; color: rgba(255,255,255,.75); }
+
     .gr-link {
       font-size: 13px; font-weight: 600; color: #c4b5fd;
       text-decoration: none; white-space: nowrap; transition: color .2s;
     }
     .gr-link:hover { color: #fff; }
+    .gr-cta { text-align: center; margin-top: 28px; }
     .gr-add {
-      font-size: 13px; font-weight: 600; color: #fff; white-space: nowrap;
-      text-decoration: none; padding: 10px 18px; border-radius: 100px;
+      display: inline-block;
+      font-size: 14px; font-weight: 600; color: #fff;
+      text-decoration: none; padding: 13px 26px; border-radius: 100px;
       background: rgba(124,107,255,.22); border: 1px solid rgba(124,107,255,.5);
-      transition: background .2s, border-color .2s;
+      transition: background .2s, border-color .2s, transform .2s;
     }
-    .gr-add:hover { background: rgba(124,107,255,.38); border-color: rgba(124,107,255,.75); }
+    .gr-add:hover { background: rgba(124,107,255,.38); border-color: rgba(124,107,255,.75); transform: translateY(-1px); }
+    .gr-cta-note { font-size: 13px; color: rgba(255,255,255,.72); margin: 14px auto 0; max-width: 460px; line-height: 1.6; }
 
     /* ── Karuzela ─────────────────────────────── */
     .gr-wrap { position: relative; max-width: 1280px; margin: 0 auto; padding: 0 48px; }
@@ -390,7 +390,7 @@ const reviewSchema = {
       object-fit: cover;
     }
     .gr-name { font-size: 14px; font-weight: 600; color: #fff; }
-    .gr-when { font-size: 12px; color: rgba(255,255,255,.5); }
+    .gr-when { font-size: 12px; color: rgba(255,255,255,.62); }
 
     /* ── Strzałki ─────────────────────────────── */
     .gr-nav { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
@@ -412,8 +412,7 @@ const reviewSchema = {
       .gr-wrap { padding: 0 24px; }
       .gr-card { flex: 0 0 100%; padding: 24px; }
       .gr-summary { width: 100%; gap: 18px; padding: 18px 20px; }
-      .gr-actions { width: 100%; }
-      .gr-add { flex: 1; text-align: center; }
+      .gr-add { width: 100%; }
     }
   </style>
 
@@ -445,6 +444,13 @@ const reviewSchema = {
       <button type="button" class="gr-arrow" id="gr-next" aria-label="Następne opinie">
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
+    </div>
+
+    <div class="gr-cta">
+      <a href="https://g.page/r/CaLTZLqjC0JgEBM/review" target="_blank" rel="noopener noreferrer" class="gr-add">
+        Dodaj opinię w Google
+      </a>
+      <p class="gr-cta-note">Współpracowaliśmy? Jedna opinia zajmuje minutę, a nam pomaga bardziej niż jakakolwiek reklama.</p>
     </div>
   </div>
 

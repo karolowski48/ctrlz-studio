@@ -4,9 +4,8 @@ import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
 
 const projects = [
-  { slug:'domki-4-zywioly', city:'Wadowice',         name:'Domki 4 Żywioły',              tag:'Strona firmowa · Rezerwacje · 2026', pill1:'Autorski system rezerwacji', pill2:'Powiadomienia e-mail', bg:'pbg-9',  glow:'pg-9',  featured:false, img:'',  desc:'Strona domków na wynajem z systemem rezerwacji dwóch obiektów i automatycznymi powiadomieniami mailowymi.' },
-  { slug:'wypozyczalnia-wadowice', city:'Wadowice', name:'Wypożyczalnia Wadowice',  tag:'E-commerce · SEO lokalne · 2026',    pill1:'Audyt + sklep',              pill2:'Wizytówka Google',     bg:'pbg-11', glow:'pg-11', featured:false, img:'',  desc:'Wypożyczalnia sprzętu budowlanego — audyt strony, sklep, podstawowe SEO oraz konfiguracja Search Console i wizytówki Google.' },
-  { slug:'psgiu', city:'Zielonki',                    name:'PSGiU — stowarzyszenie',        tag:'Strona firmowa · Custom Dev · 2026', pill1:'Duży serwis',                pill2:'Formularze zgłoszeniowe', bg:'pbg-13', glow:'pg-13', featured:false, img:'',  desc:'Polskie Stowarzyszenie Ginekologii i Urologii — rozbudowany serwis z formularzami zgłoszeniowymi i indywidualnymi rozwiązaniami.' },
+  { slug:'wypozyczalnia-wadowice', city:'Wadowice', name:'Wypożyczalnia Wadowice',  tag:'E-commerce · SEO lokalne · 2026',    pill1:'Audyt + sklep',              pill2:'Wizytówka Google',     bg:'pbg-11', glow:'pg-11', featured:false, img:'/wypozyczalnia-hero.webp',  desc:'Wypożyczalnia sprzętu budowlanego — audyt strony, sklep, podstawowe SEO oraz konfiguracja Search Console i wizytówki Google.' },
+  { slug:'psgiu', city:'Zielonki',                    name:'PSGiU — stowarzyszenie',        tag:'Strona firmowa · Custom Dev · 2026', pill1:'Duży serwis',                pill2:'Formularze zgłoszeniowe', bg:'pbg-13', glow:'pg-13', featured:false, img:'/psgiu-hero.webp',  desc:'Polskie Stowarzyszenie Ginekologii i Urologii — rozbudowany serwis z formularzami zgłoszeniowymi i indywidualnymi rozwiązaniami.' },
   { slug:'modeka', city:'Wrocław',              name:'Modeka — B2B e-commerce',     tag:'E-commerce B2B · WooCommerce · 2026', pill1:'4 kraje, 1000+ produktów', pill2:'Interaktywna mapa', bg:'pbg-7',  glow:'pg-7',  featured:false, img:'/modeka-hero.webp',              desc:'Platforma B2B dla producenta odzieży motocyklowej na rynki PL/SK/CZ/RO z mapą 150+ dealerów.' },
   { slug:'eduinspirations', city:'Kraków',     name:'EduInspirations.pl',           tag:'E-commerce · Redesign · 2026',       pill1:'PageSpeed 90+',            pill2:'Custom Plugins',    bg:'pbg-9',  glow:'pg-9',  featured:false, img:'/eduinspirations-hero.webp',     desc:'Redesign sklepu WooCommerce z materiałami edukacyjnymi — własny system faktur, FAQ i optymalizacja.' },
   { slug:'techopiekun', city:'Wadowice',         name:'TechOpiekun.pl',               tag:'Strona firmowa · WordPress · 2026',  pill1:'Serwis + SEO',             pill2:'Custom Theme',      bg:'pbg-8',  glow:'pg-8',  featured:false, img:'/techopiekun-hero.webp',         desc:'Dedykowana strona WordPress dla serwisu elektronicznego i specjalisty SEO.' },
@@ -18,7 +17,8 @@ const projects = [
   { slug:'beskid-stolarstwo', city:'Andrychów',   name:'Beskid Stolarstwo',            tag:'Strona firmowa · WordPress · 2026',  pill1:'Okna · Drzwi · Panele',    pill2:'Katalog produktów', bg:'pbg-15', glow:'pg-15', featured:false, img:'/beskid-hero.webp',              desc:'Sklep z materiałami wykończeniowymi z Andrychowa — okna, drzwi, panele, akcesoria.' },
   { slug:'gabriela-piwowarska', city:'Myślenice', name:'Gabriela Piwowarska-Szuba',    tag:'Personal Brand · WordPress · 2026',  pill1:'Marketing Manager',        pill2:'Social Media',      bg:'pbg-16', glow:'pg-16', featured:false, img:'/gabrielapiwowarska-hero.webp',  desc:'Strona personal brand dla właścicielki agencji marketingowej z Myślenic.' },
   { slug:'dziki-gym', city:'Kraków',           name:'Dziki Gym',                    tag:'Redesign · WordPress · 2026',        pill1:'Next.js → WordPress',      pill2:'SEO + CMS',         bg:'pbg-17', glow:'pg-17', featured:false, img:'/dzikigym-hero.webp',            desc:'Przepisanie siłowni z Next.js na WordPress z optymalizacją SEO, blogiem i poprawą mobilnej wersji.' },
-  { slug:'mw-fotografie', city:'',            name:'MW Fotografie',                 tag:'Personal Brand · Portfolio · 2024', pill1:'Wcześniejsza realizacja',    pill2:'Galeria',              bg:'pbg-16', glow:'pg-16', featured:false, img:'',  desc:'Prosta strona-portfolio dla fotografki. Jedna z naszych wcześniejszych realizacji — zostawiamy ją, bo pokazuje, skąd zaczynaliśmy.' },
+  { slug:'domki-4-zywioly', city:'Wadowice',         name:'Domki 4 Żywioły',              tag:'Strona firmowa · Rezerwacje · 2026', pill1:'Autorski system rezerwacji', pill2:'Powiadomienia e-mail', bg:'pbg-9',  glow:'pg-9',  featured:false, img:'/domki4zywioly-hero.webp',  desc:'Strona domków na wynajem z systemem rezerwacji dwóch obiektów i automatycznymi powiadomieniami mailowymi.' },
+  { slug:'mw-fotografie', city:'Myślenice',            name:'MW Fotografie',                 tag:'Personal Brand · Portfolio · 2024', pill1:'Wcześniejsza realizacja',    pill2:'Galeria',              bg:'pbg-16', glow:'pg-16', featured:false, img:'/mwfotografie-hero.webp',  desc:'Prosta strona-portfolio dla fotografki. Jedna z naszych wcześniejszych realizacji — zostawiamy ją, bo pokazuje, skąd zaczynaliśmy.' },
 ];
 
 const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'Astro.js'];
@@ -32,8 +32,8 @@ const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'As
 
 <style>
   .port-city {
-    font-size: 11px;
-    color: rgba(255,255,255,.55);
+    font-size: 12px;
+    color: rgba(255,255,255,.68);
     margin: -4px 0 8px;
     display: flex;
     align-items: center;
@@ -47,7 +47,7 @@ const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'As
   }
   .page-hero { padding-top:140px; padding-bottom:64px; text-align:center; position:relative; overflow:hidden; }
   .filter-bar { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:52px; }
-  .filter-btn { font-size:12px; padding:8px 18px; border-radius:var(--radius-pill); border:1px solid rgba(255,255,255,.1); background:transparent; color:rgba(255,255,255,.55); cursor:none; transition:all var(--transition); font-family:var(--font-body); }
+  .filter-btn { font-size:12px; padding:8px 18px; border-radius:var(--radius-pill); border:1px solid rgba(255,255,255,.1); background:transparent; color:rgba(255,255,255,.68); cursor:none; transition:all var(--transition); font-family:var(--font-body); }
   .filter-btn:hover { color:rgba(255,255,255,.8); border-color:rgba(255,255,255,.25); }
   .filter-btn.active { background:rgba(124,107,255,.18); border-color:rgba(124,107,255,.42); color:#c4b5fd; }
   .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
@@ -58,9 +58,9 @@ const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'As
   .project-card.featured { height:280px; }
   .cta-strip { background:rgba(124,107,255,.07); border:1px solid rgba(124,107,255,.18); border-radius:var(--radius-lg); padding:48px; text-align:center; margin-top:64px; }
   .cta-strip-title { font-family:var(--font-display); font-size:32px; font-weight:700; color:#fff; letter-spacing:-.03em; margin-bottom:12px; }
-  .cta-strip-sub { font-size:15px; color:rgba(255,255,255,.5); margin-bottom:28px; }
+  .cta-strip-sub { font-size:15px; color:rgba(255,255,255,.62); margin-bottom:28px; }
   @media(max-width:1024px){ .projects-grid{grid-template-columns:repeat(2,1fr);} }
-  @media(max-width:640px){ .projects-grid{grid-template-columns:1fr;} .filter-bar{gap:6px;} .filter-btn{font-size:11px;padding:7px 14px;} .cta-strip{padding:32px 20px;} }
+  @media(max-width:640px){ .projects-grid{grid-template-columns:1fr;} .filter-bar{gap:6px;} .filter-btn{font-size:12px;padding:7px 14px;} .cta-strip{padding:32px 20px;} }
 </style>
 
 <section class="page-hero" style="background:var(--bg-base);position:relative;overflow:hidden">
@@ -71,7 +71,7 @@ const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'As
     <h1 class="display-xl" style="text-align:center;margin-bottom:18px" id="ph-title">
       Projekty, z których<br><span class="grad">jesteśmy dumni.</span>
     </h1>
-    <p id="ph-sub" style="font-size:16px;color:rgba(255,255,255,.55);text-align:center;max-width:480px;margin:0 auto 48px;font-weight:300;line-height:1.7">
+    <p id="ph-sub" style="font-size:16px;color:rgba(255,255,255,.68);text-align:center;max-width:480px;margin:0 auto 48px;font-weight:300;line-height:1.7">
       Każdy projekt to unikalne rozwiązanie — zero szablonów, tylko przemyślany design i precyzyjny kod.
     </p>
     <div class="filter-bar" id="filter-bar">
@@ -107,7 +107,7 @@ const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'As
             <div class="port-tag">{p.tag}</div>
             <div class="port-name">{p.name}</div>
             {p.city && <div class="port-city">{p.city}</div>}
-            <p style="font-size:11px;color:rgba(255,255,255,.55);line-height:1.5;margin-bottom:8px">{p.desc}</p>
+            <p style="font-size:12px;color:rgba(255,255,255,.68);line-height:1.5;margin-bottom:8px">{p.desc}</p>
             <div class="port-pills">
               <span class="port-pill accent">{p.pill1}</span>
               <span class="port-pill">{p.pill2}</span>
