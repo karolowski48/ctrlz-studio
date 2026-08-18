@@ -1,0 +1,342 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+import { priceAnswer } from '../data/pricing';
+
+const steps = [
+  {
+    n: '01',
+    t: 'Rozmowa',
+    time: '30–45 minut',
+    d: 'Pytamy o branżę, konkurencję i o to, skąd dziś przychodzą Wasi klienci. Interesuje nas, co ma się dziać po wejściu na stronę — telefon, zapytanie, rezerwacja — bo od tego zależy cała reszta.',
+    you: 'Opowiedzieć, jak działa firma i co dziś nie działa na stronie.',
+    us: 'Zadać pytania, których nikt wcześniej nie zadał, i sprawdzić konkurencję w wynikach Google.',
+  },
+  {
+    n: '02',
+    t: 'Wycena i zakres',
+    time: '2–3 dni',
+    d: 'Dostajecie konkretną kwotę, listę podstron i termin — na piśmie. Wycena jest wiążąca. Nie dokładamy faktur za „prace dodatkowe", bo zakres ustalamy zawczasu, a nie w trakcie.',
+    you: 'Przeczytać zakres i powiedzieć, czego brakuje albo co jest zbędne.',
+    us: 'Rozpisać zakres, cenę i harmonogram. Jeśli coś naszym zdaniem nie ma sensu, mówimy to wprost.',
+  },
+  {
+    n: '03',
+    t: 'Materiały i treści',
+    time: 'zależy od Was',
+    d: 'Najczęstszy powód opóźnień w całej branży. Dostajecie od nas listę tego, co jest potrzebne — teksty, zdjęcia, logo, dostępy — poukładaną podstrona po podstronie, żeby nie trzeba było zgadywać.',
+    you: 'Zebrać materiały albo powiedzieć, że wolicie zlecić nam treści.',
+    us: 'Przygotować listę, przypomnieć o brakach i w razie potrzeby napisać teksty za Was.',
+  },
+  {
+    n: '04',
+    t: 'Projekt graficzny',
+    time: '1–2 tygodnie',
+    d: 'Makiety wersji desktopowej i mobilnej. Widzicie stronę, zanim powstanie pierwsza linijka kodu. Dwie rundy poprawek są w cenie — nie po to, żeby ograniczać, tylko żeby projekt się domknął zamiast wisieć miesiącami.',
+    you: 'Przejrzeć makiety i zebrać uwagi w jednej wiadomości.',
+    us: 'Zaprojektować układ pod Waszą markę i wprowadzić poprawki.',
+  },
+  {
+    n: '05',
+    t: 'Kodowanie',
+    time: '1–3 tygodnie',
+    d: 'Astro, Next.js albo WordPress — wybór wynika z tego, jak będziecie strony używać, a nie z tego, co nam wygodniej. Piszemy pod szybkość i pod telefon, bo stamtąd przychodzi większość ruchu.',
+    you: 'Nic. To nasz etap.',
+    us: 'Zakodować projekt, zoptymalizować zdjęcia i przygotować stronę pod urządzenia mobilne.',
+  },
+  {
+    n: '06',
+    t: 'SEO i testy',
+    time: '3–5 dni',
+    d: 'Tytuły i opisy każdej podstrony, dane strukturalne, mapa witryny, Search Console, Analytics, certyfikat. Do tego testy na realnych urządzeniach i pomiar szybkości. Strona startuje gotowa do indeksowania, a nie „do dokonfigurowania kiedyś".',
+    you: 'Kliknąć po stronie i zgłosić, jeśli coś wygląda nie tak.',
+    us: 'Skonfigurować SEO i analitykę, przetestować formularze i zmierzyć PageSpeed.',
+  },
+  {
+    n: '07',
+    t: 'Publikacja',
+    time: '1 dzień',
+    d: 'Przenosimy stronę na docelową domenę, ustawiamy przekierowania ze starych adresów i zgłaszamy witrynę do Google. Przy wymianie istniejącej strony to najważniejszy moment — źle ustawione przekierowania potrafią skasować pozycje budowane latami.',
+    you: 'Przekazać dostępy do domeny albo skontaktować nas z obecnym dostawcą.',
+    us: 'Wdrożyć stronę, ustawić przekierowania 301 i zgłosić ją do indeksowania.',
+  },
+  {
+    n: '08',
+    t: 'Po starcie',
+    time: 'stale',
+    d: 'Gwarancja na błędy techniczne, przekazanie wszystkich dostępów i krótka instrukcja obsługi. Domena i hosting są zarejestrowane na Was — stronę możecie w każdej chwili przenieść gdzie indziej. Opieka techniczna jest opcjonalna, nie obowiązkowa.',
+    you: 'Zgłaszać, jeśli coś nie działa. Reszta jest dobrowolna.',
+    us: 'Naprawiać błędy w ramach gwarancji i — jeśli chcecie — prowadzić stronę dalej.',
+  },
+];
+
+const rules = [
+  { t: 'Wycena jest wiążąca', d: 'Kwota ustalona na starcie jest kwotą na fakturze. Jeśli w trakcie dochodzi zakres, którego nie było w ustaleniach, mówimy o tym od razu i dopiero po Waszej zgodzie.' },
+  { t: 'Jedna osoba do kontaktu', d: 'Wiecie, do kogo pisać, i nie trafiacie za każdym razem na kogoś innego. Odpisujemy w ciągu jednego dnia roboczego.' },
+  { t: 'Dwie rundy poprawek w projekcie', d: 'Nieograniczone poprawki nie istnieją — albo są wliczone w zawyżoną cenę, albo kończą się zniechęceniem po obu stronach. Dwie rundy w praktyce wystarczają, a kolejne wyceniamy jawnie.' },
+  { t: 'Wszystko jest Wasze', d: 'Domena, hosting, kod, dostępy. Bez uzależniania klienta od siebie. Jeśli kiedyś zechcecie zmienić wykonawcę, nie zostawimy Was z niczym.' },
+  { t: 'Mówimy, gdy coś nie ma sensu', d: 'Regularnie odradzamy klientom sklep, kolejne podstrony albo funkcje, za które chcieli zapłacić. Krótkoterminowo to mniejsze zlecenie, długoterminowo — powód, dla którego wracają.' },
+  { t: 'Bez znikania', d: 'Jeśli coś się przesuwa, dowiadujecie się o tym od nas, zanim zapytacie. To brzmi banalnie, dopóki nie trafi się na wykonawcę, który przestaje odpisywać.' },
+];
+
+const faq = [
+  { q: 'Ile trwa cała współpraca?', a: 'Wizytówka albo landing page: 2–4 tygodnie. Strona firmowa z projektem graficznym od zera: 4–8 tygodni. Sklep: 6–12 tygodni. W dziewięciu przypadkach na dziesięć o terminie decyduje tempo zbierania treści i zdjęć po stronie klienta, a nie nasza praca — dlatego listę materiałów dostajecie już na drugim etapie.' },
+  { q: 'Ile to kosztuje?', a: priceAnswer() },
+  { q: 'Jak wygląda płatność?', a: 'Standardowo w dwóch ratach: zaliczka przy starcie projektu i reszta po wdrożeniu, przed przekazaniem dostępów. Przy większych projektach dzielimy to na trzy części powiązane z etapami. Faktura VAT do każdej płatności.' },
+  { q: 'Co, jeśli nie spodoba mi się projekt graficzny?', a: 'Po to właśnie jest etap makiet przed kodowaniem — zmiana układu na tym etapie kosztuje godziny, a nie tygodnie. Dwie rundy poprawek są w cenie. Jeśli po nich kierunek nadal nie pasuje, rozmawiamy o tym otwarcie zamiast brnąć dalej.' },
+  { q: 'Czy muszę mieć gotowe teksty?', a: 'Nie musicie. Możecie dostarczyć własne, możecie zlecić copywriting nam. Trzecia droga, którą wybiera najwięcej firm: Wy piszecie surowe informacje merytoryczne, my przekształcamy je w treść, która pozycjonuje się i sprzedaje.' },
+  { q: 'Czy będę mógł sam edytować stronę?', a: 'Jeśli tego chcecie — tak, dokładamy panel do zarządzania treścią i szkolimy z obsługi. Warto jednak policzyć: przy stronie, która zmienia się dwa razy w roku, panel podnosi cenę i wymaga aktualizacji, a nie daje nic w zamian. Powiemy wprost, co się w Waszym przypadku opłaca.' },
+  { q: 'Co się dzieje ze starą stroną i jej pozycjami w Google?', a: 'Przed wdrożeniem spisujemy wszystkie istniejące adresy i mapujemy je na nowe przekierowaniami 301. Dzięki temu pozycje i linki prowadzące do starych podstron przechodzą na nową stronę. To najczęściej pomijany element wymiany strony i najczęstsza przyczyna utraty ruchu po wdrożeniu.' },
+  { q: 'Czy współpracujecie zdalnie?', a: 'Tak, większość projektów prowadzimy zdalnie — rozmowa wideo, mail i telefon w zupełności wystarczają. Z klientami z okolic Krakowa, Wadowic i Myślenic spotykamy się osobiście, jeśli tak jest wygodniej.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const howToSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Jak przebiega współpraca przy tworzeniu strony internetowej',
+  description: 'Ośmioetapowy proces tworzenia strony internetowej w CtrlZ Studio — od pierwszej rozmowy po opiekę po wdrożeniu.',
+  step: steps.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.t,
+    text: s.d,
+    url: `https://ctrlzstudio.pl/jak-pracujemy#etap-${i + 1}`,
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Jak pracujemy', item: 'https://ctrlzstudio.pl/jak-pracujemy' },
+  ],
+};
+---
+
+<Layout
+  title="Jak pracujemy — proces tworzenia strony krok po kroku | CtrlZ Studio"
+  description="Osiem etapów współpracy: od rozmowy i wyceny, przez projekt i kodowanie, po publikację i opiekę. Terminy, zasady i to, czego oczekujemy od klienta."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .jp-hero { padding: 150px 0 56px; position: relative; overflow: hidden; background: var(--bg-base); }
+  .jp-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .jp-lead { font-size: 17px; color: rgba(255,255,255,.62); line-height: 1.75; max-width: 760px; font-weight: 300; }
+  .jp-lead strong { color: rgba(255,255,255,.82); font-weight: 500; }
+  .jp-section { padding: 72px 0; background: var(--bg-base); }
+  .jp-section-alt { background: var(--bg-elevated, rgba(255,255,255,.02)); }
+  .jp-h2 { margin-bottom: 18px; }
+  .jp-p { font-size: 15px; color: rgba(255,255,255,.62); line-height: 1.8; max-width: 760px; margin-bottom: 16px; }
+  .jp-p strong { color: rgba(255,255,255,.8); font-weight: 500; }
+
+  .jp-timeline { max-width: 860px; margin-top: 40px; }
+  .jp-item {
+    display: grid; grid-template-columns: 58px 1fr; gap: 24px;
+    padding: 0 0 40px; position: relative;
+  }
+  .jp-item::before {
+    content: ''; position: absolute; left: 28px; top: 46px; bottom: 0; width: 1px;
+    background: linear-gradient(rgba(124,107,255,.4), rgba(124,107,255,.05));
+  }
+  .jp-item:last-child::before { display: none; }
+  .jp-num {
+    width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 17px; font-weight: 700; color: #c4b5fd;
+    background: rgba(124,107,255,.1); border: 1px solid rgba(124,107,255,.3);
+    position: relative; z-index: 2;
+  }
+  .jp-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+  .jp-item h3 { font-family: var(--font-display); font-size: 21px; color: #fff; margin: 0; font-weight: 600; letter-spacing: -.4px; }
+  .jp-time {
+    font-size: 12px; padding: 4px 12px; border-radius: 100px;
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.66);
+  }
+  .jp-item > div:last-child > p { font-size: 15px; color: rgba(255,255,255,.66); line-height: 1.78; margin: 0 0 18px; }
+  .jp-roles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .jp-role {
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 12px; padding: 16px 18px;
+  }
+  .jp-role-label {
+    font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase;
+    color: #c4b5fd; margin-bottom: 7px; font-weight: 600;
+  }
+  .jp-role p { font-size: 13.5px; color: rgba(255,255,255,.68); line-height: 1.65; margin: 0; }
+
+  .jp-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 36px; }
+  .jp-card {
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px; padding: 28px; transition: border-color .25s, transform .25s;
+  }
+  .jp-card:hover { border-color: rgba(124,107,255,.26); transform: translateY(-2px); }
+  .jp-card h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 10px; font-weight: 600; }
+  .jp-card p { font-size: 14px; color: rgba(255,255,255,.68); line-height: 1.7; margin: 0; }
+
+  @media (max-width: 1024px) { .jp-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) {
+    .jp-inner { padding: 0 24px; }
+    .jp-grid, .jp-roles { grid-template-columns: 1fr; }
+    .jp-hero { padding: 120px 0 40px; }
+    .jp-item { grid-template-columns: 44px 1fr; gap: 16px; }
+    .jp-num { width: 44px; height: 44px; font-size: 15px; }
+    .jp-item::before { left: 22px; top: 36px; }
+    .jp-item h3 { font-size: 19px; }
+  }
+</style>
+
+<section class="jp-hero">
+  <div class="orb orb-1"></div>
+  <div class="grid-bg"></div>
+  <div class="jp-inner" style="position:relative">
+    <div class="eyebrow" style="margin-bottom:18px">Proces</div>
+    <h1 class="display-xl" style="margin-bottom:20px">Jak wygląda<br><span class="grad">współpraca</span></h1>
+    <p class="jp-lead">
+      Osiem etapów, orientacyjne terminy i jasny podział — <strong>co robimy my, a co potrzebujemy od Was</strong>.
+      Bez znikania na trzy tygodnie i bez faktur za „prace dodatkowe" na końcu.
+    </p>
+  </div>
+</section>
+
+<section class="jp-section">
+  <div class="jp-inner">
+    <h2 class="display-md jp-h2">Osiem etapów,<br><span class="grad-v">bez niespodzianek</span></h2>
+    <p class="jp-p">
+      Terminy są orientacyjne i podajemy je uczciwie: część z nich zależy od nas, a część od tempa,
+      w jakim spłyną treści i zdjęcia. Dlatego przy każdym etapie piszemy wprost, kto co robi.
+    </p>
+
+    <div class="jp-timeline">
+      {steps.map((s, i) => (
+        <div class="jp-item" id={`etap-${i + 1}`}>
+          <div class="jp-num">{s.n}</div>
+          <div>
+            <div class="jp-head">
+              <h3>{s.t}</h3>
+              <span class="jp-time">{s.time}</span>
+            </div>
+            <p>{s.d}</p>
+            <div class="jp-roles">
+              <div class="jp-role">
+                <div class="jp-role-label">Po Waszej stronie</div>
+                <p>{s.you}</p>
+              </div>
+              <div class="jp-role">
+                <div class="jp-role-label">Po naszej stronie</div>
+                <p>{s.us}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="jp-section jp-section-alt">
+  <div class="jp-inner">
+    <h2 class="display-md jp-h2">Zasady, których<br><span class="grad">się trzymamy</span></h2>
+    <p class="jp-p">
+      To nie jest lista życzeń — to rzeczy, które mówimy każdemu klientowi na pierwszej rozmowie
+      i z których można nas rozliczyć.
+    </p>
+    <div class="jp-grid">
+      {rules.map((r) => (
+        <div class="jp-card"><h3>{r.t}</h3><p>{r.d}</p></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="jp-section">
+  <div class="jp-inner">
+    <h2 class="display-md jp-h2">Czego potrzebujemy<br><span class="grad-v">od Was</span></h2>
+    <p class="jp-p">
+      Krótko: im szybciej spłyną te rzeczy, tym szybciej strona ruszy. Nie musicie mieć wszystkiego na starcie —
+      wystarczy wiedzieć, co będzie potrzebne.
+    </p>
+    <div class="jp-grid">
+      <div class="jp-card"><h3>Logo i materiały marki</h3><p>W wersji wektorowej, jeśli macie. Jeśli nie — powiemy, czy warto przy okazji odświeżyć identyfikację, czy szkoda na to pieniędzy.</p></div>
+      <div class="jp-card"><h3>Zdjęcia</h3><p>Realizacje, zespół, wnętrza, produkty. To najczęstszy hamulec całego projektu, więc warto zacząć zbierać od razu po wycenie.</p></div>
+      <div class="jp-card"><h3>Treści merytoryczne</h3><p>Nie muszą być gotowym tekstem. Wystarczą surowe informacje: co robicie, dla kogo, czym się różnicie. Resztę napiszemy.</p></div>
+      <div class="jp-card"><h3>Dostęp do domeny</h3><p>Albo kontakt do obecnego dostawcy. Jeśli domeny jeszcze nie ma, rejestrujemy ją na Was.</p></div>
+      <div class="jp-card"><h3>Jedna osoba decyzyjna</h3><p>Uwagi zebrane od pięciu osób z firmy potrafią się wykluczać. Jeden głos rozstrzygający skraca projekt o tygodnie.</p></div>
+      <div class="jp-card"><h3>Godzina na rozmowę</h3><p>Jedna porządna rozmowa na starcie daje więcej niż dwadzieścia maili w trakcie. To jedyny etap, na którym naprawdę potrzebujemy Waszego czasu.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="jp-section jp-section-alt">
+  <div class="jp-inner">
+    <h2 class="display-md jp-h2">Najczęstsze <span class="grad-v">pytania</span></h2>
+    <div class="faq-list" style="margin-top:32px">
+      {faq.map((f, i) => (
+        <>
+          <div class="faq-divider"></div>
+          <div class={`faq-item${i === 0 ? ' open' : ''}`}>
+            <div class="faq-question"><div class="faq-q-text">{f.q}</div><div class="faq-icon">+</div></div>
+            <div class="faq-body"><div class="faq-answer-wrap"><div class="faq-answer">{f.a}</div></div></div>
+          </div>
+        </>
+      ))}
+      <div class="faq-divider"></div>
+    </div>
+  </div>
+</section>
+
+<section class="jp-section">
+  <div class="jp-inner" style="text-align:center">
+    <h2 class="display-md jp-h2">Zacznijmy od <span class="grad">rozmowy</span></h2>
+    <p class="jp-p" style="margin:0 auto 32px">
+      Pierwszy etap jest bezpłatny i do niczego nie zobowiązuje. Powiemy wprost, czego Wasza firma potrzebuje,
+      a czego nie warto kupować.
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="/kontakt" class="btn-primary"><span>Napisz do nas</span></a>
+      <a href="/kalkulator" class="btn-ghost"><span>Policz orientacyjną cenę</span></a>
+    </div>
+    <p class="jp-p" style="margin:28px auto 0;font-size:14px">
+      Zobacz też: <a href="/branze" style="color:#c4b5fd">branże, dla których pracujemy</a> ·
+      <a href="/realizacje" style="color:#c4b5fd">realizacje</a> ·
+      <a href="/uslugi" style="color:#c4b5fd">usługi</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(howToSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question')?.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
+</script>
+
+</Layout>

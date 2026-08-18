@@ -22,7 +22,7 @@ const latestPosts = posts.slice(0, 3);
     <div class="nav-links">
       <a href="#realizacje">Realizacje</a>
       <a href="/uslugi">Usługi</a>
-      <a href="#proces">Proces</a>
+      <a href="/bezplatny-audyt">Bezpłatny audyt</a>
       <a href="/o-nas">O nas</a>
       <a href="#faq">FAQ</a>
       <a href="/blog">Blog</a>
@@ -45,7 +45,7 @@ const latestPosts = posts.slice(0, 3);
   </button>
   <a href="#realizacje">Realizacje</a>
   <a href="/uslugi">Usługi</a>
-  <a href="#proces">Proces</a>
+  <a href="/bezplatny-audyt">Bezpłatny audyt</a>
   <a href="/o-nas">O nas</a>
   <a href="#faq">FAQ</a>
   <a href="/blog">Blog</a>
@@ -196,6 +196,92 @@ const latestPosts = posts.slice(0, 3);
     </div>
   </div>
 </section>
+
+<!-- BANER — BEZPŁATNY AUDYT -->
+<section class="section" style="background:var(--bg-base);padding-top:40px">
+  <div class="container">
+    <div class="ba-banner js-reveal">
+      <div class="ba-banner-glow"></div>
+      <div class="ba-banner-in">
+        <div class="ba-banner-txt">
+          <div class="ba-banner-tag">Bezpłatnie · raport w 48 h</div>
+          <h2 class="ba-banner-h">Sprawdzimy Twoją stronę<br><span class="grad">za darmo</span></h2>
+          <p class="ba-banner-p">
+            Szybkość, SEO, dostępność i zgodność z RODO. Dostaniesz raport z wynikami
+            i trzema najpoważniejszymi problemami — bez zobowiązań i bez dostępu do strony.
+          </p>
+          <div class="ba-banner-pills">
+            <span class="ba-banner-pill">Bez dostępu do strony</span>
+            <span class="ba-banner-pill">Bez zobowiązań</span>
+            <span class="ba-banner-pill">Raport PDF</span>
+          </div>
+        </div>
+        <div class="ba-banner-side">
+          <div class="ba-banner-scores">
+            <div class="ba-banner-score"><span style="color:#f87171">34</span><em>Wydajność</em></div>
+            <div class="ba-banner-score"><span style="color:#fb923c">58</span><em>Dostępność</em></div>
+            <div class="ba-banner-score"><span style="color:#fbbf24">67</span><em>SEO</em></div>
+            <div class="ba-banner-score"><span style="color:#fb923c">61</span><em>Praktyki</em></div>
+          </div>
+          <a href="/bezplatny-audyt" class="btn-primary" style="width:100%;justify-content:center;padding:15px 22px">
+            <span>Zamów bezpłatny audyt →</span>
+          </a>
+          <div class="ba-banner-note">Przykładowe wyniki z raportu dla klienta</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ba-banner {
+    position: relative; overflow: hidden; border-radius: 24px;
+    border: 1px solid rgba(124,107,255,.24);
+    background: linear-gradient(135deg, rgba(124,107,255,.10), rgba(236,72,153,.06));
+    padding: 48px;
+  }
+  .ba-banner-glow {
+    position: absolute; width: 480px; height: 480px; right: -140px; top: -200px;
+    background: radial-gradient(circle, rgba(124,107,255,.28), transparent 68%);
+    pointer-events: none;
+  }
+  .ba-banner-in {
+    position: relative; z-index: 2; display: grid;
+    grid-template-columns: 1fr 320px; gap: 44px; align-items: center;
+  }
+  .ba-banner-tag {
+    display: inline-block; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase;
+    color: #c4b5fd; background: rgba(124,107,255,.12); border: 1px solid rgba(124,107,255,.3);
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 18px;
+  }
+  .ba-banner-h {
+    font-family: var(--font-display); font-size: 38px; line-height: 1.12; letter-spacing: -1px;
+    font-weight: 700; color: #fff; margin: 0 0 16px;
+  }
+  .ba-banner-p { font-size: 15px; color: rgba(255,255,255,.72); line-height: 1.75; margin: 0 0 22px; max-width: 520px; font-weight: 300; }
+  .ba-banner-pills { display: flex; flex-wrap: wrap; gap: 9px; }
+  .ba-banner-pill {
+    font-size: 12px; padding: 6px 14px; border-radius: 100px; color: rgba(255,255,255,.75);
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+  }
+  .ba-banner-side { display: flex; flex-direction: column; gap: 14px; }
+  .ba-banner-scores { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+  .ba-banner-score {
+    background: rgba(10,10,26,.5); border: 1px solid rgba(255,255,255,.09);
+    border-radius: 10px; padding: 10px 8px; text-align: center;
+  }
+  .ba-banner-score span { display: block; font-family: var(--font-display); font-size: 20px; font-weight: 800; line-height: 1; }
+  .ba-banner-score em {
+    display: block; font-style: normal; font-size: 9px; letter-spacing: .09em;
+    text-transform: uppercase; color: rgba(255,255,255,.6); margin-top: 5px;
+  }
+  .ba-banner-note { font-size: 11.5px; color: rgba(255,255,255,.48); text-align: center; }
+  @media (max-width: 900px) {
+    .ba-banner { padding: 30px 22px; border-radius: 20px; }
+    .ba-banner-in { grid-template-columns: 1fr; gap: 28px; }
+    .ba-banner-h { font-size: 28px; }
+  }
+</style>
 
 <!-- PROCESS — REDESIGNED AS CARD GRID, NO LINE ISSUE -->
 <section class="section" id="proces" style="background:var(--bg-base)">

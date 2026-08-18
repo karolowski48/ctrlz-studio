@@ -1,0 +1,113 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+import { INDUSTRIES } from '../data/industries';
+
+const listSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Strony internetowe według branż',
+  itemListElement: INDUSTRIES.map((ind, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: `Strony internetowe dla ${ind.forWhom}`,
+    url: `https://ctrlzstudio.pl/strony-internetowe-dla-${ind.slug}`,
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Branże', item: 'https://ctrlzstudio.pl/branze' },
+  ],
+};
+---
+
+<Layout
+  title="Strony internetowe według branż — dla kogo pracujemy | CtrlZ Studio"
+  description="Strony dla fotografów, firm budowlanych, gabinetów, agroturystyki, instalatorów i warsztatów. Każda branża sprzedaje inaczej — i inaczej ją projektujemy."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .brz-hero { padding: 150px 0 56px; position: relative; overflow: hidden; background: var(--bg-base); }
+  .brz-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .brz-lead { font-size: 17px; color: rgba(255,255,255,.62); line-height: 1.75; max-width: 760px; font-weight: 300; }
+  .brz-lead strong { color: rgba(255,255,255,.82); font-weight: 500; }
+  .brz-section { padding: 56px 0 80px; background: var(--bg-base); }
+  .brz-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .brz-card {
+    display: flex; flex-direction: column; height: 100%; text-decoration: none;
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 18px; padding: 30px; transition: border-color .25s, transform .25s;
+  }
+  .brz-card:hover { border-color: rgba(124,107,255,.32); transform: translateY(-3px); }
+  .brz-card h2 { font-family: var(--font-display); font-size: 19px; color: #fff; margin: 0 0 12px; font-weight: 600; letter-spacing: -.3px; }
+  .brz-card p { font-size: 14px; color: rgba(255,255,255,.66); line-height: 1.7; margin: 0 0 20px; }
+  .brz-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+  .brz-tag { font-size: 11px; padding: 5px 11px; border-radius: 100px; background: rgba(124,107,255,.1); border: 1px solid rgba(124,107,255,.24); color: #c4b5fd; }
+  .brz-arrow { margin-top: auto; font-size: 13px; color: #c4b5fd; font-weight: 500; }
+  .brz-note { font-size: 15px; color: rgba(255,255,255,.62); line-height: 1.8; max-width: 760px; margin: 48px auto 0; text-align: center; }
+  .brz-note a { color: #c4b5fd; }
+  @media (max-width: 1024px) { .brz-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) {
+    .brz-inner { padding: 0 24px; }
+    .brz-grid { grid-template-columns: 1fr; }
+    .brz-hero { padding: 120px 0 40px; }
+  }
+</style>
+
+<section class="brz-hero">
+  <div class="orb orb-1"></div>
+  <div class="grid-bg"></div>
+  <div class="brz-inner" style="position:relative">
+    <div class="eyebrow" style="margin-bottom:18px">Branże</div>
+    <h1 class="display-xl" style="margin-bottom:20px">Każda branża<br>sprzedaje <span class="grad">inaczej</span></h1>
+    <p class="brz-lead">
+      Fotograf potrzebuje portfolio, które nie zabija jakości zdjęć. Instalator — numeru telefonu widocznego przez cały czas.
+      Gabinet — zapisów o dwudziestej drugiej w niedzielę. <strong>To są zupełnie różne strony</strong>,
+      mimo że każdą z nich nazywa się tak samo.
+    </p>
+  </div>
+</section>
+
+<section class="brz-section">
+  <div class="brz-inner">
+    <div class="brz-grid">
+      {INDUSTRIES.map((ind) => (
+        <a href={`/strony-internetowe-dla-${ind.slug}`} class="brz-card">
+          <h2>{ind.label}</h2>
+          <div class="brz-tags">{ind.chips.map((c) => <span class="brz-tag">{c}</span>)}</div>
+          <p>{ind.problems[0].d}</p>
+          <div class="brz-arrow">Zobacz, jak to robimy →</div>
+        </a>
+      ))}
+    </div>
+
+    <p class="brz-note">
+      Nie ma tu Waszej branży? To nie problem — układ strony i tak ustalamy na podstawie rozmowy o tym,
+      skąd realnie przychodzą Wasi klienci. <a href="/kontakt">Napiszcie do nas</a>, a powiemy,
+      co w Waszym przypadku ma sens. Zobaczcie też <a href="/jak-pracujemy">jak wygląda współpraca</a>
+      i <a href="/realizacje">nasze realizacje</a>.
+    </p>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(listSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+</script>
+
+</Layout>
