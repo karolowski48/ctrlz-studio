@@ -447,130 +447,6 @@ const latestPosts = posts.slice(0, 3);
   </div>
 </section>
 
-<!-- TESTIMONIALS (zakomentowane - do przywrócenia później)
-<!--TESTI_START
-<section class="section" style="background:var(--bg-base);overflow:hidden">
-  <div class="container">
-    <div class="eyebrow js-reveal" style="margin-bottom:14px">Opinie klientów</div>
-    <h2 class="display-md js-reveal" style="margin-bottom:40px">Co mówią<br><span class="grad-v">nasi klienci</span></h2>
-  </div>
-
-  <style>
-  .testi-slider-wrap { position:relative; overflow:hidden; padding-bottom:48px; }
-  .testi-track {
-    display:flex; gap:24px;
-    transition:transform .6s cubic-bezier(.4,0,.2,1);
-    cursor:grab;
-    padding: 8px 48px;
-    will-change:transform;
-    box-sizing:border-box;
-  }
-  .testi-track:active { cursor:grabbing; }
-  .testi-slide {
-    flex:0 0 calc(33.333% - 16px);
-    min-width:0;
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:18px;
-    padding:28px 28px 24px;
-    transition:border-color .25s, transform .25s;
-    user-select:none;
-    box-sizing:border-box;
-  }
-  .testi-slide:hover { border-color:rgba(124,107,255,.25); transform:translateY(-2px); }
-  .testi-slide-stars { display:flex; gap:3px; margin-bottom:16px; }
-  .tst { width:14px;height:14px;background:#f59e0b;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
-  .testi-slide-text { font-size:15px; color:rgba(255,255,255,.72); line-height:1.75; margin-bottom:20px; font-style:italic; }
-  .testi-slide-who { display:flex; align-items:center; gap:12px; }
-  .tst-av { width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--violet-light));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;font-weight:700;color:#fff;flex-shrink:0; }
-  .tst-name { font-size:13px;font-weight:600;color:#fff; }
-  .tst-role { font-size:12px;color:rgba(255,255,255,.68);margin-top:1px; }
-  .testi-dots { display:flex;justify-content:center;gap:8px;margin-top:28px; }
-  .testi-dot { width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);cursor:none;transition:all .25s;border:none;padding:0; }
-  .testi-dot.active { background:var(--violet-light);width:24px;border-radius:4px; }
-  .testi-nav { display:flex;gap:10px;justify-content:center;margin-top:16px; }
-  .testi-arrow { width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;cursor:none;transition:all .2s; }
-  .testi-arrow:hover { background:rgba(124,107,255,.15);border-color:rgba(124,107,255,.35); }
-  .testi-arrow svg { width:16px;height:16px;stroke:rgba(255,255,255,.6);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round; }
-  @media(max-width:900px){
-    .testi-slide { flex:0 0 calc(50% - 12px); }
-    .testi-track { padding:8px 24px; }
-  }
-  @media(max-width:600px){
-    .testi-slide { flex:0 0 calc(100% - 48px); }
-    .testi-track { padding:8px 24px; }
-  }
-  </style>
-
-  <div class="testi-slider-wrap js-reveal" id="testi-slider-wrap">
-    <div class="testi-track" id="testi-track">
-
-      <div class="testi-slide">
-        <div class="testi-slide-stars"><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div></div>
-        <p class="testi-slide-text">„Karol zrozumiał nasz biznes od <strong>pierwszej rozmowy</strong>. Sklep WooCommerce działa bez zarzutu — konwersje wzrosły o 60% w trzy miesiące. To nie jest strona, to maszyna sprzedażowa."</p>
-        <div class="testi-slide-who"><div class="tst-av">MN</div><div><div class="tst-name">Michał Nowak</div><div class="tst-role">Właściciel · E-commerce Fashion</div></div></div>
-      </div>
-
-      <div class="testi-slide">
-        <div class="testi-slide-stars"><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div></div>
-        <p class="testi-slide-text">„Szybkość ładowania poniżej 1 sekundy, a klienci sami pytają kto robił stronę. Polecam każdemu kto chce żeby strona naprawdę pracowała na biznes."</p>
-        <div class="testi-slide-who"><div class="tst-av">AK</div><div><div class="tst-name">Anna K.</div><div class="tst-role">CEO · Marka Fashion</div></div></div>
-      </div>
-
-      <div class="testi-slide">
-        <div class="testi-slide-stars"><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div></div>
-        <p class="testi-slide-text">„Deadline dotrzymany, komunikacja bez zarzutu, efekt przeszedł moje oczekiwania. Rzadko spotyka się tak profesjonalne podejście — od briefu po wdrożenie."</p>
-        <div class="testi-slide-who"><div class="tst-av">JW</div><div><div class="tst-name">Joanna W.</div><div class="tst-role">Marketing Director</div></div></div>
-      </div>
-
-      <div class="testi-slide">
-        <div class="testi-slide-stars"><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div></div>
-        <p class="testi-slide-text">„Wreszcie ktoś, kto nie tylko projektuje, ale myśli o konwersjach i wynikach. Strona zaczęła generować leady już w pierwszym tygodniu po wdrożeniu."</p>
-        <div class="testi-slide-who"><div class="tst-av">PM</div><div><div class="tst-name">Piotr M.</div><div class="tst-role">Founder · SaaS</div></div></div>
-      </div>
-
-      <div class="testi-slide">
-        <div class="testi-slide-stars"><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div></div>
-        <p class="testi-slide-text">„Redesign sklepu to była najlepsza decyzja biznesowa tego roku. Współczynnik konwersji wzrósł trzykrotnie, a klienci chwalą jak łatwo się robi zakupy."</p>
-        <div class="testi-slide-who"><div class="tst-av">TK</div><div><div class="tst-name">Tomasz K.</div><div class="tst-role">Właściciel · Sklep e-commerce</div></div></div>
-      </div>
-
-      <div class="testi-slide">
-        <div class="testi-slide-stars"><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div></div>
-        <p class="testi-slide-text">„Dostałam stronę, która nie tylko wygląda świetnie, ale faktycznie przyciąga klientów z Google. Widoczność wzrosła o 200% w ciągu 4 miesięcy."</p>
-        <div class="testi-slide-who"><div class="tst-av">MW</div><div><div class="tst-name">Marta W.</div><div class="tst-role">Właścicielka · Usługi B2B</div></div></div>
-      </div>
-
-      <div class="testi-slide">
-        <div class="testi-slide-stars"><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div></div>
-        <p class="testi-slide-text">„Kalkulator wyceny na stronie to strzał w dziesiątkę — klienci przychodzą już przygotowani, znają orientacyjne koszty. Oszczędza mi godziny rozmów tygodniowo."</p>
-        <div class="testi-slide-who"><div class="tst-av">MS</div><div><div class="tst-name">Michał S.</div><div class="tst-role">Właściciel · Biuro Rachunkowe</div></div></div>
-      </div>
-
-      <div class="testi-slide">
-        <div class="testi-slide-stars"><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div><div class="tst"></div></div>
-        <p class="testi-slide-text">„Strona na Next.js była problemem — każda zmiana wymagała developera. Po migracji na WordPress sam aktualizuję grafik i dodaję posty. Wreszcie mam kontrolę."</p>
-        <div class="testi-slide-who"><div class="tst-av">RK</div><div><div class="tst-name">Robert K.</div><div class="tst-role">Właściciel · Siłownia</div></div></div>
-      </div>
-
-    </div>
-
-    <div class="testi-dots" id="testi-dots"></div>
-    <div class="testi-nav">
-      <button class="testi-arrow" id="testi-prev" aria-label="Poprzednia opinia">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <button class="testi-arrow" id="testi-next" aria-label="Następna opinia">
-        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
-    </div>
-  </div>
-
-</section>
-
-TESTI_END-->
-<!-- TESTIMONIALS END -->
-
 <!-- FAQ -->
 <section class="section" id="faq" style="background:var(--bg-surface)">
   <div class="container">
@@ -636,14 +512,7 @@ TESTI_END-->
             <div class="cp-chips">
               <button type="button" class="cp-chip active" data-type="landing">Landing Page</button>
               <button type="button" class="cp-chip" data-type="firmowa">Strona firmowa</button>
-              <button type="button" class="cp-chip" data-type="sklep">Sklep WooCommerce</button>
-            </div>
-          </div>
-          <div class="cp-bar">
-            <div class="cp-label">Technologia</div>
-            <div class="cp-chips">
-              <button type="button" class="cp-chip active" data-tech="wp">WordPress</button>
-              <button type="button" class="cp-chip" data-tech="next">Astro / Next.js</button>
+              <button type="button" class="cp-chip" data-type="sklep">Sklep internetowy</button>
             </div>
           </div>
           <div class="cp-bar" id="mc-size-row">
@@ -885,7 +754,6 @@ TESTI_END-->
 <!-- FOOTER — uproszczona -->
 <SharedFooter />
 
-
 <style>
   #mini-calc .cp-chip {
     cursor: pointer;
@@ -915,10 +783,7 @@ TESTI_END-->
       firmowa: [4000, 5500, 6800],
       sklep:   [8000, 11000, 15000],
     };
-    const TECH_MULTIPLIER = { wp: 1, next: 1.6 };
-
     let type = 'landing';
-    let tech = 'wp';
     let size = 0;
 
     const priceEl = document.getElementById('mc-price');
@@ -929,7 +794,7 @@ TESTI_END-->
 
     function render() {
       root.dataset.type = type;
-      priceEl.textContent = fmt(BASE[type][size] * TECH_MULTIPLIER[tech]);
+      priceEl.textContent = fmt(BASE[type][size]);
     }
 
     function pick(group, attr, setter) {
@@ -944,7 +809,6 @@ TESTI_END-->
     }
 
     pick('type', 'data-type', function (v) { type = v; });
-    pick('tech', 'data-tech', function (v) { tech = v; });
     pick('size', 'data-size', function (v) { size = parseInt(v, 10); });
 
     render();
@@ -1153,97 +1017,6 @@ document.querySelectorAll<HTMLElement>('.port-card').forEach(card=>{
   });
   card.addEventListener('mouseleave',()=>gsap.to(card,{rotateX:0,rotateY:0,duration:.5,ease:'power3.out'}));
 });
-
-// ── Testimonials slider ──────────────────────────
-(function(){
-  const track   = document.getElementById('testi-track') as HTMLElement;
-  const wrap    = document.getElementById('testi-slider-wrap') as HTMLElement;
-  const dotsEl  = document.getElementById('testi-dots') as HTMLElement;
-  const btnPrev = document.getElementById('testi-prev') as HTMLButtonElement;
-  const btnNext = document.getElementById('testi-next') as HTMLButtonElement;
-  if (!track) return;
-
-  const slides = Array.from(track.children) as HTMLElement[];
-  let current  = 0;
-  let autoplayTimer: ReturnType<typeof setInterval>;
-
-  // How many slides visible at once
-  function perView() {
-    const w = window.innerWidth;
-    if (w < 600) return 1;
-    if (w < 900) return 2;
-    return 3;
-  }
-
-  function maxIndex() { return Math.max(0, slides.length - perView()); }
-
-  function buildDots() {
-    dotsEl.innerHTML = '';
-    const count = maxIndex() + 1;
-    for (let i = 0; i < count; i++) {
-      const d = document.createElement('button');
-      d.className = 'testi-dot' + (i === current ? ' active' : '');
-      d.addEventListener('click', () => goTo(i));
-      dotsEl.appendChild(d);
-    }
-  }
-
-  function updateDots() {
-    dotsEl.querySelectorAll('.testi-dot').forEach((d, i) =>
-      d.classList.toggle('active', i === current));
-  }
-
-  function getSlideWidth() {
-    if (!slides[0]) return 0;
-    return slides[0].getBoundingClientRect().width + 24;
-  }
-
-  function goTo(idx: number) {
-    current = Math.max(0, Math.min(idx, maxIndex()));
-    track.style.transform = `translateX(-${current * getSlideWidth()}px)`;
-    updateDots();
-  }
-
-  function next() { goTo(current < maxIndex() ? current + 1 : 0); }
-  function prev() { goTo(current > 0 ? current - 1 : maxIndex()); }
-
-  function startAutoplay() {
-    clearInterval(autoplayTimer);
-    autoplayTimer = setInterval(next, 4500);
-  }
-  function pauseAutoplay() { clearInterval(autoplayTimer); }
-
-  btnNext.addEventListener('click', () => { next(); startAutoplay(); });
-  btnPrev.addEventListener('click', () => { prev(); startAutoplay(); });
-
-  wrap.addEventListener('mouseenter', pauseAutoplay);
-  wrap.addEventListener('mouseleave', startAutoplay);
-
-  // Drag / swipe
-  let dragStart = 0, dragging = false;
-  track.addEventListener('mousedown',  e => { dragging=true; dragStart=e.clientX; pauseAutoplay(); });
-  track.addEventListener('touchstart', e => { dragging=true; dragStart=e.touches[0].clientX; pauseAutoplay(); }, {passive:true});
-  function onDragEnd(endX: number) {
-    if (!dragging) return;
-    dragging = false;
-    const diff = dragStart - endX;
-    if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
-    startAutoplay();
-  }
-  track.addEventListener('mouseup',   e => onDragEnd(e.clientX));
-  track.addEventListener('mouseleave',e => { if(dragging) onDragEnd(e.clientX); });
-  track.addEventListener('touchend',  e => onDragEnd(e.changedTouches[0].clientX));
-
-  // Rebuild on resize
-  let resizeTimer: ReturnType<typeof setTimeout>;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => { buildDots(); goTo(Math.min(current, maxIndex())); }, 150);
-  });
-
-  buildDots();
-  startAutoplay();
-})();
 
 // ── FAQ accordion ────────────────────────────────
 document.querySelectorAll('.faq-item').forEach(item=>{

@@ -21,7 +21,17 @@ const svgIllustrations: Record<string, string> = {
   default: `<ellipse cx="300" cy="130" rx="250" ry="150" fill="rgba(124,107,255,.12)"/>`,
 };
 
-const cats = ['Wszystkie', 'Biznes', 'SEO', 'Performance', 'Design', 'E-commerce', 'Technologie', 'Branding'];
+// Liczba artykułów pokazywana od razu. Reszta jest w HTML (Google ją widzi),
+// tylko ukryta wizualnie do kliknięcia „Pokaż więcej".
+const VISIBLE = 9;
+
+const catNames = ['Biznes', 'SEO', 'Performance', 'Design', 'E-commerce', 'Technologie', 'Branding'];
+const cats = [
+  { name: 'Wszystkie', count: posts.length },
+  ...catNames
+    .map((c) => ({ name: c, count: posts.filter((p) => p.cat === c).length }))
+    .filter((c) => c.count > 0),
+];
 ---
 
 <Layout title="Blog — CtrlZ Studio" description="Artykuły o web designie, SEO, WordPressie i sprzedaży online. Wiedza, którą możesz wdrożyć od razu.">
@@ -44,7 +54,16 @@ const cats = ['Wszystkie', 'Biznes', 'SEO', 'Performance', 'Design', 'E-commerce
       Piszemy o tym, co naprawdę pomaga — web design, SEO, sprzedaż online i technologie. Zero bullshitu.
     </p>
     <div class="blog-tags" id="bh-tags">
-      {cats.map((c,i) => <button class={`blog-tag-btn${i===0?' active':''}`} data-cat={c}>{c}</button>)}
+      {cats.map((c, i) => (
+        <button
+          type="button"
+          class={`blog-tag-btn${i === 0 ? ' active' : ''}`}
+          data-cat={c.name}
+          aria-pressed={i === 0 ? 'true' : 'false'}
+        >
+          {c.name} <span class="blog-tag-count">{c.count}</span>
+        </button>
+      ))}
     </div>
   </div>
 </section>
@@ -54,7 +73,12 @@ const cats = ['Wszystkie', 'Biznes', 'SEO', 'Performance', 'Design', 'E-commerce
   <div class="container">
     <div class="blog-page-grid" id="posts-grid">
       {posts.map((p, i) => (
-        <a href={`/blog/${p.slug}`} class="blog-card js-scale" data-delay={String((i%3)*0.08)} data-cat={p.cat}>
+        <a
+          href={`/blog/${p.slug}`}
+          class={`blog-card js-scale${i >= VISIBLE ? ' is-hidden' : ''}`}
+          data-delay={String((i % 3) * 0.08)}
+          data-cat={p.cat}
+        >
           <div class="blog-img">
             <div class="blog-img-inner" style={`background:${p.bg}`}>
               <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.65" viewBox="0 0 600 200" preserveAspectRatio="xMidYMid slice">
@@ -90,6 +114,16 @@ const cats = ['Wszystkie', 'Biznes', 'SEO', 'Performance', 'Design', 'E-commerce
         </a>
       ))}
     </div>
+
+    <p class="blog-empty" id="blog-empty" hidden>
+      Brak artykułów w tej kategorii. <button type="button" class="blog-empty-reset" id="blog-reset">Pokaż wszystkie</button>
+    </p>
+
+    <div class="blog-more-wrap">
+      <button type="button" class="blog-more" id="blog-more">
+        Pokaż więcej artykułów <span id="blog-more-count"></span>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -123,19 +157,69 @@ document.querySelectorAll<HTMLElement>('.js-scale').forEach(el=>{
     scrollTrigger:{trigger:el,start:'top 92%',toggleActions:'play none none none'}});
 });
 
-// Tag filter
-const tagBtns=document.querySelectorAll<HTMLButtonElement>('.blog-tag-btn');
-const cards=document.querySelectorAll<HTMLElement>('.blog-card');
-tagBtns.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    tagBtns.forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const cat=btn.dataset.cat||'Wszystkie';
-    cards.forEach(card=>{
-      const show=cat==='Wszystkie'||card.dataset.cat===cat;
-      gsap.to(card,{opacity:show?1:.12,scale:show?1:.97,duration:.3,ease:'power2.out'});
-      (card as HTMLElement).style.pointerEvents=show?'auto':'none';
+// ── Filtr kategorii + „Pokaż więcej" ─────────────────────────────
+// Wszystkie artykuły są w HTML od razu — Google widzi komplet linków.
+// Ukrywanie i pokazywanie dzieje się tylko po stronie przeglądarki.
+(function () {
+  const VISIBLE = 9;
+  const grid     = document.getElementById('posts-grid');
+  const moreBtn  = document.getElementById('blog-more') as HTMLButtonElement | null;
+  const moreWrap = document.querySelector('.blog-more-wrap') as HTMLElement | null;
+  const moreCnt  = document.getElementById('blog-more-count');
+  const empty    = document.getElementById('blog-empty') as HTMLElement | null;
+  const resetBtn = document.getElementById('blog-reset');
+  const tagBtns  = Array.from(document.querySelectorAll<HTMLButtonElement>('.blog-tag-btn'));
+  const cards    = Array.from(document.querySelectorAll<HTMLElement>('.blog-card'));
+  if (!grid || !moreBtn || !moreWrap) return;
+
+  let activeCat = 'Wszystkie';
+  let shown = VISIBLE;
+
+  const matching = () =>
+    cards.filter((c) => activeCat === 'Wszystkie' || c.dataset.cat === activeCat);
+
+  function render(animateFrom = -1) {
+    const list = matching();
+
+    cards.forEach((c) => c.classList.add('is-hidden'));
+    list.slice(0, shown).forEach((c, i) => {
+      c.classList.remove('is-hidden');
+      // delikatne wejście tylko dla kart dopiero co odsłoniętych
+      if (animateFrom >= 0 && i >= animateFrom) {
+        c.animate(
+          [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }],
+          { duration: 320, easing: 'cubic-bezier(.4,0,.2,1)', delay: (i - animateFrom) * 45, fill: 'both' }
+        );
+      }
     });
+
+    const left = list.length - shown;
+    moreWrap.hidden = left <= 0;
+    if (moreCnt) moreCnt.textContent = left > 0 ? `(${left})` : '';
+    if (empty) empty.hidden = list.length > 0;
+  }
+
+  function setCat(cat: string) {
+    activeCat = cat;
+    shown = VISIBLE;
+    tagBtns.forEach((b) => {
+      const on = b.dataset.cat === cat;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    render();
+  }
+
+  tagBtns.forEach((btn) => btn.addEventListener('click', () => setCat(btn.dataset.cat || 'Wszystkie')));
+  resetBtn?.addEventListener('click', () => setCat('Wszystkie'));
+
+  moreBtn.addEventListener('click', () => {
+    const from = shown;
+    shown += VISIBLE;
+    render(from);
   });
-});
+
+  render();
+})();
+
 </script>

@@ -20,6 +20,28 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: 'porownanie-platform-sklepowych-polska',
+    title: 'IdoSell, Shoper, PrestaShop, WooCommerce czy Shopify — porównanie platform sklepowych',
+    excerpt: 'Pięć platform i dwa modele rozliczeń. Mocne strony każdej, koszty ukryte w cennikach i cztery pytania, które zawężają wybór do jednej opcji.',
+    cat: 'E-commerce',
+    time: '12 min',
+    date: 'Sierpień 2026',
+    featured: false,
+    bg: 'linear-gradient(135deg,#1a0830 0%,#2d0f5c 50%,#160520 100%)',
+    glowColor: 'rgba(167,139,250,.45)',
+  },
+  {
+    slug: 'prestashop-dla-kogo-ma-sens',
+    title: 'PrestaShop — dla kogo ma sens i czym różni się od WooCommerce',
+    excerpt: 'Silnik zbudowany wyłącznie do sprzedaży, bez nadbudowy nad blogiem. Kiedy PrestaShop wygrywa z WooCommerce, ile realnie kosztuje i czego się spodziewać przy utrzymaniu.',
+    cat: 'E-commerce',
+    time: '10 min',
+    date: 'Sierpień 2026',
+    featured: false,
+    bg: 'linear-gradient(135deg,#04141f 0%,#0e3550 50%,#04101a 100%)',
+    glowColor: 'rgba(56,189,248,.45)',
+  },
+  {
     slug: 'system-rezerwacji-online-dla-pensjonatu',
     title: 'System rezerwacji online dla domków i pensjonatu — czy się opłaca i ile kosztuje?',
     excerpt: 'Telefon, portal rezerwacyjny czy własny system na stronie? Porównanie prowizji i kosztów oraz próg, od którego własna rezerwacja zaczyna się zwracać.',

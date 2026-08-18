@@ -239,20 +239,7 @@ body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width:54px
 
 /* TESTIMONIALS */
 .big-quote { font-family:var(--font-display); font-size:120px; font-weight:900; line-height:.75; background:linear-gradient(135deg,rgba(124,107,255,.18),transparent); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; letter-spacing:-.1em; margin-bottom:32px; }
-.testi-featured { max-width:640px; margin-bottom:40px; }
-.testi-stars { display:flex; gap:3px; margin-bottom:18px; }
 .star { width:11px; height:11px; background:var(--violet-light); clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%); }
-.testi-text { font-size:clamp(17px,2vw,21px); font-weight:300; line-height:1.55; color:rgba(255,255,255,.72); letter-spacing:-.01em; font-style:italic; margin-bottom:22px; font-family:var(--font-display); }
-.testi-text strong { color:#fff; font-weight:600; font-style:normal; }
-.testi-who { display:flex; align-items:center; gap:12px; }
-.testi-av { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,rgba(124,107,255,.35),rgba(167,139,250,.2)); border:1px solid rgba(124,107,255,.35); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:var(--violet-light); font-family:var(--font-display); }
-.testi-name { font-family:var(--font-display); font-size:14px; font-weight:600; color:#fff; }
-.testi-role { font-size:12px; color:rgba(255,255,255,.68); margin-top:1px; }
-.testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:11px; }
-.testi-card { background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.07); border-radius:var(--radius-md); padding:22px; transition:all var(--transition); cursor:default; }
-.testi-card:hover { background:rgba(124,107,255,.07); border-color:rgba(124,107,255,.25); transform:translateY(-3px); }
-.testi-card-text { font-size:13px; color:rgba(255,255,255,.65); line-height:1.7; margin-bottom:14px; font-style:italic; }
-.testi-card-who { font-size:12px; color:rgba(255,255,255,.68); font-weight:600; }
 
 /* FAQ — SMOOTH ACCORDION */
 .faq-layout { display:grid; grid-template-columns:1fr 1.6fr; gap:72px; align-items:start; }
@@ -362,7 +349,6 @@ body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width:54px
   .process-layout,.about-layout,.faq-layout { grid-template-columns:1fr; gap:48px; }
   .portfolio-featured { grid-template-columns:1fr; }
   .services-grid { grid-template-columns:repeat(2,1fr); }
-  .testi-grid { grid-template-columns:1fr 1fr; }
   .projects-grid { grid-template-columns:repeat(2,1fr); }
   .project-card.featured { grid-column:span 1; }
 }
@@ -371,7 +357,7 @@ body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width:54px
   .hero-bottom { flex-direction:column; align-items:flex-start; gap:28px; }
   .hero-cta { align-items:flex-start; }
   .numbers-row { flex-direction:column; gap:28px; }
-  .services-grid,.testi-grid,.projects-grid { grid-template-columns:1fr; }
+  .services-grid,.projects-grid { grid-template-columns:1fr; }
   .portfolio-row { grid-template-columns:1fr; }
   .footer-main { grid-template-columns:1fr; }
   .footer-trust { flex-direction:column; gap:12px; }
@@ -657,7 +643,6 @@ body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width:54px
   .footer-contact-quick { text-align: left !important; }
   .numbers-row { flex-direction: column; gap: 24px; }
   .services-grid { grid-template-columns: 1fr; }
-  .testi-grid { grid-template-columns: 1fr; }
   .portfolio-featured { grid-template-columns: 1fr; }
   .portfolio-row { grid-template-columns: 1fr; }
   .about-layout { grid-template-columns: 1fr; gap: 40px; }
@@ -1217,7 +1202,6 @@ body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width:54px
 .services-grid,
 .portfolio-featured,
 .portfolio-row,
-.testi-grid,
 .tech-grid {
   contain: layout style;
 }
@@ -1266,3 +1250,49 @@ body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width:54px
 /* Dziki Gym */
 .pbg-17 { background:linear-gradient(145deg,#0a0505,#280a0a,#0e0202); }
 .pg-17  { width:155px;height:155px;background:rgba(220,38,38,.48);top:14px;right:20px; }
+
+/* ── Blog: filtry, ukrywanie kart, „Pokaż więcej" ───────────── */
+.blog-card.is-hidden { display: none; }
+.blog-tag-count {
+  font-size: 11px; opacity: .65; margin-left: 3px;
+  font-variant-numeric: tabular-nums;
+}
+.blog-more-wrap { display: flex; justify-content: center; margin-top: 40px; }
+.blog-more-wrap[hidden] { display: none; }
+.blog-more {
+  font: inherit; font-size: 14px; font-weight: 600; color: #fff;
+  padding: 14px 30px; border-radius: 100px; cursor: pointer;
+  background: rgba(124,107,255,.16);
+  border: 1px solid rgba(124,107,255,.42);
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.blog-more:hover { background: rgba(124,107,255,.3); border-color: rgba(124,107,255,.7); transform: translateY(-1px); }
+.blog-empty {
+  text-align: center; font-size: 15px; color: rgba(255,255,255,.68);
+  margin: 48px auto 0; max-width: 460px; line-height: 1.7;
+}
+.blog-empty[hidden] { display: none; }
+.blog-empty-reset {
+  font: inherit; font-size: 15px; font-weight: 600; color: #c4b5fd;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  border-bottom: 1px solid rgba(124,107,255,.4);
+}
+.blog-empty-reset:hover { color: #fff; }
+
+@media (max-width: 640px) {
+  /* na telefonie filtry przewijają się w poziomie zamiast łamać na 4 rzędy */
+  .blog-tags {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 2px 20px 6px;
+    margin-left: -20px;
+    margin-right: -20px;
+    scroll-snap-type: x proximity;
+  }
+  .blog-tags::-webkit-scrollbar { display: none; }
+  .blog-tag-btn { flex: 0 0 auto; scroll-snap-align: start; }
+  .blog-more { width: 100%; }
+}
