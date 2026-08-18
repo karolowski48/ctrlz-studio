@@ -2,6 +2,8 @@
 import Layout from './Layout.astro';
 import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
+import { Image } from 'astro:assets';
+import { img } from '../data/images';
 
 interface Props {
   title: string;
@@ -385,17 +387,18 @@ const { title, description, cat, year, tags, result, bgClass, glowClass, glowCol
 
   <!-- Project hero: photo or mock -->
   <div style="max-width:1280px;margin:0 auto;padding:0 48px">
-    {heroImage ? (
+    {img(heroImage) ? (
       <div class={`proj-screen ${bgClass}`} style="overflow:hidden;padding:0">
-        <img
-          src={heroImage}
+        <Image
+          src={img(heroImage)!}
           alt={heroImageAlt || title}
           style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;opacity:.85"
+          widths={[640, 1024, 1280]}
+          sizes="(max-width: 720px) 100vw, (max-width: 1280px) 92vw, 1184px"
+          quality={74}
           loading="eager"
           fetchpriority="high"
           decoding="async"
-          width="1280"
-          height="720"
         />
       </div>
     ) : (

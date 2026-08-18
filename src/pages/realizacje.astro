@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
+import { Image } from 'astro:assets';
+import { img } from '../data/images';
 
 const projects = [
   { slug:'wypozyczalnia-wadowice', city:'Wadowice', name:'Wypożyczalnia Wadowice',  tag:'E-commerce · SEO lokalne · 2026',    pill1:'Audyt + sklep',              pill2:'Wizytówka Google',     bg:'pbg-11', glow:'pg-11', featured:false, img:'/wypozyczalnia-hero.webp',  desc:'Wypożyczalnia sprzętu budowlanego — audyt strony, sklep, podstawowe SEO oraz konfiguracja Search Console i wizytówki Google.' },
@@ -90,16 +92,16 @@ const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'As
           data-delay={String((i % 3) * 0.08)}
           data-cat={p.tag}
         >
-          {p.img
-            ? <img
-                src={p.img}
-                alt={`${p.name} — realizacja CtrlZ Studio, ${p.city}`}
+          {img(p.img)
+            ? <Image
+                src={img(p.img)!}
+                alt={`${p.name} — realizacja CtrlZ Studio${p.city ? ', ' + p.city : ''}`}
                 class="port-bg-img"
-                width="800"
-                height="600"
+                widths={[400, 640, 900]}
+                sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 400px"
+                quality={72}
                 decoding="async"
                 loading={i < 3 ? 'eager' : 'lazy'}
-                fetchpriority={i === 0 ? 'high' : 'auto'}
               />
             : <><div class={`port-glow ${p.glow}`}></div>{p.featured && <div class="port-mock"><div class="mock-line"></div><div class="mock-line"></div><div class="mock-line"></div></div>}</>
           }
