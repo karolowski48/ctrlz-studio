@@ -1,0 +1,248 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+import { PRICING } from '../data/pricing';
+
+/**
+ * AUDYT SEO — fraza „audyt seo strony internetowej" (140/mies., CPC 81,90 zł)
+ * ══════════════════════════════════════════════════════════════════════════
+ * Najwyższe CPC w całym zestawieniu Senuto. Świadomie węższa niż /audyt-strony:
+ * tam jest audyt całościowy (technika, dostępność, RODO, bezpieczeństwo),
+ * tutaj wyłącznie widoczność w wyszukiwarce.
+ */
+
+const zl = (n: number) => `${String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} zł`;
+
+const scope = [
+  { t: 'Analiza fraz i intencji', d: 'Sprawdzamy, czego realnie szukają Wasi klienci i czy strona w ogóle celuje w te zapytania. Najczęstszy problem: firma opisuje usługi swoim językiem, a klienci wpisują coś zupełnie innego.' },
+  { t: 'Tytuły i opisy podstron', d: 'Każda podstrona osobno. To obszar o najlepszym stosunku efektu do nakładu — wysoka pozycja przy zerowym CTR to prawie zawsze problem tytułu, a nie pozycjonowania.' },
+  { t: 'Struktura nagłówków', d: 'Czy każda podstrona ma jeden nagłówek H1 i logiczną hierarchię niżej. Brak H1 to jeden z najczęstszych błędów, jakie znajdujemy, i jeden z najszybszych do naprawienia.' },
+  { t: 'Kanibalizacja treści', d: 'Dwie podstrony celujące w tę samą frazę osłabiają się nawzajem. Wskazujemy, które konkurują ze sobą i którą warto zostawić jako główną.' },
+  { t: 'Linkowanie wewnętrzne', d: 'Ile linków prowadzi do każdej podstrony. Strona, do której nie prowadzi nic poza mapą witryny, jest dla Google treścią drugiej kategorii — to najczęstszy powód, dla którego nowe podstrony nie chcą rankować.' },
+  { t: 'Dane strukturalne', d: 'Schema.org dla firmy lokalnej, usług, artykułów i sekcji FAQ. Decydują o tym, czy wynik w Google wygląda jak zwykły link, czy jak rozbudowana wizytówka.' },
+  { t: 'Indeksacja', d: 'Co Google faktycznie widzi i czy nie indeksuje rzeczy, których nie powinien — kopii, adresów testowych, pozostałości po starej wersji strony.' },
+  { t: 'Szybkość jako czynnik rankingowy', d: 'Core Web Vitals na telefonie, bo to one liczą się w ocenie. Wolna strona traci pozycje niezależnie od jakości treści.' },
+  { t: 'SEO lokalne', d: 'Spójność danych firmy, wizytówka Google, obecność nazw miejscowości w treści i strukturze. Przy usługach lokalnych to często ważniejsze niż cała reszta.' },
+];
+
+const problems = [
+  { t: 'Wysokie pozycje, zero kliknięć', d: 'Klasyk, który sami u siebie znaleźliśmy: druga pozycja w Google i ani jednego wejścia, bo tytuł w wynikach nie mówił, czym się zajmujemy. Naprawa zajęła piętnaście minut.' },
+  { t: 'Strona nie rankuje na własną usługę', d: 'Zwykle dlatego, że usługa jest opisana jednym akapitem na stronie głównej zamiast mieć własną podstronę. Google nie ma czego pozycjonować.' },
+  { t: 'Ruch spadł po nowej stronie', d: 'Najczęstsza przyczyna: przy wymianie strony nikt nie ustawił przekierowań ze starych adresów. Pozycje budowane latami przepadły w jeden dzień.' },
+  { t: 'Konkurencja jest wyżej mimo gorszej strony', d: 'Zwykle ma więcej treści odpowiadającej na konkretne zapytania albo lepiej poukładaną strukturę. Audyt pokazuje, czym dokładnie różni się jej sytuacja od Waszej.' },
+];
+
+const faq = [
+  { q: 'Ile kosztuje audyt SEO?', a: `Od ${zl(300)} do ${zl(1000)}, zależnie od wielkości serwisu i liczby podstron do przeanalizowania. Przy stronie wizytówkowej to dolna granica, przy rozbudowanym serwisie albo sklepie górna. Dokładną kwotę podajemy po zobaczeniu strony, przed rozpoczęciem pracy.` },
+  { q: 'Czym audyt SEO różni się od pełnego audytu strony?', a: 'Audyt SEO odpowiada na jedno pytanie: dlaczego strona nie jest widoczna w Google i co z tym zrobić. Pełny audyt obejmuje szerszy zakres — dodatkowo dostępność, zgodność z RODO, bezpieczeństwo i ścieżkę do kontaktu. Jeśli macie ruch, ale nie macie zapytań, potrzebujecie tego drugiego. Jeśli nie macie ruchu w ogóle — tego pierwszego.' },
+  { q: 'Ile trwa przygotowanie audytu?', a: 'Do 48 godzin od zgłoszenia. Przy bardzo rozbudowanych serwisach może to być kilka dni, ale wtedy uprzedzamy o tym z góry.' },
+  { q: 'Czy potrzebujecie dostępu do mojej strony?', a: 'Do samej strony nie — analizujemy to, co publicznie dostępne, dokładnie tak, jak widzi ją Google. Przydaje się natomiast wgląd do Search Console i Analytics, bo pokazują realne zapytania i zachowanie użytkowników. Wystarczy dostęp tylko do odczytu, a możecie go cofnąć w każdej chwili.' },
+  { q: 'Czy po audycie muszę zlecić Wam wdrożenie?', a: 'Nie. Raport zawiera konkretne rekomendacje i jest napisany tak, żeby mógł je wykonać dowolny wykonawca — także ten, który obsługuje Was dziś. Sporo firm zamawia u nas audyt właśnie po to, żeby wiedzieć, o co poprosić własnego informatyka.' },
+  { q: 'Czy audyt gwarantuje wzrost pozycji?', a: 'Nie i nikt uczciwy tego nie zagwarantuje — na algorytm Google nikt nie ma wpływu. Audyt pokazuje, co blokuje widoczność i w jakiej kolejności to naprawiać. Efekt zależy od tego, czy rekomendacje zostaną wdrożone, oraz od konkurencyjności Waszych fraz.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Audyt SEO',
+  name: 'Audyt SEO strony internetowej',
+  description: 'Audyt SEO strony internetowej — analiza fraz, tytułów, struktury, linkowania i indeksacji. Raport z rekomendacjami i planem wdrożenia.',
+  provider: { '@id': 'https://ctrlzstudio.pl/#localbusiness' },
+  areaServed: { '@type': 'Country', name: 'Polska' },
+  url: 'https://ctrlzstudio.pl/audyt-seo',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Usługi', item: 'https://ctrlzstudio.pl/uslugi' },
+    { '@type': 'ListItem', position: 3, name: 'Audyt SEO', item: 'https://ctrlzstudio.pl/audyt-seo' },
+  ],
+};
+---
+
+<Layout
+  title="Audyt SEO strony internetowej — raport w 48 h | CtrlZ Studio"
+  description="Audyt SEO strony internetowej: analiza fraz, tytułów, struktury i indeksacji. Konkretne rekomendacje i kolejność wdrażania. Od 300 zł, raport w 48 godzin."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .srv-hero { padding: 150px 0 64px; position: relative; overflow: hidden; background: var(--bg-base); }
+  .srv-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .srv-crumbs { font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 18px; }
+  .srv-crumbs a { color: rgba(255,255,255,.68); text-decoration: none; }
+  .srv-crumbs a:hover { color: #c4b5fd; }
+  .srv-lead { font-size: 17px; color: rgba(255,255,255,.64); line-height: 1.75; max-width: 740px; font-weight: 300; }
+  .srv-lead strong { color: rgba(255,255,255,.84); font-weight: 500; }
+  .srv-chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .srv-chip { font-size: 12px; padding: 7px 16px; border-radius: 100px; background: rgba(124,107,255,.1); border: 1px solid rgba(124,107,255,.26); color: #c4b5fd; }
+  .srv-section { padding: 72px 0; background: var(--bg-base); }
+  .srv-section-alt { background: var(--bg-elevated, rgba(255,255,255,.02)); }
+  .srv-h2 { margin-bottom: 18px; }
+  .srv-p { font-size: 15px; color: rgba(255,255,255,.64); line-height: 1.8; max-width: 780px; margin-bottom: 16px; }
+  .srv-p strong { color: rgba(255,255,255,.82); font-weight: 500; }
+  .srv-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 36px; }
+  .srv-card { background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07); border-radius: 16px; padding: 26px; transition: border-color .25s, transform .25s; }
+  .srv-card:hover { border-color: rgba(124,107,255,.26); transform: translateY(-2px); }
+  .srv-card h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 10px; font-weight: 600; }
+  .srv-card p { font-size: 14px; color: rgba(255,255,255,.68); line-height: 1.7; margin: 0; }
+  .srv-steps { max-width: 800px; margin-top: 32px; }
+  .srv-step { display: flex; gap: 22px; align-items: flex-start; padding: 22px 0; border-top: 1px solid rgba(255,255,255,.07); }
+  .srv-step-n { font-family: var(--font-display); font-size: 26px; font-weight: 800; color: #c4b5fd; line-height: 1; width: 40px; flex-shrink: 0; opacity: .85; }
+  .srv-step h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 6px; font-weight: 600; }
+  .srv-step p { font-size: 14px; color: rgba(255,255,255,.68); line-height: 1.7; margin: 0; }
+  @media (max-width: 1024px) { .srv-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) {
+    .srv-inner { padding: 0 24px; }
+    .srv-grid { grid-template-columns: 1fr; }
+    .srv-hero { padding: 120px 0 48px; }
+  }
+</style>
+
+<section class="srv-hero">
+  <div class="orb orb-1"></div>
+  <div class="grid-bg"></div>
+  <div class="srv-inner" style="position:relative">
+    <div class="srv-crumbs"><a href="/">Strona główna</a> · <a href="/uslugi">Usługi</a> · Audyt SEO</div>
+    <div class="eyebrow" style="margin-bottom:18px">Usługa</div>
+    <h1 class="display-xl" style="margin-bottom:20px">Audyt SEO<br><span class="grad">strony internetowej</span></h1>
+    <p class="srv-lead">
+      Sprawdzamy, <strong>dlaczego Wasza strona nie jest widoczna w Google</strong> i co konkretnie
+      trzeba zmienić. Raport z rekomendacjami i kolejnością wdrażania — w 48 godzin.
+    </p>
+    <div class="srv-chips">
+      <span class="srv-chip">Raport w 48 h</span>
+      <span class="srv-chip">Konkretne rekomendacje</span>
+      <span class="srv-chip">Od 300 zł</span>
+    </div>
+  </div>
+</section>
+
+<section class="srv-section">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Kiedy audyt SEO<br><span class="grad-v">ma sens</span></h2>
+    <p class="srv-p">Cztery sytuacje, w których najczęściej się do nas zgłaszacie — i w których audyt realnie coś zmienia.</p>
+    <div class="srv-steps">
+      {problems.map((p, i) => (
+        <div class="srv-step">
+          <div class="srv-step-n">{String(i + 1).padStart(2, '0')}</div>
+          <div><h3>{p.t}</h3><p>{p.d}</p></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="srv-section srv-section-alt">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Co obejmuje <span class="grad">audyt SEO</span></h2>
+    <p class="srv-p">
+      Dziewięć obszarów. Przy każdym znalezisku dostajecie opis problemu, jego skutek
+      i konkretną rekomendację — nie samą listę błędów z narzędzia.
+    </p>
+    <div class="srv-grid">
+      {scope.map((s) => (
+        <div class="srv-card"><h3>{s.t}</h3><p>{s.d}</p></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="srv-section">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Czym to się różni<br>od <span class="grad-v">pełnego audytu</span></h2>
+    <p class="srv-p">
+      <strong>Audyt SEO</strong> odpowiada wyłącznie na pytanie o widoczność w wyszukiwarce —
+      frazy, struktura, indeksacja, linkowanie. Jest węższy i tańszy.
+    </p>
+    <p class="srv-p">
+      <a href="/audyt-strony" style="color:#c4b5fd">Pełny audyt strony</a> obejmuje to samo,
+      a dodatkowo dostępność zgodną z WCAG, zgodność z RODO i Consent Mode v2, bezpieczeństwo
+      oraz ścieżkę użytkownika do kontaktu.
+    </p>
+    <p class="srv-p">
+      Prosta zasada: <strong>jeśli nie macie ruchu — audyt SEO. Jeśli macie ruch, ale nie macie
+      zapytań — audyt pełny</strong>, bo problem leży wtedy poza wyszukiwarką.
+    </p>
+    <p class="srv-p">
+      Nie wiecie, na czym stoicie? <a href="/bezplatny-audyt" style="color:#c4b5fd">Bezpłatny audyt</a>
+      pokaże wyniki i trzy najpoważniejsze problemy — to zwykle wystarcza, żeby wybrać właściwy wariant.
+    </p>
+  </div>
+</section>
+
+<section class="srv-section srv-section-alt">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Najczęstsze <span class="grad-v">pytania</span></h2>
+    <div class="faq-list" style="margin-top:32px">
+      {faq.map((f, i) => (
+        <>
+          <div class="faq-divider"></div>
+          <div class={`faq-item${i === 0 ? ' open' : ''}`}>
+            <div class="faq-question"><div class="faq-q-text">{f.q}</div><div class="faq-icon">+</div></div>
+            <div class="faq-body"><div class="faq-answer-wrap"><div class="faq-answer">{f.a}</div></div></div>
+          </div>
+        </>
+      ))}
+      <div class="faq-divider"></div>
+    </div>
+  </div>
+</section>
+
+<section class="srv-section">
+  <div class="srv-inner" style="text-align:center">
+    <h2 class="display-md srv-h2">Sprawdźmy, co blokuje<br><span class="grad">Waszą widoczność</span></h2>
+    <p class="srv-p" style="margin:0 auto 32px">
+      Podajcie adres strony. Odpowiemy wyceną audytu, a jeśli uznamy, że nie ma sensu — powiemy to wprost.
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="/kontakt" class="btn-primary"><span>Zamów audyt SEO</span></a>
+      <a href="/bezplatny-audyt" class="btn-ghost"><span>Zacznij od bezpłatnego</span></a>
+    </div>
+    <p class="srv-p" style="margin:28px auto 0;font-size:14px">
+      Zobacz też: <a href="/pozycjonowanie-seo" style="color:#c4b5fd">pozycjonowanie SEO</a> ·
+      <a href="/audyt-strony" style="color:#c4b5fd">pełny audyt strony</a> ·
+      <a href="/blog/jak-przeprowadzic-audyt-strony-internetowej" style="color:#c4b5fd">jak zrobić audyt samodzielnie</a> ·
+      <a href="/blog/przykladowy-audyt-strony-internetowej" style="color:#c4b5fd">przykładowy audyt</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question')?.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
+</script>
+
+</Layout>

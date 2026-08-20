@@ -48,8 +48,18 @@ const services = [
     accent: 'rgba(34,197,94,',
   },
   {
-    href: '/wsparcie-techniczne',
+    href: '/audyt-seo',
     num: '05',
+    name: 'Audyt SEO',
+    price: '300 – 1 000 zł',
+    desc: 'Węższy wariant audytu — wyłącznie widoczność w wyszukiwarce: frazy, tytuły, struktura, indeksacja, linkowanie wewnętrzne i dane strukturalne.',
+    forWhom: 'Strona nie pojawia się w Google na własne usługi albo pojawia się bez kliknięć.',
+    tags: ['Frazy', 'Tytuły', 'Indeksacja', 'Linkowanie'],
+    accent: 'rgba(124,107,255,',
+  },
+  {
+    href: '/wsparcie-techniczne',
+    num: '06',
     name: 'Wsparcie techniczne',
     price: `${zl(PRICING.addons.maintenanceMonthly)} / mies.`,
     desc: 'Aktualizacje sprawdzane na kopii, cotygodniowe kopie zapasowe poza serwerem, monitoring dostępności, bezpieczeństwo i godzina na drobne zmiany.',
@@ -198,9 +208,16 @@ const breadcrumbSchema = {
         odpiszemy, co ma sens w Waszym przypadku. Także wtedy, gdy odpowiedź brzmi „na razie nic".
       </p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-        <a href="/#kontakt" class="btn-primary"><span>Napisz do nas</span></a>
-        <a href="/kalkulator" class="btn-ghost"><span>Policz orientacyjną cenę</span></a>
+        <a href="/kontakt" class="btn-primary"><span>Napisz do nas</span></a>
+        <a href="/bezplatny-audyt" class="btn-ghost"><span>Zamów bezpłatny audyt</span></a>
       </div>
+      <p style="font-size:14px;color:rgba(255,255,255,.62);line-height:1.8;margin:26px auto 0;max-width:720px">
+        Szczegółowe warianty: <a href="/strony-internetowe-wordpress" style="color:#c4b5fd">strony na WordPressie</a> ·
+        <a href="/ile-kosztuje-strona-internetowa" style="color:#c4b5fd">ile kosztuje strona internetowa</a> ·
+        <a href="/branze" style="color:#c4b5fd">strony według branż</a> ·
+        <a href="/jak-pracujemy" style="color:#c4b5fd">jak pracujemy</a> ·
+        <a href="/kalkulator" style="color:#c4b5fd">kalkulator wyceny</a>
+      </p>
     </div>
   </div>
 </section>

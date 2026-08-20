@@ -1,0 +1,136 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+---
+<ArticleLayout
+  title="Przykładowy audyt strony internetowej — co zawiera i jak go czytać"
+  metaTitle="Przykładowy audyt strony internetowej | CtrlZ Studio"
+  description="Jak wygląda profesjonalny audyt od środka: sekcje raportu, co znaczą wyniki punktowe i które znaleziska naprawdę kosztują firmę pieniądze."
+  cat="SEO"
+  readTime="11 min"
+  date="24 lipca 2026"
+  glowColor="rgba(56,189,248,.22)"
+>
+
+<p>„Audyt strony internetowej" to jedno z tych określeń, które w każdej firmie znaczą co innego. Czasem jest to wydruk z darmowego narzędzia, czasem dwadzieścia stron konkretów. Zanim zapłacicie za taki dokument, warto wiedzieć, co powinien zawierać.</p>
+
+<p>Poniżej rozkładamy na części raport, który realnie przygotowaliśmy — na przykładzie firmy produkcyjnej z branży drzewnej. Dane są prawdziwe, nazwa i szczegóły identyfikujące pominięte.</p>
+
+<h2>Sekcja 1 — wyniki punktowe</h2>
+
+<p>Raport zaczyna się od czterech liczb: wydajność, dostępność, SEO i dobre praktyki. To wynik automatycznych testów w skali od zera do stu.</p>
+
+<div class="art-stat-box">
+  <div><div class="s-num">39</div><div class="s-label">wydajność — wynik krytyczny</div></div>
+  <div><div class="s-num">91</div><div class="s-label">dostępność — dobry wynik testu</div></div>
+  <div><div class="s-num">92</div><div class="s-label">SEO — techniczne podstawy</div></div>
+</div>
+
+<p><strong>Tu jest pierwsza pułapka, o której mało kto mówi:</strong> te wyniki dotyczą jednej podstrony i mierzą wyłącznie to, co da się zmierzyć automatycznie. W tym konkretnym raporcie SEO dostało 92 punkty, a kilka stron dalej opisaliśmy brak nagłówka H1 na dziesięciu podstronach i brak opisów na kolejnych.</p>
+
+<p>Sprzeczność jest pozorna. Test sprawdza pojedynczy adres i zestaw parametrów technicznych — nie ocenia struktury całego serwisu. Dlatego <strong>audyt, który kończy się na czterech liczbach, jest bezwartościowy</strong>.</p>
+
+<h2>Sekcja 2 — co już działa dobrze</h2>
+
+<p>Sekcja, którą łatwo uznać za wypełniacz, a która ma konkretny cel: pokazuje, czego <em>nie</em> trzeba ruszać. Bez niej klient dostaje listę trzydziestu problemów i wrażenie, że wszystko jest do wyrzucenia.</p>
+
+<p>W omawianym raporcie były to trzy rzeczy: jasna specjalizacja widoczna od razu po wejściu, komplet danych kontaktowych i poprawnie działający certyfikat.</p>
+
+<h2>Sekcja 3 — pierwsze wrażenie</h2>
+
+<p>Zrzuty ekranu strony na komputerze i telefonie, obok siebie. Brzmi trywialnie, ale to zwykle ta strona raportu wywołuje najwięcej emocji.</p>
+
+<p>Powód jest prosty: <strong>większość właścicieli firm nigdy nie widziała własnej strony oczami klienta</strong> — otwierają ją z zakładki, na dużym monitorze, znając już całą zawartość. Widok mobilny w kontekście „tak wygląda pierwsze pięć sekund" bywa nieprzyjemnym odkryciem.</p>
+
+<h2>Sekcja 4 — wydajność</h2>
+
+<p>Tutaj wchodzą konkretne liczby zamiast ogólnego wyniku:</p>
+
+<ul>
+  <li><strong>LCP 7,3 s</strong> — moment, w którym pojawia się główna treść. Cel to poniżej 2,5 s.</li>
+  <li><strong>Speed Index 6,1 s</strong> — jak szybko strona wypełnia się wizualnie.</li>
+  <li><strong>CLS 0,013</strong> — przeskakiwanie układu. Tu akurat wynik bardzo dobry.</li>
+</ul>
+
+<p>Same liczby jednak nikogo nie przekonują. Dlatego każde znalezisko w raporcie ma trzy części: <strong>problem, wpływ i rekomendacja</strong>. Przy LCP 7,3 sekundy wpływ brzmi tak: istotna część użytkowników mobilnych opuszcza stronę, zanim zobaczy ofertę — a od 2021 roku szybkość jest też czynnikiem rankingowym Google.</p>
+
+<div class="art-tip">
+  <p><strong>Jak czytać audyt:</strong> jeśli przy jakimkolwiek znalezisku nie ma opisanego skutku biznesowego, to znaczy, że autor wkleił wynik narzędzia, a nie wykonał analizę. Kolumna „wpływ" jest tym, za co się płaci.</p>
+</div>
+
+<h2>Sekcja 5 — bezpieczeństwo</h2>
+
+<p>Obszar pomijany w większości audytów SEO, a potrafiący zamknąć firmie działalność na kilka dni.</p>
+
+<p>W omawianym przypadku interfejs serwisu udostępniał publicznie <strong>nazwy kont administracyjnych</strong>. Znajomość loginu to połowa danych potrzebnych do przejęcia konta — druga połowa to hasło, które da się atakować automatycznie. Do tego strona ujawniała dokładną wersję oprogramowania, czyli gotową instrukcję, których znanych podatności spróbować.</p>
+
+<p>Żadne narzędzie SEO tego nie zgłosi, bo to nie jest problem widoczności. A jest to jedyne znalezisko w całym raporcie, które może kosztować firmę utratę całej strony.</p>
+
+<h2>Sekcja 6 — zgody, RODO i gotowość reklamowa</h2>
+
+<p>Tabela z listą wykrytych narzędzi i statusem każdego z nich. W omawianym raporcie wyglądała tak: wykryto Menedżera Tagów, nie wykryto banera zgód, nie wykryto Consent Mode v2.</p>
+
+<p>Wniosek: <strong>narzędzia analityczne uruchamiały się przed uzyskaniem zgody użytkownika</strong>, czyli dane były zbierane bez podstawy prawnej. To nie jest teoretyczne ryzyko — to obszar, w którym Prezes UODO nakłada kary.</p>
+
+<p>Drugi wniosek dotyczy pieniędzy: bez poprawnie skonfigurowanego Consent Mode v2 dane o użytkownikach, którzy nie wyrazili zgody, są bezpowrotnie tracone zamiast modelowane, a listy remarketingowe i pomiar konwersji w Google Ads przestają działać poprawnie. Firma, która chciałaby jutro uruchomić kampanię, wydawałaby budżet bez informacji zwrotnej.</p>
+
+<h2>Sekcja 7 — problemy obejmujące wiele podstron</h2>
+
+<p>To jest sekcja, która odróżnia audyt od zrzutu z narzędzia. Zamiast listy błędów pojedynczej strony pokazuje wzorce w całym serwisie:</p>
+
+<ul>
+  <li>Brak nagłówka H1 — <strong>10 podstron</strong></li>
+  <li>Brak linkowania wewnętrznego — <strong>20 podstron</strong></li>
+  <li>Brak opisu w wynikach wyszukiwania — <strong>2 podstrony</strong></li>
+  <li>Brak znacznika canonical — <strong>1 podstrona</strong></li>
+</ul>
+
+<p>Różnica jest zasadnicza: te błędy nie dotyczą jednej strony, tylko <strong>sposobu, w jaki zbudowano cały serwis</strong>. Naprawa punktowa ich nie usuwa, bo przy kolejnej dodanej podstronie wrócą.</p>
+
+<h2>Sekcja 8 — lista znalezisk z priorytetami</h2>
+
+<p>Rdzeń raportu. Każdy problem opisany według tego samego schematu i oznaczony wagą — wysoka albo średnia — oraz obszarem: SEO, wydajność, bezpieczeństwo, dostępność, konwersja.</p>
+
+<p>Przykład wpisu o wysokim priorytecie:</p>
+
+<div class="art-step-card">
+  <div class="sn">!</div>
+  <div>
+    <h3>Strona zbiera dane analityczne bez mechanizmu zgody</h3>
+    <p><strong>Wpływ:</strong> RODO i Prawo komunikacji elektronicznej wymagają zgody przed uruchomieniem narzędzi analitycznych i reklamowych. Brak banera to ryzyko kary, a w przypadku kampanii Google — także niezgodność z wymaganiami samej platformy reklamowej.</p>
+    <p><strong>Rekomendacja:</strong> wdrożyć baner zgód blokujący skrypty do momentu ich akceptacji, wraz z możliwością późniejszej zmiany decyzji.</p>
+  </div>
+</div>
+
+<h2>Sekcja 9 — plan działań</h2>
+
+<p>Ostatnia i najważniejsza część. Lista trzydziestu problemów bez kolejności jest dla firmy bezużyteczna — nikt nie wie, od czego zacząć, więc nie zaczyna od niczego.</p>
+
+<p>Plan porządkuje to w etapy: najpierw szybkie poprawki liczone w godzinach, potem architektura informacji, dalej decyzje technologiczne, na końcu treści i pomiar konwersji.</p>
+
+<p>Tu też pada rekomendacja, której klienci nie zawsze chcą usłyszeć — czasem naprawa istniejącej strony kosztuje tyle co budowa nowej i nie daje trwałego efektu. Uczciwy audyt mówi to wprost, zamiast wyceniać poprawki, które i tak nie wystarczą.</p>
+
+<h2>Czego w dobrym audycie nie powinno być</h2>
+
+<ul>
+  <li><strong>Samych wyników punktowych</strong> bez wyjaśnienia, co z nich wynika</li>
+  <li><strong>Listy błędów bez skutków</strong> — „brak atrybutu alt" nic nie mówi osobie nietechnicznej</li>
+  <li><strong>Braku priorytetów</strong> — wszystko ważne znaczy nic nie jest ważne</li>
+  <li><strong>Ogólników w rodzaju „strona wymaga optymalizacji"</strong> bez wskazania czego i jak</li>
+  <li><strong>Wyłącznie SEO</strong> — bez bezpieczeństwa, zgód i ścieżki do kontaktu obraz jest niepełny</li>
+</ul>
+
+<h2>Ile taki raport powinien kosztować</h2>
+
+<p>Rynkowo od kilkuset do kilku tysięcy złotych, w zależności od wielkości serwisu. U nas <strong>od 300 do 1 000 zł</strong> — przy prostej stronie dolna granica, przy rozbudowanym serwisie albo sklepie górna.</p>
+
+<p>Jeśli chcecie najpierw zobaczyć, jak to działa, <a href="/bezplatny-audyt">darmowy audyt strony internetowej</a> pokazuje wyniki i trzy najpoważniejsze problemy wraz z ich skutkami. Pełny raport dokłada rekomendację przy każdym znalezisku, kompletną listę z priorytetami i plan działań.</p>
+
+<p>Jeśli wolicie sprawdzić stronę samodzielnie, mamy na to osobną instrukcję: <a href="/blog/jak-przeprowadzic-audyt-strony-internetowej">jak przeprowadzić audyt strony internetowej</a>.</p>
+
+<fragment slot="cta">
+  <h3>Zobaczcie, jak wypada Wasza strona</h3>
+  <p>Bezpłatny raport z wynikami i trzema najpoważniejszymi problemami wraca na maila w 48 godzin. Bez dostępu do strony i bez zobowiązań.</p>
+  <a href="/bezplatny-audyt" class="btn-primary"><span>Zamów bezpłatny audyt →</span></a>
+</fragment>
+
+</ArticleLayout>

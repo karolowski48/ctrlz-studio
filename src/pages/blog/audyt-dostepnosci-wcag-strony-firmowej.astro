@@ -1,0 +1,113 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+---
+<ArticleLayout
+  title="Audyt dostępności strony — co sprawdzić i kogo dotyczy WCAG"
+  metaTitle="Audyt dostępności strony i WCAG — poradnik | CtrlZ Studio"
+  description="Kontrasty, opisy alternatywne, obsługa klawiaturą i etykiety formularzy. Co realnie sprawdza audyt dostępności i które firmy mają obowiązek prawny."
+  cat="Technologie"
+  readTime="10 min"
+  date="28 lipca 2026"
+  glowColor="rgba(110,231,168,.2)"
+>
+
+<p>Dostępność strony przez lata traktowano jako temat dla instytucji publicznych. To się zmieniło — i to zarówno prawnie, jak i biznesowo. Warto wiedzieć, na czym stoicie, zanim ktoś Wam to wytknie.</p>
+
+<p>Ten tekst wyjaśnia, co konkretnie sprawdza audyt dostępności, jak zrobić podstawową wersję samodzielnie i kogo dotyczą wymogi formalne.</p>
+
+<h2>Czym w praktyce jest dostępność</h2>
+
+<p>Najkrócej: strona jest dostępna, gdy może z niej skorzystać także osoba, która <strong>nie widzi ekranu, nie używa myszy albo słabo rozróżnia kolory</strong>.</p>
+
+<p>Standardem opisującym to zjawisko jest WCAG — zbiór wytycznych podzielonych na trzy poziomy zgodności: A, AA i AAA. W praktyce mówi się o poziomie <strong>AA</strong>, bo to on jest punktem odniesienia w regulacjach.</p>
+
+<div class="art-tip">
+  <p><strong>Warto od razu rozprawić się z mitem:</strong> dostępność nie oznacza brzydkiej strony ani rezygnacji z projektu graficznego. Oznacza wystarczający kontrast tekstu, sensowną strukturę nagłówków i to, że po stronie da się poruszać klawiszem Tab. Żadna z tych rzeczy nie ogranicza estetyki.</p>
+</div>
+
+<h2>Kogo to realnie dotyczy</h2>
+
+<p>Trzy grupy, w kolejności od najbardziej oczywistej:</p>
+
+<div class="art-step-card">
+  <div class="sn">01</div>
+  <div><h3>Podmioty publiczne</h3><p>Urzędy, szkoły, jednostki samorządowe, podmioty finansowane ze środków publicznych. Tu obowiązek istnieje od lat i jest egzekwowany.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">02</div>
+  <div><h3>Firmy startujące w przetargach</h3><p>Wymóg dostępności coraz częściej pojawia się w dokumentacji zamówień publicznych. Poważne naruszenia potrafią zadecydować o odrzuceniu oferty — i to jest sytuacja, w której nasi klienci najczęściej po raz pierwszy słyszą o WCAG.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">03</div>
+  <div><h3>Firmy sprzedające konsumentom online</h3><p>Regulacje unijne dotyczące dostępności produktów i usług cyfrowych stopniowo obejmują e-commerce, bankowość i usługi elektroniczne. Zakres i terminy zależą od rodzaju działalności oraz wielkości firmy — jeśli sprzedajecie online, warto sprawdzić własną sytuację u prawnika, a nie zakładać, że temat Was nie dotyczy.</p></div>
+</div>
+
+<p>Poza obowiązkiem jest jednak argument prostszy: <strong>część z tych poprawek zwiększa czytelność dla wszystkich</strong>. Zbyt jasny szary tekst jest problemem nie tylko dla osoby słabowidzącej, ale też dla każdego, kto czyta ofertę na telefonie w słońcu — czyli, w przypadku firmy budowlanej, dla klienta stojącego na budowie.</p>
+
+<h2>Co sprawdza audyt dostępności</h2>
+
+<h3>Kontrast tekstu</h3>
+
+<p>Najczęstsze naruszenie i najłatwiejsze do naprawienia. Wymóg dla poziomu AA to <strong>4,5:1 dla zwykłego tekstu</strong> i 3:1 dla dużego. Modny jasnoszary tekst na białym tle zwykle ma około 2,5:1 — czyli wyraźnie poniżej progu.</p>
+
+<h3>Opisy alternatywne obrazków</h3>
+
+<p>Każdy obrazek niosący informację potrzebuje opisu, który przeczyta czytnik ekranu. Obrazki czysto dekoracyjne powinny mieć opis pusty — żeby czytnik je pominął, zamiast odczytywać nazwę pliku.</p>
+
+<h3>Etykiety formularzy</h3>
+
+<p>Pole z samym napisem w środku, znikającym po kliknięciu, jest problemem podwójnym: czytnik ekranu nie wie, czego dotyczy, a użytkownik po wpisaniu danych nie widzi już, co miał tam wpisać.</p>
+
+<h3>Struktura nagłówków</h3>
+
+<p>Jeden H1 na podstronę, dalej H2 i H3 w logicznej kolejności, bez przeskakiwania poziomów. To jednocześnie wymóg dostępności i element SEO — czytnik ekranu i robot Google poruszają się po stronie w bardzo podobny sposób.</p>
+
+<h3>Obsługa klawiaturą</h3>
+
+<p>Test, który zrobicie w minutę: odłóżcie mysz i przejdźcie po stronie klawiszem Tab. Musicie widzieć, gdzie aktualnie jesteście, i dotrzeć do każdego linku, pola i przycisku. Częsty błąd to menu rozwijane działające wyłącznie po najechaniu myszą.</p>
+
+<h3>Nazwy linków</h3>
+
+<p>Link o treści „kliknij tutaj" albo link będący samą ikoną bez opisu jest dla czytnika ekranu pusty. Wyszukiwarka też nie dowiaduje się z niego, dokąd prowadzi.</p>
+
+<h2>Jak sprawdzić to samodzielnie</h2>
+
+<p>Podstawową wersję zrobicie za darmo w kwadrans:</p>
+
+<ul>
+  <li><strong>WAVE</strong> — wklejacie adres, dostajecie listę błędów naniesioną na stronę. Najprostsze narzędzie na start.</li>
+  <li><strong>Lighthouse</strong> — wbudowany w przeglądarkę Chrome, w narzędziach dla programistów. Daje wynik punktowy i listę naruszeń.</li>
+  <li><strong>Test klawiaturą</strong> — nie wymaga żadnego narzędzia, a wykrywa problemy, których automat nie zobaczy.</li>
+</ul>
+
+<div class="art-tip">
+  <p><strong>Ważne zastrzeżenie:</strong> narzędzia automatyczne wykrywają jedynie część naruszeń — szacuje się, że około jednej trzeciej. Nie ocenią, czy opis alternatywny ma sens, czy kolejność treści jest logiczna ani czy komunikat błędu w formularzu jest zrozumiały. Automat mówi, gdzie szukać, ale nie zastąpi sprawdzenia przez człowieka.</p>
+</div>
+
+<h2>Fałszywe alarmy</h2>
+
+<p>Narzędzia potrafią zgłaszać rzeczy, które w kontekście są w porządku — kontrast na elemencie dekoracyjnym, brak opisu przy grafice czysto ozdobnej, ostrzeżenia wymagające oceny człowieka.</p>
+
+<p>Dlatego raport, w którym ktoś wkleił surowy wynik narzędzia bez weryfikacji, jest niewiele wart. Zdarza się, że taka lista zawiera pozycje, których naprawa niczego nie zmienia, a pomija te naprawdę istotne.</p>
+
+<h2>Ile to kosztuje i ile trwa</h2>
+
+<p>Naprawa typowych naruszeń w istniejącej stronie to zwykle kilka do kilkunastu godzin pracy. Najwięcej czasu zajmuje zwykle kontrast, bo dotyka całej palety kolorów, i formularze, bo trzeba je przebudować, a nie tylko poprawić.</p>
+
+<p>Przy stronie budowanej od zera dostępność właściwie nic nie kosztuje — pod warunkiem że pomyśli się o niej na etapie projektu, a nie po wdrożeniu. Dobranie kolorów spełniających kontrast jest darmowe, jeśli robi się to przed, a nie po.</p>
+
+<h2>Podsumowanie</h2>
+
+<p>Dostępność przestała być tematem wyłącznie dla instytucji publicznych. Dla firmy prywatnej to dziś trzy rzeczy naraz: <strong>ograniczenie ryzyka przy przetargach i regulacjach, lepsza czytelność dla wszystkich użytkowników i wsparcie dla SEO</strong>, bo poprawna struktura służy jednemu i drugiemu.</p>
+
+<p>Zacząć można od kwadransa z WAVE. Jeśli chcecie mieć to sprawdzone razem z resztą — szybkością, SEO i zgodami — <a href="/bezplatny-audyt">bezpłatny audyt</a> obejmuje wszystkie te obszary. A jeśli wolicie przejść całość samodzielnie, jest na to <a href="/blog/jak-przeprowadzic-audyt-strony-internetowej">osobna instrukcja</a>.</p>
+
+<p><em>Ten tekst opisuje kwestie techniczne i nie stanowi porady prawnej. Zakres obowiązków zależy od rodzaju działalności — w razie wątpliwości warto skonsultować to z prawnikiem.</em></p>
+
+<fragment slot="cta">
+  <h3>Sprawdzimy dostępność Waszej strony</h3>
+  <p>Kontrasty, opisy alternatywne, etykiety formularzy i struktura nagłówków — razem z szybkością, SEO i zgodami. Raport w 48 godzin, bezpłatnie.</p>
+  <a href="/bezplatny-audyt" class="btn-primary"><span>Zamów bezpłatny audyt →</span></a>
+</fragment>
+
+</ArticleLayout>
