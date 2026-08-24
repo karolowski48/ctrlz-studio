@@ -4,6 +4,7 @@ import SharedFooter from '../components/SharedFooter.astro';
 import { Image } from 'astro:assets';
 import { img } from '../data/images';
 import GoogleReviews from '../components/GoogleReviews.astro';
+import HostingPromo from '../components/HostingPromo.astro';
 import { priceAnswer } from '../data/pricing';
 import { posts } from '../data/posts';
 
@@ -619,6 +620,15 @@ const latestPosts = posts.slice(0, 3);
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOSTING — kod rabatowy (program partnerski) -->
+<section class="section" style="background:var(--bg-base);padding-top:56px;padding-bottom:0">
+  <div class="container">
+    <div class="js-reveal">
+      <HostingPromo variant="compact" />
     </div>
   </div>
 </section>

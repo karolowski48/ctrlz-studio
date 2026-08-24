@@ -1,5 +1,7 @@
 ---
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import HostingPromo from '../../components/HostingPromo.astro';
+import { hostingPierwszyRok, hostingOdnowienie } from '../../data/hosting';
 ---
 <ArticleLayout
   title="Ile kosztuje utrzymanie strony internetowej rocznie"
@@ -26,9 +28,9 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 <p>Hosting strony internetowej to pozycja o największym rozrzucie, bo pod tą nazwą kryje się wszystko od współdzielonego konta za 150 zł rocznie po serwer dedykowany za kilka tysięcy.</p>
 
 <div class="art-stat-box">
-  <div><div class="s-num">150–400 zł</div><div class="s-label">prosta strona wizytówkowa</div></div>
-  <div><div class="s-num">400–900 zł</div><div class="s-label">strona firmowa na WordPressie</div></div>
-  <div><div class="s-num">900–2 500 zł</div><div class="s-label">sklep internetowy</div></div>
+  <div><div class="s-num">{hostingPierwszyRok()}</div><div class="s-label">pierwszy rok, pakiety 5–100 GB</div></div>
+  <div><div class="s-num">{hostingOdnowienie()}</div><div class="s-label">odnowienie, te same pakiety</div></div>
+  <div><div class="s-num">×4</div><div class="s-label">tyle potrafi wynosić różnica</div></div>
 </div>
 
 <p>Sklep potrzebuje więcej, bo każde zapytanie do bazy przy przeglądaniu produktów obciąża serwer. Najtańszy pakiet współdzielony przy stu produktach i realnym ruchu po prostu nie wystarcza — objawia się to wolnym ładowaniem w godzinach szczytu, czyli dokładnie wtedy, gdy klienci kupują.</p>
@@ -36,6 +38,8 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 <div class="art-tip">
   <p><strong>Wyjątek wart uwagi:</strong> strony pisane w Astro albo Next.js można hostować na platformach, które przy niewielkim ruchu są darmowe albo kosztują kilkadziesiąt złotych rocznie. Nie ma tam bazy danych do obsłużenia ani kodu wykonywanego przy każdym wejściu — serwer wysyła gotowe pliki. To jedna z realnych oszczędności w utrzymaniu, o której rzadko się mówi przy wyborze technologii.</p>
 </div>
+
+<HostingPromo variant="compact" />
 
 <h2>Certyfikat SSL</h2>
 
@@ -69,29 +73,31 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
 <h2>Ile to razem</h2>
 
+<p>Liczby poniżej to <strong>drugi rok i kolejne</strong>, czyli po wygaśnięciu cen promocyjnych. Pierwszy rok wychodzi wyraźnie taniej.</p>
+
 <h3>Wizytówka albo landing page</h3>
 <ul>
   <li>Domena: 100 zł</li>
-  <li>Hosting: 250 zł</li>
+  <li>Hosting (pakiet 5 GB): 199 zł</li>
   <li>Opieka: opcjonalna</li>
-  <li><strong>Razem: około 350 zł rocznie</strong></li>
+  <li><strong>Razem: około 300 zł rocznie</strong> — w pierwszym roku około 150 zł</li>
 </ul>
 
 <h3>Strona firmowa na WordPressie</h3>
 <ul>
   <li>Domena: 100 zł</li>
-  <li>Hosting: 600 zł</li>
+  <li>Hosting (pakiet 10–30 GB): 249–399 zł</li>
   <li>Opieka techniczna: 4 200 zł</li>
-  <li><strong>Razem: około 4 900 zł rocznie</strong></li>
+  <li><strong>Razem: około 4 700 zł rocznie</strong></li>
 </ul>
 
 <h3>Sklep internetowy</h3>
 <ul>
   <li>Domena: 100 zł</li>
-  <li>Hosting: 1 500 zł</li>
+  <li>Hosting (pakiet 30–100 GB): 399–599 zł</li>
   <li>Opieka techniczna: 4 200 zł i więcej</li>
   <li>Integracje i moduły: 500–2 000 zł</li>
-  <li><strong>Razem: od 6 300 zł rocznie w górę</strong></li>
+  <li><strong>Razem: od 5 200 zł rocznie w górę</strong></li>
 </ul>
 
 <div class="art-tip">
@@ -118,7 +124,7 @@ import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
 <p>Utrzymanie prostej strony to koszt rzędu kilkuset złotych rocznie i nie ma nad czym się zastanawiać. Przy WordPressie i sklepie dochodzi opieka techniczna, która jest realnym, powtarzalnym wydatkiem — i to ją warto uwzględnić <strong>przed</strong> wyborem technologii, a nie po roku.</p>
 
-<p>Koszty wykonania rozpisaliśmy osobno na stronie <a href="/ile-kosztuje-strona-internetowa">ile kosztuje strona internetowa</a>, a to, co obejmuje stała opieka, opisuje strona <a href="/wsparcie-techniczne">wsparcie techniczne</a>.</p>
+<p>Koszty wykonania rozpisaliśmy osobno na stronie <a href="/ile-kosztuje-strona-internetowa">ile kosztuje strona internetowa</a>, a to, co obejmuje stała opieka, opisuje strona <a href="/wsparcie-techniczne">wsparcie techniczne</a>. Jak wybrać sam hosting i ile realnie kosztuje — w poradniku <a href="/hosting-dla-strony-internetowej">hosting dla strony internetowej</a>.</p>
 
 <fragment slot="cta">
   <h3>Nie wiecie, ile realnie płacicie za utrzymanie?</h3>

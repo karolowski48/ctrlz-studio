@@ -1,0 +1,123 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { PRICING } from '../../data/pricing';
+import HostingPromo from '../../components/HostingPromo.astro';
+import { hostingPierwszyRok, hostingOdnowienie } from '../../data/hosting';
+const zl = (n: number) => `${String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} zł`;
+---
+<ArticleLayout
+  title="Ile kosztuje strona internetowa w Wadowicach? Cennik i przykładowe koszty"
+  metaTitle="Ile kosztuje strona internetowa w Wadowicach? | CtrlZ Studio"
+  description="Widełki cenowe dla firm z Wadowic i powiatu, trzy przykładowe wyceny z realnych projektów oraz koszty utrzymania, o których nie mówi się przy podpisywaniu umowy."
+  cat="Biznes"
+  readTime="10 min"
+  date="21 sierpnia 2026"
+  glowColor="rgba(14,165,233,.22)"
+>
+
+<p>Pytanie o cenę pada w pierwszej minucie każdej rozmowy i to zrozumiałe. Problem w tym, że odpowiedź „od dwóch tysięcy do piętnastu" nie pomaga nikomu.</p>
+
+<p>Poniżej konkret: widełki dla typów stron, <strong>trzy przykładowe wyceny oparte na projektach dla firm z naszego powiatu</strong> i lista kosztów, które pojawiają się dopiero po roku.</p>
+
+<h2>Widełki — cztery typy stron</h2>
+
+<div class="art-stat-box">
+  <div><div class="s-num">{zl(PRICING.landing)}</div><div class="s-label">wizytówka, landing page</div></div>
+  <div><div class="s-num">{zl(PRICING.firmowa.from)}</div><div class="s-label">strona firmowa, od</div></div>
+  <div><div class="s-num">{zl(PRICING.sklep.from)}</div><div class="s-label">sklep internetowy, od</div></div>
+</div>
+
+<p>Strona firmowa rozkłada się dalej według liczby podstron: <strong>4–8 podstron to {zl(PRICING.firmowa.tier2)}, 9–15 podstron {zl(PRICING.firmowa.tier3)}</strong>. Rozwiązania dedykowane — konfigurator, panel B2B, integracja z systemem magazynowym — zaczynają się od {zl(PRICING.custom)}.</p>
+
+<p>Do tego jedna zmienna technologiczna: strona pisana w Astro albo Next.js zamiast WordPressa to <strong>{PRICING.techSurcharge} do wyceny</strong>. W zamian dostajecie stronę wyraźnie szybszą i tańszą w utrzymaniu, bo nie ma wtyczek do aktualizowania.</p>
+
+<h2>Trzy przykładowe wyceny</h2>
+
+<p>Konkretne przypadki mówią więcej niż tabela. Zakresy są typowe dla firm z Wadowic i okolicy.</p>
+
+<div class="art-step-card">
+  <div class="sn">01</div>
+  <div>
+    <h3>Usługi lokalne — instalator, hydraulik, wykończenia</h3>
+    <p><strong>Zakres:</strong> strona główna, trzy podstrony usługowe, realizacje, kontakt z formularzem, obszar działania z nazwami miejscowości. Konfiguracja SEO i wizytówka Google.</p>
+    <p><strong>Wycena: 4 000 – 5 500 zł.</strong> Czas: 4–6 tygodni. Największy hamulec to zwykle zebranie zdjęć wykonanych prac.</p>
+  </div>
+</div>
+
+<div class="art-step-card">
+  <div class="sn">02</div>
+  <div>
+    <h3>Turystyka — domki, pensjonat, agroturystyka</h3>
+    <p><strong>Zakres:</strong> prezentacja obiektu, galeria, cennik sezonowy, kalendarz dostępności, formularz rezerwacji, sekcja o okolicy, wersja angielska.</p>
+    <p><strong>Wycena: 6 000 – 9 000 zł.</strong> Czas: 6–8 tygodni. Przy obiektach nastawionych na gości zagranicznych druga wersja językowa zwraca się szybciej, niż większość zakłada.</p>
+  </div>
+</div>
+
+<div class="art-step-card">
+  <div class="sn">03</div>
+  <div>
+    <h3>Producent albo hurtownia z katalogiem</h3>
+    <p><strong>Zakres:</strong> katalog produktów bez koszyka, karty produktowe z parametrami, strefa do pobrania plików technicznych, formularz zapytania ofertowego, wersja obcojęzyczna.</p>
+    <p><strong>Wycena: 8 000 – 14 000 zł.</strong> Czas: 8–12 tygodni. Tu najwięcej pracy pochłania uporządkowanie danych produktowych, a nie sama strona.</p>
+  </div>
+</div>
+
+<div class="art-tip">
+  <p><strong>Wycena jest wiążąca.</strong> Kwotę i listę podstron ustalamy przed startem i tyle znajduje się na fakturze. Jeśli w trakcie dochodzi zakres, którego nie było w ustaleniach, mówimy o tym od razu i wyceniamy osobno — przed wykonaniem, nie po.</p>
+</div>
+
+<h2>Co realnie przesuwa cenę</h2>
+
+<ul>
+  <li><strong>Liczba podstron.</strong> Największy pojedynczy czynnik. Każda to osobny ekran do zaprojektowania, zakodowania i opisania treścią.</li>
+  <li><strong>Treści.</strong> Macie gotowe teksty — płacicie tylko za stronę. Nie macie — dochodzi copywriting od {zl(PRICING.addons.copywriting)}.</li>
+  <li><strong>Zdjęcia.</strong> Przy usługach lokalnych to często decyduje o skuteczności strony bardziej niż projekt graficzny.</li>
+  <li><strong>Funkcje.</strong> Kalendarz rezerwacji, kalkulator, strefa klienta, wersja obcojęzyczna — każda to osobny moduł.</li>
+  <li><strong>Integracje.</strong> System rezerwacji, program księgowy, hurtownia. Im więcej systemów ma ze sobą rozmawiać, tym więcej pracy poza samą stroną.</li>
+</ul>
+
+<h2>Koszty utrzymania — to pomija większość ofert</h2>
+
+<p>Cena wykonania to nie wszystko. Co roku dochodzi:</p>
+
+<ul>
+  <li><strong>Domena</strong> — 60–120 zł rocznie. Zarejestrowana na Was, nie na wykonawcę.</li>
+  <li><strong>Hosting</strong> — {hostingPierwszyRok()} w pierwszym roku, {hostingOdnowienie()} przy odnowieniu, zależnie od wielkości pakietu.</li>
+  <li><strong>Opieka techniczna</strong> — przy WordPressie realnie obowiązkowa, u nas {zl(PRICING.addons.maintenanceMonthly)} miesięcznie. Przy stronie pisanej od zera opcjonalna.</li>
+</ul>
+
+<HostingPromo variant="compact" />
+
+<p>Przy stronie firmowej na WordPressie realny koszt roczny to okolice 5 000 zł. Rozpisaliśmy to szczegółowo w tekście <a href="/blog/ile-kosztuje-utrzymanie-strony-rocznie">ile kosztuje utrzymanie strony rocznie</a>.</p>
+
+<h2>Kiedy strona się zwróci</h2>
+
+<p>To jedyny rachunek, który rozstrzyga, czy dana kwota jest droga.</p>
+
+<p>Weźmy firmę wykończeniową z okolic Wadowic. Średnie zlecenie zostawia jej powiedzmy 3 000 zł marży. <strong>Strona za 5 000 zł zwraca się po niecałych dwóch klientach</strong> — jednorazowo, bo potem pracuje dalej przez kilka lat.</p>
+
+<p>Przy pensjonacie liczy się inaczej: każda rezerwacja przyjęta bezpośrednio zamiast przez portal zostawia u Was prowizję. Przy kilkudziesięciu rezerwacjach w sezonie strona wychodzi na zero w pierwszym roku.</p>
+
+<div class="art-tip">
+  <p><strong>Policzcie to u siebie:</strong> podzielcie koszt strony przez marżę ze średniego zlecenia. Wynik to liczba klientów, po której wychodzicie na zero. Przy usługach lokalnych zwykle mieści się między dwoma a dziesięcioma — czyli mniej niż jeden klient miesięcznie przez rok.</p>
+</div>
+
+<h2>Dlaczego oferty tak się różnią</h2>
+
+<p>Za „stronę internetową" można w Wadowicach zapłacić 800 zł i 12 000 zł. Obie oferty bywają uczciwe — różnią się zakresem, nie chciwością.</p>
+
+<p>Przy najniższych cenach z zakresu wypada zwykle projekt graficzny, konfiguracja SEO, optymalizacja szybkości i treści pisane pod wyszukiwarkę. Rozpisaliśmy to dokładnie w tekście <a href="/blog/strona-za-500-zl-vs-5000-zl">strona za 500 zł kontra strona za 5 000 zł</a>.</p>
+
+<h2>Podsumowanie</h2>
+
+<p>Realny przedział dla firmy z Wadowic i powiatu to <strong>4 000 – 9 000 zł za stronę firmową</strong>, zależnie od liczby podstron i funkcji. Wizytówka zaczyna się od {zl(PRICING.landing)}, sklep od {zl(PRICING.sklep.from)}.</p>
+
+<p>Orientacyjną kwotę policzycie w kilka sekund na stronie <a href="/ile-kosztuje-strona-internetowa">ile kosztuje strona internetowa</a>. Co robimy dla firm z powiatu, opisuje strona <a href="/tworzenie-stron-internetowych-wadowice">tworzenie stron internetowych Wadowice</a>.</p>
+
+<fragment slot="cta">
+  <h3>Chcecie konkretną kwotę zamiast widełek?</h3>
+  <p>Napiszcie w kilku zdaniach, czym się zajmujecie i co ma robić strona. Odpowiemy wyceną z rozpisanym zakresem — bez zobowiązań i bez rozmowy sprzedażowej na wejściu.</p>
+  <a href="/kontakt" class="btn-primary"><span>Poproś o wycenę →</span></a>
+</fragment>
+
+</ArticleLayout>

@@ -1,0 +1,239 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+import HostingPromo from '../components/HostingPromo.astro';
+import { HOSTING, hostingPierwszyRok, hostingOdnowienie } from '../data/hosting';
+
+/**
+ * HOSTING — podstrona poradnikowa + hub programu partnerskiego.
+ * Frazy: „hosting strony internetowej cena" (90/mies.), „hosting wordpress",
+ * „jaki hosting dla strony firmowej". Treść ma być użyteczna sama z siebie —
+ * kod rabatowy jest konsekwencją poradnika, nie jego celem.
+ *
+ * Wszystkie linki afiliacyjne mają rel="sponsored nofollow" (w komponencie).
+ */
+
+const kryteria = [
+  { t: 'Czas odpowiedzi serwera', d: 'Najważniejszy parametr, o którym nikt nie mówi w reklamach. Serwer odpowiadający po sekundzie sprawia, że nawet najlepiej zoptymalizowana strona ładuje się wolno. Wynik zobaczycie w PageSpeed jako „czas odpowiedzi serwera".' },
+  { t: 'Wersja PHP i limity', d: 'Przy WordPressie i PrestaShop liczy się aktualna wersja PHP oraz limity pamięci i czasu wykonania. Najtańsze pakiety bywają tak przycięte, że import produktów albo aktualizacja się nie kończy.' },
+  { t: 'Kopie zapasowe', d: 'Codzienne, przechowywane co najmniej dwa tygodnie i — to kluczowe — możliwe do przywrócenia samodzielnie. Kopia, o którą trzeba prosić przez zgłoszenie, przy awarii w piątek wieczorem jest bezużyteczna.' },
+  { t: 'Certyfikat SSL w cenie', d: 'Dziś standard. Jeśli ktoś liczy za to osobno kilkaset złotych rocznie, warto zapytać, jaki dokładnie certyfikat i po co.' },
+  { t: 'Lokalizacja serwera', d: 'Przy stronie dla klientów z Polski serwer w Polsce albo w Europie oznacza krótszy czas odpowiedzi niż serwer za oceanem. Przy stronach lokalnych to realna różnica.' },
+  { t: 'Wsparcie po polsku', d: 'W momencie awarii liczy się, jak szybko ktoś odpowie i czy zrozumie problem. To jest ta pozycja, której nie widać w tabelce z parametrami, a decyduje o wszystkim.' },
+];
+
+const wybor = [
+  { t: 'Strona wizytówkowa albo landing page', d: 'Najprostszy pakiet 5 GB w zupełności wystarczy — typowa strona firmowa zajmuje mniej niż gigabajt. Nie ma sensu dopłacać za powierzchnię, której nie wykorzystacie.' },
+  { t: 'Strona firmowa na WordPressie', d: 'Pakiet 10–30 GB ze wsparciem dla aktualnego PHP, codziennymi kopiami i przyzwoitym limitem pamięci. To najczęstszy wybór przy stronach firmowych.' },
+  { t: 'Sklep internetowy', d: 'Tutaj oszczędzanie zwraca się przeciwko Wam. Sklep obciąża bazę przy każdym przeglądaniu produktów, a wolny sklep nie sprzedaje. Warto celować w pakiet 30 GB w górę, z Redisem i SSH.' },
+  { t: 'Strona pisana w Astro albo Next.js', d: 'Nie ma bazy danych ani kodu wykonywanego przy każdym wejściu — serwer wysyła gotowe pliki. Da się to hostować za kilkadziesiąt złotych rocznie, a przy małym ruchu często za darmo.' },
+];
+
+const faq = [
+  { q: 'Ile kosztuje hosting strony internetowej?', a: `U dostawcy, z którym współpracujemy, pakiety kosztują ${hostingPierwszyRok()} w pierwszym roku i ${hostingOdnowienie()} przy odnowieniu — od 5 GB do 100 GB powierzchni. Do tego domena, około 60–120 zł rocznie za końcówkę .pl. Zwróćcie uwagę na różnicę między ceną wejściową a odnowieniem: to najczęstsza niespodzianka w drugim roku i dotyczy praktycznie wszystkich dostawców na rynku.` },
+  { q: 'Czy hosting ma wpływ na pozycje w Google?', a: 'Pośrednio, ale realnie. Google mierzy szybkość ładowania jako czynnik rankingowy, a czas odpowiedzi serwera jest jednym ze składników tego pomiaru. Wolny hosting potrafi zabrać kilkadziesiąt punktów w PageSpeed niezależnie od tego, jak dobrze zoptymalizowana jest sama strona. Znaczenie ma też dostępność — strona regularnie niedostępna traci zaufanie wyszukiwarki.' },
+  { q: 'Czy mogę przenieść stronę na inny hosting?', a: 'Tak i przy większości dostawców jest to bezpłatne — część, w tym LH.pl, przenosi stronę za Was w ramach usługi. Ważne, żeby przy przenosinach zachować dokładnie te same adresy podstron. Jeśli się zmienią, potrzebne są przekierowania 301, inaczej tracicie pozycje w Google.' },
+  { q: 'Na kogo powinien być zarejestrowany hosting i domena?', a: 'Zawsze na Was, nie na wykonawcę strony. To jest jedno z pytań, które warto zadać każdej firmie przed podpisaniem umowy. Domena zarejestrowana na wykonawcę oznacza, że nie jesteście właścicielem własnego adresu — a wychodzi to zwykle w najgorszym momencie, przy zmianie firmy obsługującej stronę.' },
+  { q: 'Czy darmowy hosting ma sens?', a: 'Do nauki i testów tak. Do prowadzenia firmy nie — zwykle oznacza reklamy na Waszej stronie, adres w formie subdomeny, brak własnej poczty w domenie firmy i ograniczony transfer. Przy koszcie rzędu dwustu złotych rocznie oszczędność jest pozorna.' },
+  { q: 'Jak działa Wasz kod rabatowy?', a: `Kod ${HOSTING.kod} daje ${HOSTING.rabat} zniżki na hosting i domenę w ${HOSTING.dostawca}. Wpisujecie go przy zamówieniu. Działa niezależnie od tego, czy jesteście naszym klientem — możecie z niego skorzystać, nawet jeśli stronę robił Wam ktoś inny albo robicie ją sami.` },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Hosting dla strony internetowej', item: 'https://ctrlzstudio.pl/hosting-dla-strony-internetowej' },
+  ],
+};
+---
+
+<Layout
+  title="Hosting dla strony — jaki wybrać i ile kosztuje | CtrlZ Studio"
+  description="Na co patrzeć przy wyborze hostingu, ile realnie kosztuje przy stronie firmowej i sklepie oraz kod rabatowy −20% na hosting i domenę dla czytelników."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .hs-hero { padding: 150px 0 56px; position: relative; overflow: hidden; background: var(--bg-base); }
+  .hs-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .hs-crumbs { font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 18px; }
+  .hs-crumbs a { color: rgba(255,255,255,.68); text-decoration: none; }
+  .hs-lead { font-size: 17px; color: rgba(255,255,255,.64); line-height: 1.75; max-width: 740px; font-weight: 300; }
+  .hs-lead strong { color: rgba(255,255,255,.85); font-weight: 500; }
+  .hs-section { padding: 64px 0; background: var(--bg-base); }
+  .hs-section-alt { background: var(--bg-elevated, rgba(255,255,255,.02)); }
+  .hs-h2 { margin-bottom: 18px; }
+  .hs-p { font-size: 15px; color: rgba(255,255,255,.64); line-height: 1.8; max-width: 780px; margin-bottom: 16px; }
+  .hs-p strong { color: rgba(255,255,255,.82); font-weight: 500; }
+  .hs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 36px; }
+  .hs-card { background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07); border-radius: 16px; padding: 26px; transition: border-color .25s, transform .25s; }
+  .hs-card:hover { border-color: rgba(124,107,255,.26); transform: translateY(-2px); }
+  .hs-card h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 10px; font-weight: 600; }
+  .hs-card p { font-size: 14px; color: rgba(255,255,255,.68); line-height: 1.7; margin: 0; }
+  .hs-steps { max-width: 800px; margin-top: 32px; }
+  .hs-step { display: flex; gap: 22px; align-items: flex-start; padding: 22px 0; border-top: 1px solid rgba(255,255,255,.07); }
+  .hs-step-n { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: #c4b5fd; line-height: 1; width: 36px; flex-shrink: 0; opacity: .85; }
+  .hs-step h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 6px; font-weight: 600; }
+  .hs-step p { font-size: 14px; color: rgba(255,255,255,.68); line-height: 1.7; margin: 0; }
+  @media (max-width: 1024px) { .hs-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) {
+    .hs-inner { padding: 0 24px; }
+    .hs-grid { grid-template-columns: 1fr; }
+    .hs-hero { padding: 120px 0 40px; }
+  }
+</style>
+
+<section class="hs-hero">
+  <div class="orb orb-1"></div>
+  <div class="grid-bg"></div>
+  <div class="hs-inner" style="position:relative">
+    <div class="hs-crumbs"><a href="/">Strona główna</a> · Hosting</div>
+    <div class="eyebrow" style="margin-bottom:18px">Poradnik + zniżka</div>
+    <h1 class="display-xl" style="margin-bottom:20px">Hosting dla strony —<br><span class="grad">jaki wybrać</span></h1>
+    <p class="hs-lead">
+      Hosting to pozycja, którą płacicie co roku niezależnie od tego, kto zrobił Wam stronę.
+      <strong>Poniżej sześć rzeczy, na które warto patrzeć przy wyborze, realne widełki cenowe
+      i nasz kod rabatowy −{HOSTING.rabat}</strong>, z którego możecie skorzystać także wtedy,
+      gdy nie jesteśmy Waszym wykonawcą.
+    </p>
+  </div>
+</section>
+
+<!-- KOD -->
+<section class="hs-section" style="padding-top:0">
+  <div class="hs-inner">
+    <HostingPromo />
+  </div>
+</section>
+
+<!-- NA CO PATRZEĆ -->
+<section class="hs-section hs-section-alt">
+  <div class="hs-inner">
+    <h2 class="display-md hs-h2">Na co patrzeć <span class="grad-v">przy wyborze</span></h2>
+    <p class="hs-p">
+      Reklamy hostingów mówią o powierzchni dyskowej, bo to najłatwiej porównać.
+      W praktyce to najmniej istotny parametr — <strong>typowa strona firmowa zajmuje mniej niż jeden gigabajt</strong>.
+      Znaczenie ma sześć innych rzeczy.
+    </p>
+    <div class="hs-grid">
+      {kryteria.map((k) => (
+        <div class="hs-card"><h3>{k.t}</h3><p>{k.d}</p></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- JAKI PAKIET -->
+<section class="hs-section">
+  <div class="hs-inner">
+    <h2 class="display-md hs-h2">Jaki pakiet<br>do <span class="grad">jakiej strony</span></h2>
+    <div class="hs-steps">
+      {wybor.map((w, i) => (
+        <div class="hs-step">
+          <div class="hs-step-n">{String(i + 1).padStart(2, '0')}</div>
+          <div><h3>{w.t}</h3><p>{w.d}</p></div>
+        </div>
+      ))}
+    </div>
+    <p class="hs-p" style="margin-top:30px">
+      Pełne zestawienie kosztów rocznych — z domeną, opieką techniczną i pozycjonowaniem —
+      znajdziecie w tekście <a href="/blog/ile-kosztuje-utrzymanie-strony-rocznie" style="color:#c4b5fd">ile kosztuje utrzymanie strony rocznie</a>.
+    </p>
+  </div>
+</section>
+
+<!-- PUŁAPKA CENOWA -->
+<section class="hs-section hs-section-alt">
+  <div class="hs-inner">
+    <h2 class="display-md hs-h2">Pułapka, w którą wpada<br><span class="grad-v">większość firm</span></h2>
+    <p class="hs-p">
+      Cena pierwszego roku i cena odnowienia to u większości dostawców dwie różne kwoty —
+      i różnica bywa czterokrotna. Pakiet za pięćdziesiąt złotych na start potrafi kosztować
+      dwieście przy przedłużeniu.
+    </p>
+    <p class="hs-p">
+      <strong>To nie jest nieuczciwe, o ile jest napisane wprost</strong> — a zwykle jest, tylko drobnym drukiem
+      pod ceną promocyjną. Warto sprawdzić tę drugą liczbę przed zakupem, bo to ona opisuje
+      Wasz realny koszt w kolejnych latach.
+    </p>
+    <p class="hs-p">
+      Druga rzecz z tej samej kategorii: przy przedłużeniu domeny cena też rośnie po pierwszym roku.
+      Przy jednej domenie to drobiazg, przy kilku — pozycja w budżecie.
+    </p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="hs-section">
+  <div class="hs-inner">
+    <h2 class="display-md hs-h2">Najczęstsze <span class="grad-v">pytania</span></h2>
+    <div class="faq-list" style="margin-top:32px">
+      {faq.map((f, i) => (
+        <>
+          <div class="faq-divider"></div>
+          <div class={`faq-item${i === 0 ? ' open' : ''}`}>
+            <div class="faq-question"><div class="faq-q-text">{f.q}</div><div class="faq-icon">+</div></div>
+            <div class="faq-body"><div class="faq-answer-wrap"><div class="faq-answer">{f.a}</div></div></div>
+          </div>
+        </>
+      ))}
+      <div class="faq-divider"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="hs-section hs-section-alt">
+  <div class="hs-inner" style="text-align:center">
+    <h2 class="display-md hs-h2">Nie wiecie, czy Wasz hosting<br><span class="grad">wystarcza</span>?</h2>
+    <p class="hs-p" style="margin:0 auto 32px">
+      W bezpłatnym audycie mierzymy między innymi czas odpowiedzi serwera. To jedna z pierwszych rzeczy,
+      która pokazuje, czy problem leży w stronie, czy pod nią.
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="/bezplatny-audyt" class="btn-primary"><span>Zamów bezpłatny audyt</span></a>
+      <a href="/wsparcie-techniczne" class="btn-ghost"><span>Opieka nad stroną</span></a>
+    </div>
+    <p class="hs-p" style="margin:28px auto 0;font-size:14px">
+      Zobacz też: <a href="/ile-kosztuje-strona-internetowa" style="color:#c4b5fd">ile kosztuje strona internetowa</a> ·
+      <a href="/strony-internetowe-wordpress" style="color:#c4b5fd">strony na WordPressie</a> ·
+      <a href="/blog/ile-kosztuje-utrzymanie-strony-rocznie" style="color:#c4b5fd">koszty utrzymania</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question')?.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
+</script>
+
+</Layout>

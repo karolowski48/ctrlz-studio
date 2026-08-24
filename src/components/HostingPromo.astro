@@ -1,0 +1,231 @@
+---
+/**
+ * HOSTING — KOD RABATOWY (program partnerski LH.pl)
+ * ════════════════════════════════════════════════
+ *
+ * Komponent wielokrotnego użytku. Trzy warianty:
+ *   <HostingPromo />                  → pełna karta (strony ofertowe)
+ *   <HostingPromo variant="compact" /> → wąski pasek (wpisy blogowe)
+ *   <HostingPromo variant="inline" />  → jedno zdanie z kodem (w treści)
+ *
+ * WAŻNE — dwie rzeczy, których nie wolno stąd usuwać:
+ *  1. rel="sponsored nofollow noopener" na linkach afiliacyjnych.
+ *     Google wymaga oznaczania linków, za które pobierane jest wynagrodzenie.
+ *     Bez tego ryzykujemy ręczne działanie na całą domenę.
+ *  2. Widoczna informacja o współpracy partnerskiej. Wymóg wynika z przepisów
+ *     o nieuczciwych praktykach rynkowych — ukryta reklama to realne ryzyko.
+ *
+ * Kod i link zmieniamy TYLKO tutaj — wszystkie miejsca na stronie zaktualizują się same.
+ */
+
+import { HOSTING } from '../data/hosting';
+
+interface Props {
+  variant?: 'full' | 'compact' | 'inline';
+}
+const { variant = 'full' } = Astro.props;
+---
+
+{variant === 'inline' && (
+  <p class="hp-inline">
+    <strong>Zniżka na hosting:</strong> z kodem <code class="hp-code-sm">{HOSTING.kod}</code> dostajecie
+    {' '}{HOSTING.rabat} rabatu na hosting i domenę w {HOSTING.dostawca} —
+    {' '}<a href={HOSTING.link} rel="sponsored nofollow noopener" target="_blank">sprawdź ofertę</a>.
+    <span class="hp-disc-sm">Link partnerski — korzystając z niego, wspieracie nas bez dodatkowego kosztu po Waszej stronie.</span>
+  </p>
+)}
+
+{variant === 'compact' && (
+  <div class="hp-compact">
+    <div class="hp-compact-main">
+      <div class="hp-compact-title">−{HOSTING.rabat} na hosting i domenę w {HOSTING.dostawca}</div>
+      <div class="hp-compact-desc">Kod dla klientów i czytelników CtrlZ Studio. Działa na hosting WordPress i rejestrację domeny.</div>
+    </div>
+    <div class="hp-compact-actions">
+      <button type="button" class="hp-code js-hp-copy" data-code={HOSTING.kod} aria-label={`Skopiuj kod ${HOSTING.kod}`}>
+        <span class="hp-code-txt">{HOSTING.kod}</span>
+        <span class="hp-code-hint">kopiuj</span>
+      </button>
+      <a href={HOSTING.link} class="hp-btn" rel="sponsored nofollow noopener" target="_blank">Zobacz ofertę →</a>
+    </div>
+    <div class="hp-disclosure">Link partnerski. Cena dla Was się nie zmienia.</div>
+  </div>
+)}
+
+{variant === 'full' && (
+  <div class="hp-card">
+    <div class="hp-glow"></div>
+    <div class="hp-inner">
+      <div class="hp-left">
+        <div class="hp-tag">Zniżka dla naszych klientów i czytelników</div>
+        <h3 class="hp-title">−{HOSTING.rabat} na hosting<br>i domenę w <span class="grad">{HOSTING.dostawca}</span></h3>
+        <p class="hp-desc">
+          Hosting to jedna z tych pozycji, które płacicie co roku niezależnie od tego,
+          kto zrobił Wam stronę. Wynegocjowaliśmy stały rabat, z którego możecie skorzystać
+          niezależnie od tego, czy pracujemy razem.
+        </p>
+        <ul class="hp-list">
+          <li>Hosting pod WordPressa i PrestaShop</li>
+          <li>Rejestracja i przedłużenie domeny</li>
+          <li>Certyfikat SSL i kopie zapasowe w standardzie</li>
+        </ul>
+      </div>
+
+      <div class="hp-right">
+        <div class="hp-code-label">Kod rabatowy</div>
+        <button type="button" class="hp-code hp-code-lg js-hp-copy" data-code={HOSTING.kod} aria-label={`Skopiuj kod ${HOSTING.kod}`}>
+          <span class="hp-code-txt">{HOSTING.kod}</span>
+          <span class="hp-code-hint">kliknij, aby skopiować</span>
+        </button>
+        <a href={HOSTING.link} class="hp-btn hp-btn-lg" rel="sponsored nofollow noopener" target="_blank">
+          Przejdź do oferty →
+        </a>
+        <div class="hp-note">Aktualne ceny i pakiety sprawdzicie u dostawcy — zmieniają się sezonowo.</div>
+      </div>
+    </div>
+    <div class="hp-disclosure hp-disclosure-full">
+      Współpracujemy z {HOSTING.dostawca} w ramach programu partnerskiego. Jeśli skorzystacie z kodu albo
+      z powyższego linku, otrzymujemy prowizję — <strong>Wasza cena jest przez to niższa, nie wyższa</strong>.
+      Polecamy to, z czego korzystamy sami przy projektach klientów.
+    </div>
+  </div>
+)}
+
+<style>
+  /* ── wariant pełny ── */
+  .hp-card {
+    position: relative; overflow: hidden; border-radius: 22px;
+    border: 1px solid rgba(124,107,255,.26);
+    background: linear-gradient(135deg, rgba(124,107,255,.10), rgba(236,72,153,.05));
+    padding: 38px; margin: 40px 0;
+  }
+  .hp-glow {
+    position: absolute; width: 420px; height: 420px; right: -150px; top: -180px;
+    background: radial-gradient(circle, rgba(124,107,255,.24), transparent 68%); pointer-events: none;
+  }
+  .hp-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: center; }
+  .hp-tag {
+    display: inline-block; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase;
+    color: #c4b5fd; background: rgba(124,107,255,.12); border: 1px solid rgba(124,107,255,.3);
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 16px;
+  }
+  .hp-title {
+    font-family: var(--font-display); font-size: 30px; line-height: 1.15; letter-spacing: -.8px;
+    font-weight: 700; color: #fff; margin: 0 0 14px;
+  }
+  .hp-desc { font-size: 14.5px; color: rgba(255,255,255,.72); line-height: 1.75; margin: 0 0 18px; max-width: 520px; font-weight: 300; }
+  .hp-list { list-style: none; padding: 0; margin: 0; }
+  .hp-list li {
+    font-size: 13.5px; color: rgba(255,255,255,.7); line-height: 1.6;
+    padding-left: 20px; position: relative; margin-bottom: 8px;
+  }
+  .hp-list li::before { content: '✓'; position: absolute; left: 0; color: #6ee7a8; font-size: 12px; }
+
+  .hp-right { display: flex; flex-direction: column; gap: 12px; }
+  .hp-code-label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+
+  /* ── przycisk z kodem ── */
+  .hp-code {
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    width: 100%; padding: 16px 18px; cursor: pointer; font-family: inherit;
+    background: rgba(10,10,26,.55); border: 1px dashed rgba(124,107,255,.55);
+    border-radius: 14px; transition: border-color .2s, background .2s, transform .12s;
+  }
+  .hp-code:hover { border-color: rgba(124,107,255,.9); background: rgba(10,10,26,.75); }
+  .hp-code:active { transform: scale(.985); }
+  .hp-code-txt { font-family: var(--font-display); font-size: 21px; font-weight: 800; color: #fff; letter-spacing: .5px; }
+  .hp-code-lg .hp-code-txt { font-size: 24px; }
+  .hp-code-hint { font-size: 11px; color: rgba(255,255,255,.55); letter-spacing: .04em; }
+  .hp-code.is-copied { border-style: solid; border-color: rgba(110,231,168,.7); background: rgba(16,44,32,.6); }
+  .hp-code.is-copied .hp-code-hint { color: #6ee7a8; }
+
+  .hp-btn {
+    display: block; text-align: center; text-decoration: none; font-size: 14px; font-weight: 500;
+    color: #fff; background: linear-gradient(100deg,#7c6bff,#ec4899);
+    padding: 13px 22px; border-radius: 100px; transition: opacity .2s;
+  }
+  .hp-btn:hover { opacity: .9; }
+  .hp-btn-lg { padding: 15px 24px; font-size: 15px; }
+  .hp-note { font-size: 11.5px; color: rgba(255,255,255,.5); line-height: 1.55; text-align: center; }
+
+  .hp-disclosure {
+    position: relative; z-index: 2; font-size: 12px; color: rgba(255,255,255,.55);
+    line-height: 1.65; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.1);
+  }
+  .hp-disclosure strong { color: rgba(255,255,255,.72); font-weight: 500; }
+  .hp-disclosure-full { max-width: 760px; }
+
+  /* ── wariant kompaktowy ── */
+  .hp-compact {
+    display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;
+    border: 1px solid rgba(124,107,255,.26); border-radius: 18px;
+    background: linear-gradient(135deg, rgba(124,107,255,.09), rgba(255,255,255,.02));
+    padding: 24px 26px; margin: 34px 0;
+  }
+  .hp-compact-title { font-family: var(--font-display); font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+  .hp-compact-desc { font-size: 13.5px; color: rgba(255,255,255,.68); line-height: 1.6; }
+  .hp-compact-actions { display: flex; flex-direction: column; gap: 9px; min-width: 200px; }
+  .hp-compact .hp-code { padding: 11px 16px; }
+  .hp-compact .hp-code-txt { font-size: 17px; }
+  .hp-compact .hp-btn { padding: 10px 18px; font-size: 13px; }
+  .hp-compact .hp-disclosure { grid-column: 1 / -1; margin-top: 4px; padding-top: 14px; }
+
+  /* ── wariant inline ── */
+  .hp-inline {
+    font-size: 14.5px; color: rgba(255,255,255,.72); line-height: 1.75;
+    border-left: 3px solid rgba(124,107,255,.5); padding: 4px 0 4px 18px; margin: 28px 0;
+  }
+  .hp-inline strong { color: rgba(255,255,255,.88); }
+  .hp-inline a { color: #c4b5fd; }
+  .hp-code-sm {
+    font-family: var(--font-display); font-weight: 700; color: #fff;
+    background: rgba(124,107,255,.18); border: 1px solid rgba(124,107,255,.4);
+    padding: 2px 9px; border-radius: 6px; font-size: 13.5px;
+  }
+  .hp-disc-sm { display: block; font-size: 12px; color: rgba(255,255,255,.5); margin-top: 6px; }
+
+  @media (max-width: 860px) {
+    .hp-card { padding: 26px 20px; }
+    .hp-inner { grid-template-columns: 1fr; gap: 26px; }
+    .hp-title { font-size: 24px; }
+    .hp-compact { grid-template-columns: 1fr; gap: 18px; }
+    .hp-compact-actions { min-width: 0; }
+  }
+</style>
+
+<script>
+  // Kopiowanie kodu — z zapasową ścieżką dla przeglądarek bez Clipboard API
+  // (działa tylko na HTTPS i localhost, więc fallback jest potrzebny).
+  document.querySelectorAll<HTMLButtonElement>('.js-hp-copy').forEach((btn) => {
+    if (btn.dataset.bound) return;
+    btn.dataset.bound = '1';
+
+    btn.addEventListener('click', async () => {
+      const code = btn.dataset.code || '';
+      const hint = btn.querySelector('.hp-code-hint');
+      const orig = hint?.textContent || 'kopiuj';
+
+      let ok = false;
+      try {
+        await navigator.clipboard.writeText(code);
+        ok = true;
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = code;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:absolute;left:-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { ok = document.execCommand('copy'); } catch { ok = false; }
+        document.body.removeChild(ta);
+      }
+
+      if (hint) hint.textContent = ok ? 'skopiowano ✓' : 'skopiuj ręcznie';
+      btn.classList.toggle('is-copied', ok);
+      setTimeout(() => {
+        if (hint) hint.textContent = orig;
+        btn.classList.remove('is-copied');
+      }, 2200);
+    });
+  });
+</script>

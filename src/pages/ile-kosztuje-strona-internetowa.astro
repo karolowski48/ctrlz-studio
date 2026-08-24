@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
 import { PRICING, priceAnswer, addonsAnswer } from '../data/pricing';
+import HostingPromo from '../components/HostingPromo.astro';
+import { HOSTING, hostingPierwszyRok, hostingOdnowienie } from '../data/hosting';
 
 /**
  * PODSTRONA CENOWA — największy klaster w Senuto (ok. 4 160 wyszukiwań/mies.)
@@ -61,7 +63,7 @@ const factors = [
 
 const hidden = [
   { t: 'Domena', d: 'Około 60–120 zł rocznie za końcówkę .pl. Rejestrujemy ją na Was, nie na siebie.' },
-  { t: 'Hosting', d: 'Od 200 zł rocznie przy prostej stronie do 2 500 zł przy sklepie. Strony pisane w Astro można hostować taniej, czasem za darmo.' },
+  { t: 'Hosting', d: `Realne stawki u dostawcy, z którym współpracujemy: ${hostingPierwszyRok()} w pierwszym roku i ${hostingOdnowienie()} przy odnowieniu — zależnie od wielkości pakietu (5–100 GB). Uwaga na tę różnicę: cena promocyjna dotyczy tylko pierwszego roku. Z naszym kodem dochodzi jeszcze ${HOSTING.rabat} rabatu — szczegóły niżej.` },
   { t: 'Certyfikat SSL', d: 'Zwykle w cenie hostingu. Jeśli ktoś liczy za to osobno kilkaset złotych rocznie, warto zapytać dlaczego.' },
   { t: 'Opieka techniczna', d: `Przy WordPressie to realna konieczność — aktualizacje, kopie zapasowe, monitoring. U nas ${zl(PRICING.addons.maintenanceMonthly)} miesięcznie, ale możecie prowadzić to sami.` },
   { t: 'Treści', d: `Copywriting od ${zl(PRICING.addons.copywriting)}. Najczęściej pomijana pozycja, a to teksty decydują o tym, czy strona pozycjonuje się i sprzedaje.` },
@@ -73,7 +75,7 @@ const faq = [
   { q: 'Co jeszcze można dobrać do projektu?', a: addonsAnswer() },
   { q: 'Dlaczego jedna firma liczy 1 500 zł, a druga 15 000 zł za „stronę internetową"?', a: 'Bo pod tą samą nazwą kryją się zupełnie różne rzeczy. Za 1 500 zł dostaniecie zwykle gotowy szablon z podmienionym logo i tekstem, bez projektu, bez konfiguracji SEO i bez optymalizacji szybkości. Za 15 000 zł — indywidualny projekt, rozbudowaną strukturę, treści pisane pod wyszukiwarkę i integracje. Obie oferty mogą być uczciwe. Problem zaczyna się wtedy, gdy sprzedaje się pierwszą jako drugą.' },
   { q: 'Czy tania strona za kilkaset złotych ma sens?', a: 'Ma sens dokładnie w jednym przypadku: gdy potrzebujecie czegokolwiek w internecie na już i wiecie, że za rok i tak zrobicie to porządnie. W każdym innym wypadku wychodzi drożej, bo płacicie dwa razy — raz za stronę, która nic nie przyniosła, i drugi raz za tę właściwą. Do tego dochodzi koszt roku bez widoczności w Google.' },
-  { q: 'Ile kosztuje utrzymanie strony rocznie?', a: `Przy prostej stronie: domena około 60–120 zł, hosting od 200 zł, razem zwykle poniżej 500 zł rocznie. Przy stronie na WordPressie doliczcie opiekę techniczną — u nas ${zl(PRICING.addons.maintenanceMonthly)} miesięcznie — bo nieaktualizowany WordPress to kwestia czasu, zanim ktoś go przejmie. Przy sklepie koszty rosną wraz z ruchem i liczbą integracji.` },
+  { q: 'Ile kosztuje utrzymanie strony rocznie?', a: `Przy prostej stronie: domena około 60–120 zł, hosting ${hostingPierwszyRok()} w pierwszym roku i ${hostingOdnowienie()} przy odnowieniu. Po pierwszym roku hosting kosztuje pełną stawkę — to najczęstsza niespodzianka w drugim roku. Przy stronie na WordPressie doliczcie opiekę techniczną — u nas ${zl(PRICING.addons.maintenanceMonthly)} miesięcznie — bo nieaktualizowany WordPress to kwestia czasu, zanim ktoś go przejmie. Przy sklepie koszty rosną wraz z ruchem i liczbą integracji.` },
   { q: 'Czy wycena może wzrosnąć w trakcie projektu?', a: 'U nas nie, o ile nie zmienia się zakres. Kwotę i listę podstron ustalamy przed startem i jest wiążąca. Jeśli w trakcie dochodzi coś, czego nie było w ustaleniach — na przykład dodatkowa podstrona albo integracja — mówimy o tym od razu i wyceniamy osobno, przed wykonaniem. Żadnych faktur za „prace dodatkowe" na końcu.' },
   { q: 'Jak wygląda płatność?', a: 'Standardowo w dwóch ratach: zaliczka przy starcie i reszta po wdrożeniu, przed przekazaniem dostępów. Przy większych projektach dzielimy to na trzy części powiązane z etapami. Do każdej płatności faktura VAT.' },
   { q: 'Czy strona zwróci się finansowo?', a: 'To zależy od tego, ile zarabiacie na jednym kliencie. Jeśli średnie zlecenie zostawia Wam 900 zł marży, strona za 6 000 zł zwraca się po siedmiu klientach — jednorazowo, bo potem pracuje dalej przez lata. Przy usługach o wyższej wartości próg jest jeszcze niższy. Warto policzyć to przed rozmową o cenie, bo wtedy pytanie „ile to kosztuje" zamienia się w „ilu klientów ma przynieść".' },
@@ -330,6 +332,8 @@ const breadcrumbSchema = {
         <div class="ck-card"><h3>{h.t}</h3><p>{h.d}</p></div>
       ))}
     </div>
+
+    <HostingPromo />
   </div>
 </section>
 
@@ -418,7 +422,7 @@ const breadcrumbSchema = {
       <a href="/bezplatny-audyt" class="btn-ghost"><span>Zamów bezpłatny audyt</span></a>
     </div>
     <p class="ck-p" style="margin:28px auto 0;font-size:14px">
-      Zobacz też: <a href="/strony-internetowe-wordpress" style="color:#c4b5fd">strony na WordPressie</a> · <a href="/jak-pracujemy" style="color:#c4b5fd">jak pracujemy</a> ·
+      Zobacz też: <a href="/hosting-dla-strony-internetowej" style="color:#c4b5fd">hosting dla strony</a> · <a href="/strony-internetowe-wordpress" style="color:#c4b5fd">strony na WordPressie</a> · <a href="/jak-pracujemy" style="color:#c4b5fd">jak pracujemy</a> ·
       <a href="/strony-internetowe" style="color:#c4b5fd">strony internetowe</a> ·
       <a href="/sklepy-internetowe" style="color:#c4b5fd">sklepy internetowe</a> ·
       <a href="/realizacje" style="color:#c4b5fd">realizacje</a>

@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
 import { PRICING, priceAnswer } from '../data/pricing';
+import { hostingPierwszyRok, hostingOdnowienie } from '../data/hosting';
 
 /**
  * WORDPRESS — frazy „tworzenie stron internetowych wordpress" (210/mies.)
@@ -37,7 +38,7 @@ const faq = [
   { q: 'Ile kosztuje strona internetowa na WordPressie?', a: priceAnswer() },
   { q: 'Czy WordPress jest wolny?', a: 'Sam WordPress nie. Wolne są strony zbudowane na gotowym szablonie z page builderem i dwudziestoma wtyczkami — a takich jest większość, stąd opinia. WordPress z motywem pisanym pod projekt i zoptymalizowanymi zdjęciami spokojnie osiąga ponad 90 punktów w PageSpeed na telefonie. Różnica leży w wykonaniu, nie w samym systemie.' },
   { q: 'Czy WordPress jest bezpieczny?', a: 'Jest bezpieczny dokładnie tak długo, jak długo jest aktualizowany. Ponieważ napędza ogromną część internetu, jest też najczęstszym celem automatów skanujących znane podatności. Nieaktualizowany przez rok to kwestia czasu, nie ryzyka. Dlatego przy WordPressie opieka techniczna nie jest dodatkiem, tylko częścią kosztu utrzymania.' },
-  { q: 'Ile kosztuje utrzymanie strony na WordPressie?', a: `Domena około 60–120 zł rocznie, hosting 400–900 zł rocznie i opieka techniczna — u nas ${zl(PRICING.addons.maintenanceMonthly)} miesięcznie. Razem zwykle około 5 000 zł rocznie. Opiekę możecie prowadzić sami, jeśli macie kogoś, kto tego dopilnuje.` },
+  { q: 'Ile kosztuje utrzymanie strony na WordPressie?', a: `Domena około 60–120 zł rocznie, hosting ${hostingPierwszyRok()} w pierwszym roku i ${hostingOdnowienie()} przy odnowieniu, do tego opieka techniczna — u nas ${zl(PRICING.addons.maintenanceMonthly)} miesięcznie. Razem, po pierwszym roku, zwykle około 4 700 zł rocznie. Opiekę możecie prowadzić sami, jeśli macie kogoś, kto tego dopilnuje.` },
   { q: 'WordPress czy strona pisana od zera?', a: `WordPress ma sens, gdy chcecie często samodzielnie edytować treści i prowadzić bloga. Strona pisana w Astro albo Next.js jest wyraźnie szybsza, bezpieczniejsza i tańsza w utrzymaniu — nie ma wtyczek do aktualizowania i nie ma czego zhakować — ale to ${PRICING.techSurcharge} do wyceny i mniejsza wygoda przy codziennej edycji. Decydujemy po rozmowie o tym, jak realnie będziecie strony używać.` },
   { q: 'Czy przeniesiecie moją obecną stronę na WordPressa?', a: 'Tak. Najważniejszą częścią takiej migracji nie jest przeniesienie treści, tylko mapowanie starych adresów na nowe przekierowaniami 301. Bez tego tracicie pozycje w Google budowane latami — i to jest najczęstsza przyczyna spadku ruchu po zmianie strony.' },
   { q: 'Czy dostanę szkolenie z obsługi?', a: `Tak. Krótkie szkolenie z panelu jest w cenie każdego projektu z CMS-em, a rozszerzoną wersję z nagraniem i instrukcją wyceniamy na ${zl(PRICING.addons.cmsTraining)}. W praktyce po godzinie większość osób radzi sobie z edycją treści samodzielnie.` },
@@ -232,7 +233,7 @@ const breadcrumbSchema = {
       <a href="/ile-kosztuje-strona-internetowa" class="btn-ghost"><span>Zobacz cennik</span></a>
     </div>
     <p class="srv-p" style="margin:28px auto 0;font-size:14px">
-      Zobacz też: <a href="/strony-internetowe" style="color:#c4b5fd">strony internetowe</a> ·
+      Zobacz też: <a href="/strony-internetowe-astro-nextjs" style="color:#c4b5fd">Astro i Next.js</a> · <a href="/hosting-dla-strony-internetowej" style="color:#c4b5fd">hosting pod WordPressa</a> · <a href="/strony-internetowe" style="color:#c4b5fd">strony internetowe</a> ·
       <a href="/sklepy-internetowe" style="color:#c4b5fd">sklepy internetowe</a> ·
       <a href="/wsparcie-techniczne" style="color:#c4b5fd">opieka nad WordPressem</a> ·
       <a href="/blog/wordpress-vs-custom" style="color:#c4b5fd">WordPress czy strona pisana od zera</a>
