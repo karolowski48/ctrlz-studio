@@ -1,0 +1,114 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+---
+<ArticleLayout
+  title="Jak sprawdzić, czy strona jest zainfekowana — 8 sygnałów"
+  metaTitle="Jak sprawdzić, czy strona jest zainfekowana? | CtrlZ Studio"
+  description="Osiem rzeczy do sprawdzenia w kwadrans, bez wiedzy technicznej. Co widać w Google, co w Search Console, a co dopiero po zajrzeniu do panelu."
+  cat="Technologie"
+  readTime="9 min"
+  date="4 września 2026"
+  glowColor="rgba(251,191,36,.2)"
+>
+
+<p>Zainfekowana strona rzadko wygląda na zainfekowaną. W większości przypadków, jakie widzieliśmy, działała normalnie, ładowała się normalnie i w panelu nie było niczego podejrzanego.</p>
+
+<p>Atakującemu nie zależy, żebyście zauważyli. Zależy mu, żeby jak najdłużej korzystać z Waszego serwera i Waszej domeny. Poniżej <strong>osiem sygnałów, które da się sprawdzić w kwadrans</strong>, bez wiedzy technicznej.</p>
+
+<h2>01. Sprawdźcie, co Google ma w indeksie</h2>
+
+<p>Najszybszy test, jaki istnieje. Wpiszcie w wyszukiwarkę:</p>
+
+<p><strong><code>site:wasza-domena.pl</code></strong></p>
+
+<p>Porównajcie liczbę wyników z liczbą podstron, które faktycznie macie. <strong>Jeśli macie piętnaście podstron, a Google pokazuje tysiące — to jest odpowiedź</strong> i nie trzeba szukać dalej.</p>
+
+<p>Przewińcie też wyniki i poszukajcie tytułów, których nie tworzyliście: obcojęzycznych, o lekach, kasynach, kredytach czy podróbkach.</p>
+
+<h2>02. Zajrzyjcie do Search Console</h2>
+
+<p>Zakładka <strong>Bezpieczeństwo i działania ręczne</strong>. Jeśli Google wykryło problem, znajdziecie tam konkretny komunikat — złośliwe oprogramowanie, inżynieria społeczna albo zhakowana zawartość.</p>
+
+<p>Warto też sprawdzić zakładkę Indeksowanie stron. Nagły skok liczby wykrytych adresów bez żadnej zmiany po Waszej stronie to poważny sygnał.</p>
+
+<h2>03. Otwórzcie stronę z telefonu, z wyników Google</h2>
+
+<p>To jest ważny szczegół: <strong>nie wpisujcie adresu ręcznie</strong>. Wejdźcie przez wyszukiwarkę i koniecznie z telefonu.</p>
+
+<p>Wiele infekcji jest sprytnych — przekierowują wyłącznie ruch z wyszukiwarek i wyłącznie na urządzeniach mobilnych, a użytkownikowi wpisującemu adres wprost pokazują normalną stronę. Właśnie dlatego właściciele odkrywają problem tak późno.</p>
+
+<div class="art-tip">
+  <p><strong>Zrób to samo w trybie prywatnym.</strong> Część infekcji nie pokazuje się osobom zalogowanym do panelu — a Wy jesteście zalogowani niemal zawsze.</p>
+</div>
+
+<h2>04. Sprawdźcie listę użytkowników</h2>
+
+<p>W panelu WordPressa, zakładka Użytkownicy. Szukacie kont, których nikt nie zakładał — często z nazwami przypominającymi systemowe albo z losowymi ciągami znaków.</p>
+
+<p>Sprawdźcie też, czy któreś z Waszych kont nie zmieniło roli ani adresu e-mail.</p>
+
+<h2>05. Sprawdźcie, czy strona nie ujawnia za dużo</h2>
+
+<p>Dwie informacje ułatwiają automatyczne ataki i regularnie znajdujemy je w audytach:</p>
+
+<ul>
+  <li><strong>Publiczna lista kont administratorów.</strong> W wielu instalacjach WordPressa da się ją pobrać bez logowania. Znajomość loginu to połowa danych potrzebnych do przejęcia konta.</li>
+  <li><strong>Dokładna wersja WordPressa</strong> w kodzie strony. Przy nieaktualnej instalacji to gotowa instrukcja, których znanych podatności spróbować.</li>
+</ul>
+
+<p>To nie są objawy infekcji, tylko otwarte drzwi. Warto zamknąć je zanim ktoś z nich skorzysta.</p>
+
+<h2>06. Zobaczcie, czy nie rozsyłacie spamu</h2>
+
+<p>Objawy pośrednie: maile do klientów zaczynają lądować w spamie, dostajecie odbicia wiadomości, których nie wysyłaliście, albo hosting przysyła ostrzeżenie o nietypowej aktywności.</p>
+
+<p>Zainfekowany serwer bardzo często służy do rozsyłania spamu. Skutek jest podwójny — domena trafia na czarne listy, a Wasza normalna poczta przestaje docierać.</p>
+
+<h2>07. Sprawdźcie datę modyfikacji plików</h2>
+
+<p>To wymaga zajrzenia na serwer przez FTP albo menedżer plików w panelu hostingu. Posortujcie pliki według daty modyfikacji.</p>
+
+<p><strong>Pliki zmienione w dniu, w którym nikt nic nie robił, to najczystszy sygnał, jaki istnieje.</strong> Szczególnie warto spojrzeć na pliki w głównym katalogu i w folderze z motywem.</p>
+
+<h2>08. Przepuśćcie stronę przez skaner</h2>
+
+<p>Darmowe narzędzia — na przykład Google Safe Browsing albo publiczne skanery witryn — sprawdzą, czy strona nie jest już zgłoszona jako niebezpieczna.</p>
+
+<p>Uwaga na ograniczenie: <strong>skanery zewnętrzne widzą tylko to, co publiczne.</strong> Infekcja ukryta w bazie danych albo aktywna wyłącznie dla ruchu z wyszukiwarek często przechodzi taki test bez alarmu. Negatywny wynik nie jest dowodem, że wszystko jest w porządku.</p>
+
+<h2>Co zrobić, jeśli coś się potwierdziło</h2>
+
+<div class="art-step-card">
+  <div class="sn">01</div>
+  <div><h3>Nie kasujcie niczego w panice</h3><p>Usunięcie plików bez kopii utrudnia znalezienie przyczyny — a bez tego infekcja wraca w kilka dni.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">02</div>
+  <div><h3>Zróbcie kopię, nawet zainfekowaną</h3><p>Pliki i baza. Będą potrzebne do analizy i do odtworzenia treści.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">03</div>
+  <div><h3>Zmieńcie wszystkie hasła</h3><p>Panel, FTP, baza danych, hosting, poczta. Wszystkie, nie tylko konto administratora.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">04</div>
+  <div><h3>Powiadomcie hosting</h3><p>Część dostawców blokuje zainfekowane konta. Lepiej uprzedzić, niż zostać odciętym w środku dnia.</p></div>
+</div>
+
+<p>Jeśli strona przetwarza dane osobowe albo płatności, wyciek może wymagać zgłoszenia do UODO — wtedy warto od razu skonsultować sytuację z prawnikiem.</p>
+
+<h2>Ile czasu macie</h2>
+
+<p>Mniej, niż się wydaje, i to jest jedyna rzecz, którą chcemy tu podkreślić.</p>
+
+<p>Każdy dzień działania infekcji to kolejne śmieciowe adresy w indeksie Google. My przy własnej stronie doszliśmy do <strong>siedemdziesięciu pięciu tysięcy</strong> — i sprzątamy to od miesięcy. Gdyby problem został wykryty tydzień wcześniej, skala byłaby nieporównywalnie mniejsza.</p>
+
+<p>Cały przebieg tamtej sytuacji opisaliśmy we wpisie <a href="/blog/zawirusowana-strona-wordpress">zawirusowana strona WordPress</a>, a to, jak wygląda usunięcie infekcji — na stronie <a href="/usuwanie-wirusow-wordpress">usuwanie wirusów WordPress</a>.</p>
+
+<fragment slot="cta">
+  <h3>Wolicie, żeby ktoś to sprawdził za Was?</h3>
+  <p>W bezpłatnym audycie weryfikujemy między innymi, czy strona nie ujawnia kont administratorów i wersji systemu oraz co Google faktycznie ma w indeksie. Raport w 48 godzin.</p>
+  <a href="/bezplatny-audyt" class="btn-primary"><span>Zamów bezpłatny audyt →</span></a>
+</fragment>
+
+</ArticleLayout>

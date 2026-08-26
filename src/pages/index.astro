@@ -1139,6 +1139,7 @@ document.getElementById('contact-form-main')?.addEventListener('submit', (e) => 
     `Imię: ${name}\nEmail: ${email}\nTelefon: ${phone}\nUsługa: ${service}\n\nWiadomość:\n${message}`
   );
 
+  (window as any).czTrack?.('generate_lead', { form_id: 'strona-glowna' });
   window.location.href = `mailto:kontakt@ctrlzstudio.pl?subject=${subject}&body=${body}`;
 });
 </script>

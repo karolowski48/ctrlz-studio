@@ -116,6 +116,25 @@ const others = INDUSTRIES.filter((i) => i.slug !== ind.slug);
     .srv-grid { grid-template-columns: 1fr; }
     .srv-hero { padding: 120px 0 48px; }
   }
+
+  .ind-proof { margin-top: 44px; }
+  /* auto-fit + justify-content: pojedyncza realizacja ląduje na środku,
+     dwie stają obok siebie — bez osobnego wariantu w kodzie */
+  .ind-proof-grid {
+    display: grid; gap: 18px; max-width: 900px; margin: 0 auto;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 420px));
+    justify-content: center;
+  }
+  .ind-proof-card {
+    display: block; text-align: left; text-decoration: none;
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px; padding: 24px; transition: border-color .25s, transform .25s;
+  }
+  .ind-proof-card:hover { border-color: rgba(124,107,255,.32); transform: translateY(-2px); }
+  .ind-proof-card h3 { font-family: var(--font-display); font-size: 15.5px; color: #fff; margin: 0 0 9px; font-weight: 600; }
+  .ind-proof-card p { font-size: 13.5px; color: rgba(255,255,255,.68); line-height: 1.65; margin: 0 0 12px; }
+  .ind-proof-card span { font-size: 12.5px; color: #c4b5fd; }
+  @media (max-width: 720px) { .ind-proof-grid { grid-template-columns: 1fr; } }
 </style>
 
 <section class="srv-hero">
@@ -212,6 +231,21 @@ const others = INDUSTRIES.filter((i) => i.slug !== ind.slug);
       <a href="/kontakt" class="btn-primary"><span>Napisz do nas</span></a>
       <a href="/kalkulator" class="btn-ghost"><span>Policz orientacyjną cenę</span></a>
     </div>
+
+    {ind.projects && ind.projects.length > 0 && (
+      <div class="ind-proof">
+        <p class="srv-p" style="margin:0 auto 20px;font-size:14px">Nasze realizacje z tej branży:</p>
+        <div class="ind-proof-grid">
+          {ind.projects.map((pr) => (
+            <a class="ind-proof-card" href={`/realizacje/${pr.slug}`}>
+              <h3>{pr.name}</h3>
+              <p>{pr.note}</p>
+              <span>Zobacz realizację →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
 
     <p class="srv-p" style="margin:40px auto 0;font-size:14px">Robimy też strony dla:</p>
     <div class="ind-others" style="justify-content:center">

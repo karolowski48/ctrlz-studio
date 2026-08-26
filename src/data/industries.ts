@@ -39,6 +39,9 @@ export interface Industry {
   faq: { q: string; a: string }[];
   /** Powiązane wpisy na blogu — slug bez /blog/. */
   posts?: { slug: string; title: string }[];
+  /** Realizacje z tej branży — najmocniejszy dowód na podstronie branżowej.
+   *  Dodawaj TYLKO projekty, które naprawdę są z tej branży. */
+  projects?: { slug: string; name: string; note: string }[];
 }
 
 export const INDUSTRIES: Industry[] = [
@@ -435,6 +438,421 @@ export const INDUSTRIES: Industry[] = [
       },
     ],
   },
+  /* ────────────────────────────────────────────────── BIURO RACHUNKOWE */
+  {
+    slug: 'biura-rachunkowego',
+    label: 'Biura rachunkowe i księgowi',
+    forWhom: 'biura rachunkowego',
+    metaTitle: 'Strona dla biura rachunkowego | CtrlZ Studio',
+    description:
+      'Strony dla biur rachunkowych i księgowych. Kalkulator kosztu obsługi, podział na formy działalności i formularz, który odsiewa zapytania nie z Waszej półki.',
+    h1: ['Strony internetowe', 'dla biura rachunkowego'],
+    chips: ['Kalkulator kosztu obsługi', 'Podział wg formy działalności', 'Bezpieczne przesyłanie dokumentów'],
+    lead:
+      'Klient biura rachunkowego prawie nigdy nie zmienia księgowego z ciekawości — robi to, ' +
+      'bo poprzedni zawiódł albo bo właśnie zakłada firmę. W obu przypadkach szuka jednej rzeczy: ' +
+      'pewności, że trafił do kogoś, kto ogarnia. Strona ma to udowodnić w kilkanaście sekund.',
+    problems: [
+      {
+        t: 'Ta sama oferta dla JDG i dla spółki z o.o.',
+        d: 'Jednoosobowa działalność i spółka to dwa różne zakresy, dwie różne ceny i dwa różne poziomy niepokoju klienta. Wspólna podstrona „Oferta" nie odpowiada dobrze żadnemu z nich.',
+      },
+      {
+        t: 'Cennik ukryty za „wycena indywidualna"',
+        d: 'To akurat branża, w której klient porównuje ceny w pierwszej kolejności — bo usługa jest dla niego nieodróżnialna. Brak jakiejkolwiek widełki oznacza, że porówna kogoś innego.',
+      },
+      {
+        t: 'Zero informacji, kto właściwie prowadzi biuro',
+        d: 'Powierza się komuś dostęp do wszystkich liczb w firmie. Strona bez nazwiska, zdjęcia i numeru uprawnień każe zaufać anonimowej firmie — a konkurencja obok pokazuje twarz.',
+      },
+    ],
+    why: [
+      'Księgowość sprzedaje się zaufaniem i konkretem, nie estetyką. Dlatego strukturę budujemy wokół pytań, które klient i tak zada w pierwszym mailu: ile to kosztuje przy mojej skali, co dokładnie robicie w tej cenie, kto to poprowadzi i jak wygląda przekazanie dokumentów.',
+      'Najmocniejszym elementem takiej strony jest zwykle kalkulator kosztu obsługi. Klient podaje formę działalności, liczbę dokumentów i liczbę pracowników, a dostaje kwotę. Zapytanie, które przychodzi po takim kalkulatorze, jest już wstępnie zakwalifikowane — wiecie, z kim rozmawiacie, zanim odbierzecie telefon.',
+      'Wiemy, jak to zbudować, bo już to zrobiliśmy: dla biura Księgowość Online 365 postawiliśmy landing z kalkulatorem kosztu księgowości i integracją z zewnętrznym systemem cenowym.',
+    ],
+    musts: [
+      { t: 'Osobne ścieżki dla JDG, spółki i pełnej księgowości', d: 'Trzy podstrony zamiast jednej — każda z własnym zakresem, ceną i przykładem. To także trzy niezależne wejścia z Google.' },
+      { t: 'Kalkulator kosztu obsługi', d: 'Forma działalności, liczba dokumentów, liczba pracowników, VAT tak/nie. Klient dostaje kwotę, Wy dostajecie zakwalifikowane zapytanie.' },
+      { t: 'Zespół z imienia i nazwiska', d: 'Kto prowadzi biuro, jakie ma uprawnienia i doświadczenie. W usłudze opartej na zaufaniu to nie jest ozdobnik, tylko główny argument.' },
+      { t: 'Opis przejścia od poprzedniego biura', d: 'Największa obawa przy zmianie księgowego to chaos w dokumentach. Rozpisany krok po kroku proces przejęcia zdejmuje ją skuteczniej niż jakiekolwiek zapewnienie.' },
+      { t: 'Bezpieczny kanał na dokumenty', d: 'Nie załącznik do maila. Panel klienta albo szyfrowane przesyłanie plików — przy danych finansowych to również kwestia zgodności z RODO.' },
+      { t: 'Aktualności o zmianach w przepisach', d: 'Krótkie wpisy o zmianach w podatkach robią dwie rzeczy naraz: pokazują, że jesteście na bieżąco, i przyciągają ruch z wyszukiwarki przez cały rok.' },
+    ],
+    searchIntent: [
+      'Fraza „biuro rachunkowe" z nazwą miejscowości to podstawa — decyzja o wyborze księgowego zapada niemal wyłącznie lokalnie, mimo że usługę da się świadczyć zdalnie.',
+      'Zapytania problemowe typu „ile kosztuje księgowość dla jednoosobowej działalności" przyciągają osoby dokładnie w momencie zakładania firmy, czyli wtedy, gdy szukają biura.',
+      'Wpisy o zmianach w przepisach dają stały ruch przez cały rok i budują wizerunek biura, które nadąża — a to jest dokładnie ta cecha, której klient szuka.',
+    ],
+    faq: [
+      {
+        q: 'Czy kalkulator kosztu obsługi nie odstraszy klientów ceną?',
+        a: 'Odstraszy tych, dla których jesteście za drodzy — i to jest korzyść, nie strata. Zapytania, które zostają, pochodzą od osób akceptujących poziom cen, więc rozmowa zaczyna się od zakresu, a nie od negocjacji. Przy biurze rachunkowym to zwykle najlepiej zwracający się element strony.',
+      },
+      {
+        q: 'Mamy klientów z polecenia i nie potrzebujemy strony. Czy to się zmieni?',
+        a: 'Polecenia i tak trafiają na stronę — ktoś dostaje Wasz numer i sprawdza, komu ma powierzyć dokumenty. Strona nie zastępuje polecenia, tylko decyduje, czy polecenie zamieni się w telefon. Przy usłudze opartej na zaufaniu to bywa cała różnica.',
+      },
+      {
+        q: 'Czy da się bezpiecznie przyjmować dokumenty przez stronę?',
+        a: 'Tak, i to na kilka sposobów — od formularza z szyfrowanym przesyłaniem plików po panel klienta z logowaniem. Przy dokumentach finansowych ma to znaczenie także formalne: przesyłanie skanów zwykłym mailem jest trudne do obrony przy RODO.',
+      },
+      {
+        q: 'Czy warto pisać o zmianach w przepisach?',
+        a: 'To jedna z niewielu branż, w której blog realnie się opłaca. Przepisy zmieniają się co roku, przedsiębiorcy szukają wyjaśnień, a tekst napisany przez księgowego wygrywa z ogólnikami. Wystarczy jeden solidny wpis miesięcznie.',
+      },
+    ],
+    posts: [
+      { slug: 'strona-nie-przynosi-klientow-7-powodow', title: 'Strona nie przynosi klientów — 7 powodów' },
+    ],
+    projects: [
+      { slug: 'ksiegowosc-online-365', name: 'Księgowość Online 365', note: 'Landing biura rachunkowego z kalkulatorem kosztu księgowości i integracją z zewnętrznym systemem cenowym.' },
+    ],
+  },
+
+  /* ─────────────────────────────────────────────── SIŁOWNIA I KLUB FITNESS */
+  {
+    slug: 'silowni-i-klubu-fitness',
+    label: 'Siłownie i kluby fitness',
+    forWhom: 'siłowni i klubu fitness',
+    metaTitle: 'Strona dla siłowni i klubu fitness | CtrlZ Studio',
+    description:
+      'Strony dla siłowni, klubów fitness i studiów treningowych. Grafik zajęć, cennik karnetów, zapis na trening próbny i wersja mobilna, z której się korzysta.',
+    h1: ['Strony internetowe', 'dla siłowni i klubu fitness'],
+    chips: ['Grafik zajęć', 'Cennik karnetów', 'Zapis na trening próbny'],
+    lead:
+      'Siłownia sprzedaje coś, czego nie da się pokazać zdjęciem sprzętu — atmosferę i ludzi, ' +
+      'którzy tam trenują. Do tego dochodzi rzecz przyziemna: ktoś stoi przed wejściem i sprawdza ' +
+      'na telefonie, czy dziś jest jeszcze trening. Strona musi obsłużyć oba te momenty.',
+    problems: [
+      {
+        t: 'Grafik zajęć jako plik PDF',
+        d: 'Najczęstszy błąd w tej branży. Na telefonie otwiera się w osobnej aplikacji, jest nieczytelny, a po zmianie godzin przez tydzień wisi nieaktualny. Grafik musi być zwykłą treścią na stronie.',
+      },
+      {
+        t: 'Cennik karnetów, którego nie ma',
+        d: 'Cena karnetu to pierwsza rzecz, jakiej szuka ktoś porównujący dwa kluby. Odesłanie po nią do recepcji oznacza, że porówna dwa inne kluby.',
+      },
+      {
+        t: 'Zdjęcia pustej siłowni o poranku',
+        d: 'Klub bez ludzi wygląda jak klub, do którego nikt nie chodzi. Zdjęcia z treningu, z twarzami i wysiłkiem, sprzedają miejsce, którego ktoś chce być częścią.',
+      },
+    ],
+    why: [
+      'Decyzja o zapisaniu się na siłownię prawie zawsze zapada w telefonie i prawie zawsze wieczorem. Dlatego wersję mobilną projektujemy pierwszą, a nie jako wariant — grafik, cennik i numer telefonu muszą być dostępne w dwóch dotknięciach.',
+      'Drugi element to konwersja przez próg wejścia. Mało kto kupuje karnet roczny z marszu; dużo więcej osób przyjdzie na jeden trening próbny. Strona, która ma wyłącznie przycisk „Kup karnet", pomija większość zainteresowanych.',
+      'Robiliśmy to dla Dziki Gym — siłowni na krakowskim Ruczaju z ofertą kickboxingu, Krav Magi i treningów personalnych. Przeprojektowaliśmy wersję mobilną od podstaw właśnie dlatego, że to z niej korzystali wszyscy.',
+    ],
+    musts: [
+      { t: 'Grafik zajęć jako treść, nie PDF', d: 'Aktualizowany z panelu, czytelny na telefonie, z podziałem na dni i rodzaje zajęć. Zmiana godziny musi zajmować minutę, nie wizytę u informatyka.' },
+      { t: 'Cennik wszystkich wariantów', d: 'Karnet miesięczny, kwartalny, open, wejście jednorazowe, trening personalny. Bez tego nie da się porównać oferty, a klient porównuje zawsze.' },
+      { t: 'Zapis na trening próbny', d: 'Najniższy próg wejścia i najskuteczniejszy sposób na pierwszy kontakt. Formularz z wyborem dnia i rodzaju zajęć zamiast „zadzwoń do nas".' },
+      { t: 'Sylwetki trenerów', d: 'Ludzie wybierają klub także dla konkretnego trenera. Krótki opis specjalizacji i doświadczenia każdego z nich to realny argument sprzedażowy.' },
+      { t: 'Osobne podstrony dla rodzajów zajęć', d: 'Kickboxing, personalne, zajęcia grupowe — każde ze swoją podstroną i frazą. „Kickboxing Kraków" to zupełnie inne zapytanie niż „siłownia Kraków".' },
+      { t: 'Zdjęcia z prawdziwych treningów', d: 'Nie stocki i nie puste hale. Klub sprzedaje społeczność, więc trzeba ją pokazać.' },
+    ],
+    searchIntent: [
+      'Fraza z dzielnicą, nie tylko z miastem — „siłownia Ruczaj", „fitness Podgórze". Nikt nie jeździ przez całe miasto na trening, więc zapytania są hiperlokalne.',
+      'Rodzaj zajęć plus miasto — „kickboxing Kraków", „trening personalny Wieliczka" — to zapytania z wyraźnie wyższą intencją niż samo słowo „siłownia".',
+      'Wizytówka Google z aktualnymi godzinami i zdjęciami odpowiada za dużą część kontaktu w tej branży; przy zapytaniach typu „siłownia w pobliżu" mapa jest pierwszym, co widzi klient.',
+    ],
+    faq: [
+      {
+        q: 'Czy da się połączyć stronę z systemem karnetów?',
+        a: 'Zwykle tak. Popularne systemy do obsługi klubów udostępniają możliwość osadzenia grafiku albo zapisów na stronie, część ma też API do sprawdzania dostępności miejsc. Powiedzcie, z czego korzystacie, a sprawdzimy zakres integracji przed wyceną.',
+      },
+      {
+        q: 'Mamy aktywny Instagram i Facebooka. Po co nam strona?',
+        a: 'Social media pokazują atmosferę i to robią dobrze. Nie odpowiadają natomiast na pytanie o cenę karnetu ani o godzinę zajęć — a to są dwie rzeczy, których szuka ktoś decydujący się na klub. Poza tym profil nie pojawia się w Google, gdy ktoś wpisuje „siłownia" z nazwą dzielnicy.',
+      },
+      {
+        q: 'Jak często trzeba aktualizować grafik?',
+        a: 'Tak często, jak się zmienia — i właśnie dlatego musi być edytowalny przez Was, bez naszego udziału. Budujemy to tak, żeby zmiana godziny zajęć zajmowała chwilę w panelu. Nieaktualny grafik szkodzi bardziej niż jego brak.',
+      },
+      {
+        q: 'Czy warto podawać ceny karnetów?',
+        a: 'Tak. To branża, w której klient porównuje dwa–trzy kluby w okolicy i robi to wyłącznie po cenie i grafiku. Brak cennika oznacza wypadnięcie z porównania jeszcze przed pierwszym kontaktem.',
+      },
+    ],
+    posts: [
+      { slug: 'dlaczego-szybka-strona-sprzedaje', title: 'Dlaczego szybka strona sprzedaje' },
+    ],
+    projects: [
+      { slug: 'dziki-gym', name: 'Dziki Gym — Kraków Ruczaj', note: 'Redesign siłowni z ofertą kickboxingu i Krav Magi. Wersja mobilna przeprojektowana od podstaw — to z niej korzystali wszyscy.' },
+    ],
+  },
+
+  /* ──────────────────────────────────────── STOLARZ I PRODUCENT MEBLI */
+  {
+    slug: 'stolarza-i-producenta-mebli',
+    label: 'Stolarze i producenci mebli',
+    forWhom: 'stolarza i producenta mebli',
+    metaTitle: 'Strona dla stolarza i producenta mebli | CtrlZ Studio',
+    description:
+      'Strony dla stolarzy, producentów mebli na wymiar i firm wykończeniowych. Katalog realizacji, materiały, terminy i wycena z rysunku lub wymiarów.',
+    h1: ['Strony internetowe', 'dla stolarza i producenta mebli'],
+    chips: ['Katalog realizacji', 'Zapytanie z rysunkiem', 'Materiały i wykończenia'],
+    lead:
+      'Meble na wymiar kupuje się oczami, ale zamawia dopiero po rozwianiu trzech wątpliwości: ' +
+      'ile to potrwa, ile będzie kosztować i czy wykonawca robił już coś podobnego. ' +
+      'Strona, która pokazuje wyłącznie ładne zdjęcia, obsługuje jedną trzecią tej decyzji.',
+    problems: [
+      {
+        t: 'Realizacje bez opisu, czym właściwie są',
+        d: 'Zdjęcie kuchni bez informacji o materiale, froncie, blacie i czasie realizacji jest ozdobą. Klient nie umie przełożyć go na własne mieszkanie, więc nie pyta.',
+      },
+      {
+        t: 'Brak jakiegokolwiek punktu zaczepienia cenowego',
+        d: 'Przy meblach na wymiar dokładna cena rzeczywiście zależy od projektu — ale „od ilu zaczynamy przy zabudowie kuchennej" da się podać. Bez tego zapytania przychodzą od osób z budżetem z innej ligi.',
+      },
+      {
+        t: 'Formularz bez możliwości załączenia rysunku',
+        d: 'Klient ma zdjęcie pomieszczenia albo projekt od architekta. Jeśli nie może go dołączyć, wysyła maila zamiast formularza — albo nie wysyła nic.',
+      },
+    ],
+    why: [
+      'Ta branża ma najkrótszą drogę od dobrej strony do zapytania, bo produkt jest wizualny, a konkurencja w internecie zaskakująco słaba. Większość warsztatów stolarskich w Małopolsce nie ma strony w ogóle albo ma jedną podstronę z numerem telefonu.',
+      'Katalog realizacji budujemy tak, żeby każda z nich była osobną podstroną z własnym adresem: co to było, z jakiego materiału, jak długo trwało, jakie było wyzwanie. To jednocześnie portfolio i treść, która pozycjonuje się na frazy typu „zabudowa kuchenna na wymiar" z nazwą miejscowości.',
+      'Realizowaliśmy to dla Beskid Stolarstwo z Andrychowa — firmy sprzedającej okna, drzwi, panele i akcesoria, gdzie katalog produktowy musiał współistnieć z prezentacją usług wykończeniowych.',
+    ],
+    musts: [
+      { t: 'Realizacje jako osobne podstrony', d: 'Każda z opisem materiału, zakresu i czasu realizacji. Jedna dobrze opisana zabudowa działa lepiej niż galeria trzydziestu zdjęć bez podpisów.' },
+      { t: 'Podział na typy zleceń', d: 'Kuchnie, szafy wnękowe, meble łazienkowe, schody, wyposażenie lokali. Osobne sekcje z własnymi frazami zamiast wspólnej „Oferty".' },
+      { t: 'Formularz z załącznikiem', d: 'Możliwość dołączenia zdjęcia pomieszczenia, wymiarów albo projektu od architekta. To skraca wycenę o kilka wiadomości.' },
+      { t: 'Widełki albo cena od', d: 'Choćby orientacyjne „zabudowa kuchenna od…". Odsiewa zapytania, których i tak nie przyjmiecie, i buduje wiarygodność.' },
+      { t: 'Materiały i wykończenia', d: 'Płyta, fornir, lite drewno, rodzaje frontów i okuć. Klient, który rozumie różnicę, łatwiej akceptuje wyższą cenę.' },
+      { t: 'Realny czas realizacji', d: 'Termin jest w tej branży argumentem równie mocnym jak cena — zwłaszcza gdy konkurencja mówi wymijająco.' },
+    ],
+    searchIntent: [
+      'Typ mebla plus miejscowość — „meble na wymiar Wadowice", „zabudowa kuchenna Kalwaria" — to zapytania z bardzo wysoką intencją i niską konkurencją poza dużymi miastami.',
+      'Zapytania materiałowe („szafa wnękowa z lustrem", „kuchnia z frontami lakierowanymi") przyciągają osoby na etapie projektowania, czyli tuż przed zamówieniem.',
+      'Wizytówka Google ze zdjęciami ostatnich realizacji jest w stolarce wyjątkowo skuteczna, bo klienci szukają wykonawcy „w pobliżu" i oceniają go po zdjęciach.',
+    ],
+    faq: [
+      {
+        q: 'Nie chcę podawać cen, bo każde zlecenie jest inne. Co zamiast?',
+        a: 'Widełki albo cena od, liczona dla typowego zakresu — na przykład „zabudowa kuchenna od X zł za metr bieżący, w zależności od materiału i okuć". To nie jest zobowiązanie, tylko filtr. Bez niego większość zapytań pochodzi od osób, dla których jesteście za drodzy, i tracicie czas na wyceny bez szans.',
+      },
+      {
+        q: 'Czy warto pokazywać realizacje, skoro każda jest jednorazowa?',
+        a: 'To najmocniejszy element takiej strony. Klient nie kupuje mebla, który widzi na zdjęciu — kupuje pewność, że umiecie zrobić coś podobnego u niego. Dlatego liczy się opis: jaki był problem, jak go rozwiązaliście, ile to trwało.',
+      },
+      {
+        q: 'Czy da się przyjmować wymiary i projekty przez stronę?',
+        a: 'Tak, formularz może przyjmować załączniki — zdjęcia pomieszczenia, wymiary, projekt od architekta. W praktyce skraca to wycenę o kilka wiadomości, bo od razu widzicie, o czym mowa.',
+      },
+      {
+        q: 'Prowadzę mały warsztat. Czy strona nie jest przesadą?',
+        a: 'Przy stolarce jest odwrotnie niż w większości branż: im mniejsza firma, tym większa różnica. Duzi producenci mebli mają strony i wychodzą w wyszukiwarce, a lokalny stolarz często nie istnieje w internecie — mimo że robi lepszą robotę. Wystarczy kilka dobrze opisanych realizacji, żeby to odwrócić.',
+      },
+    ],
+    projects: [
+      { slug: 'beskid-stolarstwo', name: 'Beskid Stolarstwo — Andrychów', note: 'Okna, drzwi, panele i akcesoria — katalog produktowy współistniejący z prezentacją usług wykończeniowych.' },
+    ],
+  },
+
+  /* ───────────────────────────────────────────────── FIRMA PRODUKCYJNA */
+  {
+    slug: 'firmy-produkcyjnej',
+    label: 'Firmy produkcyjne',
+    forWhom: 'firmy produkcyjnej',
+    metaTitle: 'Strona dla firmy produkcyjnej | CtrlZ Studio',
+    description:
+      'Strony dla producentów i podwykonawców przemysłowych. Możliwości techniczne, park maszynowy, certyfikaty i zapytanie ofertowe z dokumentacją w załączniku.',
+    h1: ['Strony internetowe', 'dla firmy produkcyjnej'],
+    chips: ['Możliwości techniczne', 'Zapytanie ofertowe z rysunkiem', 'Certyfikaty i normy'],
+    lead:
+      'Po stronie producenta klientem nie jest konsument, tylko technolog albo kupiec, ' +
+      'który ma na biurku rysunek i szuka kogoś, kto to wykona. Nie interesuje go, ' +
+      'że jesteście firmą z tradycjami — interesuje go tolerancja, materiał i czy przyjmiecie tę serię.',
+    problems: [
+      {
+        t: 'Strona mówi o wartościach zamiast o możliwościach',
+        d: 'Zdjęcie hali i akapit o pasji nie odpowiadają na jedyne pytanie, jakie ma kupiec: czy da się u Was zrobić dokładnie to. Konkretne parametry są w tej branży ważniejsze niż cokolwiek innego.',
+      },
+      {
+        t: 'Brak informacji o parku maszynowym',
+        d: 'Lista maszyn z zakresami obróbki to dla technologa najważniejsza treść na stronie. Jej brak oznacza telefon z pytaniem — albo, częściej, telefon do kogoś innego.',
+      },
+      {
+        t: 'Formularz kontaktowy bez załącznika',
+        d: 'Zapytanie ofertowe zaczyna się od rysunku albo modelu. Formularz z polem „wiadomość" wymusza wysyłkę mailem, co wydłuża drogę i gubi część zapytań.',
+      },
+    ],
+    why: [
+      'Sprzedaż przemysłowa jest długa i wielostopniowa, ale zaczyna się dziś prawie zawsze od wyszukiwarki — także wtedy, gdy kończy się targami i spotkaniem. Strona jest pierwszym filtrem: albo kupiec uzna, że nadajecie się do zapytania, albo zamknie kartę.',
+      'Dlatego strukturę budujemy wokół możliwości technicznych: rodzaje obróbki, obsługiwane materiały, zakresy wymiarowe, wielkości serii, certyfikaty i normy. To brzmi sucho i właśnie o to chodzi — ten klient szuka faktów, nie narracji.',
+      'Wiemy, jak wygląda ta rozmowa, bo prowadziliśmy ją przy Konieczny Konstrukcje — producencie wiat i konstrukcji, gdzie wdrożyliśmy interaktywne modele 3D obracane bezpośrednio w przeglądarce, żeby klient rozumiał konstrukcję, zanim zapyta o wycenę.',
+    ],
+    musts: [
+      { t: 'Możliwości techniczne w liczbach', d: 'Rodzaje obróbki, zakresy wymiarowe, tolerancje, obsługiwane materiały, minimalne i maksymalne serie. To jest najważniejsza podstrona w całym serwisie.' },
+      { t: 'Park maszynowy', d: 'Lista maszyn z parametrami. Dla technologa to dowód, że zlecenie da się u Was wykonać — mocniejszy niż jakiekolwiek zapewnienie.' },
+      { t: 'Zapytanie ofertowe z załącznikiem', d: 'Formularz przyjmujący rysunki, modele i dokumentację, z polem na wielkość serii i oczekiwany termin.' },
+      { t: 'Certyfikaty i normy', d: 'ISO, dopuszczenia branżowe, atesty materiałowe. W części zamówień to warunek wstępny, bez którego nie ma nawet rozmowy.' },
+      { t: 'Realizacje z opisem wyzwania', d: 'Nie nazwy klientów, jeśli obowiązuje poufność — wystarczy branża, problem techniczny i sposób jego rozwiązania.' },
+      { t: 'Wersja angielska, jeśli eksportujecie', d: 'Przy sprzedaży zagranicznej to warunek istnienia w wyszukiwarce partnera. Opisaliśmy to osobno na stronie o stronach wielojęzycznych.' },
+    ],
+    searchIntent: [
+      'Frazy usługowo-techniczne — „gięcie blachy na zamówienie", „obróbka CNC podwykonawstwo" — mają niewielki wolumen, ale bardzo wysoką wartość pojedynczego zapytania.',
+      'Zapytania z nazwą materiału albo technologii przyciągają technologów szukających konkretnej kompetencji, a nie firmy w ogóle.',
+      'Przy eksporcie osobne wersje językowe są warunkiem widoczności — niemiecki kupiec nie wpisze zapytania po polsku.',
+    ],
+    faq: [
+      {
+        q: 'Sprzedajemy przez handlowców i targi. Czy strona coś zmieni?',
+        a: 'Zmieni to, co dzieje się po pierwszym kontakcie. Kupiec, który dostał wizytówkę na targach, sprawdza firmę w internecie przed przekazaniem zapytania dalej — i to, co znajdzie, decyduje, czy trafi ono do Was, czy do konkurenta z lepiej opisanymi możliwościami. Strona nie zastępuje handlowca, tylko przestaje mu przeszkadzać.',
+      },
+      {
+        q: 'Nie możemy podawać nazw klientów. Da się bez tego pokazać doświadczenie?',
+        a: 'Tak i to standard w tej branży. Zamiast nazwy piszemy o branży, problemie technicznym i rozwiązaniu: „producent AGD, seria 20 tysięcy sztuk, tolerancja X". Dla technologa to jest właśnie ta informacja, która się liczy — nazwa nie wnosi nic.',
+      },
+      {
+        q: 'Czy warto pokazywać modele 3D produktów?',
+        a: 'Przy konstrukcjach i produktach o nieoczywistej geometrii — zdecydowanie. Robiliśmy to dla producenta wiat: klient obraca model w przeglądarce i rozumie budowę bez czytania opisu. Przy prostych detalach wystarczą dobre zdjęcia i rysunek techniczny.',
+      },
+      {
+        q: 'Ile treści potrzebuje taka strona?',
+        a: 'Mniej, niż się wydaje, ale gęściej. Kilkanaście podstron opisujących konkretne kompetencje działa lepiej niż pięćdziesiąt ogólników. Kluczowa jest jedna: możliwości techniczne rozpisane na parametry.',
+      },
+    ],
+    projects: [
+      { slug: 'konieczny-konstrukcje', name: 'Konieczny Konstrukcje', note: 'Producent wiat i pergoli premium z interaktywnymi modelami 3D obracanymi bezpośrednio w przeglądarce.' },
+      { slug: 'modeka', name: 'Modeka — platforma B2B', note: 'Producent odzieży motocyklowej: katalog ponad tysiąca produktów na cztery rynki z osobnymi cennikami i mapą dealerów.' },
+    ],
+  },
+
+  /* ──────────────────────────────────────────── RESTAURACJA I GASTRONOMIA */
+  {
+    slug: 'restauracji',
+    label: 'Restauracje i gastronomia',
+    forWhom: 'restauracji',
+    metaTitle: 'Strona dla restauracji i lokalu | CtrlZ Studio',
+    description:
+      'Strony dla restauracji, pizzerii i kawiarni. Menu edytowalne z telefonu, rezerwacja stolika, godziny otwarcia widoczne od razu i dane strukturalne dla Google.',
+    h1: ['Strony internetowe', 'dla restauracji'],
+    chips: ['Menu bez PDF-a', 'Rezerwacja stolika', 'Godziny otwarcia od razu'],
+    lead:
+      'Stronę restauracji ogląda się prawie zawsze w biegu — w samochodzie, na przystanku, ' +
+      'kwadrans przed decyzją, gdzie zjeść. Klient sprawdza trzy rzeczy: co macie, ' +
+      'czy jest otwarte i jak dojechać. Wszystko inne jest dodatkiem.',
+    problems: [
+      {
+        t: 'Menu wrzucone jako PDF albo zdjęcie kartki',
+        d: 'Absolutny numer jeden w tej branży. Na telefonie trzeba je pobrać, powiększać i przewijać na boki. Połowa osób rezygnuje w tym momencie, a Google nie widzi z tego menu ani jednego dania.',
+      },
+      {
+        t: 'Godziny otwarcia nieaktualne albo ukryte w stopce',
+        d: 'Najczęstszy powód irytacji klienta i najłatwiejszy do usunięcia. Godziny powinny być widoczne od razu, z informacją o dniach świątecznych, i zgodne z tym, co pokazuje wizytówka Google.',
+      },
+      {
+        t: 'Brak sposobu na rezerwację poza telefonem',
+        d: 'Duża część rezerwacji powstaje wieczorem, gdy w lokalu jest największy ruch i nikt nie odbiera. Prosty formularz z datą, godziną i liczbą osób przechwytuje te zgłoszenia.',
+      },
+    ],
+    why: [
+      'Gastronomia to jedna z niewielu branż, w której wizytówka Google bywa ważniejsza od samej strony — ale obie muszą mówić to samo. Rozjazd godzin między stroną a mapą jest częstszy, niż się wydaje, i kosztuje realnych klientów.',
+      'Menu traktujemy jako treść strony, nie załącznik. Dzięki temu da się je zmienić z telefonu w trzy minuty, a Google potrafi wyświetlić konkretne dania w wynikach — przy zapytaniach typu „pierogi" z nazwą miejscowości to zauważalna różnica.',
+      'Osobno pilnujemy danych strukturalnych właściwych dla lokali gastronomicznych: rodzaj kuchni, przedział cenowy, godziny, oceny. To one odpowiadają za to, co widać w wynikach jeszcze przed kliknięciem.',
+    ],
+    musts: [
+      { t: 'Menu jako normalna treść', d: 'Z podziałem na kategorie, z cenami i alergenami, edytowalne z telefonu. Zmiana ceny dania nie może wymagać kontaktu z kimkolwiek.' },
+      { t: 'Godziny otwarcia nad zgięciem strony', d: 'Widoczne bez przewijania, z obsługą świąt i dni wolnych, spójne z wizytówką Google.' },
+      { t: 'Rezerwacja stolika', d: 'Formularz z datą, godziną i liczbą osób albo integracja z systemem rezerwacji. Przechwytuje zgłoszenia wtedy, gdy nikt nie odbiera telefonu.' },
+      { t: 'Zdjęcia własnych dań', d: 'Nie zdjęcia stockowe. To jedyna branża, w której klient dosłownie kupuje to, co widzi — a rozjazd między zdjęciem a talerzem kosztuje opinię.' },
+      { t: 'Dane strukturalne dla lokalu', d: 'Kuchnia, przedział cenowy, godziny, menu. Decydują o tym, jak lokal prezentuje się w wynikach i na mapie.' },
+      { t: 'Menu w drugim języku, jeśli macie ruch turystyczny', d: 'W okolicach Krakowa i Wieliczki to realna część klientów. Wystarczy sama karta, nie cały serwis.' },
+    ],
+    searchIntent: [
+      'Zapytania „w pobliżu" i z nazwą miejscowości obsługuje przede wszystkim mapa — dlatego wizytówka Google i spójność danych są tu ważniejsze niż jakiekolwiek treści.',
+      'Rodzaj kuchni plus miejscowość — „pizza Wadowice", „obiady domowe Skawina" — to zapytania z natychmiastową intencją, często sprzed decyzji o wyjściu z domu.',
+      'Menu jako treść strony pozwala trafiać na zapytania o konkretne dania, czego PDF nie umożliwia w ogóle.',
+    ],
+    faq: [
+      {
+        q: 'Mamy Facebooka z aktualnym menu. Czy strona jest potrzebna?',
+        a: 'Facebook obsługuje stałych gości, którzy Was już znają. Nie pojawia się natomiast wysoko przy zapytaniach typu „gdzie zjeść" z nazwą miejscowości, a to jest ruch od osób, które Was jeszcze nie znają — czyli od nowych klientów. Do tego menu w formie postu jest nie do znalezienia po dwóch tygodniach.',
+      },
+      {
+        q: 'Menu zmienia się co tydzień. Kto będzie to aktualizował?',
+        a: 'Wy, z telefonu, w kilka minut. Przy restauracjach to warunek konieczny — strona z nieaktualnym menu jest gorsza niż jej brak. Budujemy panel tak, żeby zmiana ceny albo dodanie dania nie wymagało niczyjej pomocy.',
+      },
+      {
+        q: 'Czy potrzebujemy systemu rezerwacji, czy wystarczy formularz?',
+        a: 'Przy lokalu do kilkunastu stolików formularz z powiadomieniem mailowym zwykle w zupełności wystarcza i jest znacznie tańszy w utrzymaniu. Rozbudowany system z kalendarzem miejsc ma sens przy większej skali albo gdy prowadzicie rezerwacje na wiele godzin naprzód.',
+      },
+      {
+        q: 'Czy warto pokazywać ceny w menu na stronie?',
+        a: 'Tak, i to bez wyjątku. Menu bez cen budzi podejrzenie, że są wysokie, i zmusza do telefonu, którego nikt nie wykona. To jedna z niewielu rzeczy w gastronomii, gdzie nie ma pola do dyskusji.',
+      },
+    ],
+  },
+
+  /* ────────────────────────────────────────────────── KANCELARIA PRAWNA */
+  {
+    slug: 'kancelarii-prawnej',
+    label: 'Kancelarie prawne',
+    forWhom: 'kancelarii prawnej',
+    metaTitle: 'Strona dla kancelarii prawnej | CtrlZ Studio',
+    description:
+      'Strony dla kancelarii adwokackich i radcowskich. Specjalizacje jako osobne podstrony, jasne zasady wynagrodzenia i kontakt zgodny z zasadami etyki zawodowej.',
+    h1: ['Strony internetowe', 'dla kancelarii prawnej'],
+    chips: ['Specjalizacje osobno', 'Zasady wynagrodzenia', 'Bezpieczny kontakt'],
+    lead:
+      'Do prawnika trafia się w kłopocie i pod presją czasu. Klient nie porównuje kancelarii ' +
+      'tygodniami — wybiera spośród dwóch albo trzech, które wyglądają kompetentnie ' +
+      'i piszą o dokładnie tym problemie, który go dotyczy. Strona ma trafić w ten moment.',
+    problems: [
+      {
+        t: 'Jedna podstrona „Zakres usług" z listą dwudziestu dziedzin',
+        d: 'Klient z problemem rozwodowym widzi listę, na której rozwód sąsiaduje z prawem budowlanym i zamówieniami publicznymi. Wniosek: kancelaria robi wszystko, czyli nic konkretnie.',
+      },
+      {
+        t: 'Język pisany do prawnika, nie do klienta',
+        d: 'Osoba w kłopocie nie zna terminologii i nie chce jej poznawać. Opis, który zaczyna się od podstawy prawnej zamiast od sytuacji życiowej, nie zostaje przeczytany do końca.',
+      },
+      {
+        t: 'Zero informacji o zasadach rozliczenia',
+        d: 'Największa obawa klienta indywidualnego to nieprzewidywalny koszt. Nie chodzi o cennik — wystarczy wyjaśnić, jak rozliczacie: stawka godzinowa, ryczałt, czy pierwsza konsultacja jest płatna.',
+      },
+    ],
+    why: [
+      'Prawo jest jedną z branż, w których treść ma większe znaczenie niż projekt graficzny. Klient szuka nie „kancelarii", tylko odpowiedzi na swoje pytanie — i wybiera tego, kto tej odpowiedzi udzielił.',
+      'Dlatego każdą specjalizację budujemy jako osobną podstronę napisaną językiem sytuacji, nie przepisów: co robić, gdy pracodawca nie płaci; jak wygląda rozwód z orzeczeniem o winie; co grozi za wykroczenie. To zarazem najlepsza treść pozycjonująca, jaką ta branża może mieć.',
+      'Pilnujemy przy tym zasad etyki zawodowej — zarówno adwokatów, jak i radców prawnych obowiązują ograniczenia dotyczące informowania o działalności. Strona ma być skuteczna i jednocześnie nie narażać Was na zarzut niedozwolonej reklamy.',
+    ],
+    musts: [
+      { t: 'Specjalizacja = osobna podstrona', d: 'Prawo rodzinne, karne, pracy, gospodarcze — każde z własnym adresem, opisem typowych spraw i wezwaniem do kontaktu. To także osobne wejścia z wyszukiwarki.' },
+      { t: 'Sylwetki prawników', d: 'Imię, nazwisko, numer wpisu na listę, specjalizacja i doświadczenie. W tej branży to nie jest zakładka „O nas", tylko główny dowód kompetencji.' },
+      { t: 'Wyjaśnione zasady wynagrodzenia', d: 'Nie cennik za sprawę, ale sposób rozliczenia: stawka godzinowa, ryczałt, success fee, czy pierwsza konsultacja jest płatna. Zdejmuje największą obawę klienta.' },
+      { t: 'Treści pisane językiem klienta', d: 'Opis sytuacji zamiast podstawy prawnej. Klient wpisuje w Google „co zrobić, gdy", nie nazwę artykułu kodeksu.' },
+      { t: 'Bezpieczny kanał kontaktu', d: 'Formularz z jasną informacją o poufności i przetwarzaniu danych. Przy sprawach wrażliwych to element budowania zaufania, nie formalność.' },
+      { t: 'Zgodność z zasadami etyki zawodowej', d: 'Bez obietnic wyniku, bez rankingów skuteczności, bez porównań z innymi kancelariami. Skuteczna strona nie musi tego robić.' },
+    ],
+    searchIntent: [
+      'Specjalizacja plus miejscowość — „adwokat rozwody Wadowice", „prawnik prawo pracy Kraków" — to zapytania z najwyższą intencją i realną szansą na pierwszą trójkę poza dużym miastem.',
+      'Zapytania problemowe („co zrobić, gdy pracodawca nie wypłaca wynagrodzenia") przyciągają klienta wcześniej, na etapie szukania odpowiedzi, i budują zaufanie zanim zadzwoni.',
+      'Wizytówka Google z adresem kancelarii ma znaczenie, bo część klientów szuka prawnika, do którego może przyjechać osobiście.',
+    ],
+    faq: [
+      {
+        q: 'Czy strona kancelarii nie narusza zakazu reklamy?',
+        a: 'Informowanie o działalności jest dozwolone — ograniczenia dotyczą reklamy nachalnej, obietnic wyniku i porównań z innymi kancelariami. Budujemy strony w tej konwencji: rzeczowy opis specjalizacji, doświadczenia i zasad współpracy. Ostateczna ocena zgodności należy oczywiście do Was, bo to Wy odpowiadacie przed samorządem — dlatego treści zawsze przechodzą Waszą akceptację przed publikacją.',
+      },
+      {
+        q: 'Czy podawać stawki?',
+        a: 'Nie musicie podawać kwot za sprawę, ale warto wyjaśnić sposób rozliczenia i to, czy pierwsza konsultacja jest płatna. Klient indywidualny najbardziej boi się nieprzewidywalnego kosztu; samo wyjaśnienie mechanizmu zdejmuje dużą część tej obawy.',
+      },
+      {
+        q: 'Czy blog prawniczy ma sens?',
+        a: 'To jedna z najskuteczniejszych treści w tej branży, pod warunkiem że opisuje sytuacje, a nie przepisy. Tekst „co zrobić, gdy pracodawca nie płaci" przyciąga dokładnie tę osobę, która potrzebuje prawnika od prawa pracy. Jeden solidny tekst miesięcznie wystarczy.',
+      },
+      {
+        q: 'Obsługujemy klientów z całej Polski. Czy strona lokalna ma sens?',
+        a: 'Ma, bo konkurencja na frazy ogólnopolskie jest ogromna, a na lokalne — nieporównywalnie mniejsza. Zwykle budujemy to dwutorowo: podstrony specjalizacji pod frazy ogólne i treści lokalne pod miasto, w którym macie siedzibę. Ruch zdalny przychodzi z tych pierwszych, a najszybsze efekty dają drugie.',
+      },
+    ],
+  },
+
 ];
 
 export function getIndustry(slug: string): Industry | undefined {

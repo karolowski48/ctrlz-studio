@@ -220,6 +220,8 @@ const { variant = 'full' } = Astro.props;
         document.body.removeChild(ta);
       }
 
+      (window as any).czTrack?.('affiliate_code_copy', { code, affiliate: 'LH.pl', success: ok });
+
       if (hint) hint.textContent = ok ? 'skopiowano ✓' : 'skopiuj ręcznie';
       btn.classList.toggle('is-copied', ok);
       setTimeout(() => {

@@ -1,0 +1,222 @@
+---
+/**
+ * /mapa-strony — mapa strony dla LUDZI (nie mylić z sitemap.xml dla Google).
+ *
+ * Sekcje usług i stron lokalnych są wypisane ręcznie, bo mają narzuconą
+ * kolejność merytoryczną. Blogi i realizacje ciągniemy z `posts.ts`
+ * i `projects.ts`, żeby ta strona nigdy nie rozjechała się z resztą serwisu —
+ * dodajesz wpis albo realizację i pojawia się tu automatycznie.
+ */
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+import { posts } from '../data/posts';
+import { PROJECTS } from '../data/projects';
+import { INDUSTRIES } from '../data/industries';
+
+const uslugi = [
+  ['/uslugi', 'Wszystkie usługi'],
+  ['/strony-internetowe', 'Strony internetowe'],
+  ['/sklepy-internetowe', 'Sklepy internetowe'],
+  ['/pozycjonowanie-seo', 'Pozycjonowanie SEO'],
+  ['/audyt-strony', 'Audyt strony'],
+  ['/bezplatny-audyt', 'Bezpłatny audyt'],
+  ['/audyt-seo', 'Audyt SEO'],
+  ['/audyt-dostepnosci-wcag', 'Audyt dostępności WCAG'],
+  ['/wsparcie-techniczne', 'Wsparcie techniczne'],
+  ['/usuwanie-wirusow-wordpress', 'Usuwanie wirusów z WordPressa'],
+];
+
+const technologie = [
+  ['/strony-internetowe-wordpress', 'Strony na WordPressie'],
+  ['/strony-internetowe-astro-nextjs', 'Strony w Astro i Next.js'],
+  ['/sklepy-internetowe-prestashop', 'Sklepy na PrestaShop'],
+  ['/strony-wielojezyczne-dla-eksporterow', 'Strony wielojęzyczne dla eksporterów'],
+  ['/hosting-dla-strony-internetowej', 'Hosting dla strony'],
+];
+
+const wycena = [
+  ['/kalkulator', 'Kalkulator wyceny'],
+  ['/ile-kosztuje-strona-internetowa', 'Ile kosztuje strona internetowa'],
+  ['/jak-pracujemy', 'Jak pracujemy'],
+];
+
+const lokalne = [
+  ['/tworzenie-stron-internetowych-krakow', 'Kraków i okolice'],
+  ['/tworzenie-stron-internetowych-wieliczka', 'Wieliczka'],
+  ['/tworzenie-stron-internetowych-skawina', 'Skawina'],
+  ['/tworzenie-stron-internetowych-myslenice', 'Myślenice'],
+  ['/tworzenie-stron-internetowych-wadowice', 'Wadowice'],
+  ['/pozycjonowanie-stron-wadowice', 'Pozycjonowanie stron — Wadowice'],
+  ['/tworzenie-stron-internetowych-kalwaria-zebrzydowska', 'Kalwaria Zebrzydowska'],
+  ['/tworzenie-stron-internetowych-sulkowice', 'Sułkowice'],
+  ['/tworzenie-stron-internetowych-andrychow', 'Andrychów'],
+  ['/tworzenie-stron-internetowych-izdebnik', 'Izdebnik'],
+];
+
+const firma = [
+  ['/o-nas', 'O nas'],
+  ['/realizacje', 'Realizacje'],
+  ['/blog', 'Blog'],
+  ['/kontakt', 'Kontakt'],
+  ['/polityka-prywatnosci', 'Polityka prywatności'],
+];
+
+const total =
+  uslugi.length + technologie.length + wycena.length + lokalne.length +
+  firma.length + INDUSTRIES.length + PROJECTS.length + posts.length + 1;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Mapa strony', item: 'https://ctrlzstudio.pl/mapa-strony' },
+  ],
+};
+---
+
+<Layout
+  title="Mapa strony | CtrlZ Studio"
+  description="Pełny spis podstron CtrlZ Studio — usługi, technologie, strony lokalne, branże, realizacje i wszystkie wpisy blogowe w jednym miejscu."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .ms-hero { padding: 150px 0 40px; background: var(--bg-base); position: relative; overflow: hidden; }
+  .ms-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .ms-lead { font-size: 16px; color: rgba(255,255,255,.62); line-height: 1.75; max-width: 640px; font-weight: 300; margin-top: 16px; }
+
+  .ms-section { padding: 0 0 56px; background: var(--bg-base); }
+  .ms-block { margin-top: 48px; }
+  .ms-h2 {
+    font-family: var(--font-display); font-size: 13px; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase; color: #c4b5fd;
+    margin: 0 0 18px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .ms-links { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px 28px; }
+  .ms-links a {
+    font-size: 14.5px; color: rgba(255,255,255,.72); text-decoration: none;
+    line-height: 1.6; padding: 5px 0 5px 18px; position: relative;
+    transition: color .18s;
+  }
+  .ms-links a::before {
+    content: '→'; position: absolute; left: 0; color: rgba(124,107,255,.75);
+    font-size: 12px; transition: transform .18s;
+  }
+  .ms-links a:hover { color: #fff; }
+  .ms-links a:hover::before { transform: translateX(3px); }
+  .ms-meta { font-size: 12.5px; color: rgba(255,255,255,.42); margin-left: 8px; }
+
+  .ms-count {
+    display: inline-block; font-size: 12px; padding: 6px 14px; border-radius: 100px;
+    background: rgba(124,107,255,.1); border: 1px solid rgba(124,107,255,.24);
+    color: #c4b5fd; margin-top: 24px;
+  }
+
+  @media (max-width: 900px) { .ms-links { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) {
+    .ms-inner { padding: 0 24px; }
+    .ms-links { grid-template-columns: 1fr; }
+    .ms-hero { padding: 120px 0 32px; }
+  }
+</style>
+
+<section class="ms-hero">
+  <div class="orb orb-1"></div>
+  <div class="grid-bg"></div>
+  <div class="ms-inner" style="position:relative">
+    <div class="eyebrow" style="margin-bottom:18px">Spis treści serwisu</div>
+    <h1 class="display-xl">Mapa <span class="grad">strony</span></h1>
+    <p class="ms-lead">
+      Wszystko, co jest na ctrlzstudio.pl, w jednym miejscu — usługi, technologie,
+      obszary działania, branże, realizacje i artykuły.
+    </p>
+    <div class="ms-count">{total} podstron</div>
+  </div>
+</section>
+
+<section class="ms-section">
+  <div class="ms-inner">
+
+    <div class="ms-block">
+      <h2 class="ms-h2">Usługi</h2>
+      <div class="ms-links">
+        {uslugi.map(([href, label]) => <a href={href}>{label}</a>)}
+      </div>
+    </div>
+
+    <div class="ms-block">
+      <h2 class="ms-h2">Technologie i hosting</h2>
+      <div class="ms-links">
+        {technologie.map(([href, label]) => <a href={href}>{label}</a>)}
+      </div>
+    </div>
+
+    <div class="ms-block">
+      <h2 class="ms-h2">Wycena i proces</h2>
+      <div class="ms-links">
+        {wycena.map(([href, label]) => <a href={href}>{label}</a>)}
+      </div>
+    </div>
+
+    <div class="ms-block">
+      <h2 class="ms-h2">Obszar działania</h2>
+      <div class="ms-links">
+        {lokalne.map(([href, label]) => <a href={href}>{label}</a>)}
+      </div>
+    </div>
+
+    <div class="ms-block">
+      <h2 class="ms-h2">Strony według branż</h2>
+      <div class="ms-links">
+        <a href="/branze">Wszystkie branże</a>
+        {INDUSTRIES.map((i) => (
+          <a href={`/strony-internetowe-dla-${i.slug}`}>{i.label}</a>
+        ))}
+      </div>
+    </div>
+
+    <div class="ms-block">
+      <h2 class="ms-h2">Realizacje</h2>
+      <div class="ms-links">
+        {PROJECTS.map((p) => (
+          <a href={`/realizacje/${p.slug}`}>{p.name}</a>
+        ))}
+      </div>
+    </div>
+
+    <div class="ms-block">
+      <h2 class="ms-h2">Blog</h2>
+      <div class="ms-links">
+        {posts.map((p) => (
+          <a href={`/blog/${p.slug}`}>{p.title}<span class="ms-meta">· {p.cat}</span></a>
+        ))}
+      </div>
+    </div>
+
+    <div class="ms-block">
+      <h2 class="ms-h2">Firma</h2>
+      <div class="ms-links">
+        {firma.map(([href, label]) => <a href={href}>{label}</a>)}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+</script>
+
+</Layout>

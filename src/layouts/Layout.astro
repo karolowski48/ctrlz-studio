@@ -64,6 +64,37 @@ const FONT_CSS =
     });
     gtag('js', new Date());
     gtag('config', 'G-5LYYREZRZC');
+
+    /* ── ZDARZENIA KONWERSJI ──────────────────────────────────────────
+       Jeden globalny helper + jeden delegowany listener na cały serwis.
+       Celowo NIE wpinamy zdarzeń osobno na 94 podstronach — nowa podstrona
+       ma być automatycznie objęta pomiarem, bez pamiętania o niczym.
+
+       Zdarzenia jadą przez gtag, więc podlegają Consent Mode: do czasu zgody
+       nie zapisują identyfikatorów. Nie omijamy tym CookieYes.
+
+       W panelu GA4 oznacz jako kluczowe (key events):
+         generate_lead · phone_click · affiliate_code_copy
+    ------------------------------------------------------------------ */
+    window.czTrack = function (name, params) {
+      try {
+        gtag('event', name, Object.assign({ page_path: location.pathname }, params || {}));
+      } catch (e) { /* brak GA nie może wywrócić strony */ }
+    };
+
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      var a = t && t.closest ? t.closest('a') : null;
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      if (href.indexOf('tel:') === 0) {
+        window.czTrack('phone_click', { link_url: href });
+      } else if (href.indexOf('mailto:') === 0) {
+        window.czTrack('email_click', { link_url: href });
+      } else if (href.indexOf('lh.pl') !== -1) {
+        window.czTrack('affiliate_click', { link_url: href, affiliate: 'LH.pl' });
+      }
+    }, true);
     (function () {
       var load = function () {
         var s = document.createElement('script');

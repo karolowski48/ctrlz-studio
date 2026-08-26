@@ -187,6 +187,12 @@ import SharedFooter from '../components/SharedFooter.astro';
 }
 .addon:hover { border-color: rgba(124,107,255,.25); background: rgba(124,107,255,.04); }
 .addon.checked { border-color: rgba(124,107,255,.4); background: rgba(124,107,255,.08); }
+/* Krok wygaszony — widoczny, ale bez wpływu na wycenę (Custom / aplikacja). */
+.step-muted .opts,
+.step-muted .size-group { opacity: .34; pointer-events: none; filter: saturate(.4); }
+.step-muted .step-title,
+.step-muted .step-subtitle { opacity: .5; }
+
 .addon.dimmed {
   opacity: .28;
   pointer-events: none;
@@ -241,6 +247,11 @@ textarea.form-input { resize: none; }
   font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
   color: rgba(255,255,255,.68); font-weight: 600; margin-bottom: 8px;
 }
+.result-range {
+  font-family: var(--font-display);
+  font-size: 17px; font-weight: 600; letter-spacing: -.02em;
+  color: rgba(255,255,255,.62); margin-top: 2px;
+}
 .result-price {
   font-family: var(--font-display);
   font-size: 44px; font-weight: 800; letter-spacing: -.05em;
@@ -282,6 +293,7 @@ textarea.form-input { resize: none; }
   .calc-step { padding: 20px; }
   .opts-2, .opts-3, .opts-4 { grid-template-columns: 1fr; }
   .result-price { font-size: 36px; }
+  .result-range { font-size: 15px; }
 }
 </style>
 
@@ -377,20 +389,26 @@ textarea.form-input { resize: none; }
             <div class="opt-price">Ceny standardowe</div>
           </div>
         </label>
+        <label class="opt" id="opt-presta" style="display:none">
+          <input type="radio" name="tech" value="presta">
+          <div class="opt-label">
+            <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+            <div class="opt-name">PrestaShop</div>
+            <div class="opt-desc">Wielojęzyczność, wielowalutowość i grupy cenowe w rdzeniu. Naturalny wybór przy sprzedaży B2B i na kilka rynków.</div>
+            <div class="opt-price">+20% do wyceny</div>
+          </div>
+        </label>
         <label class="opt" id="opt-next">
           <input type="radio" name="tech" value="next">
           <div class="opt-label">
             <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
             <div class="opt-name">Next.js / Astro.js</div>
-            <div class="opt-desc">Maksymalna wydajność, wynik Lighthouse 98+, zaawansowane animacje. Tylko dla LP i stron firmowych.</div>
+            <div class="opt-desc">Maksymalna wydajność, wynik Lighthouse 98+, zaawansowane animacje. Dla landingów, stron firmowych i projektów dedykowanych.</div>
             <div class="opt-price">+60% do wyceny</div>
             <div class="opt-badge">Premium tech</div>
           </div>
         </label>
       </div>
-      <p id="tech-note" style="display:none;font-size:12px;color:rgba(252,165,165,.7);margin-top:12px;padding:10px 14px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.18);border-radius:8px">
-         Next.js / Astro.js niedostępne dla sklepów i aplikacji custom — automatycznie ustawiono WordPress.
-      </p>
     </div>
 
     <!-- ── STEP 4: Size (conditional) ── -->
@@ -570,6 +588,10 @@ textarea.form-input { resize: none; }
     <div class="result-card">
       <div class="result-lbl">Orientacyjna wycena</div>
       <div class="result-price" id="r-price">2 000 zł</div>
+      <!-- r-range: górna granica widełek. Element BYŁ używany w calc(), ale go nie było
+           w HTML — przez to calc() wywalał się w połowie i wiersze podsumowania
+           (Typ / Technologia / Zakres / Dodatki) nigdy się nie aktualizowały. -->
+      <div class="result-range" id="r-range">— 2 400 zł</div>
 
       <div class="result-divider"></div>
 
@@ -1051,7 +1073,9 @@ function getPkgForSlider(idx: number): SemPkg {
 let semMonth = 1;
 
 function fmt(n: number): string {
-  return n > 0 ? n.toLocaleString('pl-PL') + ' zł' : '—';
+  /* toLocaleString('pl-PL') NIE grupuje liczb czterocyfrowych: 8000 obok 10 000.
+     W widełkach wyglądało to niespójnie, więc grupujemy ręcznie. */
+  return n > 0 ? String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' zł' : '—';
 }
 
 function semRender(sliderIdx: number) {
@@ -1143,7 +1167,8 @@ const CUSTOM_BASE = 12000;
 // HELPERS
 // ════════════════════════════════════════════
 function fmt(n: number): string {
-  return n.toLocaleString('pl-PL') + ' zł';
+  /* patrz komentarz przy bliźniaczej funkcji wyżej — spójne grupowanie tysięcy */
+  return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' zł';
 }
 function animVal(el: HTMLElement, val: string) {
   gsap.fromTo(el, {opacity:.3,y:-5}, {opacity:1,y:0,duration:.28,ease:'power2.out'});
@@ -1172,7 +1197,7 @@ function calc() {
     || (state.type === 'firmowa' && FIRMOWA_DATA[firmowaSizeIdx]?.individual === true);
   state.isIndividual = isInd;
 
-  const techMult = state.tech === 'next' ? 1.6 : 1.0;
+  const techMult = state.tech === 'next' ? 1.6 : state.tech === 'presta' ? 1.2 : 1.0;
 
   const low = Math.round(base * techMult / 100) * 100;
   const high  = Math.round(low * 1.25 / 100) * 100;
@@ -1201,7 +1226,8 @@ function calc() {
     landing: 'Landing Page', firmowa: 'Strona firmowa', sklep: 'Sklep internetowy', custom: 'Custom / Aplikacja'
   };
   animVal(document.getElementById('r-type')!,   typeNames[state.type]);
-  animVal(document.getElementById('r-tech')!,   state.tech === 'next' ? 'Next.js / Astro.js' : 'WordPress');
+  const techNames: Record<string,string> = { next: 'Next.js / Astro.js', presta: 'PrestaShop', wp: 'WordPress' };
+  animVal(document.getElementById('r-tech')!,   techNames[state.tech] ?? 'WordPress');
   animVal(document.getElementById('r-size')!,   getSizeLabel());
 
   // Addons
@@ -1222,30 +1248,52 @@ function showSizeGroup(type: ProjectType) {
     const el = document.getElementById(`sg-${t}`)!;
     el.classList.toggle('visible', t === type);
   });
+  /* Przy projekcie dedykowanym liczba podstron nic nie zmienia w wycenie
+     (zawsze wycena indywidualna), więc cały krok wygaszamy zamiast udawać,
+     że suwak na coś wpływa. */
+  document.getElementById('step-3')!.classList.toggle('step-muted', type === 'custom');
   // Update step title
   const titles: Record<string,string> = {
     landing: 'One-page', firmowa: 'Liczba podstron', sklep: 'Liczba podstron', custom: 'Zakres projektu'
   };
-  document.getElementById('size-step-title')!.textContent = type === 'landing'
-    ? 'Format projektu' : 'Liczba podstron';
+  document.getElementById('size-step-title')!.textContent =
+    type === 'landing' ? 'Format projektu' :
+    type === 'custom'  ? 'Zakres projektu'  : 'Liczba podstron';
 }
 
 // ════════════════════════════════════════════
-// TECH STACK LOCK (sklep & custom → WP only)
+// DOSTĘPNOŚĆ TECHNOLOGII
 // ════════════════════════════════════════════
+/**
+ * Zasady:
+ *  - Next.js / Astro: NIEdostępne tylko przy sklepie (tam sensowne są
+ *    WooCommerce i PrestaShop). Przy „Custom / aplikacja" dostępne —
+ *    to najczęstszy przypadek, w którym ktoś realnie tego chce.
+ *  - PrestaShop: widoczny WYŁĄCZNIE przy sklepie internetowym.
+ *    Przy innych typach chowamy opcję zamiast ją wyszarzać, żeby nie
+ *    sugerować wyboru, który nigdy nie ma sensu.
+ */
 function updateTechAvailability(type: ProjectType) {
   const nextOpt   = document.getElementById('opt-next')!;
+  const prestaOpt = document.getElementById('opt-presta')!;
+  const optsTech  = document.getElementById('opts-tech')!;
   const wpInput   = document.querySelector<HTMLInputElement>('input[name="tech"][value="wp"]')!;
-  const techNote  = document.getElementById('tech-note')!;
-  const locked    = type === 'sklep' || type === 'custom';
 
-  nextOpt.classList.toggle('disabled', locked);
-  techNote.style.display = 'none';
+  const isSklep = type === 'sklep';
 
-  if (locked && state.tech === 'next') {
+  /* Przy sklepie pokazujemy WordPress + PrestaShop, przy pozostałych typach
+     WordPress + Next.js. Opcja niedostępna jest CHOWANA, nie wyszarzana —
+     wyszarzenie sugeruje „da się, ale nie tutaj", a tu po prostu nie ma sensu. */
+  nextOpt.style.display   = isSklep ? 'none' : '';
+  prestaOpt.style.display = isSklep ? '' : 'none';
+  optsTech.classList.add('opts-2');
+  optsTech.classList.remove('opts-3');
+
+
+  // Wybrana technologia zniknęła z listy → wracamy na WordPressa
+  if ((isSklep && state.tech === 'next') || (!isSklep && state.tech === 'presta')) {
     wpInput.checked = true;
     state.tech = 'wp';
-    techNote.style.display = 'block';
   }
 }
 
@@ -1328,7 +1376,12 @@ if (slSklep) {
 // Addons (with SEO mutex)
 document.querySelectorAll<HTMLElement>('.addon').forEach(addon => {
   addon.addEventListener('click', () => {
-    if (addon.classList.contains('dimmed')) return;
+    /* Opcja wyszarzona (bo wybrano jej alternatywę) NIE jest zablokowana.
+       Kliknięcie w nią przełącza wybór na nią i wygasza tamtą — użytkownik
+       nie musi najpierw odklikiwać poprzedniej. */
+    if (addon.classList.contains('dimmed')) {
+      addon.classList.remove('dimmed');
+    }
 
     const isChecked = addon.classList.toggle('checked');
     const price     = parseInt(addon.dataset.price || '0');
@@ -1354,7 +1407,7 @@ document.querySelectorAll<HTMLElement>('.addon').forEach(addon => {
     } else {
       state.addonTotal -= price;
       state.addonLabels = state.addonLabels.filter(l => l !== label);
-      // Re-enable mutex partner
+      // Odznaczenie zdejmuje wygaszenie z alternatywy
       if (mutexId) {
         document.getElementById(mutexId)!.classList.remove('dimmed');
       }
@@ -1386,6 +1439,7 @@ document.getElementById('calc-form')!.addEventListener('submit', e => {
   const body    = encodeURIComponent(
     `Imię: ${name}\nEmail: ${email}\nTelefon: ${phone}\nFirma: ${company}\n\nOrientacyjna wycena kalkulatora: ${priceText}\n\n---\nWysłano z kalkulatora wyceny ctrlzstudio.pl`
   );
+  (window as any).czTrack?.('generate_lead', { form_id: 'kalkulator', quote: priceText });
   window.location.href = `mailto:kontakt@ctrlzstudio.pl?subject=${subject}&body=${body}`;
 });
 
@@ -1395,6 +1449,18 @@ document.getElementById('calc-form')!.addEventListener('submit', e => {
 showSizeGroup('landing');
 updateTechAvailability('landing');
 calc();
+
+/* Pierwsza interakcja z kalkulatorem — mierzona raz na wizytę.
+   Pokazuje, ilu ludzi w ogóle go dotyka, a nie tylko ilu wysyła formularz. */
+(function () {
+  let sent = false;
+  const steps = document.querySelector('.calc-steps');
+  steps?.addEventListener('click', () => {
+    if (sent) return;
+    sent = true;
+    (window as any).czTrack?.('calculator_used', {});
+  }, true);
+})();
 
 // Entrance animations
 gsap.fromTo('.calc-hero h1',    {opacity:0,y:28},{opacity:1,y:0,duration:.9,ease:'power3.out',delay:.2});

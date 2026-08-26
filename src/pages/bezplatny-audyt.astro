@@ -98,7 +98,7 @@ const breadcrumbSchema = {
 ---
 
 <Layout
-  title="Bezpłatny audyt strony internetowej — raport w 48 h | CtrlZ Studio"
+  title="Bezpłatny audyt strony — raport w 48 h | CtrlZ Studio"
   description="Sprawdzimy szybkość, SEO, dostępność i zgodność z RODO Twojej strony. Bezpłatny raport z wynikami i trzema najpoważniejszymi problemami w 48 godzin."
 >
 <SharedNav />
@@ -415,6 +415,7 @@ const breadcrumbSchema = {
       `Co uwiera na obecnej stronie:\n${g('problem')}\n\n` +
       `Zgoda na kontakt: tak`
     );
+  (window as any).czTrack?.('generate_lead', { form_id: 'bezplatny-audyt' });
     window.location.href = `mailto:kontakt@ctrlzstudio.pl?subject=${subject}&body=${body}`;
   });
 </script>

@@ -243,6 +243,7 @@ const MAPS = 'https://www.google.com/maps/search/?api=1&query=Dworska+40a,+34-14
       `Imię: ${g('name')}\nFirma: ${g('company')}\nEmail: ${g('email')}\n` +
       `Telefon: ${g('phone')}\nUsługa: ${g('service')}\n\nWiadomość:\n${g('message')}`
     );
+  (window as any).czTrack?.('generate_lead', { form_id: 'kontakt' });
     window.location.href = `mailto:kontakt@ctrlzstudio.pl?subject=${subject}&body=${body}`;
   });
 </script>

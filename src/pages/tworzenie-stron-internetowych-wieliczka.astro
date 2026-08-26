@@ -1,0 +1,454 @@
+---
+/**
+ * /tworzenie-stron-internetowych-wieliczka
+ *
+ * Fraza główna „tworzenie stron internetowych wieliczka" = 40/mies.
+ * To najmocniejsze miasto obwarzanka krakowskiego pod względem wolumenu
+ * i JEDYNE w naszym zasięgu z realnym rynkiem turystycznym.
+ *
+ * KĄT, KTÓREGO NIE MA ŻADNA INNA STRONA LOKALNA:
+ *  - kopalnia soli = ~1,5 mln turystów rocznie, w tym duża część zagranicznych,
+ *    więc noclegi/gastronomia/przewodnicy potrzebują stron WIELOJĘZYCZNYCH
+ *    i rezerwacji online — czego nie potrzebuje firma z Sułkowic;
+ *  - powiat wielicki (Niepołomice, Gdów, Kłaj, Biskupice, Wieliczka) to osobny
+ *    powiat, nie krakowski — inne frazy, inna wizytówka Google.
+ *
+ * NIE POWIELAĆ argumentacji ze Skawiny („konkurencja z Krakowem")
+ * ani z Krakowa („nisze usługowe") — to ma być trzeci, inny temat.
+ */
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+import { priceAnswer, addonsAnswer } from '../data/pricing';
+
+const faq = [
+  {
+    q: 'Ile kosztuje strona internetowa dla firmy z Wieliczki?',
+    a: priceAnswer('Wieliczki'),
+  },
+  {
+    q: 'Co jeszcze można dobrać do projektu?',
+    a: addonsAnswer(),
+  },
+  {
+    q: 'Robicie strony w kilku językach?',
+    a: 'Tak — przy platformie B2B dla Modeki prowadziliśmy równolegle cztery rynki: polski, słowacki, czeski i rumuński, z osobnymi cennikami dla każdego. Standardowo wdrażamy polski plus angielski, często dochodzi niemiecki. Każda wersja językowa dostaje własny adres i znacznik hreflang, żeby Google pokazywało Niemcowi wersję niemiecką, a nie polską przetłumaczoną przez przeglądarkę. Tłumaczenie możesz dostarczyć sam albo zlecić — wtedy doliczamy koszt tłumacza, nie generujemy tekstów automatem.',
+  },
+  {
+    q: 'Prowadzę noclegi obok kopalni. Da się przyjmować rezerwacje bezpośrednio przez stronę?',
+    a: 'Da się — zrobiliśmy dokładnie to dla obiektu Domki 4 Żywioły, gdzie wcześniej wszystko szło telefonicznie. Wdrażamy kalendarz dostępności i płatność online albo zadatek, opcjonalnie z synchronizacją do Booking.com i Airbnb, żeby nie pilnować dwóch kalendarzy ręcznie. Każda rezerwacja przyjęta bezpośrednio to oszczędność prowizji, która przy kilkunastu noclegach miesięcznie potrafi pokryć koszt strony w jeden sezon.',
+  },
+  {
+    q: 'Czy trzeba się spotkać osobiście?',
+    a: 'Nie trzeba, ale przy obiektach noclegowych i gastronomii warto — trudno zaprojektować galerię czegoś, czego się nie widziało. Z Izdebnika do Wieliczki jedziemy około czterdziestu minut i dojazd jest po naszej stronie. Cały proces da się też przeprowadzić zdalnie, jeśli tak Ci wygodniej.',
+  },
+  {
+    q: 'Jak długo trwa zrobienie strony?',
+    a: 'Strona wizytówkowa: 2–4 tygodnie. Strona firmowa z projektem graficznym od zera: 4–8 tygodni. Obiekt noclegowy z rezerwacjami i dwiema wersjami językowymi: 5–9 tygodni. Sklep: 8–16 tygodni. Jeśli celujesz w sezon, najlepiej zacząć zimą — w kwietniu na spokojne wdrożenie jest już późno.',
+  },
+  {
+    q: 'Czy pomożecie mi wyjść wyżej w Google na frazy z Wieliczką?',
+    a: 'Tak, to element każdego projektu. Konfigurujemy dane strukturalne LocalBusiness, zgłaszamy mapę witryny do Search Console, budujemy strukturę podstron pod konkretne usługi i doradzamy przy wizytówce Google. Przy obiektach turystycznych dokładamy dane strukturalne właściwe dla noclegów i restauracji, bo to one odpowiadają za ceny i oceny widoczne bezpośrednio w wynikach.',
+  },
+  {
+    q: 'Czy domena i hosting będą moje?',
+    a: 'Zawsze. Domenę rejestrujemy na Twoje dane, dostępy do hostingu i panelu przekazujemy w komplecie po wdrożeniu. Możesz w każdej chwili przenieść stronę gdzie indziej — to Twoja własność, nie nasza dźwignia.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Tworzenie stron internetowych',
+  provider: { '@id': 'https://ctrlzstudio.pl/#localbusiness' },
+  areaServed: [
+    {
+      '@type': 'City',
+      name: 'Wieliczka',
+      containedInPlace: { '@type': 'AdministrativeArea', name: 'powiat wielicki, województwo małopolskie' },
+    },
+    { '@type': 'City', name: 'Niepołomice' },
+    { '@type': 'City', name: 'Gdów' },
+    { '@type': 'AdministrativeArea', name: 'powiat wielicki' },
+  ],
+  url: 'https://ctrlzstudio.pl/tworzenie-stron-internetowych-wieliczka',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Tworzenie stron internetowych — Wieliczka', item: 'https://ctrlzstudio.pl/tworzenie-stron-internetowych-wieliczka' },
+  ],
+};
+---
+
+<Layout
+  title="Tworzenie stron internetowych Wieliczka | CtrlZ Studio"
+  description="Strony WWW, sklepy i strony wielojęzyczne z rezerwacją online dla firm z Wieliczki, Niepołomic i powiatu wielickiego. Projekt, kodowanie i SEO lokalne."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .loc-hero { padding: 150px 0 64px; position: relative; overflow: hidden; background: var(--bg-base); }
+  .loc-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .loc-h1 { margin-bottom: 20px; }
+  .loc-lead { font-size: 17px; color: rgba(255,255,255,.62); line-height: 1.75; max-width: 720px; font-weight: 300; }
+  .loc-lead strong { color: rgba(255,255,255,.82); font-weight: 500; }
+
+  .loc-quick { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .loc-chip {
+    font-size: 12px; padding: 7px 16px; border-radius: 100px;
+    background: rgba(124,107,255,.1); border: 1px solid rgba(124,107,255,.24);
+    color: #c4b5fd;
+  }
+
+  .loc-section { padding: 72px 0; background: var(--bg-base); }
+  .loc-section-alt { background: var(--bg-elevated, rgba(255,255,255,.02)); }
+  .loc-h2 { margin-bottom: 18px; }
+  .loc-p { font-size: 15px; color: rgba(255,255,255,.62); line-height: 1.8; max-width: 760px; margin-bottom: 16px; }
+  .loc-p strong { color: rgba(255,255,255,.8); font-weight: 500; }
+
+  .loc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 36px; }
+  .loc-card {
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px; padding: 28px; transition: border-color .25s, transform .25s;
+  }
+  .loc-card:hover { border-color: rgba(124,107,255,.26); transform: translateY(-2px); }
+  .loc-card h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 10px; font-weight: 600; }
+  .loc-card p { font-size: 14px; color: rgba(255,255,255,.68); line-height: 1.7; margin: 0; }
+
+  .loc-list { max-width: 760px; margin: 24px 0 0; padding: 0; list-style: none; }
+  .loc-list li {
+    font-size: 15px; color: rgba(255,255,255,.62); line-height: 1.75;
+    padding: 0 0 0 26px; margin-bottom: 12px; position: relative;
+  }
+  .loc-list li::before { content: '→'; position: absolute; left: 0; color: #7c6bff; font-size: 14px; }
+  .loc-list strong { color: rgba(255,255,255,.8); font-weight: 500; }
+
+  .loc-villages { font-size: 14px; color: rgba(255,255,255,.68); line-height: 1.9; max-width: 820px; margin-top: 18px; }
+
+  .wl-sezon {
+    margin-top: 36px; display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
+  }
+  .wl-mies {
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px; padding: 20px;
+  }
+  .wl-mies .m { font-family: var(--font-display); font-size: 13px; color: #c4b5fd; margin-bottom: 8px; font-weight: 600; letter-spacing: .04em; }
+  .wl-mies p { font-size: 13.5px; color: rgba(255,255,255,.66); line-height: 1.65; margin: 0; }
+
+  .wl-proof { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 36px; }
+  .wl-proof-card {
+    display: block; text-decoration: none;
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px; padding: 28px; transition: border-color .25s, transform .25s;
+  }
+  .wl-proof-card:hover { border-color: rgba(124,107,255,.32); transform: translateY(-2px); }
+  .wl-proof-card .pl { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: #c4b5fd; margin-bottom: 10px; }
+  .wl-proof-card h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 10px; font-weight: 600; }
+  .wl-proof-card p { font-size: 14px; color: rgba(255,255,255,.68); line-height: 1.7; margin: 0 0 14px; }
+  .wl-more { font-size: 13px; color: #c4b5fd; }
+
+  @media (max-width: 1024px) { .wl-proof { grid-template-columns: 1fr; } }
+  @media (max-width: 1024px) { .loc-grid { grid-template-columns: 1fr 1fr; } .wl-sezon { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) {
+    .loc-inner { padding: 0 24px; }
+    .loc-grid { grid-template-columns: 1fr; }
+    .wl-sezon { grid-template-columns: 1fr; }
+    .loc-hero { padding: 120px 0 48px; }
+  }
+</style>
+
+<!-- HERO -->
+<section class="loc-hero">
+  <div class="orb orb-1"></div>
+  <div class="grid-bg"></div>
+  <div class="loc-inner" style="position:relative">
+    <div class="eyebrow" style="margin-bottom:18px">Wieliczka i powiat wielicki</div>
+    <h1 class="display-xl loc-h1">
+      Tworzenie stron<br>
+      internetowych<br>
+      <span class="grad">Wieliczka</span>
+    </h1>
+    <p class="loc-lead">
+      Projektowanie i tworzenie stron internetowych dla firm z Wieliczki, Niepołomic, Gdowa
+      i całego powiatu wielickiego. <strong>Robimy też strony wielojęzyczne z rezerwacją online</strong> —
+      bo w mieście, przez które przewija się półtora miliona turystów rocznie,
+      polska wersja to dopiero połowa roboty.
+    </p>
+    <div class="loc-quick">
+      <span class="loc-chip">Strony firmowe</span>
+      <span class="loc-chip">Strony PL / EN / DE</span>
+      <span class="loc-chip">Rezerwacje online</span>
+      <span class="loc-chip">Sklepy internetowe</span>
+      <span class="loc-chip">SEO lokalne</span>
+    </div>
+  </div>
+</section>
+
+<!-- DLACZEGO WIELICZKA JEST INNA -->
+<section class="loc-section">
+  <div class="loc-inner">
+    <h2 class="display-md loc-h2">W Wieliczce Twoim klientem<br>bywa ktoś, kto <span class="grad-v">nie mówi po polsku</span></h2>
+    <p class="loc-p">
+      To jedyne miasto w naszej okolicy, gdzie ruch turystyczny jest realnym czynnikiem
+      biznesowym, a nie ciekawostką. Kopalnia soli przyjmuje około półtora miliona
+      zwiedzających rocznie i <strong>znaczna ich część przyjeżdża spoza Polski.</strong>
+      Ci ludzie szukają noclegu, obiadu, parkingu, pamiątki i przewodnika —
+      wpisując zapytanie po angielsku, rzadziej po niemiecku.
+    </p>
+    <p class="loc-p">
+      Jeśli Twoja strona istnieje wyłącznie po polsku, dla tej grupy jesteś niewidzialny.
+      Nie dlatego, że oferta jest gorsza, tylko dlatego, że Google nie ma czego im pokazać.
+      <strong>Druga wersja językowa to w Wieliczce nie luksus, tylko podstawowe wyposażenie</strong> —
+      i najtańsza rzecz, jaką można dołożyć do istniejącej strony.
+    </p>
+    <p class="loc-p">
+      Druga rzecz specyficzna dla tego rynku to <strong>rezerwacja</strong>. Turysta planuje
+      z wyprzedzeniem i z telefonu. Jeśli jedyną drogą kontaktu jest numer stacjonarny
+      czynny w godzinach biurowych, rezerwacja trafi do obiektu obok albo — częściej —
+      do portalu, który weźmie od Ciebie kilkanaście procent prowizji.
+    </p>
+    <p class="loc-p">
+      I trzecia, o której się zapomina: <strong>Wieliczka leży w powiecie wielickim, nie krakowskim.</strong>
+      To osobne frazy, osobna wizytówka Google i osobna konkurencja. Strona zoptymalizowana
+      „pod Kraków" nie wygra tu niczego.
+    </p>
+  </div>
+</section>
+
+<!-- CO ROBIMY -->
+<section class="loc-section loc-section-alt">
+  <div class="loc-inner">
+    <h2 class="display-md loc-h2">Co robimy dla firm<br>z <span class="grad">Wieliczki</span></h2>
+    <div class="loc-grid">
+      <div class="loc-card">
+        <h3>Strony wielojęzyczne</h3>
+        <p>Polski, angielski, w razie potrzeby niemiecki. Każda wersja pod własnym adresem, ze znacznikami hreflang i osobno zoptymalizowanymi tytułami — nie wtyczka tłumacząca w locie.</p>
+      </div>
+      <div class="loc-card">
+        <h3>Rezerwacje i kalendarz</h3>
+        <p>Dostępność, płatność online albo zadatek, potwierdzenie mailem. Opcjonalnie synchronizacja z Booking.com i Airbnb, żeby nie prowadzić dwóch kalendarzy równolegle.</p>
+      </div>
+      <div class="loc-card">
+        <h3>Strony dla gastronomii</h3>
+        <p>Menu, które da się zaktualizować w trzy minuty z telefonu, godziny otwarcia widoczne od razu i mapa dojazdu. Bez PDF-a, którego nikt nie otworzy na komórce.</p>
+      </div>
+      <div class="loc-card">
+        <h3>Strony firmowe i usługowe</h3>
+        <p>Dla firm, które z turystyką nie mają nic wspólnego — produkcja, budowlanka, usługi dla mieszkańców. Indywidualny projekt, nie szablon podmieniony kolorystycznie.</p>
+      </div>
+      <div class="loc-card">
+        <h3>Sklepy internetowe</h3>
+        <p>WooCommerce, PrestaShop albo rozwiązanie pisane od zera przy nietypowych procesach. Płatności, kurierzy, integracja z magazynem.</p>
+      </div>
+      <div class="loc-card">
+        <h3>SEO lokalne powiatu wielickiego</h3>
+        <p>Optymalizacja pod frazy z Wieliczką i Niepołomicami, dane strukturalne właściwe dla noclegów i restauracji, wizytówka Google i zbieranie opinii.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWODY -->
+<section class="loc-section">
+  <div class="loc-inner">
+    <h2 class="display-md loc-h2">Obie te rzeczy<br>już <span class="grad-v">zrobiliśmy</span></h2>
+    <p class="loc-p">
+      Wersje językowe i rezerwacje online to nie plany na przyszłość, tylko dwa działające
+      wdrożenia, które możesz obejrzeć:
+    </p>
+    <div class="wl-proof">
+      <a class="wl-proof-card" href="/realizacje/modeka">
+        <div class="pl">4 rynki · PL / SK / CZ / RO</div>
+        <h3>Modeka — platforma B2B</h3>
+        <p>
+          Wielojęzyczna platforma dla producenta odzieży motocyklowej, działająca
+          na czterech rynkach jednocześnie — z osobnymi cennikami w PLN, EUR i RON.
+          Nie tłumaczenie w locie, tylko cztery pełnoprawne wersje serwisu.
+        </p>
+        <span class="wl-more">Zobacz realizację →</span>
+      </a>
+      <a class="wl-proof-card" href="/realizacje/domki-4-zywioly">
+        <div class="pl">Rezerwacje 24/7</div>
+        <h3>Domki 4 Żywioły — noclegi</h3>
+        <p>
+          Obiekt noclegowy, w którym rezerwacja szła wcześniej wyłącznie telefonicznie.
+          Wdrożyliśmy kalendarz dostępności dla dwóch domków i automatyczne
+          potwierdzenia — rezerwacja przychodzi także wtedy, gdy nikt nie odbiera.
+        </p>
+        <span class="wl-more">Zobacz realizację →</span>
+      </a>
+      <a class="wl-proof-card" href="/realizacje/biketrade">
+        <div class="pl">B2B · PrestaShop · w realizacji</div>
+        <h3>BikeTrade — sprzedaż hurtowa</h3>
+        <p>
+          Platforma hurtowa na te same cztery rynki, obsługująca dwa magazyny —
+          polski i niemiecki — z synchronizacją stanów z systemu ERP.
+          Projekt w toku, architektura opisana bez danych handlowych klienta.
+        </p>
+        <span class="wl-more">Zobacz realizację →</span>
+      </a>
+    </div>
+    <p class="loc-p" style="margin-top:28px">
+      Jeśli sprzedajesz za granicę, opisaliśmy to szerzej na stronie
+      <a href="/strony-wielojezyczne-dla-eksporterow" style="color:#c4b5fd">strony i sklepy wielojęzyczne dla eksporterów</a>.
+    </p>
+    <p class="loc-p">
+      <strong>To ma znaczenie przy wyborze wykonawcy.</strong> Wersję językową
+      i moduł rezerwacji obiecuje prawie każdy — różnica zaczyna się przy pytaniu,
+      czy ktoś to już utrzymywał po uruchomieniu.
+    </p>
+  </div>
+</section>
+
+<!-- SEZON -->
+<section class="loc-section loc-section-alt">
+  <div class="loc-inner">
+    <h2 class="display-md loc-h2">Kiedy zaczynać, żeby <span class="grad-v">zdążyć na sezon</span></h2>
+    <p class="loc-p">
+      Przy obiektach turystycznych termin ma znaczenie większe niż budżet. Strona uruchomiona
+      w lipcu nie zdąży zebrać pozycji na ten rok — Google potrzebuje kilku miesięcy,
+      żeby zacząć ją realnie pokazywać. Rozkład, który u nas działa:
+    </p>
+    <div class="wl-sezon">
+      <div class="wl-mies">
+        <div class="m">LISTOPAD – STYCZEŃ</div>
+        <p>Najlepszy moment na start. Masz czas na zdjęcia, teksty i tłumaczenie bez pośpiechu, a my na spokojne wdrożenie.</p>
+      </div>
+      <div class="wl-mies">
+        <div class="m">LUTY – MARZEC</div>
+        <p>Strona żyje, indeksuje się i zbiera pierwsze pozycje. Wtedy uzupełniamy wizytówkę Google i prosimy gości o opinie.</p>
+      </div>
+      <div class="wl-mies">
+        <div class="m">KWIECIEŃ – MAJ</div>
+        <p>Ostatni sensowny moment na uruchomienie. Zdąży zadziałać w drugiej połowie sezonu, pierwszej raczej nie.</p>
+      </div>
+      <div class="wl-mies">
+        <div class="m">CZERWIEC – WRZESIEŃ</div>
+        <p>Sezon. Wtedy nie przebudowujemy strony, tylko poprawiamy to, co widać w danych — i zbieramy materiał na kolejny rok.</p>
+      </div>
+    </div>
+    <p class="loc-p" style="margin-top:28px">
+      Jeśli czytasz to w środku sezonu i strona nie działa jak trzeba,
+      zwykle lepiej <strong>naprawić to, co jest, a przebudowę zaplanować na zimę</strong>,
+      niż wywracać wszystko w sierpniu. Powiemy wprost, który wariant ma u Ciebie sens —
+      opisaliśmy tę decyzję szerzej w tekście o tym,
+      <a href="/blog/nowa-strona-czy-przebudowa" style="color:#c4b5fd">czy robić nową stronę, czy przebudować obecną</a>.
+    </p>
+  </div>
+</section>
+
+<!-- JAK PRACUJEMY -->
+<section class="loc-section">
+  <div class="loc-inner">
+    <h2 class="display-md loc-h2">Jak wygląda <span class="grad">współpraca</span></h2>
+    <ul class="loc-list">
+      <li><strong>Rozmowa.</strong> Telefon albo spotkanie na miejscu. Przy obiektach turystycznych pytamy przede wszystkim o to, skąd dziś przychodzą rezerwacje i ile z nich zjada prowizja portali.</li>
+      <li><strong>Wycena.</strong> Konkretna kwota i zakres na piśmie, z osobno wycenioną wersją językową i modułem rezerwacji, żebyś mógł zdecydować, co bierzesz teraz, a co za rok.</li>
+      <li><strong>Projekt graficzny.</strong> Makiety desktop i mobilna. Przy noclegach zaczynamy od galerii i cennika, bo to one decydują o rezerwacji, a nie tekst „o nas".</li>
+      <li><strong>Kodowanie.</strong> Strona pisana pod szybkość — celujemy w wynik powyżej 90 w PageSpeed na telefonie. Turysta ogląda Cię w drodze, na słabym zasięgu.</li>
+      <li><strong>Języki i SEO.</strong> Hreflang, osobne tytuły dla każdej wersji, dane strukturalne, mapa witryny, Search Console, SSL. Domena rejestrowana na Ciebie, dostępy przekazane w komplecie.</li>
+      <li><strong>Po starcie.</strong> Gwarancja na błędy techniczne i ustalona z góry stawka za zmiany — w sezonie zwykle potrzebne szybko i wtedy nie chcesz negocjować ceny.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- OBSZAR -->
+<section class="loc-section loc-section-alt">
+  <div class="loc-inner">
+    <h2 class="display-md loc-h2">Gdzie <span class="grad-v">pracujemy</span></h2>
+    <p class="loc-p">
+      Biuro mamy w Izdebniku w gminie Lanckorona — do Wieliczki jedziemy około czterdziestu minut
+      i dojazd jest po naszej stronie. Obsługujemy cały powiat wielicki i okolice:
+    </p>
+    <p class="loc-villages">
+      Wieliczka · Niepołomice · Gdów · Kłaj · Biskupice · Węgrzce Wielkie · Śledziejowice ·
+      Koźmice Wielkie · Byszyce · Raciborsko · Grabie · Zabawa · Mała Wieś · Podłęże ·
+      Staniątki · Zakrzów · Ochmanów · Brzezie · Świątniki Górne · Siepraw
+    </p>
+    <p class="loc-p" style="margin-top:24px">
+      Działamy też zdalnie w całej Polsce. Przy obiektach noclegowych i gastronomii
+      i tak zwykle przyjeżdżamy raz — trudno zaprojektować galerię czegoś,
+      czego się nie widziało na własne oczy.
+    </p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="loc-section">
+  <div class="loc-inner">
+    <h2 class="display-md loc-h2">Najczęstsze <span class="grad">pytania</span></h2>
+    <div class="faq-list" style="margin-top:32px">
+      {faq.map((f, i) => (
+        <>
+          <div class="faq-divider"></div>
+          <div class={`faq-item${i === 0 ? ' open' : ''}`}>
+            <div class="faq-question"><div class="faq-q-text">{f.q}</div><div class="faq-icon">+</div></div>
+            <div class="faq-body"><div class="faq-answer-wrap"><div class="faq-answer">{f.a}</div></div></div>
+          </div>
+        </>
+      ))}
+      <div class="faq-divider"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="loc-section loc-section-alt">
+  <div class="loc-inner" style="text-align:center">
+    <h2 class="display-md loc-h2">Zróbmy stronę,<br>która <span class="grad">przyjmuje rezerwacje</span></h2>
+    <p class="loc-p" style="margin:0 auto 32px">
+      Napisz albo zadzwoń — pierwsza rozmowa jest bezpłatna i niezobowiązująca.
+      Powiemy wprost, czy potrzebujesz drugiej wersji językowej, czy najpierw czegoś zupełnie innego.
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="/#kontakt" class="btn-primary"><span>Napisz do nas</span></a>
+      <a href="/kalkulator" class="btn-ghost"><span>Policz orientacyjną cenę</span></a>
+    </div>
+    <p class="loc-p" style="margin:28px auto 0;font-size:14px">
+      Zobacz też: <a href="/realizacje" style="color:#c4b5fd">nasze realizacje</a> ·
+      <a href="/strony-internetowe-dla-domkow-i-agroturystyki" style="color:#c4b5fd">strony dla domków i agroturystyki</a> ·
+      <a href="/tworzenie-stron-internetowych-krakow" style="color:#c4b5fd">Kraków i okolice</a> ·
+      <a href="/tworzenie-stron-internetowych-skawina" style="color:#c4b5fd">Skawina</a> ·
+      <a href="/tworzenie-stron-internetowych-myslenice" style="color:#c4b5fd">Myślenice</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question')?.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
+</script>
+
+</Layout>

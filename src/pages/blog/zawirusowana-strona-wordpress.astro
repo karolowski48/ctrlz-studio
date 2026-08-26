@@ -1,0 +1,115 @@
+---
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+---
+<ArticleLayout
+  title="Zawirusowana strona WordPress — jak wygląda odzyskiwanie i ile to trwa"
+  metaTitle="Zawirusowana strona WordPress — odzyskiwanie | CtrlZ Studio"
+  description="Nasza własna historia: 75 tysięcy śmieciowych adresów w Google po ataku. Co dokładnie robiliśmy, ile to trwało i czego nauczyliśmy się po drodze."
+  cat="Technologie"
+  readTime="12 min"
+  date="1 września 2026"
+  glowColor="rgba(248,113,113,.22)"
+>
+
+<p>Większość tekstów o zhakowanym WordPressie pisze ktoś, kto czytał o problemie. Ten piszemy z drugiej strony — <strong>to nasza własna strona została zainfekowana</strong>, a skutki sprzątamy do dziś.</p>
+
+<p>Opisujemy to z liczbami, bo nigdzie nie znaleźliśmy uczciwej odpowiedzi na pytanie, ile takie odzyskiwanie realnie trwa. Wszędzie było „szybko i sprawnie".</p>
+
+<h2>Co się stało</h2>
+
+<p>Wcześniejsza wersja naszej strony stała na WordPressie. Infekcja nie objawiła się awarią ani komunikatem — strona działała normalnie, wyglądała normalnie, a w panelu nie było nic niepokojącego na pierwszy rzut oka.</p>
+
+<p>Problem widać było wyłącznie w jednym miejscu: <strong>w Google.</strong> Zamiast kilkunastu naszych podstron w indeksie zaczęły pojawiać się tysiące adresów, których nikt nie tworzył. Wygenerowane maszynowo, wypchane spamem, podpięte pod naszą domenę.</p>
+
+<div class="art-stat-box">
+  <div><div class="s-num">75 tys.</div><div class="s-label">adresów w szczycie</div></div>
+  <div><div class="s-num">8,5 tys.</div><div class="s-label">po dwóch miesiącach</div></div>
+  <div><div class="s-num">85</div><div class="s-label">poprawnych podstron dziś</div></div>
+</div>
+
+<p>To nie jest sytuacja, w której usuwa się kilka plików i temat się kończy. To domena, która w oczach wyszukiwarki przestała być stroną firmy, a stała się farmą spamu.</p>
+
+<h2>Dlaczego to trwa tak długo</h2>
+
+<p>Tu jest sedno, którego nie mówi się przy sprzedaży usługi „odwirusowanie strony". Atak dzieli się na dwie zupełnie różne rzeczy:</p>
+
+<div class="art-step-card">
+  <div class="sn">01</div>
+  <div><h3>Wyczyszczenie strony — dni</h3><p>Usunięcie złośliwego kodu, wymiana rdzenia, zablokowanie punktu wejścia, zmiana haseł. To jest wykonalne w kilka dni i to właśnie sprzedaje większość firm.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">02</div>
+  <div><h3>Sprzątanie w Google — miesiące</h3><p>Wyszukiwarka ma już w indeksie tysiące adresów. Trzeba je usunąć, a Google robi to we własnym tempie: musi ponownie odwiedzić każdy adres, zobaczyć, że już nie istnieje, i dopiero wtedy go wyrzucić. Przy dziesiątkach tysięcy adresów to praca na kwartały.</p></div>
+</div>
+
+<p><strong>Firma, która obiecuje Wam usunięcie skutków ataku w tydzień, mówi wyłącznie o pierwszym punkcie.</strong> Warto o to dopytać, zanim zapłacicie.</p>
+
+<h2>Co robiliśmy krok po kroku</h2>
+
+<h3>1. Decyzja o technologii</h3>
+
+<p>Mogliśmy wyczyścić WordPressa i zostawić. Zdecydowaliśmy inaczej — przenieśliśmy stronę na Astro, czyli technologię bez bazy danych, bez wtyczek i bez panelu logowania pod znanym adresem.</p>
+
+<p>Powód był prosty: <strong>znika cała kategoria zagrożeń</strong>, która doprowadziła do ataku. Nie ma wtyczki, która się zestarzeje, i nie ma bazy, do której da się coś wstrzyknąć. To nie jest rozwiązanie dla każdego — opisaliśmy, kiedy ma sens, na <a href="/strony-internetowe-astro-nextjs">osobnej stronie</a>.</p>
+
+<h3>2. Uporządkowanie tego, co zostaje</h3>
+
+<p>Nowa strona nie mogła po prostu wystartować i udawać, że nic się nie stało. Trzeba było spisać, które adresy istniały przed atakiem, które są śmieciami, i zbudować mapę przekierowań — żeby to, co miało wartość, przeszło na nowy serwis.</p>
+
+<h3>3. Zgłoszenia w Search Console</h3>
+
+<p>Ta część jest żmudna i nie da się jej przyspieszyć. Śmieciowe adresy trzeba zgłaszać do usunięcia, a potem obserwować, jak indeks powoli się kurczy. Wykres w Search Console spadał tygodniami — z siedemdziesięciu pięciu tysięcy, przez pięćdziesiąt, czterdzieści, dwadzieścia pięć, aż do obecnych ośmiu i pół tysiąca.</p>
+
+<div class="art-tip">
+  <p><strong>Praktyczna obserwacja:</strong> Search Console pokazuje osobno „zindeksowane" i „niezindeksowane". Śmieci po ataku lądują zwykle w tej drugiej grupie — i to jest dobra wiadomość, bo znaczy, że Google już ich nie pokazuje. Ale dopóki tam są, konsumują budżet indeksowania, który mógłby iść na Wasze prawdziwe podstrony.</p>
+</div>
+
+<h3>4. Odbudowa treści</h3>
+
+<p>Równolegle budowaliśmy to, co miało zająć miejsce śmieci: podstrony usługowe, lokalne, branżowe i artykuły. W dwa miesiące liczba poprawnie zindeksowanych podstron urosła z kilkunastu do osiemdziesięciu pięciu.</p>
+
+<p>To jest ta część, o której się nie mówi: <strong>po ataku nie wystarczy posprzątać. Trzeba dać Google powód, żeby wróciło.</strong></p>
+
+<h2>Czego nauczyliśmy się po drodze</h2>
+
+<ul>
+  <li><strong>Atak nie wymaga, żeby ktoś się Wami interesował.</strong> Boty skanują internet automatycznie w poszukiwaniu znanych podatności. Nie trzeba być dużą firmą — wystarczy nie aktualizować.</li>
+  <li><strong>Objawy bywają niewidoczne z panelu.</strong> Nasza strona działała normalnie. Problem widać było wyłącznie w wynikach wyszukiwania.</li>
+  <li><strong>Kopia zapasowa jest bezcenna, ale bywa zainfekowana.</strong> Jeśli infekcja siedziała tam od miesiąca, przywrócenie kopii sprzed tygodnia niczego nie rozwiązuje.</li>
+  <li><strong>Sprawdzajcie site:wasza-domena.pl regularnie.</strong> To pięć sekund i najwcześniejszy sygnał ostrzegawczy, jaki istnieje.</li>
+  <li><strong>Skutki są długoterminowe.</strong> Domena z historią spamu odzyskuje zaufanie wyszukiwarki wolniej. To realny koszt, którego nie widać na fakturze.</li>
+</ul>
+
+<h2>Ile to kosztuje</h2>
+
+<p>Uczciwie: samo wyczyszczenie i uszczelnienie strony to zwykle od kilkuset do dwóch–trzech tysięcy złotych, zależnie od skali. Ale przy dużym ataku prawdziwy koszt jest gdzie indziej.</p>
+
+<p><strong>Prawdziwym kosztem są miesiące obniżonej widoczności</strong> — czyli zapytania, które nie przyszły. Przy firmie żyjącej z ruchu z Google to znacznie więcej niż faktura za usunięcie wirusa.</p>
+
+<p>Dlatego przy naszej stronie decyzja o zmianie technologii była tańsza niż czyszczenie WordPressa i czekanie na kolejny atak.</p>
+
+<h2>Jak tego uniknąć</h2>
+
+<p>Trzy rzeczy załatwiają zdecydowaną większość ryzyka i żadna nie jest skomplikowana:</p>
+
+<ul>
+  <li><strong>Aktualizujcie.</strong> System, motyw i wtyczki. Nie „kiedyś", tylko regularnie — bo prawie każdy atak wykorzystuje lukę załataną wcześniej przez producenta.</li>
+  <li><strong>Mocne hasła i logowanie dwuskładnikowe</strong> dla każdego konta administratora.</li>
+  <li><strong>Kopie zapasowe poza serwerem strony.</strong> Kopia leżąca na tym samym koncie hostingowym co zainfekowana strona jest kopią zainfekowaną.</li>
+</ul>
+
+<p>Do tego jedna rzecz, którą warto sprawdzić dziś: czy Wasza strona nie ujawnia publicznie listy kont administratorów i dokładnej wersji WordPressa. To dwie informacje, od których zaczyna się większość automatycznych ataków — i regularnie znajdujemy je w audytach.</p>
+
+<h2>Podsumowanie</h2>
+
+<p>Zhakowana strona to nie jest problem informatyczny, który kończy się wraz z usunięciem plików. To <strong>kilka miesięcy odbudowy widoczności</strong>, a przy dużej skali ataku także decyzja, czy w ogóle warto zostawać przy tej samej technologii.</p>
+
+<p>Jeśli podejrzewacie infekcję, zacznijcie od tekstu <a href="/blog/jak-sprawdzic-czy-strona-jest-zainfekowana">jak sprawdzić, czy strona jest zainfekowana</a>. Jeśli już wiecie, że macie problem — <a href="/usuwanie-wirusow-wordpress">tak wygląda odwirusowanie</a>.</p>
+
+<fragment slot="cta">
+  <h3>Podejrzewacie, że coś jest nie tak?</h3>
+  <p>Sprawdzimy Waszą stronę bezpłatnie — między innymi to, czy ujawnia dane ułatwiające atak i czy w Google nie ma adresów, których nie tworzyliście.</p>
+  <a href="/bezplatny-audyt" class="btn-primary"><span>Zamów bezpłatny audyt →</span></a>
+</fragment>
+
+</ArticleLayout>

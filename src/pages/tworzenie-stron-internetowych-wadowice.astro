@@ -105,6 +105,22 @@ const breadcrumbSchema = {
   .loc-card h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 10px; font-weight: 600; }
   .loc-card p { font-size: 14px; color: rgba(255,255,255,.68); line-height: 1.7; margin: 0; }
 
+  .loc-real { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; margin-top: 34px; max-width: 900px; }
+  .loc-real-card {
+    display: block; text-decoration: none; padding: 26px;
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 18px; transition: border-color .25s, transform .25s;
+  }
+  .loc-real-card:hover { border-color: rgba(14,165,233,.4); transform: translateY(-3px); }
+  .loc-real-city {
+    display: inline-block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: #7dd3fc; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.28);
+    padding: 4px 11px; border-radius: 100px; margin-bottom: 12px;
+  }
+  .loc-real-card h3 { font-family: var(--font-display); font-size: 17px; color: #fff; margin: 0 0 10px; font-weight: 600; }
+  .loc-real-card p { font-size: 14px; color: rgba(255,255,255,.66); line-height: 1.7; margin: 0 0 14px; }
+  .loc-real-go { font-size: 13px; color: #7dd3fc; font-weight: 500; }
+  @media (max-width: 860px) { .loc-real { grid-template-columns: 1fr; } }
   .loc-list { max-width: 760px; margin: 24px 0 0; padding: 0; list-style: none; }
   .loc-list li {
     font-size: 15px; color: rgba(255,255,255,.62); line-height: 1.75;
@@ -149,6 +165,48 @@ const breadcrumbSchema = {
   </div>
 </section>
 
+<!-- REALIZACJE Z POWIATU -->
+<section class="loc-section">
+  <div class="loc-inner">
+    <h2 class="display-md loc-h2">Firmy z Wadowic i powiatu,<br>dla których <span class="grad">już pracowaliśmy</span></h2>
+    <p class="loc-p">
+      Nie piszemy „obsługujemy powiat wadowicki" na wyrost. Poniżej konkretne projekty —
+      możecie wejść na te strony i sprawdzić, jak działają.
+    </p>
+
+    <div class="loc-real">
+      <a href="/realizacje/wypozyczalnia-wadowice" class="loc-real-card">
+        <div class="loc-real-city">Wadowice</div>
+        <h3>Wypożyczalnia sprzętu budowlanego</h3>
+        <p>Sklep, audyt istniejącej strony, SEO lokalne, Search Console i wizytówka Google. Branża, w której cały popyt zaczyna się od wyszukiwarki.</p>
+        <span class="loc-real-go">Zobacz realizację →</span>
+      </a>
+      <a href="/realizacje/domki-4-zywioly" class="loc-real-card">
+        <div class="loc-real-city">Wadowice</div>
+        <h3>Domki 4 Żywioły</h3>
+        <p>Obiekt na wynajem krótkoterminowy — prezentacja domków, galeria i ścieżka prowadząca gościa do rezerwacji bezpośredniej zamiast przez portal.</p>
+        <span class="loc-real-go">Zobacz realizację →</span>
+      </a>
+      <a href="/realizacje/ayra-jubiler" class="loc-real-card">
+        <div class="loc-real-city">Wadowice</div>
+        <h3>Ayra Jubiler</h3>
+        <p>Od landing page'a prezentującego markę po pełny sklep internetowy. Przykład projektu, który rósł razem z firmą.</p>
+        <span class="loc-real-go">Zobacz realizację →</span>
+      </a>
+      <a href="/realizacje/beskid-stolarstwo" class="loc-real-card">
+        <div class="loc-real-city">Andrychów · powiat wadowicki</div>
+        <h3>Beskid Stolarstwo</h3>
+        <p>Katalog produktowy z zapytaniem o wycenę, dane strukturalne firmy lokalnej i wizytówka Google spięta ze stroną.</p>
+        <span class="loc-real-go">Zobacz realizację →</span>
+      </a>
+    </div>
+
+    <p class="loc-p" style="margin-top:26px">
+      Pełne portfolio jest na stronie <a href="/realizacje" style="color:#0ea5e9">realizacje</a>.
+    </p>
+  </div>
+</section>
+
 <!-- STRONY INTERNETOWE WADOWICE -->
 <section class="loc-section">
   <div class="loc-inner">
@@ -168,6 +226,7 @@ const breadcrumbSchema = {
     <ul class="loc-list">
       <li><a href="/blog/ile-kosztuje-strona-internetowa-wadowice" style="color:#c4b5fd">Ile kosztuje strona internetowa w Wadowicach</a> — widełki, przykładowe wyceny i koszty utrzymania</li>
       <li><a href="/blog/strona-internetowa-dla-firmy-z-wadowic" style="color:#c4b5fd">Co powinna mieć strona firmy z Wadowic</a> — dziewięć elementów, które decydują o zapytaniach</li>
+      <li><a href="/pozycjonowanie-stron-wadowice" style="color:#0ea5e9">Pozycjonowanie stron Wadowice</a> — jak zdobyć widoczność w powiecie i czym różni się to od SEO w Krakowie</li>
       <li><a href="/blog/nowa-strona-czy-przebudowa" style="color:#c4b5fd">Nowa strona czy przebudowa obecnej</a> — kiedy naprawa się opłaca, a kiedy jest wyrzucaniem pieniędzy</li>
     </ul>
     <p class="loc-p">
