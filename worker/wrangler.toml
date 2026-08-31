@@ -1,0 +1,15 @@
+name = "ctrlz-forms"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+
+# Adresy, na które trafiają zgłoszenia, i nadawca.
+# RESEND_API_KEY NIE jest tutaj — to sekret, ustawiany osobno:
+#   npx wrangler secret put RESEND_API_KEY
+[vars]
+MAIL_TO = "kontakt@ctrlzstudio.pl"
+# NADAWCA — do czasu weryfikacji domeny w Resend musi to być adres testowy.
+# Po zmianie statusu domeny ctrlzstudio.pl na "Verified" podmień na:
+#   MAIL_FROM = "CtrlZ Studio <formularz@ctrlzstudio.pl>"
+# i wykonaj `npx wrangler deploy`. Dopiero wtedy zadziała też autoresponder
+# do klientów — adres onboarding@resend.dev wysyła wyłącznie na adres konta.
+MAIL_FROM = "CtrlZ Studio <onboarding@resend.dev>"

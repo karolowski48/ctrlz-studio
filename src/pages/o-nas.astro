@@ -2,6 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'O nas', item: 'https://ctrlzstudio.pl/o-nas' },
+  ],
+};
 ---
 
 <Layout
@@ -948,3 +957,5 @@ document.querySelectorAll<HTMLElement>('.karol-card,.collab-card').forEach(card=
   });
 });
 </script>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />

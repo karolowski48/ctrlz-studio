@@ -271,7 +271,12 @@ const reviewSchema = {
     bestRating: 5,
     worstRating: 1,
   },
-  review: data.reviews.slice(0, 5).map((r) => ({
+  // Wszystkie widoczne opinie, nie tylko pięć. Uwaga: od 2019 Google NIE pokazuje
+  // gwiazdek dla opinii o własnej firmie umieszczonych na własnej stronie
+  // (self-serving reviews dla LocalBusiness/Organization). Schemat trzymamy,
+  // bo pomaga zrozumieć encję, ale gwiazdek w wynikach z tego nie będzie —
+  // te biorą się z wizytówki Google.
+  review: data.reviews.map((r) => ({
     '@type': 'Review',
     author: { '@type': 'Person', name: r.author },
     reviewRating: { '@type': 'Rating', ratingValue: r.rating, bestRating: 5, worstRating: 1 },

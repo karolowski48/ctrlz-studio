@@ -9,6 +9,15 @@ import { PROJECTS } from '../data/projects';
 const projects = PROJECTS;
 
 const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'Astro.js'];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Realizacje', item: 'https://ctrlzstudio.pl/realizacje' },
+  ],
+};
 ---
 
 <Layout title="Realizacje — CtrlZ Studio" description="Portfolio projektów CtrlZ Studio — strony firmowe, sklepy WooCommerce, landing pages, custom solutions.">
@@ -115,6 +124,8 @@ const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'As
 </main>
 
 <SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
 
 </Layout>
 

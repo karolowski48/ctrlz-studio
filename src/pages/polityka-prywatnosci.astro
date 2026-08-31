@@ -4,6 +4,15 @@ import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
 
 const lastUpdated = "1 maja 2026";
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Polityka prywatności', item: 'https://ctrlzstudio.pl/polityka-prywatnosci' },
+  ],
+};
 ---
 
 <Layout
@@ -276,6 +285,7 @@ const lastUpdated = "1 maja 2026";
     <p>Twoje dane osobowe <strong>nie są sprzedawane</strong> ani udostępniane innym podmiotom w celach marketingowych. Dane mogą być przekazywane wyłącznie:</p>
     <ul>
       <li><strong>Dostawcy hostingu i serwera pocztowego</strong> — w ramach infrastruktury technicznej niezbędnej do działania strony i obsługi korespondencji. Dostawcy działają wyłącznie na nasze polecenie i na podstawie umowy powierzenia danych.</li>
+      <li><strong>Dostawcy usługi obsługi formularzy i wysyłki wiadomości</strong> — dane wpisane w formularz kontaktowy są przekazywane do przetworzenia i dostarczenia wiadomości e-mail (Cloudflare, Inc. oraz Resend, Inc.). Podmioty te przetwarzają dane wyłącznie na nasze polecenie, nie przechowują treści zgłoszeń dłużej, niż jest to niezbędne do ich dostarczenia, i nie wykorzystują ich do własnych celów.</li>
       <li><strong>Narzędziom analitycznym</strong> — jeśli wyraziłeś/aś zgodę na pliki cookies analityczne (np. Google Analytics). Dane są anonimizowane lub pseudonimizowane.</li>
       <li><strong>Organom publicznym</strong> — wyłącznie w przypadku, gdy obowiązek przekazania danych wynika z obowiązujących przepisów prawa.</li>
     </ul>
@@ -413,3 +423,5 @@ gsap.fromTo('.pp-hero p',     {opacity:0,y:16},{opacity:1,y:0,duration:.7,ease:'
 gsap.fromTo('.pp-content',    {opacity:0,y:20},{opacity:1,y:0,duration:.8,ease:'power3.out',delay:.3});
 gsap.fromTo('.pp-sidebar',    {opacity:0,x:16},{opacity:1,x:0,duration:.7,ease:'power3.out',delay:.5});
 </script>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />

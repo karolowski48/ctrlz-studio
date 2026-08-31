@@ -2,6 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Kalkulator wyceny', item: 'https://ctrlzstudio.pl/kalkulator' },
+  ],
+};
 ---
 
 <Layout
@@ -550,6 +559,8 @@ textarea.form-input { resize: none; }
         </div>
       </div>
       <form id="calc-form" style="display:flex;flex-direction:column;gap:14px">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
+                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
           <div class="form-field">
             <label class="form-label">Imię i nazwisko *</label>
@@ -1125,6 +1136,7 @@ semRender(1);
 </script>
 
 <script>
+import { submitForm } from '../utils/formSubmit';
 import { initPage } from '../utils/pageInit';
 import gsap from 'gsap';
 initPage();
@@ -1435,12 +1447,12 @@ document.getElementById('calc-form')!.addEventListener('submit', e => {
   const company  = fd.get('company') as string || '';
   const priceText = document.getElementById('r-price')!.textContent || '';
 
-  const subject = encodeURIComponent(`Zapytanie o wycenę — ${name} — ${priceText}`);
-  const body    = encodeURIComponent(
-    `Imię: ${name}\nEmail: ${email}\nTelefon: ${phone}\nFirma: ${company}\n\nOrientacyjna wycena kalkulatora: ${priceText}\n\n---\nWysłano z kalkulatora wyceny ctrlzstudio.pl`
-  );
-  (window as any).czTrack?.('generate_lead', { form_id: 'kalkulator', quote: priceText });
-  window.location.href = `mailto:kontakt@ctrlzstudio.pl?subject=${subject}&body=${body}`;
+  submitForm(form, {
+    formId: 'kalkulator',
+    extra: { quote: priceText },
+    fallbackSubject: `Zapytanie o wycenę — ${name} — ${priceText}`,
+    fallbackBody: `Imię: ${name}\nEmail: ${email}\nTelefon: ${phone}\nFirma: ${company}\n\nOrientacyjna wycena kalkulatora: ${priceText}\n\n---\nWysłano z kalkulatora wyceny ctrlzstudio.pl`,
+  });
 });
 
 // ════════════════════════════════════════════
@@ -1468,3 +1480,5 @@ gsap.fromTo('.calc-hero-sub',   {opacity:0,y:18},{opacity:1,y:0,duration:.7,ease
 gsap.fromTo('.calc-step',       {opacity:0,y:20},{opacity:1,y:0,duration:.6,ease:'power3.out',stagger:.07,delay:.5});
 gsap.fromTo('.calc-result',     {opacity:0,x:20},{opacity:1,x:0,duration:.7,ease:'power3.out',delay:.65});
 </script>
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />

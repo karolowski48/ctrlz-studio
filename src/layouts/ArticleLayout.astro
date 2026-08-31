@@ -17,6 +17,23 @@ interface Props {
 }
 
 const { title, metaTitle, description, cat, readTime, date, glowColor = 'rgba(124,107,255,.25)', slug } = Astro.props;
+
+/* Ścieżka nawigacyjna dla KAŻDEGO wpisu. Wcześniej BreadcrumbList miały tylko
+   podstrony usługowe i lokalne — 36 artykułów i 17 realizacji nie miało go wcale,
+   przez co w GSC widoczna była mniej niż połowa serwisu.
+   Adres bierzemy z Astro.url, żeby nie zależeć od przekazywania propa `slug`
+   (żaden wpis go nie przekazywał). */
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, ''), 'https://ctrlzstudio.pl').href;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://ctrlzstudio.pl/blog' },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
 ---
 
 <Layout title={metaTitle ?? `${title} — Blog CtrlZ Studio`} description={description}>
@@ -507,6 +524,8 @@ const { title, metaTitle, description, cat, readTime, date, glowColor = 'rgba(12
 </main>
 
 <SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
 
 </Layout>
 

@@ -24,6 +24,19 @@ interface Props {
 }
 
 const { title, description, cat, year, tags, result, bgClass, glowClass, glowColor, prevSlug, prevName, nextSlug, nextName, heroImage, heroImageAlt } = Astro.props;
+
+/* Ścieżka nawigacyjna dla każdej realizacji — patrz komentarz w ArticleLayout. */
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, ''), 'https://ctrlzstudio.pl').href;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Realizacje', item: 'https://ctrlzstudio.pl/realizacje' },
+    { '@type': 'ListItem', position: 3, name: title, item: canonical },
+  ],
+};
 ---
 
 <Layout title={`${title} | CtrlZ Studio`} description={description}>
@@ -508,6 +521,8 @@ const { title, description, cat, year, tags, result, bgClass, glowClass, glowCol
 </main>
 
 <SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
 
 </Layout>
 
