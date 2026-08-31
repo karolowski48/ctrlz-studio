@@ -760,6 +760,8 @@ const latestPosts = posts.slice(0, 3);
       <!-- LEFT: full form -->
       <div class="js-reveal">
         <form class="contact-form-wrap" id="contact-form-main">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
+                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
           <div class="cf-row">
             <div class="cf-field">
               <label class="cf-label" for="contact-name">Imię i nazwisko *</label>
@@ -914,6 +916,7 @@ const latestPosts = posts.slice(0, 3);
 </Layout>
 
 <script>
+import { submitForm } from '../utils/formSubmit';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
@@ -1134,12 +1137,10 @@ document.getElementById('contact-form-main')?.addEventListener('submit', (e) => 
   const service = fd.get('service') || '';
   const message = fd.get('message') || '';
 
-  const subject = encodeURIComponent(`Zapytanie ze strony — ${name}`);
-  const body    = encodeURIComponent(
-    `Imię: ${name}\nEmail: ${email}\nTelefon: ${phone}\nUsługa: ${service}\n\nWiadomość:\n${message}`
-  );
-
-  (window as any).czTrack?.('generate_lead', { form_id: 'strona-glowna' });
-  window.location.href = `mailto:kontakt@ctrlzstudio.pl?subject=${subject}&body=${body}`;
+  submitForm(form, {
+    formId: 'strona-glowna',
+    fallbackSubject: `Zapytanie ze strony — ${name}`,
+    fallbackBody: `Imię: ${name}\nEmail: ${email}\nTelefon: ${phone}\nUsługa: ${service}\n\nWiadomość:\n${message}`,
+  });
 });
 </script>

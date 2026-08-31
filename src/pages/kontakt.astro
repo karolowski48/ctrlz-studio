@@ -121,6 +121,8 @@ const MAPS = 'https://www.google.com/maps/search/?api=1&query=Dworska+40a,+34-14
       <div class="kt-panel">
         <h2>Napiszcie, co macie na myśli</h2>
         <form class="kt-form" id="kontakt-form">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
+                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
           <div class="kt-2">
             <div class="kt-field">
               <label for="kt-name">Imię i nazwisko *</label>
@@ -229,6 +231,7 @@ const MAPS = 'https://www.google.com/maps/search/?api=1&query=Dworska+40a,+34-14
 <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
 
 <script>
+  import { submitForm } from '../utils/formSubmit';
   import { initPage } from '../utils/pageInit';
   initPage();
 
@@ -238,13 +241,13 @@ const MAPS = 'https://www.google.com/maps/search/?api=1&query=Dworska+40a,+34-14
     const fd = new FormData(form);
     const g = (k: string) => (fd.get(k) || '').toString();
 
-    const subject = encodeURIComponent(`Zapytanie ze strony — ${g('name')}`);
-    const body = encodeURIComponent(
-      `Imię: ${g('name')}\nFirma: ${g('company')}\nEmail: ${g('email')}\n` +
-      `Telefon: ${g('phone')}\nUsługa: ${g('service')}\n\nWiadomość:\n${g('message')}`
-    );
-  (window as any).czTrack?.('generate_lead', { form_id: 'kontakt' });
-    window.location.href = `mailto:kontakt@ctrlzstudio.pl?subject=${subject}&body=${body}`;
+    submitForm(form, {
+      formId: 'kontakt',
+      fallbackSubject: `Zapytanie ze strony — ${g('name')}`,
+      fallbackBody:
+        `Imię: ${g('name')}\nFirma: ${g('company')}\nEmail: ${g('email')}\n` +
+        `Telefon: ${g('phone')}\nUsługa: ${g('service')}\n\nWiadomość:\n${g('message')}`,
+    });
   });
 </script>
 

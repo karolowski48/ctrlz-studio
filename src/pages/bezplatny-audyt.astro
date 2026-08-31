@@ -299,6 +299,8 @@ const breadcrumbSchema = {
 
     <div class="ba-form-wrap">
       <form class="ba-form" id="audyt-form">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
+                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
         <div>
           <label class="ba-label" for="ba-url">Adres strony</label>
           <input class="ba-input" type="text" name="url" id="ba-url" placeholder="np. mojafirma.pl" required />
@@ -389,6 +391,7 @@ const breadcrumbSchema = {
 <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
 
 <script>
+  import { submitForm } from '../utils/formSubmit';
   import { initPage } from '../utils/pageInit';
   initPage();
 
@@ -409,14 +412,14 @@ const breadcrumbSchema = {
     const fd = new FormData(form);
     const g = (k: string) => (fd.get(k) || '').toString();
 
-    const subject = encodeURIComponent(`Bezpłatny audyt — ${g('url')}`);
-    const body = encodeURIComponent(
-      `Adres strony: ${g('url')}\nEmail: ${g('email')}\nBranża: ${g('branza')}\n\n` +
-      `Co uwiera na obecnej stronie:\n${g('problem')}\n\n` +
-      `Zgoda na kontakt: tak`
-    );
-  (window as any).czTrack?.('generate_lead', { form_id: 'bezplatny-audyt' });
-    window.location.href = `mailto:kontakt@ctrlzstudio.pl?subject=${subject}&body=${body}`;
+    submitForm(form, {
+      formId: 'bezplatny-audyt',
+      fallbackSubject: `Bezpłatny audyt — ${g('url')}`,
+      fallbackBody:
+        `Adres strony: ${g('url')}\nEmail: ${g('email')}\nBranża: ${g('branza')}\n\n` +
+        `Co uwiera na obecnej stronie:\n${g('problem')}\n\n` +
+        `Zgoda na kontakt: tak`,
+    });
   });
 </script>
 
