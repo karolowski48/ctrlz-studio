@@ -97,6 +97,10 @@ const MAPS = 'https://www.google.com/maps/search/?api=1&query=Dworska+40a,+34-14
     .kt-layout { grid-template-columns: 1fr; gap: 28px; }
     .kt-inner { padding: 0 24px; }
     .kt-hero { padding: 120px 0 32px; }
+    /* „Porozmawiajmy" to najdłuższe pojedyncze słowo w serwisie i przy globalnym
+       skalowaniu .display-xl potrafiło dotykać krawędzi ekranu. Na wąskich
+       ekranach nadpisujemy rozmiar własnym, z zapasem — desktop zostaje bez zmian. */
+    .kt-hero h1 { font-size: clamp(28px, 8vw, 40px); }
     .kt-2 { grid-template-columns: 1fr; }
   }
 </style>
