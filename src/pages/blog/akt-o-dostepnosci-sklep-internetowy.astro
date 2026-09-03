@@ -1,0 +1,122 @@
+---
+/**
+ * TEMAT: polska ustawa wdrażająca Europejski Akt o Dostępności (obowiązuje od 28.06.2025).
+ *
+ * ROZGRANICZENIE WOBEC ISTNIEJĄCYCH WPISÓW — pilnować przy edycji:
+ *  - /blog/audyt-dostepnosci-wcag-strony-firmowej  → CO SPRAWDZA audyt, jak go zrobić
+ *  - /blog/wymogi-prawne-strony-firmowej           → RODO, cookies, dane firmy (dostępność = 1 sekcja)
+ *  - TEN WPIS                                      → KOGO ustawa dotyczy, od kiedy, kary, wyłączenia
+ * Nie powielać tu listy kryteriów WCAG ani instrukcji audytu — od tego są tamte dwa.
+ *
+ * UWAGA: to treść o przepisach. Każda liczba i data ma pokrycie w źródłach
+ * (gov.pl, prawo.pl). Nie dopisywać twierdzeń prawnych „z pamięci".
+ */
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+---
+<ArticleLayout
+  title="Akt o dostępności — co musi zmienić sklep internetowy"
+  metaTitle="Akt o dostępności a sklep internetowy | CtrlZ Studio"
+  description="Od 28 czerwca 2025 sklepy internetowe muszą być dostępne dla osób z niepełnosprawnościami. Kogo to dotyczy, kto jest zwolniony i co grozi za brak zgodności."
+  cat="Biznes"
+  readTime="9 min"
+  date="18 września 2026"
+  glowColor="rgba(56,189,248,.22)"
+>
+
+<p>To jeden z tych przepisów, które weszły w życie po cichu i o których większość właścicieli sklepów dowiaduje się przypadkiem. A dotyczy wprost tego, co masz na stronie.</p>
+
+<p><strong>28 czerwca 2025 zaczęła obowiązywać polska ustawa wdrażająca Europejski Akt o Dostępności.</strong> Nakłada ona na część firm obowiązek udostępnienia strony i aplikacji osobom z niepełnosprawnościami — i po raz pierwszy dotyczy nie tylko instytucji publicznych, ale też zwykłego biznesu.</p>
+
+<div class="art-tip">
+  <p><strong>Zanim przeczytasz dalej:</strong> to nie jest porada prawna, tylko wyjaśnienie, o co w tym chodzi z perspektywy osoby, która buduje strony. Przy ocenie własnej sytuacji warto skonsultować się z prawnikiem — zwłaszcza jeśli jesteś blisko progu zwolnienia.</p>
+</div>
+
+<h2>Kogo to dotyczy</h2>
+
+<p>Obowiązek obejmuje przede wszystkim <strong>usługi handlu elektronicznego świadczone konsumentom</strong>. Innymi słowy: sklep internetowy sprzedający osobom prywatnym.</p>
+
+<p>Ustawa nie mówi wyłącznie o sklepach — obejmuje szerszy katalog usług, między innymi bankowość, transport pasażerski, e-booki czy usługi telekomunikacyjne. Ale z perspektywy przeciętnej firmy z Małopolski praktyczne pytanie brzmi po prostu: czy sprzedaję online konsumentom.</p>
+
+<h2>Kto jest zwolniony</h2>
+
+<p>Dwie sytuacje wyłączają obowiązek — i większość małych firm mieści się w co najmniej jednej z nich:</p>
+
+<ul>
+  <li><strong>Sprzedaż wyłącznie B2B.</strong> Jeśli platforma obsługuje tylko firmy, a nie konsumentów, przepis jej nie dotyczy.</li>
+  <li><strong>Status mikroprzedsiębiorcy.</strong> Zwolnienie obejmuje firmy zatrudniające mniej niż 10 osób i o rocznym obrocie nieprzekraczającym równowartości 2 mln euro.</li>
+</ul>
+
+<div class="art-stat-box">
+  <div><div class="s-num">28.06.2025</div><div class="s-label">data wejścia w życie</div></div>
+  <div><div class="s-num">&lt; 10</div><div class="s-label">pracowników — próg mikroprzedsiębiorcy</div></div>
+  <div><div class="s-num">70 000 zł+</div><div class="s-label">maksymalna kara administracyjna</div></div>
+</div>
+
+<p>Warto to sprawdzić rzetelnie, bo <strong>zwolnienie dla mikroprzedsiębiorcy przestaje działać w momencie, w którym firma urośnie.</strong> Sklep, który dziś ma ośmiu pracowników i planuje rozwój, powinien traktować dostępność jako coś, co i tak go czeka — a wtedy taniej jest zrobić to przy okazji zmiany strony niż osobno, pod presją.</p>
+
+<h2>Co konkretnie trzeba zapewnić</h2>
+
+<p>Ustawa jest napisana w kategoriach rezultatu, a nie technologii. Wymaga, żeby informacja była <strong>postrzegalna więcej niż jednym zmysłem, funkcjonalna, zrozumiała i zgodna z technologiami wspomagającymi</strong> — czyli na przykład z czytnikami ekranu.</p>
+
+<p>W praktyce oznacza to punkty, które przy stronie sprowadzają się do konkretów: opisy alternatywne obrazków, wystarczający kontrast tekstu, obsługa całego sklepu z klawiatury, poprawnie opisane pola formularzy, czytelne komunikaty błędów przy składaniu zamówienia.</p>
+
+<p>Standardem odniesienia są <strong>wytyczne WCAG</strong>. Ustawa nie wskazuje sztywno konkretnego poziomu zgodności, ale to WCAG jest punktem odniesienia, którym posługują się wszyscy — od audytorów po organy nadzoru.</p>
+
+<p>Co dokładnie sprawdza się w takim przeglądzie, rozpisaliśmy osobno w tekście o <a href="/blog/audyt-dostepnosci-wcag-strony-firmowej">audycie dostępności strony firmowej</a>.</p>
+
+<h2>Kary i kto tego pilnuje</h2>
+
+<p>Nadzór sprawuje <strong>Prezes PFRON</strong>, a <strong>skargę może złożyć konsument albo organizacja pozarządowa</strong>. To drugie jest istotniejsze, niż się wydaje: organizacje zrzeszające osoby z niepełnosprawnościami prowadzą przeglądy rynku i zgłaszają naruszenia systematycznie, a nie przypadkiem.</p>
+
+<p>Kara administracyjna może sięgnąć <strong>dziesięciokrotności przeciętnego wynagrodzenia</strong> — dziś ponad 70 tysięcy złotych. Dla małego sklepu to kwota, która przekracza koszt kilku przebudów strony.</p>
+
+<h2>Czego ten przepis nie wymaga</h2>
+
+<p>Warto zdjąć z niego kilka rzeczy, które ludzie mu dopisują:</p>
+
+<ul>
+  <li><strong>Nie wymaga przebudowy sklepu od zera.</strong> Większość problemów z dostępnością to kontrast, opisy alternatywne i obsługa klawiatury — poprawki w istniejącym szablonie, nie nowy projekt.</li>
+  <li><strong>Nie wymaga nakładki typu „widget dostępności".</strong> Te wtyczki, które dodają pływającą ikonkę z powiększaniem tekstu, nie czynią strony zgodną. W wielu przypadkach pogarszają obsługę czytnikami ekranu, bo ingerują w strukturę dokumentu.</li>
+  <li><strong>Nie dotyczy stron wizytówkowych bez sprzedaży.</strong> Firma budowlana ze stroną informacyjną nie jest usługą handlu elektronicznego.</li>
+</ul>
+
+<div class="art-tip">
+  <p><strong>Rzecz, o której warto pamiętać:</strong> dostępność opłaca się także poza przepisami. Poprawny kontrast, opisane obrazki i logiczna struktura nagłówków to jednocześnie te same rzeczy, które ułatwiają życie wyszukiwarce. Robiąc jedno, dostajesz drugie przy okazji.</p>
+</div>
+
+<h2>Od czego zacząć</h2>
+
+<p>Jeśli prowadzisz sklep i nie mieścisz się w zwolnieniu, sensowna kolejność wygląda tak:</p>
+
+<div class="art-step-card">
+  <div class="sn">01</div>
+  <div><h3>Ustal, czy przepis Cię dotyczy</h3><p>Sprzedaż konsumencka czy wyłącznie B2B, liczba pracowników, obrót. Przy wątpliwościach — pytanie do prawnika, bo to pięć minut jego czasu, a rozstrzyga całą resztę.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">02</div>
+  <div><h3>Zrób przegląd tego, co masz</h3><p>Kontrast, opisy alternatywne, obsługa klawiatury, formularz zamówienia. Sporą część da się sprawdzić samodzielnie w pół godziny.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">03</div>
+  <div><h3>Napraw to, co blokuje zakup</h3><p>Ścieżka od produktu do złożenia zamówienia jest ważniejsza niż stopka. Jeśli czegoś nie da się kupić bez myszki, to jest pierwszy priorytet.</p></div>
+</div>
+<div class="art-step-card">
+  <div class="sn">04</div>
+  <div><h3>Opisz stan faktyczny</h3><p>Deklaracja dostępności — co działa, czego jeszcze nie naprawiono i jak zgłosić problem. Uczciwy opis jest lepszy niż milczenie.</p></div>
+</div>
+
+<h2>Podsumowanie</h2>
+
+<p>Jeśli prowadzisz mały sklep i zatrudniasz kilka osób, prawdopodobnie mieścisz się w zwolnieniu dla mikroprzedsiębiorcy i nie masz obowiązku nic zmieniać. To dobra wiadomość, ale warto ją traktować jako odroczenie, a nie zwolnienie na zawsze — próg jest niski i przekracza się go razem ze wzrostem firmy.</p>
+
+<p>Jeśli jesteś powyżej progu, to nie jest temat na później. Skarga może wpłynąć od dowolnej osoby, a koszt naprawy rośnie tym bardziej, im dłużej sklep działa na niedostępnym szablonie.</p>
+
+<p>Robimy takie przeglądy — z raportem, listą priorytetów i wyceną napraw. Szczegóły na stronie <a href="/audyt-dostepnosci-wcag">audyt dostępności WCAG</a>. Jak wygląda to w praktyce przy dużym projekcie, widać na przykładzie <a href="/realizacje/twierdze-od-nowa">konferencji dla ZBK w Krakowie</a>, gdzie dostępność była wymogiem od pierwszego dnia.</p>
+
+<fragment slot="cta">
+  <h3>Nie wiesz, czy Twój sklep spełnia wymagania?</h3>
+  <p>Napisz, co sprzedajesz i na czym stoi sklep. Sprawdzimy, czy przepis Cię dotyczy, i powiemy wprost, ile pracy jest do zrobienia — albo że nie ma jej wcale.</p>
+  <a href="/kontakt" class="btn-primary"><span>Zapytaj o przegląd →</span></a>
+</fragment>
+
+</ArticleLayout>

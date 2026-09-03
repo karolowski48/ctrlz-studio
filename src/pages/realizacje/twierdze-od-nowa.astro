@@ -1,0 +1,118 @@
+---
+/**
+ * REALIZACJA — Twierdze: Od-Nowa (Zarząd Budynków Komunalnych w Krakowie)
+ *
+ * Konferencja międzynarodowa w ramach projektu SCT HUB, współfinansowanego
+ * przez European Urban Initiative. Dedykowany motyw WordPress z autorskim
+ * systemem rejestracji i panelem obsługi zgłoszeń.
+ *
+ * DLACZEGO TA REALIZACJA JEST WAŻNA DLA SERWISU:
+ *  - pierwszy klient PUBLICZNY (jednostka miejska) — inna kategoria wiarygodności
+ *    niż firma prywatna, szczególnie przy kolejnych przetargach i zapytaniach
+ *    z sektora instytucjonalnego,
+ *  - drugi twardy dowód na obecność w KRAKOWIE (obok Dziki Gym),
+ *  - najmocniejszy w portfolio przykład dostępności (WCAG) i pracy bez wtyczek.
+ * Dlatego jest podlinkowana ze strony Krakowa i ze strony o WordPressie.
+ */
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+---
+<ProjectLayout
+  title="Twierdze: Od-Nowa — konferencja ZBK Kraków"
+  description="Dedykowany motyw WordPress dla Zarządu Budynków Komunalnych w Krakowie — autorski system rejestracji, panel obsługi zgłoszeń i dwujęzyczność bez drugiej wersji."
+  cat="Strona wydarzenia · WordPress"
+  year="2026"
+  tags={['WordPress','PHP 8','ACF PRO','Custom Theme','BEM','Vanilla JS','WCAG','Sektor publiczny']}
+  result="Pełna niezależność redakcyjna klienta — zero wtyczek"
+  bgClass="pbg-18"
+  glowClass="pg-18"
+  glowColor="rgba(148,163,184,.22)"
+  prevSlug="psgiu"
+  prevName="PSGiU"
+  nextSlug="biketrade"
+  nextName="BikeTrade"
+>
+
+<h2>O projekcie</h2>
+
+<p>Zarząd Budynków Komunalnych w Krakowie organizuje międzynarodową konferencję <strong>„TWIERDZE: OD-NOWA. Dziedzictwo – Społeczność – Turystyka"</strong>, realizowaną w ramach projektu SCT HUB współfinansowanego przez European Urban Initiative. Wydarzenie gromadzi prelegentów z Polski, Chorwacji, Rumunii, Włoch i Niemiec.</p>
+
+<p>Klient miał już stronę poprzedniej edycji, ale w formie, która przy każdej aktualizacji wymagała kontaktu z wykonawcą. Zadanie brzmiało nietypowo: <strong>zachować identyczny wygląd, a pod spodem zbudować strukturę, w której zespół klienta samodzielnie edytuje wszystkie treści.</strong></p>
+
+<div class="proj-results-grid">
+  <div class="proj-result-card"><div class="prc-num">5</div><div class="prc-label">krajów, z których pochodzą prelegenci</div></div>
+  <div class="proj-result-card"><div class="prc-num">0</div><div class="prc-label">wtyczek formularzowych i page builderów</div></div>
+  <div class="proj-result-card"><div class="prc-num">2</div><div class="prc-label">języki treści bez drugiej wersji serwisu</div></div>
+</div>
+
+<h2>Trzy wymagania, które ukształtowały projekt</h2>
+
+<ul>
+  <li><strong>Dwujęzyczność bez dublowania serwisu</strong> — treści miały być prezentowane po ukośniku (PL / EN), bez przełącznika języka i bez drugiego zestawu adresów.</li>
+  <li><strong>Formularz rejestracyjny z logiką warunkową</strong> — inny zestaw zgód dla uczestnika, inny dla prelegenta.</li>
+  <li><strong>Obsługa zgłoszeń po stronie klienta</strong> — przeglądanie, usuwanie wpisów testowych i eksport listy uczestników bez udziału wykonawcy.</li>
+</ul>
+
+<h2>Architektura motywu</h2>
+
+<p>Motyw powstał od zera, bez page buildera. Struktura opiera się na trzech filarach: <strong>szablonach stron</strong> (każda podstrona ma własny plik, a przypisanie szablonu automatycznie odsłania odpowiedni zestaw pól), <strong>template parts</strong> (sekcje wydzielone do osobnych plików, z których składa się nowe podstrony) oraz <strong>polach ACF rejestrowanych w kodzie</strong>.</p>
+
+<div class="proj-highlight">
+  <h3>Konfiguracja pól w repozytorium, nie w panelu</h3>
+  <p>Pola definiuje <code>acf_add_local_field_group()</code>, więc konfiguracja jest wersjonowana razem z motywem i wdraża się automatycznie na każdym środowisku. Zero klikania w panelu przy wdrożeniu, zero rozjazdów między stagingiem a produkcją. Przy projekcie, który będzie wracał co edycję konferencji, to różnica między „wdrażamy motyw" a „odtwarzamy ręcznie ustawienia".</p>
+</div>
+
+<p>Style napisane w metodologii BEM, mobile-first, bez frameworka CSS. Cała warstwa interakcji to czysty JavaScript — motyw nie ładuje ani jednej zewnętrznej biblioteki.</p>
+
+<h2>Autorski system rejestracji</h2>
+
+<p>Zamiast wtyczki formularzowej powstało dedykowane rozwiązanie, bo wymagania wykraczały poza to, co dają gotowe narzędzia:</p>
+
+<ul>
+  <li><strong>Kafelki wyboru rodzaju uczestnictwa</strong> zamiast zwykłych pól radio.</li>
+  <li><strong>Zgoda na wykorzystanie wizerunku</strong> dla prelegentów, rozwijana warunkowo dopiero po wyborze odpowiedniego kafelka.</li>
+  <li><strong>Zgoda RODO jako warunek blokujący</strong> — odpowiedź „Nie" zwraca komunikat i wstrzymuje wysyłkę.</li>
+  <li><strong>Pytania o dostępność</strong> — język oprowadzania, tłumacz migowy, potrzeby uczestnika.</li>
+</ul>
+
+<p>Wszystkie pola opisane są w <strong>jednej strukturze danych</strong>, z której korzysta jednocześnie widok formularza, walidacja serwerowa, treść maila i eksport CSV. Dodanie pola w jednym miejscu propaguje się przez cały system — to ta decyzja, która przesądza, czy przy kolejnej edycji konferencji zmiana zajmie kwadrans, czy dzień.</p>
+
+<p>Zabezpieczenia: nonce, honeypot, pełna sanityzacja i walidacja po stronie serwera. <strong>JavaScript odpowiada wyłącznie za komfort użytkownika — jego wyłączenie nie omija żadnej reguły.</strong></p>
+
+<h2>Panel „Formularze" w kokpicie</h2>
+
+<p>Klient dostał własną zakładkę ze zgłoszeniami — tabelę z datą, danymi zgłaszającego, rodzajem uczestnictwa i instytucją, z rozwijanym podglądem kompletu odpowiedzi. Do tego usuwanie pojedyncze i zbiorcze, do czyszczenia wpisów testowych przed startem, oraz wyszukiwarka filtrująca również eksport.</p>
+
+<div class="proj-highlight">
+  <h3>Eksport, który otwiera się w Excelu bez kombinowania</h3>
+  <p>CSV z separatorem średnika i znacznikiem BOM. Brzmi jak detal, ale to różnica między listą uczestników gotową do wydruku a godziną walki z kreatorem importu i połamanymi polskimi znakami. Przy wydarzeniu, gdzie listę pobiera się na dzień przed konferencją, takie rzeczy decydują o tym, czy narzędzie jest używane.</p>
+</div>
+
+<h2>Dwujęzyczność po ukośniku</h2>
+
+<p>Formularz, agenda i sekcja opisowa prezentują treść w formacie „Polski / English". Strona pozostaje technicznie jednojęzyczna — <strong>bez wtyczki tłumaczeniowej, drugiego zestawu adresów i podwójnego kosztu utrzymania.</strong></p>
+
+<p>Sekcja „O wydarzeniu" dzieli się na dwie kolumny z plakietkami PL i EN, rozdzielone cienką linią; przy braku wersji angielskiej układ automatycznie wraca do jednej kolumny. To rozwiązanie świadomie inne niż przy <a href="/realizacje/modeka">platformie B2B dla Modeki</a>, gdzie każdy rynek musiał mieć własne adresy i własne SEO — tutaj strona żyje kilka miesięcy wokół jednego wydarzenia, więc pełna wielojęzyczność byłaby kosztem bez pokrycia.</p>
+
+<h2>Import treści jednym kliknięciem</h2>
+
+<p>Agenda konferencji to kilkanaście punktów programu, każdy z listą prelegentów i afiliacjami — w dwóch językach. Zamiast ręcznego przepisywania z dokumentów przygotowaliśmy import: przycisk w metaboksie wypełnia komplet pól treścią z materiałów klienta. Po imporcie wszystko pozostaje normalnie edytowalne.</p>
+
+<h2>Dostępność</h2>
+
+<p>Semantyczna struktura, obsługa klawiatury z widoczną obwódką fokusa, skip link, opisy dla czytników ekranu, kontrast zgodny z WCAG. Wszystkie animacje respektują ustawienie <code>prefers-reduced-motion</code>.</p>
+
+<p>Przy tym projekcie dostępność miała dodatkowy ciężar: <strong>sam formularz pyta o tłumacza migowego i potrzeby uczestników</strong>. Trudno prowadzić konferencję o dostępności dziedzictwa na stronie, której nie da się obsłużyć z klawiatury. Więcej o tym, jak podchodzimy do takich audytów, na stronie <a href="/audyt-dostepnosci-wcag">audyt dostępności WCAG</a>.</p>
+
+<h2>Efekt</h2>
+
+<p><strong>Pełna niezależność redakcyjna.</strong> Każdy element — od nagłówka hero, przez agendę i sylwetki prelegentów, po dane w stopce i treść maili potwierdzających — jest edytowalny z panelu. Klient nie potrzebuje wykonawcy do aktualizacji treści.</p>
+
+<p><strong>Lekki front.</strong> Brak page buildera, brak zewnętrznych bibliotek JS, wyłączone zbędne komponenty WordPressa: blog, komentarze, kanały RSS i XML-RPC. Motyw robi dokładnie to, czego wymaga wydarzenie, i nic ponadto.</p>
+
+<p><strong>Gotowość na kolejne edycje.</strong> „Taka sama strona jak poprzednio" okazała się dobrym punktem wyjścia do czegoś znacznie lepszego. Wygląd został odtworzony, ale pod nim stanął system, na którym może ruszyć każda następna edycja konferencji — z nową treścią wprowadzoną przez zespół organizatora.</p>
+
+<p>Strona dostępna pod adresem <a href="https://www.scthub.grupamontownia.pl" target="_blank" rel="noopener">scthub.grupamontownia.pl</a></p>
+
+<p>Realizacja dla jednostki miejskiej z Krakowa — o pracy z klientami z miasta i okolic piszemy na stronie <a href="/tworzenie-stron-internetowych-krakow">tworzenie stron internetowych Kraków</a>. Jak podchodzimy do dedykowanych motywów: <a href="/strony-internetowe-wordpress">strony internetowe na WordPressie</a>.</p>
+
+</ProjectLayout>
