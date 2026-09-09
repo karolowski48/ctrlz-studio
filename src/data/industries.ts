@@ -242,6 +242,9 @@ export const INDUSTRIES: Industry[] = [
         a: 'Zwykle tak, i to szybciej niż w dużym mieście, bo konkurencja w wynikach lokalnych jest znacznie mniejsza. W miejscowości, gdzie żaden gabinet nie ma porządnej strony i opisanych zabiegów, pierwsza pozycja w Google jest realnie do zdobycia w kilka miesięcy.',
       },
     ],
+    projects: [
+      { slug: 'magdent', name: 'MagDent — Kraków i Wieliczka', note: 'Dwa gabinety stomatologiczne na jednej stronie one page, pisanej w czystym HTML i CSS, wraz z przeniesieniem hostingu, domeny i poczty bez przerwy w działaniu.' },
+    ],
   },
 
   /* ──────────────────────────────────────────── DOMKI I AGROTURYSTYKA */

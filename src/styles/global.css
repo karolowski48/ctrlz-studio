@@ -1247,9 +1247,17 @@ body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width:54px
 .pbg-16 { background:linear-gradient(145deg,#1a0515,#3d0a2e,#0e0208); }
 .pg-16  { width:155px;height:155px;background:rgba(236,72,153,.45);top:14px;right:20px; }
 
+/* Lunéa — płaszcze premium (ciepły beż, kamel) */
+.pbg-19 { background:linear-gradient(145deg,#140f0b,#3a2a1e,#0d0906); }
+.pg-19  { width:155px;height:155px;background:rgba(212,175,155,.42);top:14px;right:20px; }
+
 /* Twierdze: Od-Nowa — ZBK Kraków (kamień, mur) */
 .pbg-18 { background:linear-gradient(145deg,#0b0d12,#1e2635,#080a0e); }
 .pg-18  { width:155px;height:155px;background:rgba(148,163,184,.38);top:14px;right:20px; }
+
+/* MagDent — gabinety stomatologiczne (chłodny turkus, czystość) */
+.pbg-20 { background:linear-gradient(145deg,#04100f,#0b2e2c,#020a09); }
+.pg-20  { width:155px;height:155px;background:rgba(45,190,190,.40);top:14px;right:20px; }
 
 /* Dziki Gym */
 .pbg-17 { background:linear-gradient(145deg,#0a0505,#280a0a,#0e0202); }

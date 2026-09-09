@@ -1,0 +1,126 @@
+---
+/**
+ * REALIZACJA — MagDent, gabinety stomatologiczne (Kraków-Łagiewniki + Wieliczka Trąbki).
+ *
+ * Wartość SEO tej strony — to jest najlepiej ulokowana realizacja w całym portfolio:
+ *  - JEDYNY case medyczny → wchodzi jako pierwszy projekt na /strony-internetowe-dla-gabinetu-medycznego,
+ *    która dotąd nie miała ani jednej realizacji,
+ *  - dwie lokalizacje: KRAKÓW i WIELICZKA — czyli dokładnie te dwie landing page'y,
+ *    które budowaliśmy bez mocnego dowodu miejskiego. Ta realizacja je domyka,
+ *  - jedyny projekt „statyczny HTML/CSS" → naturalny dowód pod wątek wydajności
+ *    i pod argument „nie każda strona musi być na WordPressie",
+ *  - jedyny case MIGRACYJNY (hosting + domena + poczta) → osobna, sprzedawalna usługa,
+ *    której nie pokazywaliśmy nigdzie w portfolio.
+ *
+ * ROZGRANICZENIE WOBEC OLD GOLD GARAGE (też one page):
+ *  - Old Gold Garage → one page na WordPressie z niestandardową funkcją (dźwięk silnika),
+ *  - MagDent       → one page BEZ CMS-a, argument brzmi „mniej technologii, nie więcej".
+ * Nie powielać argumentów między tymi dwiema stronami.
+ *
+ * UWAGA: klient przyjmuje w ramach NFZ i prywatnie. Nie obiecywać efektów leczenia
+ * ani nie wchodzić w treści medyczne — reklama usług medycznych jest w PL ograniczona.
+ */
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+---
+<ProjectLayout
+  title="MagDent — gabinety stomatologiczne w Krakowie i Wieliczce"
+  description="Nowa strona one page dla dwóch gabinetów stomatologicznych MagDent, pisana w czystym HTML i CSS, wraz z przeniesieniem hostingu, domeny i poczty bez przerwy w działaniu."
+  cat="Strona firmowa · HTML/CSS · Migracja"
+  year="2026"
+  tags={['HTML','CSS','One Page','Strona statyczna','Migracja hostingu','Przeniesienie domeny','Poczta e-mail','Core Web Vitals','Stomatologia']}
+  result="Zero przerwy w działaniu poczty i strony podczas migracji"
+  bgClass="pbg-20"
+  glowClass="pg-20"
+  glowColor="rgba(45,190,190,.22)"
+  prevSlug="twierdze-od-nowa"
+  prevName="Twierdze: Od-Nowa"
+  nextSlug="biketrade"
+  nextName="BikeTrade"
+>
+
+<h2>O projekcie</h2>
+
+<p>MagDent prowadzi dwa gabinety stomatologiczne: jeden w <strong>Krakowie na Łagiewnikach, przy ulicy Hoffmanowej</strong>, drugi w <strong>Trąbkach pod Wieliczką</strong>. Zespół przyjmuje pacjentów zarówno w ramach NFZ, jak i prywatnie, w zakresie stomatologii zachowawczej, protetyki, chirurgii i stomatologii dziecięcej.</p>
+
+<p>Zgłoszenie miało dwie warstwy, które w praktyce często idą w parze, choć klientom wydają się osobnymi sprawami. Pierwsza: <strong>strona przestała odpowiadać temu, jak gabinet dziś wygląda i działa.</strong> Druga, mniej widoczna: <strong>całe zaplecze techniczne — hosting, domena i poczta — siedziało u dostawcy, z którego trzeba było zejść.</strong></p>
+
+<div class="proj-results-grid">
+  <div class="proj-result-card"><div class="prc-num">2</div><div class="prc-label">gabinety na jednej stronie — Kraków i Wieliczka</div></div>
+  <div class="proj-result-card"><div class="prc-num">0</div><div class="prc-label">minut przerwy w odbieraniu poczty przy migracji</div></div>
+  <div class="proj-result-card"><div class="prc-num">0</div><div class="prc-label">wtyczek, bazy danych i panelu do aktualizowania</div></div>
+</div>
+
+<h2>Migracja: hosting, domena i poczta</h2>
+
+<p>Przenosiny strony to zwykle najprostsza część takiego zlecenia. Pliki można skopiować w dowolnym momencie, a jeśli coś pójdzie nie tak, przez godzinę nie działa witryna — nieprzyjemne, ale odwracalne.</p>
+
+<p><strong>Poczta jest zupełnie inną kategorią ryzyka.</strong> W gabinecie e-mail to kanał, którym idą potwierdzenia wizyt, dokumentacja i korespondencja z pacjentami. Wiadomość, która w trakcie źle poprowadzonej migracji trafi na stary, wyłączony już serwer, nie odłoży się nigdzie — po prostu przestanie istnieć, często bez powiadomienia dla nadawcy.</p>
+
+<div class="proj-highlight">
+  <h3>Dlaczego kolejność ma tu większe znaczenie niż narzędzia</h3>
+  <p>Ryzyko w migracji poczty nie bierze się z trudności technicznej, tylko z okna czasowego. Między zmianą wpisów DNS a ich rozejściem się po świecie mija do kilkudziesięciu godzin, w czasie których część nadawców kieruje wiadomości pod stary adres, a część pod nowy. Jeśli stara skrzynka zostanie w tym momencie skasowana, ten pierwszy ruch przepada.</p>
+</div>
+
+<p>Dlatego pracowaliśmy w kolejności, która wygląda na nadmiarową, a jest po prostu bezpieczna:</p>
+
+<ul>
+  <li><strong>Najpierw skrzynki po nowej stronie, dopiero potem DNS</strong> — konta pocztowe o tych samych adresach powstały i zostały przetestowane, zanim cokolwiek zmieniło się w konfiguracji domeny.</li>
+  <li><strong>Przeniesienie zawartości skrzynek</strong> — dotychczasowa korespondencja i struktura folderów zostały skopiowane na nowy serwer, żeby zespół nie stracił dostępu do historii.</li>
+  <li><strong>Skrócenie czasu życia wpisów DNS przed zmianą</strong> — dzięki temu przełączenie rozchodzi się w minutach zamiast w godzinach.</li>
+  <li><strong>Stary serwer utrzymany w gotowości przez okres przejściowy</strong> — wiadomości, które mimo wszystko trafiły pod stary adres, były widoczne i zostały odebrane.</li>
+  <li><strong>Konfiguracja SPF, DKIM i DMARC na nowym hostingu</strong> — bez tego poczta z nowego serwera potrafi lądować w spamie u odbiorców, a to problem, który ujawnia się dopiero po tygodniach.</li>
+</ul>
+
+<p>Domena została przeniesiona równolegle, z zachowaniem ciągłości delegacji. <strong>Z perspektywy gabinetu cała operacja przebiegła bez jednego dnia, w którym coś nie działa.</strong></p>
+
+<h2>Nowa strona: one page bez CMS-a</h2>
+
+<p>Przy nowej stronie padło pytanie, które przy gabinecie warto zadać uczciwie: <strong>ile treści ta strona będzie realnie zmieniać w ciągu roku?</strong></p>
+
+<p>Odpowiedź brzmiała: prawie żadnych. Adresy dwóch gabinetów, godziny przyjęć, zakres usług i numery telefonów to informacje, które w stomatologii są stabilne przez lata. Przy takim zakresie system zarządzania treścią nie jest ułatwieniem, tylko dodatkową powierzchnią do utrzymywania — aktualizacje, wtyczki, kopie zapasowe i ryzyko włamania w zamian za funkcję, z której nikt nie korzysta.</p>
+
+<p>Dlatego strona powstała jako <strong>statyczny one page w czystym HTML i CSS</strong>, bez bazy danych, bez systemu zarządzania treścią i bez frameworka. Jedna strona z sekcjami: start, oferta, gabinety, kontakt — z nawigacją przewijającą do właściwego miejsca zamiast przeładowywać kolejne adresy.</p>
+
+<div class="proj-highlight">
+  <h3>Co statyczna strona daje gabinetowi w praktyce</h3>
+  <p>Nie ma bazy danych, więc nie ma jej czym zaatakować. Nie ma wtyczek, więc nie ma czego aktualizować ani co może się ze sobą pokłócić po cichej aktualizacji. Nie ma warstwy generującej stronę przy każdym wejściu, więc serwer odsyła gotowy plik — a to najszybsze, co da się zrobić w internecie. Roczny koszt utrzymania spada do samego hostingu i domeny.</p>
+</div>
+
+<p>Ma to jedną konsekwencję, którą trzeba postawić jasno, bo inaczej byłaby to sprzedaż połowy prawdy: <strong>klient nie edytuje treści samodzielnie z panelu.</strong> Zmiana godzin przyjęć czy dopisanie usługi to zgłoszenie do nas. Przy stronie, która zmienia się dwa razy w roku, jest to rozwiązanie tańsze i spokojniejsze niż utrzymywanie całego CMS-a dla dwóch edycji rocznie. Przy stronie z blogiem albo cennikiem zmienianym co miesiąc byłoby dokładnie odwrotnie — i wtedy proponujemy <a href="/strony-internetowe-wordpress">WordPressa</a>.</p>
+
+<h2>Dwie lokalizacje na jednej stronie</h2>
+
+<p>Gabinet z dwiema placówkami ma na stronie problem, którego nie ma gabinet z jedną: <strong>pacjent musi w kilka sekund rozpoznać, która z nich jest jego.</strong> Jeśli tego nie rozstrzygnie, dzwoni pod zły numer albo przyjeżdża pod zły adres — i za każdym razem kosztuje to czas rejestracji.</p>
+
+<ul>
+  <li>obie placówki przedstawione równolegle, jako dwie równorzędne opcje, a nie oddział główny i filia,</li>
+  <li>przy każdej komplet informacji potrzebnych przed wizytą: dokładny adres, telefon, godziny przyjęć i dojazd,</li>
+  <li>numery telefonów klikalne na komórce — to nie jest drobiazg, bo w tej branży najczęstszą akcją na stronie jest po prostu zadzwonienie,</li>
+  <li>informacja o przyjmowaniu w ramach NFZ i prywatnie podana od razu, bo jest to pierwsze pytanie pacjenta i najczęstszy powód telefonu do rejestracji.</li>
+</ul>
+
+<h2>Wydajność i widoczność lokalna</h2>
+
+<p>Strona statyczna startuje z uprzywilejowanej pozycji, ale sama technologia niczego nie gwarantuje — nieprzygotowane zdjęcia potrafią zepsuć każdą architekturę. Grafiki poszły więc w formatach nowej generacji, w kilku rozmiarach dobieranych do ekranu, z zarezerwowanym miejscem w układzie, żeby treść nie skakała podczas wczytywania. Arkusz stylów jest jeden i jest pisany pod tę stronę, a nie okrojony z gotowej biblioteki.</p>
+
+<p>Po stronie widoczności najwięcej znaczą tu rzeczy najbardziej przyziemne. W stomatologii pacjent szuka lokalnie i pilnie — wpisuje „stomatolog Wieliczka" albo „dentysta Łagiewniki" i wybiera z pierwszych wyników. Dlatego strona ma poprawne dane strukturalne obu gabinetów, spójne z nimi adresy i godziny, czytelną hierarchię nagłówków oraz opisową treść usług zamiast samej listy haseł.</p>
+
+<p>Konsekwencja jest tu ważniejsza niż objętość: <strong>nazwa, adres i telefon muszą wyglądać identycznie na stronie, w wizytówce Google i w katalogach.</strong> Rozjazd w tych trzech miejscach jest jedną z najczęstszych przyczyn słabej widoczności lokalnej gabinetów, a jednocześnie jedną z najłatwiejszych do naprawienia.</p>
+
+<h2>Efekt</h2>
+
+<p>MagDent ma stronę, która odpowiada rzeczywistej skali potrzeb: jedna, szybka, zrozumiała, prowadząca pacjenta do telefonu lub adresu w kilku sekundach. Zaplecze techniczne stoi u dostawcy dobranego pod ten projekt, poczta działa z poprawną autoryzacją nadawcy, a roczny koszt utrzymania jest niższy niż przed zmianą.</p>
+
+<p>Ten projekt jest też najlepszą ilustracją naszego podejścia do doboru technologii. <strong>Nie każda strona firmowa potrzebuje systemu zarządzania treścią</strong> — czasem najlepszą decyzją jest odjęcie warstwy, a nie dołożenie kolejnej. Przy dwóch gabinetach i stabilnej ofercie było dokładnie tak.</p>
+
+<h2>Zakres prac</h2>
+
+<p>Projekt i wdrożenie strony one page w HTML/CSS · migracja hostingu · przeniesienie domeny · migracja kont pocztowych wraz z zawartością · konfiguracja SPF, DKIM i DMARC · optymalizacja wydajności · lokalne SEO · wsparcie po wdrożeniu.</p>
+
+<p>Strona dostępna pod adresem <a href="https://magdent.eu/" target="_blank" rel="noopener">magdent.eu</a></p>
+
+<p>Pierwsza realizacja medyczna w naszym portfolio — o tym, jak podchodzimy do takich wdrożeń, piszemy szerzej na stronie <a href="/strony-internetowe-dla-gabinetu-medycznego">strony internetowe dla gabinetu medycznego</a>. Podobnie oszczędnie technologicznie podeszliśmy do <a href="/realizacje/old-gold-garage">Old Gold Garage</a>, choć tam one page powstał na WordPressie ze względu na niestandardową funkcję.</p>
+
+<p>Pracujemy z firmami z Krakowa, Wieliczki i całej Małopolski — więcej na stronach <a href="/tworzenie-stron-internetowych-krakow">tworzenie stron internetowych Kraków</a> oraz <a href="/tworzenie-stron-internetowych-wieliczka">tworzenie stron internetowych Wieliczka</a>.</p>
+
+</ProjectLayout>

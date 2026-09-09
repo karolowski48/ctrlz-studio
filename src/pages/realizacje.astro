@@ -8,7 +8,36 @@ import { PROJECTS } from '../data/projects';
 
 const projects = PROJECTS;
 
-const cats = ['Wszystkie', 'WordPress', 'E-commerce', 'UI/UX', 'Custom Dev', 'Astro.js'];
+/* Kategorie filtra. Dopasowanie jest „luźne" — po fragmencie pola `tag`
+   realizacji — bo tagi są opisowe („E-commerce B2B · PrestaShop · 2026").
+   Liczniki muszą używać DOKŁADNIE tej samej reguły, co skrypt w przeglądarce,
+   inaczej licznik obiecywałby inną liczbę kart niż filtr faktycznie pokazuje. */
+const CAT_NAMES = [
+  'Wszystkie',
+  'WordPress',
+  'E-commerce',
+  'Strona firmowa',
+  'Personal Brand',
+  'Custom Dev',
+  'UI/UX',
+  'Astro.js',
+];
+
+const matchesCat = (tag: string, cat: string) =>
+  cat === 'Wszystkie' || tag.toLowerCase().includes(cat.toLowerCase());
+
+const cats = CAT_NAMES.map((name) => ({
+  name,
+  count: PROJECTS.filter((p) => matchesCat(p.tag, name)).length,
+}))
+  /* Kategoria bez ani jednej realizacji nie ma po co istnieć — przycisk,
+     który pokazuje pustą listę, wygląda jak zepsuty filtr. Dzięki temu
+     lista przycisków utrzymuje się sama, gdy dochodzą nowe realizacje. */
+  .filter((c) => c.count > 0);
+
+/* Ile kart widać przed kliknięciem „Pokaż więcej" — 9 = trzy pełne rzędy
+   w siatce trzykolumnowej, tak samo jak na blogu. */
+const VISIBLE = 9;
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -47,6 +76,10 @@ const breadcrumbSchema = {
   .filter-btn:hover { color:rgba(255,255,255,.8); border-color:rgba(255,255,255,.25); }
   .filter-btn.active { background:rgba(124,107,255,.18); border-color:rgba(124,107,255,.42); color:#c4b5fd; }
   .projects-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  /* Filtr ZAWĘŻA listę zamiast wygaszać karty — tak samo jak na blogu.
+     Wszystkie realizacje są w HTML od pierwszego wczytania, więc Google
+     widzi komplet linków niezależnie od tego, co ukrywa przeglądarka. */
+  .project-card.is-hidden { display:none; }
   .project-card { border-radius:var(--radius-lg); overflow:hidden; position:relative; height:280px; cursor:none; transition:transform .35s cubic-bezier(.34,1.56,.64,1); text-decoration:none; display:block; }
   .project-card:hover { transform:scale(1.02); }
   .project-card .port-info { position:absolute; bottom:0; left:0; right:0; z-index:2; opacity:1; transform:none; }
@@ -71,7 +104,14 @@ const breadcrumbSchema = {
       Każdy projekt to unikalne rozwiązanie — zero szablonów, tylko przemyślany design i precyzyjny kod.
     </p>
     <div class="filter-bar" id="filter-bar">
-      {cats.map((cat,i) => <button class={`filter-btn${i===0?' active':''}`} data-cat={cat}>{cat}</button>)}
+      {cats.map((c,i) => (
+        <button
+          type="button"
+          class={`filter-btn${i===0?' active':''}`}
+          data-cat={c.name}
+          aria-pressed={i===0?'true':'false'}
+        >{c.name} <span class="blog-tag-count">{c.count}</span></button>
+      ))}
     </div>
   </div>
 </section>
@@ -82,7 +122,7 @@ const breadcrumbSchema = {
       {projects.map((p, i) => (
         <a
           href={`/realizacje/${p.slug}`}
-          class={`project-card ${p.bg}${p.featured?' featured':''} js-scale`}
+          class={`project-card ${p.bg}${p.featured?' featured':''} js-scale${i >= VISIBLE ? ' is-hidden' : ''}`}
           data-delay={String((i % 3) * 0.08)}
           data-cat={p.tag}
         >
@@ -111,6 +151,16 @@ const breadcrumbSchema = {
           </div>
         </a>
       ))}
+    </div>
+
+    <p class="blog-empty" id="proj-empty" hidden>
+      Brak realizacji w tej kategorii. <button type="button" class="blog-empty-reset" id="proj-reset">Pokaż wszystkie</button>
+    </p>
+
+    <div class="blog-more-wrap">
+      <button type="button" class="blog-more" id="proj-more">
+        Pokaż więcej realizacji <span id="proj-more-count"></span>
+      </button>
     </div>
 
     <div class="cta-strip js-reveal">
@@ -161,37 +211,91 @@ document.querySelectorAll<HTMLElement>('.project-card').forEach(card=>{
   card.addEventListener('mouseleave',()=>gsap.to(card,{rotateX:0,rotateY:0,duration:.5,ease:'power3.out'}));
 });
 
-// Filter buttons
-const filterBtns=document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-const cards=document.querySelectorAll<HTMLElement>('.project-card');
+// ── Filtr kategorii + „Pokaż więcej" ─────────────────────────────
+// Identyczna mechanika jak na blogu: filtr ZAWĘŻA listę (karty poza kategorią
+// znikają, a nie tylko blakną), a reszta doładowuje się partiami po kliknięciu.
+// Wszystkie realizacje są w HTML od razu — to jest doładowywanie po stronie
+// przeglądarki, nie zapytanie do serwera, więc nie gubimy linków dla Google.
+(function () {
+  const VISIBLE = 9;
+  const grid     = document.getElementById('projects-grid');
+  const moreBtn  = document.getElementById('proj-more') as HTMLButtonElement | null;
+  const moreWrap = document.querySelector('.blog-more-wrap') as HTMLElement | null;
+  const moreCnt  = document.getElementById('proj-more-count');
+  const empty    = document.getElementById('proj-empty') as HTMLElement | null;
+  const resetBtn = document.getElementById('proj-reset');
+  const filterBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.filter-btn'));
+  const cards      = Array.from(document.querySelectorAll<HTMLElement>('.project-card'));
+  if (!grid || !moreBtn || !moreWrap) return;
 
-function applyFilter(cat: string) {
-  filterBtns.forEach(b=>b.classList.remove('active'));
-  const match = Array.from(filterBtns).find(b=>
-    (b.dataset.cat||'').toLowerCase().includes(cat.toLowerCase()) ||
-    cat.toLowerCase().includes((b.dataset.cat||'').toLowerCase())
-  );
-  if (match) match.classList.add('active');
-  else filterBtns[0]?.classList.add('active');
-  const activeCat = match?.dataset.cat || 'Wszystkie';
-  cards.forEach(card=>{
-    const cardCat=card.dataset.cat||'';
-    const show=activeCat==='Wszystkie'||cardCat.toLowerCase().includes(activeCat.toLowerCase());
-    gsap.to(card,{opacity:show?1:.12,scale:show?1:.97,duration:.3,ease:'power2.out'});
-    card.style.pointerEvents=show?'auto':'none';
+  let activeCat = 'Wszystkie';
+  let shown = VISIBLE;
+
+  // Ta sama reguła dopasowania, której użyliśmy do policzenia liczników w HTML.
+  const matching = () =>
+    cards.filter((c) =>
+      activeCat === 'Wszystkie' ||
+      (c.dataset.cat || '').toLowerCase().includes(activeCat.toLowerCase())
+    );
+
+  function render(animateFrom = -1) {
+    const list = matching();
+
+    cards.forEach((c) => { c.classList.add('is-hidden'); c.style.pointerEvents = 'none'; });
+    list.slice(0, shown).forEach((c, i) => {
+      c.classList.remove('is-hidden');
+      c.style.pointerEvents = 'auto';
+      // GSAP mógł zostawić na karcie opacity/scale z animacji wejścia —
+      // czyścimy, żeby świeżo odsłonięta karta nie została niewidoczna.
+      gsap.set(c, { opacity: 1, scale: 1, clearProps: 'transform' });
+      if (animateFrom >= 0 && i >= animateFrom) {
+        c.animate(
+          [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }],
+          { duration: 320, easing: 'cubic-bezier(.4,0,.2,1)', delay: (i - animateFrom) * 45, fill: 'both' }
+        );
+      }
+    });
+
+    const left = list.length - shown;
+    moreWrap.hidden = left <= 0;
+    if (moreCnt) moreCnt.textContent = left > 0 ? `(${left})` : '';
+    if (empty) empty.hidden = list.length > 0;
+  }
+
+  function setCat(cat: string) {
+    // Z podstron realizacji przychodzą ?cat= z dowolnym tagiem (np. „Stomatologia"),
+    // który nie musi być jednym z sześciu przycisków — wtedy wracamy do „Wszystkie".
+    const match = filterBtns.find((b) => {
+      const bc = (b.dataset.cat || '').toLowerCase();
+      const c = cat.toLowerCase();
+      return bc === c || bc.includes(c) || c.includes(bc);
+    });
+    activeCat = match?.dataset.cat || 'Wszystkie';
+    shown = VISIBLE;
+    filterBtns.forEach((b) => {
+      const on = b.dataset.cat === activeCat;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    render();
+  }
+
+  filterBtns.forEach((btn) => btn.addEventListener('click', () => setCat(btn.dataset.cat || 'Wszystkie')));
+  resetBtn?.addEventListener('click', () => setCat('Wszystkie'));
+
+  moreBtn.addEventListener('click', () => {
+    const from = shown;
+    shown += VISIBLE;
+    render(from);
   });
-}
 
-filterBtns.forEach(btn=>{
-  btn.addEventListener('click',()=>applyFilter(btn.dataset.cat||'Wszystkie'));
-});
+  render();
 
-// Apply filter from URL ?cat= param (linked from project pages)
-const urlCat = new URLSearchParams(window.location.search).get('cat');
-if (urlCat) {
-  setTimeout(() => {
-    applyFilter(urlCat);
-    document.getElementById('filter-bar')?.scrollIntoView({behavior:'smooth', block:'center'});
-  }, 400);
-}
+  // Filtr z adresu ?cat= — linkowany z podstron realizacji.
+  const urlCat = new URLSearchParams(window.location.search).get('cat');
+  if (urlCat) {
+    setCat(urlCat);
+    document.getElementById('filter-bar')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+})();
 </script>

@@ -5,3 +5,10 @@
 .env.production
 node_modules
 node_modules
+dist/
+.astro/
+node_modules
+.DS_Store
+.env
+.env.local
+.env.production

@@ -1,0 +1,360 @@
+---
+/**
+ * /tworzenie-stron-internetowych-malopolska — strona REGIONALNA (hub).
+ *
+ * ROLA W ARCHITEKTURZE — pilnować przy edycji:
+ * To NIE jest kolejna strona lokalna. Strony miast (Kraków, Wadowice, Skawina…)
+ * odpowiadają na zapytania z nazwą miejscowości i mają własne argumenty.
+ * Ta strona odpowiada na zapytanie regionalne („tworzenie stron internetowych
+ * małopolska" — 1 wyświetlenie, poz. 18 w GSC) i pełni funkcję rozdzielacza:
+ * pokazuje zasięg, mapę realizacji i kieruje do właściwej strony miasta.
+ *
+ * ŻEBY NIE KANIBALIZOWAĆ STRON MIAST:
+ *  - nie powtarzać tu argumentów lokalnych („konkurencja z Krakowem",
+ *    „turystyka w Wieliczce") — to należy do tamtych stron,
+ *  - nie opisywać usług od nowa — od tego są podstrony usługowe,
+ *  - unikalna treść tej strony to ZASIĘG i DOWÓD: 15 realizacji z regionu
+ *    pogrupowanych geograficznie.
+ *
+ * Lista realizacji ciągnie się z PROJECTS, więc nie rozjedzie się z portfolio.
+ */
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+import { PROJECTS } from '../data/projects';
+import { priceAnswer, addonsAnswer } from '../data/pricing';
+
+/* Realizacje z Małopolski, pogrupowane geograficznie. Kolejność grup ustawiona
+   ręcznie — od największego ośrodka po mniejsze, tak czyta się najnaturalniej. */
+const GRUPY: { miasto: string; powiat: string; slug?: string }[] = [
+  { miasto: 'Kraków',    powiat: 'miasto na prawach powiatu', slug: 'tworzenie-stron-internetowych-krakow' },
+  { miasto: 'Wadowice',  powiat: 'powiat wadowicki',          slug: 'tworzenie-stron-internetowych-wadowice' },
+  { miasto: 'Myślenice', powiat: 'powiat myślenicki',         slug: 'tworzenie-stron-internetowych-myslenice' },
+  { miasto: 'Skawina',   powiat: 'powiat krakowski',          slug: 'tworzenie-stron-internetowych-skawina' },
+  { miasto: 'Andrychów', powiat: 'powiat wadowicki',          slug: 'tworzenie-stron-internetowych-andrychow' },
+  { miasto: 'Zator',     powiat: 'powiat oświęcimski' },
+  { miasto: 'Zielonki',  powiat: 'powiat krakowski' },
+];
+
+const grupy = GRUPY
+  .map((g) => ({ ...g, projekty: PROJECTS.filter((p) => p.city === g.miasto) }))
+  .filter((g) => g.projekty.length > 0);
+
+const liczbaRealizacji = grupy.reduce((n, g) => n + g.projekty.length, 0);
+
+/* Strony miast, do których ta strona rozdziela ruch. */
+const MIASTA = [
+  ['tworzenie-stron-internetowych-krakow', 'Kraków i okolice'],
+  ['tworzenie-stron-internetowych-wieliczka', 'Wieliczka'],
+  ['tworzenie-stron-internetowych-skawina', 'Skawina'],
+  ['tworzenie-stron-internetowych-myslenice', 'Myślenice'],
+  ['tworzenie-stron-internetowych-wadowice', 'Wadowice'],
+  ['tworzenie-stron-internetowych-kalwaria-zebrzydowska', 'Kalwaria Zebrzydowska'],
+  ['tworzenie-stron-internetowych-sulkowice', 'Sułkowice'],
+  ['tworzenie-stron-internetowych-andrychow', 'Andrychów'],
+  ['tworzenie-stron-internetowych-izdebnik', 'Izdebnik'],
+];
+
+const faq = [
+  { q: 'Ile kosztuje strona internetowa dla firmy z Małopolski?', a: priceAnswer('firm z Małopolski') },
+  { q: 'Co jeszcze można dobrać do projektu?', a: addonsAnswer() },
+  {
+    q: 'Pracujecie w całym województwie czy tylko w okolicy Izdebnika?',
+    a: 'Studio mamy w Izdebniku w gminie Lanckorona, między Krakowem a Wadowicami — i to stamtąd wygodnie dojeżdżamy w promieniu godziny, czyli do Krakowa, Wadowic, Myślenic, Skawiny, Kalwarii, Andrychowa i Wieliczki. Dalsze części województwa, takie jak Tarnów, Nowy Sącz czy Zakopane, obsługujemy zdalnie i robimy to normalnie — po prostu bez spotkań na miejscu.',
+  },
+  {
+    q: 'Czy spotkanie na żywo jest potrzebne?',
+    a: 'Nie jest warunkiem, ale przy pierwszym projekcie zwykle pomaga — łatwiej zrozumieć firmę, gdy się ją zobaczy. Przy obiektach noclegowych, warsztatach i produkcji zdarza się nam przyjechać choćby po zdjęcia. Cały proces da się jednak przeprowadzić zdalnie i przy części klientów tak właśnie wygląda.',
+  },
+  {
+    q: 'Czy warto pozycjonować się na całe województwo, czy na własne miasto?',
+    a: 'Na własne miasto, prawie zawsze. Fraza z nazwą województwa ma niewielki wolumen i bardzo rozmytą intencję — ktoś, kto szuka wykonawcy, wpisuje nazwę swojej miejscowości. Dlatego przy projektach lokalnych budujemy przede wszystkim strony miejskie, a poziom regionalny traktujemy jako uzupełnienie, nie fundament.',
+  },
+  {
+    q: 'Czy obsługujecie firmy spoza Małopolski?',
+    a: 'Tak. Platformę B2B dla Modeki prowadzimy z Wrocławia, a projekty sprzedażowe na rynki zagraniczne z natury nie mają nic wspólnego z lokalizacją. Bliskość ma znaczenie przy małej firmie usługowej, a nie przy sklepie działającym w kilku krajach.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'Tworzenie stron internetowych',
+  provider: { '@id': 'https://ctrlzstudio.pl/#localbusiness' },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'województwo małopolskie',
+    containedInPlace: { '@type': 'Country', name: 'Polska' },
+  },
+  url: 'https://ctrlzstudio.pl/tworzenie-stron-internetowych-malopolska',
+};
+
+const listaMiastSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Miejscowości w Małopolsce, dla których prowadzimy osobne strony',
+  itemListElement: MIASTA.map(([slug, nazwa], i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: nazwa,
+    url: `https://ctrlzstudio.pl/${slug}`,
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Tworzenie stron internetowych — Małopolska', item: 'https://ctrlzstudio.pl/tworzenie-stron-internetowych-malopolska' },
+  ],
+};
+---
+
+<Layout
+  title="Tworzenie stron internetowych — Małopolska | CtrlZ Studio"
+  description={`Strony, sklepy i SEO dla firm z Małopolski. ${liczbaRealizacji} realizacji z regionu — Kraków, Wadowice, Myślenice, Skawina, Andrychów. Studio w Izdebniku.`}
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .mp-hero { padding: 150px 0 64px; position: relative; overflow: hidden; background: var(--bg-base); }
+  .mp-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .mp-lead { font-size: 17px; color: rgba(255,255,255,.62); line-height: 1.75; max-width: 720px; font-weight: 300; }
+  .mp-lead strong { color: rgba(255,255,255,.82); font-weight: 500; }
+
+  .mp-chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .mp-chip {
+    font-size: 12px; padding: 7px 16px; border-radius: 100px;
+    background: rgba(124,107,255,.1); border: 1px solid rgba(124,107,255,.24); color: #c4b5fd;
+  }
+
+  .mp-section { padding: 72px 0; background: var(--bg-base); }
+  .mp-alt { background: var(--bg-elevated, rgba(255,255,255,.02)); }
+  .mp-h2 { margin-bottom: 18px; }
+  .mp-p { font-size: 15px; color: rgba(255,255,255,.62); line-height: 1.8; max-width: 760px; margin-bottom: 16px; }
+  .mp-p strong { color: rgba(255,255,255,.8); font-weight: 500; }
+
+  /* Realizacje pogrupowane po miejscowości */
+  .mp-grupa { margin-top: 36px; }
+  .mp-grupa-head {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    padding-bottom: 12px; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .mp-miasto { font-family: var(--font-display); font-size: 19px; font-weight: 700; color: #fff; letter-spacing: -.02em; }
+  .mp-powiat { font-size: 12.5px; color: rgba(255,255,255,.45); }
+  .mp-licznik {
+    font-size: 11.5px; color: #c4b5fd; background: rgba(124,107,255,.12);
+    border: 1px solid rgba(124,107,255,.28); padding: 3px 10px; border-radius: 100px; margin-left: auto;
+  }
+  .mp-projekty { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .mp-proj {
+    display: block; text-decoration: none;
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px; padding: 18px 20px; transition: border-color .25s, transform .25s;
+  }
+  .mp-proj:hover { border-color: rgba(124,107,255,.32); transform: translateY(-2px); }
+  .mp-proj h3 { font-family: var(--font-display); font-size: 14.5px; color: #fff; margin: 0 0 6px; font-weight: 600; }
+  .mp-proj p { font-size: 12.5px; color: rgba(255,255,255,.6); line-height: 1.6; margin: 0; }
+
+  .mp-miasta { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px 24px; margin-top: 28px; max-width: 900px; }
+  .mp-miasta a {
+    font-size: 14.5px; color: rgba(255,255,255,.72); text-decoration: none;
+    padding: 6px 0 6px 18px; position: relative; transition: color .18s;
+  }
+  .mp-miasta a::before { content: '→'; position: absolute; left: 0; color: rgba(124,107,255,.75); font-size: 12px; }
+  .mp-miasta a:hover { color: #fff; }
+
+  @media (max-width: 1024px) { .mp-projekty { grid-template-columns: 1fr 1fr; } .mp-miasta { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) {
+    .mp-inner { padding: 0 24px; }
+    .mp-projekty, .mp-miasta { grid-template-columns: 1fr; }
+    .mp-hero { padding: 120px 0 48px; }
+    .mp-licznik { margin-left: 0; }
+  }
+</style>
+
+<!-- HERO -->
+<section class="mp-hero">
+  <div class="orb orb-1"></div>
+  <div class="grid-bg"></div>
+  <div class="mp-inner" style="position:relative">
+    <div class="eyebrow" style="margin-bottom:18px">Województwo małopolskie</div>
+    <h1 class="display-xl" style="margin-bottom:20px">
+      Tworzenie stron<br>
+      internetowych<br>
+      <span class="grad">Małopolska</span>
+    </h1>
+    <p class="mp-lead">
+      Projektujemy i kodujemy strony dla firm z Krakowa, Wadowic, Myślenic, Skawiny
+      i mniejszych miejscowości w regionie. <strong>{liczbaRealizacji} z {PROJECTS.length} naszych realizacji
+      powstało dla klientów z Małopolski</strong> — od jednoosobowych działalności
+      po jednostkę miejską i producenta konstrukcji.
+    </p>
+    <div class="mp-chips">
+      <span class="mp-chip">Studio w Izdebniku</span>
+      <span class="mp-chip">Strony i sklepy</span>
+      <span class="mp-chip">SEO lokalne</span>
+      <span class="mp-chip">Audyty i opieka</span>
+    </div>
+  </div>
+</section>
+
+<!-- GDZIE JESTEŚMY -->
+<section class="mp-section">
+  <div class="mp-inner">
+    <h2 class="display-md mp-h2">Gdzie dokładnie <span class="grad-v">pracujemy</span></h2>
+    <p class="mp-p">
+      Studio mamy w <strong>Izdebniku w gminie Lanckorona</strong> — mniej więcej w połowie drogi
+      między Krakowem a Wadowicami. To położenie decyduje o tym, jak wygląda nasza praca:
+      w promieniu godziny jazdy mieści się Kraków, Wieliczka, Skawina, Myślenice, Kalwaria,
+      Wadowice i Andrychów, więc do tych miejsc po prostu przyjeżdżamy.
+    </p>
+    <p class="mp-p">
+      Dalsze części województwa — Tarnów, Nowy Sącz, Podhale — obsługujemy zdalnie
+      i nie robimy z tego problemu. <strong>Bliskość ma znaczenie przy małej firmie usługowej,
+      która chce się spotkać i pokazać, jak pracuje.</strong> Przy sklepie internetowym
+      albo platformie B2B nie ma jej żadnego.
+    </p>
+    <p class="mp-p">
+      Dla najczęściej obsługiwanych miejscowości prowadzimy osobne strony — z lokalnymi
+      realizacjami i opisem tego, jak wygląda konkurencja akurat tam:
+    </p>
+    <div class="mp-miasta">
+      {MIASTA.map(([slug, nazwa]) => <a href={`/${slug}`}>{nazwa}</a>)}
+    </div>
+  </div>
+</section>
+
+<!-- REALIZACJE WG MIEJSCOWOŚCI -->
+<section class="mp-section mp-alt">
+  <div class="mp-inner">
+    <h2 class="display-md mp-h2">{liczbaRealizacji} realizacji <span class="grad">z regionu</span></h2>
+    <p class="mp-p">
+      Najkrótsza odpowiedź na pytanie, czy pracowaliśmy już z kimś podobnym do Ciebie.
+      Pogrupowane po miejscowościach:
+    </p>
+
+    {grupy.map((g) => (
+      <div class="mp-grupa">
+        <div class="mp-grupa-head">
+          {g.slug
+            ? <a href={`/${g.slug}`} class="mp-miasto" style="text-decoration:none">{g.miasto}</a>
+            : <span class="mp-miasto">{g.miasto}</span>}
+          <span class="mp-powiat">{g.powiat}</span>
+          <span class="mp-licznik">{g.projekty.length} {g.projekty.length === 1 ? 'realizacja' : 'realizacje'}</span>
+        </div>
+        <div class="mp-projekty">
+          {g.projekty.map((p) => (
+            <a class="mp-proj" href={`/realizacje/${p.slug}`}>
+              <h3>{p.name}</h3>
+              <p>{p.pill1} · {p.pill2}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    <p class="mp-p" style="margin-top:36px">
+      Pełne portfolio, razem z projektami spoza regionu, na stronie
+      <a href="/realizacje" style="color:#c4b5fd">realizacje</a>. Co z tych piętnastu projektów
+      wynika o firmach z Małopolski, opisaliśmy w tekście
+      <a href="/blog/strony-dla-firm-z-malopolski-wnioski" style="color:#c4b5fd">czego nauczyło nas 15 projektów w regionie</a>.
+    </p>
+  </div>
+</section>
+
+<!-- CZEGO NIE OBIECUJEMY -->
+<section class="mp-section">
+  <div class="mp-inner">
+    <h2 class="display-md mp-h2">Jedna uwaga o frazie <span class="grad-v">„Małopolska"</span></h2>
+    <p class="mp-p">
+      Ta strona istnieje, bo ktoś czasem wpisuje w Google nazwę województwa. Ale gdybyś pytał nas
+      o strategię dla własnej firmy, powiedzielibyśmy coś odwrotnego, niż wynika z jej istnienia:
+      <strong>frazy wojewódzkie mają mały wolumen i rozmytą intencję.</strong>
+    </p>
+    <p class="mp-p">
+      Człowiek, który realnie szuka wykonawcy, wpisuje nazwę swojej miejscowości — „strony internetowe
+      Wadowice", a nie „strony internetowe małopolskie". Dlatego przy projektach lokalnych
+      budujemy przede wszystkim strony miejskie, a poziom regionalny traktujemy jako uzupełnienie.
+    </p>
+    <p class="mp-p">
+      Piszemy o tym wprost, bo to jedna z tych rzeczy, na których agencje zarabiają najłatwiej:
+      sprzedaje się pozycjonowanie na szeroką, efektownie brzmiącą frazę, która nie przynosi zapytań.
+      Więcej o tym, co realnie działa lokalnie, w tekście o
+      <a href="/blog/lokalne-seo-dla-firm-z-malopolski" style="color:#c4b5fd">lokalnym SEO dla firm z Małopolski</a>.
+    </p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="mp-section mp-alt">
+  <div class="mp-inner">
+    <h2 class="display-md mp-h2">Najczęstsze <span class="grad">pytania</span></h2>
+    <div class="faq-list" style="margin-top:32px">
+      {faq.map((f, i) => (
+        <>
+          <div class="faq-divider"></div>
+          <div class={`faq-item${i === 0 ? ' open' : ''}`}>
+            <div class="faq-question"><div class="faq-q-text">{f.q}</div><div class="faq-icon">+</div></div>
+            <div class="faq-body"><div class="faq-answer-wrap"><div class="faq-answer">{f.a}</div></div></div>
+          </div>
+        </>
+      ))}
+      <div class="faq-divider"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="mp-section">
+  <div class="mp-inner" style="text-align:center">
+    <h2 class="display-md mp-h2">Zacznijmy od <span class="grad">rozmowy</span></h2>
+    <p class="mp-p" style="margin:0 auto 32px">
+      Napisz, czym się zajmujesz i gdzie działasz. Sprawdzimy, ile osób realnie tego szuka
+      w Twojej okolicy, i powiemy wprost, czy jest o co walczyć.
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="/kontakt" class="btn-primary"><span>Napisz do nas</span></a>
+      <a href="/kalkulator" class="btn-ghost"><span>Policz orientacyjną cenę</span></a>
+    </div>
+    <p class="mp-p" style="margin:28px auto 0;font-size:14px">
+      Zobacz też: <a href="/ile-kosztuje-strona-internetowa" style="color:#c4b5fd">ile kosztuje strona</a> ·
+      <a href="/branze" style="color:#c4b5fd">strony według branż</a> ·
+      <a href="/bezplatny-audyt" style="color:#c4b5fd">bezpłatny audyt</a> ·
+      <a href="/jak-pracujemy" style="color:#c4b5fd">jak pracujemy</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(listaMiastSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question')?.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
+</script>
+
+</Layout>

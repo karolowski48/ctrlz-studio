@@ -42,6 +42,7 @@ const wycena = [
 ];
 
 const lokalne = [
+  ['/tworzenie-stron-internetowych-malopolska', 'Cała Małopolska'],
   ['/tworzenie-stron-internetowych-krakow', 'Kraków i okolice'],
   ['/tworzenie-stron-internetowych-wieliczka', 'Wieliczka'],
   ['/tworzenie-stron-internetowych-skawina', 'Skawina'],
@@ -62,9 +63,29 @@ const firma = [
   ['/polityka-prywatnosci', 'Polityka prywatności'],
 ];
 
-const total =
-  uslugi.length + technologie.length + wycena.length + lokalne.length +
-  firma.length + INDUSTRIES.length + PROJECTS.length + posts.length + 1;
+/* Licznik w nagłówku liczymy z FAKTYCZNYCH adresów wypisanych niżej,
+   a nie z sumy długości tablic. Poprzednia wersja sumowała tablice i przez to
+   gubiła strony wpisane w szablonie na sztywno (/branze), samą mapę oraz
+   stronę główną — pokazywała 103 przy 107 realnie podlinkowanych stronach.
+   Przy takiej konstrukcji licznik nie może już rozjechać się z listą.
+
+   Świadomie nie ma tu /dziekujemy: to strona po wysłaniu formularza,
+   oznaczona jako noindex i wyłączona z sitemap.xml. */
+const ALL_HREFS = [
+  '/',
+  '/mapa-strony',
+  '/branze',
+  ...uslugi.map(([href]) => href),
+  ...technologie.map(([href]) => href),
+  ...wycena.map(([href]) => href),
+  ...lokalne.map(([href]) => href),
+  ...firma.map(([href]) => href),
+  ...INDUSTRIES.map((i) => `/strony-internetowe-dla-${i.slug}`),
+  ...PROJECTS.map((p) => `/realizacje/${p.slug}`),
+  ...posts.map((p) => `/blog/${p.slug}`),
+];
+
+const total = new Set(ALL_HREFS).size;
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
