@@ -389,8 +389,14 @@ const breadcrumbSchema = {
   <div class="proj-hero-inner">
     <a href="/realizacje" class="back-link" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.68);margin-bottom:24px;transition:color .2s">← Wróć do realizacji</a>
     <div class="proj-cat-row">
-      <a href={`/realizacje?cat=${encodeURIComponent(cat)}`} class="proj-cat-pill">{cat}</a>
-      {tags.map(t => <a href={`/realizacje?cat=${encodeURIComponent(t)}`} class="proj-tag">{t}</a>)}
+      {/* rel="nofollow" jest tu celowe. Każda realizacja emituje ~9 takich linków,
+          co przy 19 realizacjach daje ponad 150 adresów z parametrem ?cat=.
+          Wszystkie mają canonical na /realizacje, więc nic się nie duplikuje w indeksie,
+          ale Google i tak je skanuje i marnuje na nie budżet crawlowania —
+          jeden z nich (?cat=Interaktywna mapa) wypłynął nawet w raporcie GSC.
+          Dla użytkownika nic się nie zmienia: link działa i filtruje tak samo. */}
+      <a href={`/realizacje?cat=${encodeURIComponent(cat)}`} class="proj-cat-pill" rel="nofollow">{cat}</a>
+      {tags.map(t => <a href={`/realizacje?cat=${encodeURIComponent(t)}`} class="proj-tag" rel="nofollow">{t}</a>)}
       <span class="proj-tag">{year}</span>
     </div>
     <h1>{title}</h1>

@@ -20,6 +20,17 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: 'strony-dla-firm-z-malopolski-wnioski',
+    title: 'Strony dla firm z Małopolski — czego nauczyło nas 15 projektów',
+    excerpt: 'Co powtarza się u klientów z Krakowa, Wadowic, Myślenic i Skawiny — i czym różni się rozmowa o stronie w dużym mieście od tej w małej miejscowości.',
+    cat: 'Biznes',
+    time: '10 min',
+    date: '25 września 2026',
+    featured: false,
+    bg: 'linear-gradient(135deg,#04231a 0%,#0b5138 50%,#021410 100%)',
+    glowColor: 'rgba(52,211,153,.45)',
+  },
+  {
     slug: 'formularz-kontaktowy-ktory-gubi-zapytania',
     title: 'Formularz kontaktowy, który gubi zapytania',
     excerpt: 'Najczęstsze powody, dla których formularz nie dowozi — od wysyłki przez mailto po brak potwierdzenia. Z przykładem błędu, który mieliśmy na własnej stronie.',
@@ -385,9 +396,9 @@ export const posts: Post[] = [
   {
     slug: 'wordpress-vs-custom',
     title: 'WordPress vs strona na zamówienie — co wybrać dla swojego biznesu?',
-    excerpt: 'WordPress to potężne narzędzie — ale nie dla każdego. Kiedy warto postawić na gotowy CMS, a kiedy custom dev zwróci się wielokrotnie? Odpowiedź zależy od jednej rzeczy.',
+    excerpt: 'Kiedy gotowy CMS wystarczy, a kiedy kod pisany od zera zwraca się wielokrotnie. Koszt posiadania w trzy lata, pytanie o własność kodu i pięć pytań, które rozstrzygają wybór.',
     cat: 'Technologie',
-    time: '8 min',
+    time: '11 min',
     date: '29 maja 2026',
     featured: false,
     bg: 'linear-gradient(135deg,#071a10 0%,#0d3a1c 50%,#0a2810 100%)',
@@ -406,10 +417,10 @@ export const posts: Post[] = [
   },
   {
     slug: 'woocommerce-optymalizacja',
-    title: 'WooCommerce — 8 ustawień, które natychmiast zwiększą konwersje w sklepie',
-    excerpt: 'Masz sklep WooCommerce, ale sprzedaż nie zadowala? Zanim zaczniesz wydawać pieniądze na reklamy, sprawdź czy nie tracisz klientów przez podstawowe błędy konfiguracji.',
+    title: 'WooCommerce — 8 ustawień, które realnie zwiększają konwersję w sklepie',
+    excerpt: 'Osiem ustawień, które sprawdzamy w każdym audycie sklepu — plus trzy rzeczy, których nie robić, i dwa darmowe narzędzia pokazujące, gdzie naprawdę tracicie klientów.',
     cat: 'E-commerce',
-    time: '7 min',
+    time: '10 min',
     date: '19 maja 2026',
     featured: false,
     bg: 'linear-gradient(135deg,#071520 0%,#0e2e46 50%,#040c12 100%)',

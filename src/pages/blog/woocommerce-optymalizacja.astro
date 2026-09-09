@@ -1,51 +1,124 @@
 ---
+/**
+ * ROZBUDOWA (wrzesień 2026) — powód: 414 słów, najkrótszy tekst na blogu.
+ * Ten wpis nie wypadł jeszcze z indeksu, ale był następny w kolejce.
+ *
+ * ROZGRANICZENIE TEMATYCZNE:
+ *  - WYBÓR platformy sklepowej → /blog/porownanie-platform-sklepowych-polska
+ *    oraz /blog/woocommerce-shopify-czy-wlasne-rozwiazanie. Tutaj zakładamy,
+ *    że sklep na WooCommerce już działa — mówimy wyłącznie o konfiguracji.
+ *  - WYDAJNOŚĆ jako temat sam w sobie → /blog/dlaczego-szybka-strona-sprzedaje
+ *
+ * UWAGA NA LICZBY: poprzednia wersja obiecywała twarde procenty wzrostu
+ * („+15-25%") przy każdym punkcie. To były wartości nie do obronienia.
+ * Zostawiamy wyłącznie dane z podaniem źródła (Baymard) i mówimy o
+ * kierunku zmiany, a nie o gwarantowanym wyniku.
+ */
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
 ---
 <ArticleLayout
-  title="WooCommerce — 8 ustawień, które natychmiast zwiększą konwersje w sklepie"
+  title="WooCommerce — 8 ustawień, które realnie zwiększają konwersję w sklepie"
   metaTitle="WooCommerce — 8 ustawień na konwersję | CtrlZ Studio"
-  description="Masz sklep WooCommerce, ale sprzedaż nie zadowala? Zanim zaczniesz wydawać na reklamy, sprawdź czy nie tracisz klientów przez te 8 podstawowych błędów."
+  description="Sklep na WooCommerce działa, ale sprzedaż nie zadowala? Osiem ustawień, które sprawdzamy w każdym audycie, zanim ktokolwiek wyda złotówkę na reklamę."
   cat="E-commerce"
-  readTime="7 min"
+  readTime="10 min"
   date="19 maja 2026"
   glowColor="rgba(14,165,233,.2)"
 >
 
-<p>WooCommerce napędza ponad 28% wszystkich sklepów internetowych. Ale popularność narzędzia nie gwarantuje dobrej sprzedaży. Konfiguracja ma kluczowe znaczenie.</p>
+<p>WooCommerce napędza znaczną część sklepów internetowych na świecie. Ale popularność narzędzia nie gwarantuje sprzedaży — o wyniku decyduje konfiguracja, a ta w większości sklepów została ustawiona raz, przy wdrożeniu, i nikt do niej nie wrócił.</p>
 
-<p>W ciągu ostatniego roku przeprowadziliśmy audyty kilkunastu sklepów WooCommerce. Prawie w każdym znajdowaliśmy te same błędy. <strong>Oto 8 najczęstszych — i jak je naprawić.</strong></p>
-
-<h2>1. Checkout bez rejestracji</h2>
-<p>Wymuszanie rejestracji przed zakupem to jeden z największych zabójców konwersji. Badania Baymard Institute: "wymagane konto" to drugi najczęstszy powód porzucenia koszyka. <strong>Jak włączyć:</strong> WooCommerce → Ustawienia → Konta i prywatność → "Umożliw klientom składanie zamówień bez konta". <em>Wzrost konwersji: +15-25%.</em></p>
-
-<h2>2. BLIK i metody płatności preferowane przez Polaków</h2>
-<p>BLIK to ponad 70% transakcji mobilnych w Polsce. Jeśli Twój sklep nie oferuje BLIK — tracisz ogromną część klientów mobilnych. Dodaj Przelewy24 lub PayU. Rozważ też PayPo (kup teraz, zapłać później) — zwiększa średnią wartość zamówienia. <em>Wzrost konwersji mobile: +30-40%.</em></p>
-
-<h2>3. Uproszczony checkout — usuń zbędne pola</h2>
-<p>Domyślny checkout WooCommerce ma ponad 10 pól. Dla wielu sklepów połowa z nich jest zbędna. Usuń "Firma", "Adres 2" jeśli nie są potrzebne do dostawy. Użyj Fluid Checkout lub CheckoutWC. <em>Zmniejszenie porzuceń: -20%.</em></p>
-
-<h2>4. Darmowa dostawa od progu i komunikat postępu</h2>
-<p>Próg darmowej dostawy to jeden z najpotężniejszych mechanizmów zwiększania AOV. Ustaw próg na 10-15% powyżej swojego Average Order Value. I pokaż w koszyku: "Do darmowej dostawy brakuje Ci tylko 23 zł!" <em>Wzrost AOV: +12-18%.</em></p>
-
-<h2>5. Zdjęcia produktów z możliwością zoomu</h2>
-<p>Zdjęcie to jedyne co klient widzi przed zakupem. Minimum: 3-4 zdjęcia z różnych perspektyw, spójne tło, możliwość zoomu, zdjęcie produktu w użyciu. <em>Zmniejszenie zwrotów: -15%.</em></p>
-
-<h2>6. Upsell i cross-sell na karcie produktu</h2>
-<p>WooCommerce ma wbudowany mechanizm produktów powiązanych — większość sklepów go ignoruje. Ustaw "Klienci kupili również" i "Może Ci się spodobać" dla każdego produktu. Amazon zarabia 35% przychodów z cross-sell. <em>Wzrost AOV: +8-15%.</em></p>
-
-<h2>7. Email po porzuconym koszyku</h2>
-<p>Średnio 70% koszyków jest porzucanych. Email przypominający po 1 godzinie, 24 i 72 godzinach może odzyskać 5-15% z nich. To jedna z najlepszych inwestycji w e-commerce. Użyj Klaviyo lub AutomateWoo. <em>Odzysk: 5-15% porzuconych.</em></p>
-
-<h2>8. Recenzje produktów z weryfikacją zakupu</h2>
-<p>88% konsumentów ufa recenzjom online tak samo jak osobistym rekomendacjom. Włącz recenzje i ustaw "tylko zweryfikowane zakupy mogą wystawiać opinie". Wyślij automatyczny email z prośbą o recenzję 7-14 dni po dostawie. <em>Wzrost konwersji: +18%.</em></p>
+<p>W audytach sklepów WooCommerce wracają te same osiem rzeczy. <strong>Żadna z nich nie wymaga przebudowy sklepu — to ustawienia i decyzje do wprowadzenia w jedno popołudnie.</strong></p>
 
 <div class="art-tip">
-  <p><strong>Bonus:</strong> Zainstaluj Microsoft Clarity (bezpłatny) i obejrzyj nagrania sesji użytkowników na stronie produktu i w checkoucie. 30 minut oglądania nagrań powie Ci więcej niż godziny w Google Analytics.</p>
+  <p><strong>Zanim cokolwiek zmienicie:</strong> zapiszcie obecną konwersję i średnią wartość zamówienia z ostatnich 30 dni. Bez punktu odniesienia nie ocenicie, czy zmiana pomogła. To najczęstszy błąd przy takich poprawkach — wprowadza się osiem naraz i nie wiadomo, która zadziałała.</p>
 </div>
 
+<h2>1. Zakup bez zakładania konta</h2>
+
+<p>Wymuszanie rejestracji przed zakupem to jeden z najskuteczniejszych sposobów na utratę klienta. W badaniach Baymard Institute nad porzucaniem koszyków „sklep kazał założyć konto" od lat utrzymuje się w ścisłej czołówce powodów rezygnacji — zaraz za nieoczekiwanymi kosztami dostawy.</p>
+
+<p><strong>Gdzie to zmienić:</strong> WooCommerce → Ustawienia → Konta i prywatność → „Umożliw klientom składanie zamówień bez konta".</p>
+
+<p>Konto nadal warto proponować, ale <em>po</em> złożeniu zamówienia, na stronie podziękowania — dane są już wypełnione, więc założenie konta to jedno kliknięcie, a klient ma już powód, żeby chcieć śledzić przesyłkę.</p>
+
+<h2>2. BLIK i płatności, których oczekują polscy klienci</h2>
+
+<p>Na polskim rynku BLIK jest podstawową metodą płatności mobilnej, a nie dodatkiem. Sklep, który go nie oferuje, w praktyce prosi klienta na telefonie o przepisywanie numeru karty — i część z nich tego nie zrobi.</p>
+
+<p>Minimum na polskim rynku to BLIK i szybkie przelewy przez bramkę taką jak Przelewy24 albo PayU. Warto rozważyć również płatność odroczoną, jeśli sprzedajecie w wyższych koszykach.</p>
+
+<p><strong>O czym się zapomina:</strong> logotypy metod płatności powinny być widoczne <em>na karcie produktu i w koszyku</em>, a nie dopiero w ostatnim kroku checkoutu. Klient decyduje o kontynuowaniu zakupu, zanim tam dotrze.</p>
+
+<h2>3. Krótszy checkout — usuńcie pola, których nie używacie</h2>
+
+<p>Domyślny checkout WooCommerce ma kilkanaście pól. W typowym sklepie połowa z nich nie jest potrzebna do zrealizowania zamówienia. „Nazwa firmy" przy sprzedaży wyłącznie konsumenckiej, „Adres, linia 2" przy dostawie kurierem, pole na uwagi, do którego nikt nie zagląda.</p>
+
+<p>Każde pole to moment na zastanowienie i kolejna okazja, żeby się rozmyślić. Zasada jest prosta: <strong>jeśli pole nie jest potrzebne, żeby wysłać paczkę i wystawić dokument sprzedaży — nie powinno go tam być.</strong></p>
+
+<p>Osobno warto sprawdzić checkout na telefonie, z prawdziwą klawiaturą ekranową. Pola numeryczne powinny wywoływać klawiaturę numeryczną, a autouzupełnianie adresu z przeglądarki powinno działać — to ustawienie atrybutów pól, nie kwestia wtyczki.</p>
+
+<h2>4. Próg darmowej dostawy z widocznym postępem</h2>
+
+<p>Koszty dostawy pojawiające się na końcu procesu to najczęściej podawany powód porzucenia koszyka w badaniach Baymard. Próg darmowej dostawy rozwiązuje ten problem i jednocześnie podnosi wartość koszyka.</p>
+
+<p>Próg ustawcie kilkanaście procent powyżej swojej obecnej średniej wartości zamówienia — na tyle wysoko, żeby wymagał dołożenia czegoś, i na tyle nisko, żeby wydawał się osiągalny.</p>
+
+<p>Sam próg to jednak połowa roboty. Druga połowa to <strong>komunikat w koszyku pokazujący, ile brakuje</strong>: „Do darmowej dostawy brakuje 23 zł". Bez tego klient nie wie, że jest blisko, a mechanizm nie działa.</p>
+
+<h2>5. Zdjęcia, które odpowiadają na pytania</h2>
+
+<p>Zdjęcie jest jedyną rzeczą, jaką klient ma przed zakupem zamiast produktu w ręku. Minimum to kilka ujęć z różnych stron, spójne tło w całym sklepie, powiększenie i przynajmniej jedno zdjęcie pokazujące skalę — produkt w użyciu albo obok przedmiotu odniesienia.</p>
+
+<p>Najważniejsze zdjęcie to nie to najładniejsze, tylko to, które <strong>odpowiada na najczęstsze pytanie zadawane przed zakupem.</strong> Jeśli klienci dopytują o wykończenie, potrzebujecie zbliżenia na fakturę materiału, a nie kolejnej aranżacji.</p>
+
+<p>Uwaga wydajnościowa: zdjęcia produktowe są zwykle najcięższym elementem sklepu. Wgrywanie plików prosto z sesji zdjęciowej potrafi położyć czas ładowania niezależnie od reszty optymalizacji — więcej o tym w tekście <a href="/blog/dlaczego-szybka-strona-sprzedaje">dlaczego szybka strona sprzedaje</a>.</p>
+
+<h2>6. Produkty powiązane, ustawione ręcznie</h2>
+
+<p>WooCommerce ma wbudowany mechanizm produktów powiązanych i większość sklepów go po prostu nie wypełnia. Domyślnie wyświetlają się wtedy losowe produkty z tej samej kategorii, co bywa gorsze niż nic — sugeruje klientowi, że mógł wybrać źle.</p>
+
+<p>Sensowne powiązania to takie, które odpowiadają na realną potrzebę: uzupełnienie, akcesorium, materiał eksploatacyjny. <strong>Nie inny wariant tego samego produktu</strong>, bo to zaproszenie do ponownego rozważania decyzji, która właśnie zapadła.</p>
+
+<h2>7. Przypomnienie o porzuconym koszyku</h2>
+
+<p>Znaczna większość koszyków w e-commerce nigdy nie kończy się zamówieniem — to norma branżowa, nie oznaka zepsutego sklepu. Część tych osób da się jednak odzyskać jedną wiadomością.</p>
+
+<p>Sekwencja, która sprawdza się najczęściej, to trzy przypomnienia: po godzinie, po dobie i po trzech dniach. Pierwsze łapie osoby, którym coś przerwało zakupy. Ostatnie — te, które porównywały oferty.</p>
+
+<p>Dwie rzeczy do zapamiętania. Po pierwsze, <strong>nie zaczynajcie od rabatu</strong> — nauczycie klientów porzucać koszyk, żeby dostać kod. Po drugie, wysyłka takich wiadomości wymaga podstawy prawnej i zgody, więc mechanizm musi być zgodny z Waszą polityką prywatności.</p>
+
+<h2>8. Opinie z weryfikacją zakupu</h2>
+
+<p>Opinie innych kupujących to jeden z najsilniejszych elementów budujących zaufanie w sklepie, a w WooCommerce wystarczy je włączyć i ograniczyć do osób, które faktycznie kupiły produkt.</p>
+
+<p>Zbieranie ich wymaga jednego kroku, o którym większość sklepów zapomina: <strong>automatycznej prośby wysyłanej tydzień po dostawie.</strong> Bez niej opinie pojawiają się wyłącznie po bardzo dobrym albo bardzo złym doświadczeniu, co daje mocno zniekształcony obraz.</p>
+
+<p>Warto wiedzieć, że opinie o produktach na własnym sklepie mogą kwalifikować się do wyników rozszerzonych w Google, w odróżnieniu od opinii o samej firmie umieszczonych na własnej stronie — te ostatnie Google celowo ignoruje jako element autopromocji.</p>
+
+<h2>Czego nie robić</h2>
+
+<p>Osobna lista, równie ważna, bo te trzy rzeczy potrafią skasować efekt wszystkich powyższych zmian:</p>
+
+<ul>
+  <li><strong>Nie dokładajcie wtyczki do każdego punktu z tej listy.</strong> Połowa z nich to ustawienia dostępne w samym WooCommerce. Każda kolejna wtyczka to czas ładowania, ryzyko konfliktu i jedna rzecz więcej do aktualizowania.</li>
+  <li><strong>Nie wprowadzajcie ośmiu zmian jednego dnia.</strong> Wtedy nie dowiecie się, która zadziałała, a która zaszkodziła.</li>
+  <li><strong>Nie zaczynajcie od reklam.</strong> Płatny ruch skierowany do sklepu z zepsutym checkoutem to najdroższy możliwy sposób odkrycia, że checkout jest zepsuty.</li>
+</ul>
+
+<h2>Jak sprawdzić, gdzie naprawdę tracicie klientów</h2>
+
+<p>Powyższa lista to punkt wyjścia, ale w konkretnym sklepie problem bywa gdzie indziej. Dwa narzędzia, które to pokazują, są bezpłatne.</p>
+
+<p><strong>Nagrania sesji</strong> — Microsoft Clarity albo podobne. Pół godziny oglądania nagrań z karty produktu i checkoutu powie Wam więcej niż tydzień wpatrywania się w wykresy. Widać na nich rzeczy, których żadna statystyka nie pokaże: kliknięcia w element, który nie jest przyciskiem, przewijanie w tę i z powrotem w poszukiwaniu tabeli rozmiarów, porzucenie formularza przy konkretnym polu.</p>
+
+<p><strong>Raport ścieżki zakupowej w Google Analytics 4</strong> — pokazuje, ilu klientów przechodzi z karty produktu do koszyka, z koszyka do checkoutu i z checkoutu do zakupu. Krok, na którym wykres opada najmocniej, jest Waszym najdroższym problemem — i to nim warto zająć się najpierw, niezależnie od tego, co mówi jakakolwiek lista dobrych praktyk.</p>
+
+<p>Jeśli sklep ma być dopiero budowany albo rozważacie zmianę silnika, to inne pytanie i inny tekst — porównaliśmy dostępne opcje w <a href="/blog/porownanie-platform-sklepowych-polska">zestawieniu platform sklepowych</a>. Jak podchodzimy do wdrożeń, opisaliśmy na stronie <a href="/sklepy-internetowe">sklepy internetowe</a>.</p>
+
 <fragment slot="cta">
-  <h3>Chcesz audyt swojego sklepu WooCommerce?</h3>
-  <p>Sprawdzimy konfigurację, UX checkoutu, szybkość i możliwości wzrostu konwersji.</p>
+  <h3>Chcecie audyt swojego sklepu WooCommerce?</h3>
+  <p>Sprawdzimy konfigurację, ścieżkę zakupową, szybkość i miejsca, w których sklep traci klientów.</p>
   <a href="/#kontakt" class="btn-primary"><span>Zamów audyt e-commerce →</span></a>
 </fragment>
 

@@ -1,77 +1,150 @@
 ---
+/**
+ * ROZBUDOWA (wrzesień 2026) — powód: GSC pokazał ten wpis jako
+ * „zeskanowany, ale niezindeksowany". Miał 515 słów i był drugim
+ * najkrótszym tekstem na blogu.
+ *
+ * ROZGRANICZENIE TEMATYCZNE — bez tego trzy teksty biją się o te same frazy:
+ *  - kreatory (Wix/Squarespace/Webflow) → /blog/kreatory-stron-czy-wystarcza
+ *    Tutaj zostaje wyłącznie akapit odsyłający, a nie własna sekcja.
+ *  - różnice w ZAKRESIE przy różnych budżetach → /blog/strona-za-500-zl-vs-5000-zl
+ *  - wybór silnika SKLEPU → /blog/porownanie-platform-sklepowych-polska
+ * Ten wpis odpowiada wyłącznie na pytanie: gotowy CMS czy kod pisany od zera.
+ *
+ * Oś, której nie ma w żadnym innym tekście na blogu: koszt posiadania w czasie,
+ * własność kodu i koszt wyjścia. To one realnie rozstrzygają ten wybór.
+ */
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
 ---
 <ArticleLayout
   title="WordPress vs strona na zamówienie — co wybrać dla swojego biznesu?"
   metaTitle="WordPress czy strona na zamówienie? | CtrlZ Studio"
-  description="WordPress to potężne narzędzie, ale nie dla każdego. Pokazujemy, kiedy sprawdza się gotowy CMS, a kiedy strona pisana od zera zwraca się wielokrotnie."
+  description="Kiedy gotowy CMS wystarczy, a kiedy kod pisany od zera zwraca się wielokrotnie. Koszt posiadania w trzy lata, własność kodu i pięć pytań, które rozstrzygają wybór."
   cat="Technologie"
-  readTime="8 min"
+  readTime="11 min"
   date="29 maja 2026"
   glowColor="rgba(33,117,155,.25)"
 >
 
-<p>To jedno z pytań, które słyszę najczęściej od klientów planujących nową stronę. I zawsze odpowiadam tak samo: <strong>to zależy od tego, czym jest Twoja strona dla biznesu.</strong></p>
+<p>To jedno z pytań, które słyszymy najczęściej od firm planujących nową stronę. I odpowiedź brzmi zawsze tak samo: <strong>to zależy od tego, czym strona jest dla Waszego biznesu.</strong></p>
 
-<p>Nie ma jednej dobrej odpowiedzi. WordPress jest fantastycznym narzędziem — używamy go u wielu klientów i osiągamy świetne wyniki. Ale w pewnych sytuacjach custom dev jest po prostu lepszym wyborem. Pokażę Ci jak to ocenić.</p>
+<p>Nie ma tu jednej dobrej odpowiedzi. WordPress jest świetnym narzędziem — używamy go u większości klientów i osiągamy na nim bardzo dobre wyniki. Ale bywają sytuacje, w których kod pisany od zera jest po prostu lepszą decyzją. Poniżej pokazujemy, jak to ocenić samodzielnie, zanim ktokolwiek wystawi Wam ofertę.</p>
 
-<h2>WordPress — kiedy to idealny wybór</h2>
+<h2>Najpierw: co właściwie porównujemy</h2>
 
-<p>WordPress napędza ponad 43% wszystkich stron internetowych na świecie. To nie przypadek. Przez lata ewoluował w dojrzały, elastyczny CMS, który przy dobrym wdrożeniu daje naprawdę imponujące rezultaty.</p>
+<p>Sam podział „WordPress kontra custom" jest mylący, bo zestawia ze sobą rzeczy z dwóch różnych poziomów. Precyzyjniej wygląda to tak:</p>
 
-<p><strong>WordPress sprawdza się gdy:</strong></p>
 <ul>
-  <li>Potrzebujesz regularnie publikować treści (blog, aktualności, portfolio)</li>
-  <li>Chcesz samodzielnie zarządzać stroną bez pomocy dewelopera</li>
-  <li>Budujesz sklep i chcesz sprawdzonego ekosystemu WooCommerce</li>
-  <li>Masz ograniczony budżet i potrzebę szybkiego wdrożenia</li>
-  <li>Planujesz stopniowy rozwój — WordPress skaluje się dobrze</li>
+  <li><strong>Gotowy motyw na WordPressie</strong> — kupiony szablon, konfigurowany w panelu. Najtańszy i najszybszy wariant, z ograniczeniami cudzych założeń.</li>
+  <li><strong>Dedykowany motyw na WordPressie</strong> — kod pisany pod jedną markę, ale osadzony w standardowym CMS-ie. Klient nadal edytuje treści z panelu.</li>
+  <li><strong>Strona pisana od zera</strong> — bez CMS-a albo z lekkim systemem treści, w technologii dobranej pod konkretny cel.</li>
+</ul>
+
+<p>Większość rozmów o „custom" dotyczy w rzeczywistości środkowego wariantu, a nie trzeciego. To rozróżnienie ma znaczenie, bo różnica w cenie między pierwszym a drugim jest znacznie mniejsza, niż się powszechnie zakłada — a różnica w rezultacie znacznie większa.</p>
+
+<h2>WordPress — kiedy to właściwy wybór</h2>
+
+<p>WordPress napędza ponad 40% wszystkich stron w internecie. To nie przypadek. Przez dwie dekady dojrzał do elastycznego systemu, który przy dobrym wdrożeniu daje wyniki nie do odróżnienia od dedykowanego kodu.</p>
+
+<p><strong>Sprawdza się, gdy:</strong></p>
+<ul>
+  <li>regularnie publikujecie treści — blog, aktualności, realizacje, oferty pracy,</li>
+  <li>chcecie zarządzać stroną samodzielnie, bez kontaktu z wykonawcą przy każdej zmianie,</li>
+  <li>budujecie sklep i zależy Wam na sprawdzonym ekosystemie WooCommerce,</li>
+  <li>potrzebujecie wdrożenia w kilka tygodni, a nie kilka miesięcy,</li>
+  <li>planujecie rozwój etapami — dołożenie modułu do WordPressa jest tańsze niż do własnego systemu.</li>
 </ul>
 
 <h2>Mit pierwszy: custom to zawsze lepiej</h2>
 
-<p>Wiele agencji promuje custom development jako złoty standard. Wyższy rachunek, prestiż, ekskluzywność. Ale prawda jest inna: <strong>dla 80% małych i średnich firm WordPress jest absolutnie wystarczający — o ile jest dobrze zaimplementowany.</strong></p>
+<p>Wiele agencji sprzedaje dedykowany kod jako złoty standard. Wyższa cena, prestiż, ekskluzywność. Prawda jest mniej efektowna: <strong>dla większości małych i średnich firm dobrze zrobiony WordPress jest w zupełności wystarczający.</strong></p>
 
-<p>Widziałem dedykowane strony za 40 000 zł, które ładowały się 8 sekund i miały fatalny UX. I widziałem strony WordPress za 5 000 zł z wynikiem 96 w Lighthouse, które generowały setki leadów miesięcznie. Technologia to tylko narzędzie. Liczy się jak jej używasz.</p>
+<p>Widzieliśmy dedykowane strony za kilkadziesiąt tysięcy, które ładowały się kilka sekund i miały nieczytelną nawigację. Widzieliśmy też strony na WordPressie za kilka tysięcy, które regularnie przynosiły zapytania. <strong>Technologia jest narzędziem — o wyniku decyduje sposób jej użycia.</strong></p>
 
 <div class="art-tip">
-  <p><strong>Kluczowe pytanie</strong> które zadajemy każdemu klientowi: "Czy Twoja strona ma generować ruch i leady, czy realizować złożoną logikę biznesową?" Odpowiedź prawie zawsze wskazuje właściwe rozwiązanie.</p>
+  <p><strong>Kluczowe pytanie</strong>, które zadajemy każdemu klientowi: „Czy Wasza strona ma przede wszystkim przyciągać ruch i zapytania, czy realizować złożoną logikę biznesową?". Odpowiedź prawie zawsze wskazuje właściwe rozwiązanie.</p>
 </div>
 
-<h2>Mit drugi: WordPress jest wolny i niebezpieczny</h2>
+<h2>Mit drugi: WordPress jest wolny i dziurawy</h2>
 
-<p>WordPress sam w sobie jest szybki. Wolne są źle zoptymalizowane wdrożenia — piętnaście wtyczek, straszliwy page builder, współdzielony hosting i brak cache. To nie wina platformy, to wina złej implementacji.</p>
+<p>WordPress sam w sobie jest szybki. Wolne są złe wdrożenia — kilkanaście wtyczek, ciężki page builder, najtańszy współdzielony hosting i brak jakiegokolwiek cache. To nie wina platformy.</p>
 
-<p>W CtrlZ Studio budujemy motywy WordPress od zera — zero nieużywanego CSS, zero zbędnych wtyczek, dedykowany kod. Efekt: wyniki 92-98 w Lighthouse na mobile.</p>
+<p>Z bezpieczeństwem jest podobnie, choć z jednym istotnym zastrzeżeniem. WordPress jest atakowany częściej, ale nie dlatego, że jest gorzej napisany — dlatego, że jest najpopularniejszy, a atak automatyczny opłaca się tam, gdzie celów są miliony. <strong>Zdecydowana większość włamań to nie luka w samym WordPressie, tylko nieaktualizowana wtyczka albo słabe hasło administratora.</strong> Opisaliśmy to szerzej w tekście o tym, <a href="/blog/jak-sprawdzic-czy-strona-jest-zainfekowana">jak sprawdzić, czy strona jest zainfekowana</a>.</p>
 
-<h2>Kiedy wybrać custom dev?</h2>
+<p>Strona bez CMS-a rzeczywiście tę powierzchnię ataku eliminuje — nie ma bazy danych, panelu logowania ani wtyczek do aktualizowania. To realna zaleta, ale płaci się za nią brakiem samodzielnej edycji treści.</p>
 
-<p><strong>Custom development sprawdza się gdy:</strong></p>
+<h2>Kiedy wybrać kod pisany od zera</h2>
+
+<p><strong>Ma to sens, gdy:</strong></p>
 <ul>
-  <li>Strona jest Twoim głównym produktem lub narzędziem sprzedaży (aplikacja SaaS, platforma)</li>
-  <li>Potrzebujesz maksymalnej wydajności i unikalnego doświadczenia z animacjami</li>
-  <li>Integrujesz zewnętrzne systemy — API, ERP, CRM, własna logika biznesowa</li>
-  <li>Treść jest w pełni zarządzana przez Twój zespół techniczny</li>
-  <li>Budżet przekracza 20 000 zł i masz długofalowy plan rozwoju</li>
+  <li>strona jest Waszym produktem albo głównym narzędziem pracy — platforma, aplikacja, konfigurator,</li>
+  <li>integrujecie systemy zewnętrzne: ERP, CRM, magazyn, API dostawcy, własną logikę cenową,</li>
+  <li>potrzebujecie zachowań, których żadna wtyczka nie realizuje, a obejście byłoby droższe niż napisanie tego wprost,</li>
+  <li>strona ma bardzo mało treści i prawie się nie zmienia — wtedy CMS jest kosztem bez zastosowania,</li>
+  <li>wydajność jest wymogiem biznesowym, a nie ambicją.</li>
 </ul>
 
-<h2>A co z kreatorami jak Wix, Squarespace, Webflow?</h2>
+<p>Ten ostatni punkt bywa źle rozumiany. Nie chodzi o wynik w Lighthouse dla samego wyniku, tylko o sytuacje, w których każda dziesiąta sekunda przekłada się na pieniądze — sklep z dużym ruchem płatnym albo serwis, w którym użytkownik wykonuje wiele akcji pod rząd.</p>
 
-<p>Krótka odpowiedź: <strong>dla firmy, która traktuje swoją stronę poważnie — nie.</strong> Kreatory generują nadmiarowy kod, ograniczają optymalizację SEO technicznego i uzależniają Cię od zewnętrznej platformy.</p>
+<h2>Trzy nasze projekty i trzy różne odpowiedzi</h2>
 
-<p>Wyjątek: Webflow jest znacznie bardziej zaawansowany i może być dobrym wyborem dla specyficznych projektów. Ale nawet on nie zastąpi dedykowanego kodu, gdy stawką jest naprawdę wysoka wydajność.</p>
+<p>Najlepiej widać to na konkretach, bo w każdym z tych przypadków wybór był inny — i w każdym uzasadniony czym innym.</p>
 
-<h2>Podsumowanie — prosta matryca decyzji</h2>
+<ul>
+  <li><strong><a href="/realizacje/eduinspirations">EduInspirations</a></strong> — sklep z materiałami edukacyjnymi na WooCommerce. Klient dodaje produkty codziennie, potrzebował panelu, a nie dedykowanego systemu. WordPress był tu oczywisty.</li>
+  <li><strong><a href="/realizacje/konieczny-konstrukcje">Konieczny Konstrukcje</a></strong> — dedykowany motyw z modelami 3D obracanymi w przeglądarce. Treść zarządzana z panelu, ale kluczowa funkcja pisana od zera. Wariant środkowy.</li>
+  <li><strong><a href="/realizacje/magdent">MagDent</a></strong> — dwa gabinety stomatologiczne, strona zmieniana może dwa razy w roku. Poszła jako statyczny HTML i CSS, całkowicie bez CMS-a. Utrzymanie spadło do kosztu hostingu i domeny.</li>
+</ul>
 
-<p><strong>Wybierz WordPress jeśli:</strong> strona to wizytówka lub sklep, chcesz samodzielnie dodawać treści, budżet do 15 000 zł, potrzeba wdrożenia w 4-6 tygodni.</p>
+<p>Zwróćcie uwagę, że najtańsze rozwiązanie trafiło się przy najmniejszej potrzebie zmian, a nie przy najmniejszym budżecie. <strong>To liczba edycji w roku, a nie wielkość firmy, najsilniej przesądza o wyborze.</strong></p>
 
-<p><strong>Wybierz custom dev jeśli:</strong> strona to produkt lub aplikacja, masz specyficzne wymagania wydajnościowe lub integracyjne, budżet powyżej 20 000 zł.</p>
+<h2>Koszt posiadania, a nie koszt wdrożenia</h2>
 
-<p>Nie ma złej technologii — jest tylko technologia dopasowana lub niedopasowana do konkretnych potrzeb. <strong>Najdroższe rozwiązanie nie jest zawsze najlepsze.</strong></p>
+<p>Porównywanie samej ceny wdrożenia jest najczęstszym błędem przy tej decyzji. Sensowniejszy horyzont to trzy lata, bo tyle mniej więcej żyje strona firmowa, zanim zacznie wyglądać na starą.</p>
+
+<p>Po stronie WordPressa dochodzą: hosting pod PHP i bazę danych, licencje wtyczek odnawiane rocznie, aktualizacje i kopie zapasowe. Po stronie strony pisanej od zera: tańszy hosting albo darmowy, brak licencji, ale <strong>każda zmiana treści to zlecenie do wykonawcy.</strong> Przy stronie zmienianej co tydzień ten drugi model przestaje się opłacać bardzo szybko. Przy stronie zmienianej dwa razy do roku — nigdy się nie zaczyna opłacać ten pierwszy.</p>
+
+<p>Policzenie tego jest prostsze, niż się wydaje: pomnóżcie przewidywaną liczbę zmian w roku przez stawkę godzinową wykonawcy i porównajcie z rocznym kosztem utrzymania CMS-a. Rozpisaliśmy pełne widełki w tekście o <a href="/blog/ile-kosztuje-utrzymanie-strony-rocznie">kosztach utrzymania strony</a>.</p>
+
+<h2>Pytanie, o którym prawie nikt nie pamięta: czyj jest ten kod</h2>
+
+<p>Zanim podpiszecie umowę, warto ustalić trzy rzeczy, niezależnie od wybranej technologii:</p>
+
+<ul>
+  <li><strong>Czy dostajecie kod źródłowy</strong> i czy możecie go przekazać innemu wykonawcy bez pytania o zgodę.</li>
+  <li><strong>Czy strona da się przenieść</strong> na inny hosting bez przepisywania jej od nowa.</li>
+  <li><strong>Czy używane rozwiązania są standardowe</strong>, czy autorskie. Autorski CMS napisany przez agencję to najskuteczniejszy sposób uzależnienia klienta od jednego dostawcy — nikt inny nie będzie umiał tego rozwijać.</li>
+</ul>
+
+<p>Standardowy WordPress ma tu przewagę, o której rzadko się mówi: <strong>wykonawcę można wymienić.</strong> Przy dedykowanym rozwiązaniu ta swoboda zależy wyłącznie od tego, jak napisano umowę i czy kod jest czytelny dla kogoś z zewnątrz.</p>
+
+<h2>A kreatory — Wix, Squarespace, Webflow?</h2>
+
+<p>To osobny temat i osobna kategoria kosztów, bo płacicie tam abonament bez końca, a strona nie jest Waszą własnością. Rozłożyliśmy to na czynniki pierwsze w tekście <a href="/blog/kreatory-stron-czy-wystarcza">darmowe programy i kreatory do tworzenia stron</a> — razem z wyliczeniem, po ilu miesiącach abonament przekracza koszt zwykłego wdrożenia.</p>
+
+<h2>Pięć pytań, które rozstrzygają wybór</h2>
+
+<p>Jeśli mielibyśmy sprowadzić całą tę decyzję do checklisty, wyglądałaby tak:</p>
+
+<ul>
+  <li><strong>Ile razy w roku zmienicie treść?</strong> Powyżej kilkunastu — CMS. Poniżej kilku — rozważcie stronę statyczną.</li>
+  <li><strong>Kto będzie te zmiany wprowadzał?</strong> Osoba nietechniczna w firmie — CMS. Wykonawca na zlecenie — nie potrzebujecie panelu.</li>
+  <li><strong>Czy strona łączy się z innym systemem?</strong> Jeśli tak i nie ma na to gotowej wtyczki — kod pisany od zera.</li>
+  <li><strong>Czy strona jest wizytówką, czy narzędziem?</strong> Wizytówka i sklep — WordPress. Narzędzie, w którym użytkownik coś robi — custom.</li>
+  <li><strong>Jaki jest plan na trzy lata?</strong> Jeśli w planie jest rozbudowa o moduły, warto zacząć od ekosystemu, w którym te moduły już istnieją.</li>
+</ul>
+
+<h2>Podsumowanie</h2>
+
+<p><strong>WordPress</strong>, gdy strona jest wizytówką albo sklepem, chcecie samodzielnie dodawać treści i zależy Wam na wdrożeniu w kilka tygodni.</p>
+
+<p><strong>Kod pisany od zera</strong>, gdy strona jest produktem lub narzędziem, macie nietypowe wymagania integracyjne albo wydajnościowe — albo, na drugim biegunie, gdy treści jest tak mało, że CMS byłby kosztem bez zastosowania.</p>
+
+<p>Nie ma złej technologii — jest technologia dopasowana albo niedopasowana do konkretnej sytuacji. <strong>Najdroższe rozwiązanie nie jest automatycznie najlepsze, a najtańsze rzadko bywa najtańsze w trzyletnim rozrachunku.</strong> Jak wygląda u nas dobór technologii na starcie projektu, opisaliśmy na stronie <a href="/jak-pracujemy">jak pracujemy</a>.</p>
 
 <fragment slot="cta">
-  <h3>Nie wiesz co wybrać dla swojego biznesu?</h3>
-  <p>Opowiedz nam o projekcie. Doradzimy szczerze — nawet jeśli to oznacza, że prostsze rozwiązanie wystarczy.</p>
+  <h3>Nie wiecie, co wybrać dla swojego biznesu?</h3>
+  <p>Opowiedzcie nam o projekcie. Doradzimy szczerze — także wtedy, gdy prostsze i tańsze rozwiązanie w zupełności wystarczy.</p>
   <a href="/#kontakt" class="btn-primary"><span>Bezpłatna konsultacja →</span></a>
 </fragment>
 
