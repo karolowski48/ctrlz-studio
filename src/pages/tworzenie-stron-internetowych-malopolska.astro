@@ -21,7 +21,7 @@
 import Layout from '../layouts/Layout.astro';
 import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
-import { PROJECTS } from '../data/projects';
+import { ALL_PROJECTS as PROJECTS } from '../data/panel';
 import { priceAnswer, addonsAnswer } from '../data/pricing';
 
 /* Realizacje z Małopolski, pogrupowane geograficznie. Kolejność grup ustawiona
@@ -265,9 +265,7 @@ const breadcrumbSchema = {
 
     <p class="mp-p" style="margin-top:36px">
       Pełne portfolio, razem z projektami spoza regionu, na stronie
-      <a href="/realizacje" style="color:#c4b5fd">realizacje</a>. Co z tych piętnastu projektów
-      wynika o firmach z Małopolski, opisaliśmy w tekście
-      <a href="/blog/strony-dla-firm-z-malopolski-wnioski" style="color:#c4b5fd">czego nauczyło nas 15 projektów w regionie</a>.
+      <a href="/realizacje" style="color:#c4b5fd">realizacje</a>.
     </p>
   </div>
 </section>

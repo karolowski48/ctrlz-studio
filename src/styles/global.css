@@ -29,7 +29,49 @@
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; overflow-x:hidden; background:var(--bg-base); }
 body { font-family:var(--font-body); background:var(--bg-base); color:#fff; overflow-x:hidden; -webkit-font-smoothing:antialiased; cursor:none; }
-a { text-decoration:none; color:inherit; }
+/* LINKI: domyślnie podkreślone (czytelność i dostępność — link ma być widoczny
+   także dla osób nierozróżniających kolorów). Podkreślenia NIE dostają elementy,
+   które linkiem są tylko technicznie: przyciski, kafelki, karty, nawigacja,
+   ikony i pigułki — tam podkreślenie rozbijałoby układ. */
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .16em;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  transition: text-decoration-color var(--transition);
+}
+a:hover { text-decoration-color: currentColor; }
+
+a[class*="btn"],
+a[class*="card"],
+a[class*="cta"],
+a[class*="nav"],
+a[class*="pill"],
+a[class*="tag"],
+a[class*="icon"],
+a[class*="soc"],
+a[class*="chip"],
+a[class*="tile"],
+a[class*="logo"],
+a[class*="skip"],
+.nav-links a,
+.mobile-menu a,
+.footer-links a,
+.footer-legal a,
+.ms-links a,
+.proj-sidebar a,
+a.port-card,
+a.short,
+a.tall,
+a.related-post { text-decoration: none; }
+
+/* W treści artykułów, realizacji i podstron usług podkreślenie zostaje zawsze —
+   to są linki pisane w zdaniu, nie elementy interfejsu. */
+.article-body a,
+.proj-body a,
+.srv-p a,
+.faq-answer a { text-decoration: underline; }
 button { cursor:none; font-family:var(--font-body); }
 img,video { max-width:100%; display:block; }
 
@@ -1308,3 +1350,59 @@ body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width:54px
   .blog-tag-btn { flex: 0 0 auto; scroll-snap-align: start; }
   .blog-more { width: 100%; }
 }
+
+/* ============================================
+   HERO WYŚRODKOWANE (24.09.2026, wariant B z makiety)
+   Tło bez zmian: poświaty, siatka, kształty i cząsteczki.
+   ============================================ */
+.hero.hero--center { min-height: min(92svh, 900px); }
+.hero--center .hero-inner {
+  position: relative; z-index: 2; /* treść nad cząsteczkami i kształtami tła */
+  align-items: center;
+  text-align: center;
+  min-height: min(92svh, 900px);
+  padding-top: 120px !important;
+  padding-bottom: 72px !important;
+}
+.hero--center .hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12.5px; color: rgba(255,255,255,.78);
+  border: 1px solid rgba(255,255,255,.12); border-radius: 999px;
+  padding: 6px 14px; background: rgba(255,255,255,.04);
+}
+.hero--center .hero-title {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(38px, 4.2vw, 60px); line-height: 1.04; letter-spacing: -.035em;
+  max-width: 900px; margin: 24px auto 20px;
+}
+.hero--center .hero-lead {
+  font-size: 17px; line-height: 1.65; color: rgba(255,255,255,.72); font-weight: 400;
+  max-width: 640px; margin: 0 auto 32px;
+}
+.hero--center .hero-lead strong { color: rgba(255,255,255,.88); font-weight: 500; }
+.hero--center .hero-cta {
+  flex-direction: row !important; align-items: center !important; justify-content: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.hero-services { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 36px; }
+.hero-services a {
+  font-size: 13.5px; color: rgba(255,255,255,.72); text-decoration: none;
+  border: 1px solid rgba(255,255,255,.1); border-radius: 999px; padding: 8px 15px;
+  background: rgba(255,255,255,.03); transition: border-color var(--transition), color var(--transition);
+}
+.hero-services a:hover { border-color: var(--border-violet); color: #fff; }
+.hero-trust {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 24px;
+  margin: 26px 0 0; font-size: 13.5px; color: rgba(255,255,255,.62);
+}
+.hero-trust b { color: #fff; font-weight: 600; }
+.hero-stars { color: #fbbf24; letter-spacing: 1px; }
+@media (max-width: 768px) {
+  .hero.hero--center, .hero--center .hero-inner { min-height: auto; }
+  .hero--center .hero-inner { padding-top: 104px !important; padding-bottom: 56px !important; }
+  .hero--center .hero-title { font-size: clamp(32px, 9vw, 42px); }
+  .hero--center .hero-lead { font-size: 15.5px; }
+  .hero--center .hero-cta { width: 100%; }
+  .hero--center .hero-cta a { width: 100%; justify-content: center; }
+}
+

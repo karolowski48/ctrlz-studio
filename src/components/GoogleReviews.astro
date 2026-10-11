@@ -28,7 +28,7 @@ const PLACE_ID = import.meta.env.GOOGLE_PLACE_ID;
 const PLACE_QUERY = import.meta.env.GOOGLE_PLACE_QUERY;
 
 // ── OPINIE ─────────────────────────────────────────────────────────────
-// Przepisane ręcznie z wizytówki Google (stan: sierpień 2026).
+// Przepisane ręcznie z wizytówki Google (stan: październik 2026 — 19 opinii, średnia 5,0).
 // Places API nie znajduje jeszcze tego profilu — świeżo zweryfikowane wizytówki
 // trafiają do wyszukiwarki Places z opóźnieniem. Gdy się pojawi, wystarczy
 // uzupełnić GOOGLE_PLACES_API_KEY w .env i opinie zaczną się odświeżać same;
@@ -37,9 +37,51 @@ const PLACE_QUERY = import.meta.env.GOOGLE_PLACE_QUERY;
 // Dopisujesz nową opinię? Dodaj ją NA POCZĄTKU tablicy i podnieś `total`.
 const FALLBACK = {
   rating: 5,
-  total: 12,
+  total: 19,
   profileUrl: 'https://www.google.com/maps/search/?api=1&query=CtrlZ+Studio+Karol+Jasi%C3%B3wka+Izdebnik',
   reviews: [
+    {
+      author: 'Ewelina Kogut',
+      initials: 'EK',
+      rating: 5,
+      text: 'Polecam CtrlZ Studio za profesjonalne podejście i sprawną realizację projektu. Wszystko zostało dobrze przemyślane zarówno pod kątem wyglądu, jak i funkcjonalności strony. Kontakt był bezproblemowy, a wszelkie uwagi były szybko wdrażane. Współpraca zdecydowanie na plus.',
+      relative: '4 dni temu',
+    },
+    {
+      author: 'Dominika Leksander',
+      initials: 'DL',
+      rating: 5,
+      text: 'Bardzo polecam. Świetny kontakt, wszystko zrobione sprawnie i dokładnie tak, jak chciałam.',
+      relative: '2 tygodnie temu',
+    },
+    {
+      author: 'Art Projekt',
+      initials: 'AP',
+      rating: 5,
+      text: 'Współpraca z Karolem to czysta przyjemność :) Widać, że ma wieloletnie doświadczenie i prawdziwą pasję do tego, co robi',
+      relative: '4 tygodnie temu',
+    },
+    {
+      author: 'Michał Łopatka',
+      initials: 'MŁ',
+      rating: 5,
+      text: 'Rzetelna i dobra wspolpraca, polecam z calego serca. Do tej pory nie mialem zadnych problemow, jestem zadowolony.',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: '4-zywioly Domki',
+      initials: '4D',
+      rating: 5,
+      text: 'Bardzo polecam !! Pełen profesjonalizm i doradztwo w tworzeniu stron. Bardzo dobra współpraca',
+      relative: 'miesiąc temu',
+    },
+    {
+      author: 'Jakub Kogut',
+      initials: 'JK',
+      rating: 5,
+      text: 'Polecam! Rzetelnie, profesjonalnie, w terminie :) rzeczy niemożliwe "od ręki" - na cuda potrzeba troszkę cierpliwości 🙃',
+      relative: 'miesiąc temu',
+    },
     {
       author: 'Sławek Krawczyk',
       initials: 'SK',

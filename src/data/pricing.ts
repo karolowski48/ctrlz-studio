@@ -15,6 +15,7 @@ export const PRICING = {
   firmowa: { from: 4000, tier2: 5500, tier3: 6800 },
   sklep: { from: 8000, tier2: 11000, tier3: 15000 },
   custom: 12000,
+  crm: 18000,
   techSurcharge: '+60%',
   addons: {
     seoBasic: 1500,
@@ -40,9 +41,10 @@ export function priceAnswer(city?: string): string {
     `strona firmowa z CMS od ${zl(PRICING.firmowa.from)} ` +
     `(4–8 podstron ${zl(PRICING.firmowa.tier2)}, 9–15 podstron ${zl(PRICING.firmowa.tier3)}), ` +
     `sklep WooCommerce od ${zl(PRICING.sklep.from)}, ` +
-    `dedykowana aplikacja lub konfigurator od ${zl(PRICING.custom)}. ` +
-    `Strona pisana w Astro albo Next.js zamiast WordPressa to ${PRICING.techSurcharge} do wyceny — ` +
-    `w zamian dostajecie wyraźnie szybszą i tańszą w utrzymaniu stronę. ` +
+    `dedykowana aplikacja lub konfigurator od ${zl(PRICING.custom)}, ` +
+    `panel CRM na zamówienie od ${zl(PRICING.crm)}, a aplikacja PWA — wycena indywidualna. ` +
+    `Stronę pisaną w Astro albo Next.js zamiast WordPressa wyceniamy po rozmowie — ` +
+    `jest droższa w budowie, ale wyraźnie szybsza i tańsza w utrzymaniu. ` +
     `Wycena jest wiążąca i podajemy ją przed startem, bez faktur za „prace dodatkowe" na końcu.`
   );
 }

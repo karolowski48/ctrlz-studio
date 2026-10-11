@@ -3,7 +3,7 @@
  * ══════════════════════════
  *
  * Jedna funkcja dla wszystkich czterech formularzy w serwisie. Wysyła dane
- * do naszego Workera (worker/src/index.js), a po sukcesie przenosi na /dziekujemy.
+ * do panelu CtrlZ Hub (`POST /api/formularz`), a po sukcesie przenosi na /dziekujemy.
  *
  * DLACZEGO JEST TU FALLBACK NA mailto:
  * Jeśli endpoint padnie, nie zwróci się w czasie albo klient siedzi za

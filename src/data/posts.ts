@@ -20,17 +20,6 @@ export interface Post {
 
 export const posts: Post[] = [
   {
-    slug: 'strony-dla-firm-z-malopolski-wnioski',
-    title: 'Strony dla firm z Małopolski — czego nauczyło nas 15 projektów',
-    excerpt: 'Co powtarza się u klientów z Krakowa, Wadowic, Myślenic i Skawiny — i czym różni się rozmowa o stronie w dużym mieście od tej w małej miejscowości.',
-    cat: 'Biznes',
-    time: '10 min',
-    date: '25 września 2026',
-    featured: false,
-    bg: 'linear-gradient(135deg,#04231a 0%,#0b5138 50%,#021410 100%)',
-    glowColor: 'rgba(52,211,153,.45)',
-  },
-  {
     slug: 'formularz-kontaktowy-ktory-gubi-zapytania',
     title: 'Formularz kontaktowy, który gubi zapytania',
     excerpt: 'Najczęstsze powody, dla których formularz nie dowozi — od wysyłki przez mailto po brak potwierdzenia. Z przykładem błędu, który mieliśmy na własnej stronie.',

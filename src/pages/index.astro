@@ -6,7 +6,7 @@ import { img } from '../data/images';
 import GoogleReviews from '../components/GoogleReviews.astro';
 import HostingPromo from '../components/HostingPromo.astro';
 import { priceAnswer } from '../data/pricing';
-import { posts } from '../data/posts';
+import { ALL_POSTS as posts } from '../data/panel';
 
 const latestPosts = posts.slice(0, 3);
 ---
@@ -67,7 +67,7 @@ const latestPosts = posts.slice(0, 3);
 
 <main id="main-content">
 <!-- HERO -->
-<section class="hero" id="home">
+<section class="hero hero--center" id="home">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
@@ -82,29 +82,33 @@ const latestPosts = posts.slice(0, 3);
   <div id="hero-particles"></div>
 
   <div class="hero-inner">
-    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px" id="h-ey">
-      <div class="hero-eyebrow" style="margin:0">Tworzenie stron internetowych — Skawina, Wadowice, Myślenice</div>
-      <div class="footer-badge" style="position:static;margin:0;font-size:12px;padding:5px 12px"><div class="badge-dot"></div>Przyjmujemy nowe projekty</div>
-    </div>
-    <h1 class="display-xl hero-title" id="h-title">
-      Budujemy marki,<br>
-      które <span class="grad-anim">naprawdę</span><br>
-      <span class="italic-light">zarabiają</span><br>
-      na siebie.
+    <div id="h-ey"><span class="hero-badge"><span class="badge-dot"></span>Przyjmujemy nowe projekty</span></div>
+    <h1 class="hero-title" id="h-title">
+      Budujemy strony, które <span class="grad-anim">zarabiają</span> na&nbsp;siebie.
     </h1>
-    <div class="hero-bottom" id="h-bot">
-      <p class="hero-desc">
-        Zajmujemy się <strong>tworzeniem stron internetowych</strong> i sklepów online
-        dla firm z Małopolski — Skawina, Sułkowice, Kalwaria Zebrzydowska,
-        Wadowice, Myślenice i okolice.<br>
+    <div id="h-bot">
+      <p class="hero-lead">
+        Zajmujemy się <strong>tworzeniem stron internetowych</strong> i sklepów online dla firm z Małopolski —
+        Wadowice, Skawina, Myślenice, Kraków i okolice. Szybko, konkretnie, z opieką po starcie.
       </p>
       <div class="hero-cta">
         <a href="#kontakt" class="btn-primary"><span>Porozmawiaj o projekcie</span></a>
-        <span class="hero-cta-sub">lub napisz: kontakt@ctrlzstudio.pl</span>
+        <a href="/bezplatny-audyt" class="btn-ghost">Bezpłatny audyt strony</a>
       </div>
+      <nav class="hero-services" aria-label="Usługi">
+        <a href="/strony-internetowe">Strony firmowe</a>
+        <a href="/sklepy-internetowe">Sklepy internetowe</a>
+        <a href="/pozycjonowanie-seo">Pozycjonowanie SEO</a>
+        <a href="/wsparcie-techniczne">Opieka techniczna</a>
+        <a href="/panel-crm-dla-firm">Panel CRM</a>
+      </nav>
+      <p class="hero-trust">
+        <span><span class="hero-stars" aria-hidden="true">★★★★★</span> <b>5,0</b> w Google</span>
+        <span><b>20+</b> realizacji</span>
+        <span><b>90+</b> PageSpeed</span>
+      </p>
     </div>
   </div>
-  <div class="hero-scroll"><div class="hero-scroll-dot"></div><div class="hero-scroll-txt">Zjedź niżej</div></div>
 </section>
 
 <!-- MARQUEE -->

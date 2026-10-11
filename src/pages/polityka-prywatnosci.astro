@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
 
-const lastUpdated = "1 maja 2026";
+const lastUpdated = "24 września 2026";
 
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -260,9 +260,15 @@ const breadcrumbSchema = {
         </tr>
         <tr>
           <td>Pliki cookies analityczne</td>
-          <td>Anonimowe dane o aktywności na stronie</td>
+          <td>Pseudonimowe dane o aktywności na stronie</td>
           <td>Analiza ruchu, poprawa jakości strony</td>
-          <td>Art. 6 ust. 1 lit. a RODO (zgoda)</td>
+          <td>Art. 399 ust. 1 Prawa komunikacji elektronicznej i art. 6 ust. 1 lit. a RODO (zgoda)</td>
+        </tr>
+        <tr>
+          <td>Pliki cookies marketingowe</td>
+          <td>Pseudonimowe identyfikatory reklamowe</td>
+          <td>Pomiar skuteczności reklam Google Ads (po uruchomieniu kampanii)</td>
+          <td>Art. 399 ust. 1 Prawa komunikacji elektronicznej i art. 6 ust. 1 lit. a RODO (zgoda)</td>
         </tr>
       </tbody>
     </table>
@@ -284,9 +290,9 @@ const breadcrumbSchema = {
     <h2 id="s4">4. Udostępnianie danych osobom trzecim</h2>
     <p>Twoje dane osobowe <strong>nie są sprzedawane</strong> ani udostępniane innym podmiotom w celach marketingowych. Dane mogą być przekazywane wyłącznie:</p>
     <ul>
-      <li><strong>Dostawcy hostingu i serwera pocztowego</strong> — w ramach infrastruktury technicznej niezbędnej do działania strony i obsługi korespondencji. Dostawcy działają wyłącznie na nasze polecenie i na podstawie umowy powierzenia danych.</li>
-      <li><strong>Dostawcy usługi obsługi formularzy i wysyłki wiadomości</strong> — dane wpisane w formularz kontaktowy są przekazywane do przetworzenia i dostarczenia wiadomości e-mail (Cloudflare, Inc. oraz Resend, Inc.). Podmioty te przetwarzają dane wyłącznie na nasze polecenie, nie przechowują treści zgłoszeń dłużej, niż jest to niezbędne do ich dostarczenia, i nie wykorzystują ich do własnych celów.</li>
-      <li><strong>Narzędziom analitycznym</strong> — jeśli wyraziłeś/aś zgodę na pliki cookies analityczne (np. Google Analytics). Dane są anonimizowane lub pseudonimizowane.</li>
+      <li><strong>Dostawcy serwera</strong> — OVH Sp. z o.o. (serwer w Polsce), na którym działa strona oraz nasz system obsługi zgłoszeń: dane wpisane w formularz trafiają bezpośrednio do niego. Dostawca działa wyłącznie na nasze polecenie i na podstawie umowy powierzenia danych.</li>
+      <li><strong>Dostawcy poczty e-mail</strong> — LH.pl Sp. z o.o., na którego serwerach działa nasza skrzynka i na którą wysyłamy kopię zgłoszenia z formularza.</li>
+      <li><strong>Google Ireland Ltd.</strong> — wyłącznie jeśli wyraziłeś/aś zgodę na pliki cookies analityczne (Google Analytics) lub marketingowe (Google Ads). Bez zgody skrypty Google w ogóle się nie wczytują.</li>
       <li><strong>Organom publicznym</strong> — wyłącznie w przypadku, gdy obowiązek przekazania danych wynika z obowiązujących przepisów prawa.</li>
     </ul>
     <p>Wszystkie podmioty, którym powierzamy przetwarzanie danych, zapewniają odpowiedni poziom ochrony i działają zgodnie z RODO.</p>
@@ -297,6 +303,7 @@ const breadcrumbSchema = {
       <li><strong>Dane z formularzy kontaktowych</strong> — do 12 miesięcy od zakończenia korespondencji, chyba że nawiążemy współpracę — wtedy przez czas trwania umowy i wymagany przepisami okres po jej zakończeniu.</li>
       <li><strong>Dane klientów (umowy, faktury)</strong> — przez 5 lat od końca roku podatkowego, zgodnie z przepisami prawa podatkowego.</li>
       <li><strong>Dane analityczne</strong> — zgodnie z polityką dostawcy narzędzia (domyślnie do 14 miesięcy dla Google Analytics).</li>
+      <li><strong>Rejestr zgód cookies</strong> — 12 miesięcy od decyzji (patrz punkt 7).</li>
       <li><strong>Korespondencja e-mail</strong> — do 12 miesięcy od ostatniej wiadomości w danym wątku.</li>
     </ul>
     <p>Po upływie okresu przechowywania dane są trwale usuwane lub anonimizowane.</p>
@@ -320,13 +327,18 @@ const breadcrumbSchema = {
     <p>Jeśli uważasz, że przetwarzamy Twoje dane niezgodnie z prawem, masz również prawo wnieść skargę do organu nadzorczego — w Polsce jest nim <strong>Prezes Urzędu Ochrony Danych Osobowych (UODO)</strong>, ul. Stawki 2, 00-193 Warszawa, <a href="https://uodo.gov.pl" target="_blank" rel="noopener">uodo.gov.pl</a>.</p>
 
     <h2 id="s7">7. Pliki cookies</h2>
-    <p>Nasza strona może wykorzystywać pliki cookies (ciasteczka) — małe pliki tekstowe zapisywane w przeglądarce. Wyróżniamy:</p>
-    <ul>
-      <li><strong>Cookies niezbędne</strong> — konieczne do poprawnego działania strony. Nie wymagają zgody.</li>
-      <li><strong>Cookies analityczne</strong> — pozwalają nam mierzyć ruch na stronie i poprawiać jej jakość (np. Google Analytics). Wymagają Twojej zgody.</li>
-      <li><strong>Cookies funkcjonalne</strong> — zapamiętują Twoje preferencje (np. wybór języka). Mogą wymagać zgody.</li>
-    </ul>
-    <p>Możesz w dowolnym momencie zmienić ustawienia cookies w swojej przeglądarce lub cofnąć zgodę. Instrukcje znajdziesz w pomocy przeglądarki, z której korzystasz. Wyłączenie cookies analitycznych nie wpłynie na działanie strony.</p>
+    <p>Pliki cookies (ciasteczka) to małe pliki tekstowe zapisywane w Twojej przeglądarce. Na tej stronie używamy ich w trzech kategoriach. Poza niezbędnymi żadne nie są zapisywane bez Twojej zgody — skrypty Google Analytics i Google Ads nie wczytują się, dopóki jej nie wyrazisz.</p>
+    <div style="overflow-x:auto"><table class="pp-table">
+      <thead><tr><th>Kategoria</th><th>Pliki i dostawca</th><th>Cel</th><th>Czas</th><th>Podstawa</th></tr></thead>
+      <tbody>
+        <tr><td>Niezbędne</td><td>ctrlz_zgoda (CtrlZ Studio)</td><td>Zapamiętanie Twojego wyboru w banerze</td><td>12 miesięcy</td><td>Art. 399 ust. 2 PKE (niezbędne do usługi), art. 6 ust. 1 lit. c i f RODO</td></tr>
+        <tr><td>Analityczne</td><td>_ga, _ga_5LYYREZRZC (Google Ireland Ltd., Google Analytics 4)</td><td>Statystyka odwiedzin, popularne podstrony, źródła ruchu</td><td>2 lata</td><td>Zgoda (art. 399 ust. 1 PKE, art. 6 ust. 1 lit. a RODO)</td></tr>
+        <tr><td>Marketingowe</td><td>_gcl_au, IDE, test_cookie (Google Ireland Ltd., Google Ads)</td><td>Pomiar skuteczności reklam i dopasowanie reklam — dopiero po uruchomieniu kampanii</td><td>90 dni – 13 miesięcy</td><td>Zgoda (art. 399 ust. 1 PKE, art. 6 ust. 1 lit. a RODO)</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Jak zmienić lub wycofać zgodę.</strong> W każdej chwili kliknij <a href="#s7" data-cookie-settings>Ustawienia cookies</a> (link jest też w stopce każdej strony). Wycofanie zgody działa od tej chwili i nie wpływa na zgodność z prawem wcześniejszego przetwarzania. Po wycofaniu zgody na analitykę usuwamy pliki Google Analytics z Twojej przeglądarki. Wyłączenie cookies analitycznych i marketingowych nie wpływa na działanie strony. Pliki cookies możesz też usuwać i blokować w ustawieniach przeglądarki.</p>
+    <p><strong>Rejestr zgód.</strong> Żeby móc wykazać, że zgoda została wyrażona (art. 7 ust. 1 RODO), każdą decyzję w banerze zapisujemy w rejestrze: losowy identyfikator zgody (ten sam, co w pliku ctrlz_zgoda), wybrane kategorie, datę i wersję banera. Rejestr nie zawiera adresu IP ani żadnych danych pozwalających Cię zidentyfikować. Wpisy usuwamy automatycznie po 12 miesiącach. Podstawą jest nasz prawnie uzasadniony interes (art. 6 ust. 1 lit. f RODO) — wykazanie zgodności z przepisami.</p>
+    <p>Zgodę zapisujemy na 12 miesięcy — po tym czasie albo po zmianie listy plików cookies zapytamy ponownie.</p>
 
     <h2 id="s8">8. Bezpieczeństwo danych</h2>
     <p>Stosujemy odpowiednie środki techniczne i organizacyjne w celu ochrony Twoich danych przed nieuprawnionym dostępem, utratą lub zniszczeniem:</p>

@@ -28,8 +28,28 @@ const services = [
     accent: 'rgba(14,165,233,',
   },
   {
-    href: '/pozycjonowanie-seo',
+    href: '/panel-crm-dla-firm',
     num: '03',
+    name: 'Panele CRM dla firm',
+    price: `od ${zl(PRICING.crm)}`,
+    desc: 'System zbudowany pod Wasz proces: zlecenia, klienci, pracownicy, finanse i magazyn w jednym miejscu. Integracje z KSeF, Subiektem i sklepem. Bez abonamentu od każdego użytkownika.',
+    forWhom: 'Firma, która te same dane przepisuje do arkusza, programu do faktur i komunikatora.',
+    tags: ['Next.js', 'KSeF', 'Subiekt', 'Integracje'],
+    accent: 'rgba(196,120,60,',
+  },
+  {
+    href: '/aplikacje-pwa',
+    num: '04',
+    name: 'Aplikacje PWA',
+    price: 'wycena indywidualna',
+    desc: 'Aplikacja instalowana na ekranie głównym telefonu — bez publikacji w sklepach Google i Apple. Zadania dla ekip, zgłoszenia z terenu, panel klienta, powiadomienia push.',
+    forWhom: 'Zespół w terenie, który dziś pracuje na telefonach, zdjęciach i wiadomościach.',
+    tags: ['PWA', 'Push', 'Offline', 'Android + iOS'],
+    accent: 'rgba(56,189,248,',
+  },
+  {
+    href: '/pozycjonowanie-seo',
+    num: '05',
     name: 'Pozycjonowanie SEO',
     price: `od ${zl(PRICING.addons.seoBasic)}`,
     desc: 'Optymalizacja techniczna, dane strukturalne, strony lokalne, wizytówka Google i strategia treści. Bez kupowania linków i bez obiecywania pierwszego miejsca.',
@@ -39,7 +59,7 @@ const services = [
   },
   {
     href: '/audyt-strony',
-    num: '04',
+    num: '06',
     name: 'Audyt strony',
     price: '300 – 1 000 zł',
     desc: 'Widoczność w Google, kondycja techniczna, szybkość, wizytówka i konwersja. Lista konkretnych rzeczy do poprawy, uszeregowana według stosunku wysiłku do efektu.',
@@ -49,7 +69,7 @@ const services = [
   },
   {
     href: '/audyt-seo',
-    num: '05',
+    num: '07',
     name: 'Audyt SEO',
     price: '300 – 1 000 zł',
     desc: 'Węższy wariant audytu — wyłącznie widoczność w wyszukiwarce: frazy, tytuły, struktura, indeksacja, linkowanie wewnętrzne i dane strukturalne.',
@@ -59,7 +79,7 @@ const services = [
   },
   {
     href: '/usuwanie-wirusow-wordpress',
-    num: '06',
+    num: '08',
     name: 'Usuwanie wirusów WordPress',
     price: 'od 600 zł',
     desc: 'Czyszczenie zainfekowanych stron, znalezienie punktu wejścia, uszczelnienie zabezpieczeń i sprzątanie tego, co atak zostawił w indeksie Google.',
@@ -69,7 +89,7 @@ const services = [
   },
   {
     href: '/audyt-dostepnosci-wcag',
-    num: '07',
+    num: '09',
     name: 'Audyt dostępności WCAG',
     price: '400 – 1 500 zł',
     desc: 'Kontrasty, opisy alternatywne, etykiety formularzy, obsługa klawiaturą i struktura nagłówków — na poziomie AA, z ręczną weryfikacją wyników.',
@@ -79,13 +99,23 @@ const services = [
   },
   {
     href: '/wsparcie-techniczne',
-    num: '08',
+    num: '10',
     name: 'Wsparcie techniczne',
     price: `${zl(PRICING.addons.maintenanceMonthly)} / mies.`,
     desc: 'Aktualizacje sprawdzane na kopii, cotygodniowe kopie zapasowe poza serwerem, monitoring dostępności, bezpieczeństwo i godzina na drobne zmiany.',
     forWhom: 'Strona na WordPressie, którą ktoś musi doglądać — a nie chcecie tego robić sami.',
     tags: ['Aktualizacje', 'Backup', 'Monitoring', 'Raporty'],
     accent: 'rgba(251,146,60,',
+  },
+  {
+    href: '/wtyczki-wordpress',
+    num: '11',
+    name: 'Wtyczki do WordPressa',
+    price: 'sklep taniawtyczka.pl',
+    desc: 'Nasz własny sklep z wtyczkami i motywami: małe narzędzia, które robią jedną rzecz. Płacisz raz — bez klucza licencyjnego, bez limitu domen i bez odnawiania co roku. Piszemy też wtyczki na zamówienie.',
+    forWhom: 'Strona na WordPressie, której brakuje jednej konkretnej funkcji.',
+    tags: ['WordPress', 'WooCommerce', 'Bez subskrypcji', 'Na zamówienie'],
+    accent: 'rgba(163,230,53,',
   },
 ];
 
@@ -168,6 +198,9 @@ const breadcrumbSchema = {
     font-family: var(--font-display); font-size: 24px; font-weight: 800;
     color: #fff; letter-spacing: -.02em; margin-bottom: 6px; white-space: nowrap;
   }
+  /* „wycena indywidualna" nie zmieści się w kolumnie ceny jak kwota — łamiemy ją
+     i zmniejszamy stopień pisma zamiast pozwolić jej wyjść poza kartę. */
+  .usl-price.is-text { font-size: 17px; line-height: 1.25; white-space: normal; }
   .usl-price-note { font-size: 12px; color: rgba(255,255,255,.68); margin-bottom: 18px; }
   .usl-go { font-size: 13px; font-weight: 600; white-space: nowrap; }
 
@@ -214,8 +247,8 @@ const breadcrumbSchema = {
           </div>
         </div>
         <div class="usl-side">
-          <div class="usl-price">{s.price}</div>
-          <div class="usl-price-note">netto, wycena wiążąca przed startem</div>
+          <div class={`usl-price${/\d/.test(s.price) ? '' : ' is-text'}`}>{s.price}</div>
+          <div class="usl-price-note">{/\d/.test(s.price) ? 'netto, wycena wiążąca przed startem' : 'zakres i cena po rozmowie, wiążące przed startem'}</div>
           <div class="usl-go" style={`color:${s.accent}.95)`}>Zobacz szczegóły →</div>
         </div>
       </a>

@@ -10,14 +10,17 @@
 import Layout from '../layouts/Layout.astro';
 import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
-import { posts } from '../data/posts';
-import { PROJECTS } from '../data/projects';
+import { ALL_POSTS as posts } from '../data/panel';
+import { ALL_PROJECTS as PROJECTS } from '../data/panel';
 import { INDUSTRIES } from '../data/industries';
 
 const uslugi = [
   ['/uslugi', 'Wszystkie usługi'],
   ['/strony-internetowe', 'Strony internetowe'],
   ['/sklepy-internetowe', 'Sklepy internetowe'],
+  ['/panel-crm-dla-firm', 'Panele CRM dla firm'],
+  ['/aplikacje-pwa', 'Aplikacje PWA'],
+  ['/wtyczki-wordpress', 'Wtyczki do WordPressa (taniawtyczka.pl)'],
   ['/pozycjonowanie-seo', 'Pozycjonowanie SEO'],
   ['/audyt-strony', 'Audyt strony'],
   ['/bezplatny-audyt', 'Bezpłatny audyt'],

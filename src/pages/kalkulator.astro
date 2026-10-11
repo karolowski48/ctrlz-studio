@@ -295,7 +295,7 @@ textarea.form-input { resize: none; }
 @media (max-width: 1100px) {
   .calc-wrap { grid-template-columns: 1fr; gap: 32px; padding: 0 28px 64px; }
   .calc-result { position: static; }
-  .opts-4 { grid-template-columns: 1fr 1fr; }
+  .opts-3, .opts-4 { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
   .calc-wrap { padding: 0 16px 48px; }
@@ -339,7 +339,7 @@ textarea.form-input { resize: none; }
           <div class="step-subtitle">Co chcesz zbudować?</div>
         </div>
       </div>
-      <div class="opts opts-4" id="opts-type">
+      <div class="opts opts-3" id="opts-type">
         <label class="opt">
           <input type="radio" name="type" value="landing" checked>
           <div class="opt-label">
@@ -373,7 +373,25 @@ textarea.form-input { resize: none; }
             <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
             <div class="opt-name">Custom / Aplikacja</div>
             <div class="opt-desc">Dedykowane rozwiązanie, konfigurator, platforma, integracje API.</div>
-            <div class="opt-price">od 12 000 zł</div>
+            <div class="opt-price">wycena indywidualna</div>
+          </div>
+        </label>
+        <label class="opt">
+          <input type="radio" name="type" value="crm">
+          <div class="opt-label">
+            <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+            <div class="opt-name">Panel CRM</div>
+            <div class="opt-desc">System do zarządzania firmą: zlecenia, klienci, pracownicy, finanse, magazyn.</div>
+            <div class="opt-price">od 18 000 zł</div>
+          </div>
+        </label>
+        <label class="opt">
+          <input type="radio" name="type" value="pwa">
+          <div class="opt-label">
+            <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></div>
+            <div class="opt-name">Aplikacja PWA</div>
+            <div class="opt-desc">Aplikacja na telefon bez sklepu Google i Apple — zadania, zgłoszenia, panel klienta.</div>
+            <div class="opt-price">wycena indywidualna</div>
           </div>
         </label>
       </div>
@@ -405,16 +423,6 @@ textarea.form-input { resize: none; }
             <div class="opt-name">PrestaShop</div>
             <div class="opt-desc">Wielojęzyczność, wielowalutowość i grupy cenowe w rdzeniu. Naturalny wybór przy sprzedaży B2B i na kilka rynków.</div>
             <div class="opt-price">+20% do wyceny</div>
-          </div>
-        </label>
-        <label class="opt" id="opt-next">
-          <input type="radio" name="tech" value="next">
-          <div class="opt-label">
-            <div class="opt-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-            <div class="opt-name">Next.js / Astro.js</div>
-            <div class="opt-desc">Maksymalna wydajność, wynik Lighthouse 98+, zaawansowane animacje. Dla landingów, stron firmowych i projektów dedykowanych.</div>
-            <div class="opt-price">+60% do wyceny</div>
-            <div class="opt-badge">Premium tech</div>
           </div>
         </label>
       </div>
@@ -483,6 +491,28 @@ textarea.form-input { resize: none; }
           <div>
             <div style="font-size:14px;font-weight:600;color:#fff;font-family:var(--font-display)">Zakres ustalany indywidualnie</div>
             <div style="font-size:12px;color:rgba(255,255,255,.68);margin-top:2px">Projekt custom wyceniamy po rozmowie — zakres, czas i cena zależą od wymagań.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL CRM: baza + moduły -->
+      <div class="size-group" id="sg-crm">
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(196,120,60,.08);border:1px solid rgba(196,120,60,.22);border-radius:10px">
+          <span style="font-size:20px">🗂️</span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#fff;font-family:var(--font-display)">Start od 18 000 zł: analiza, projekt, moduły podstawowe, szkolenie</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.68);margin-top:2px">Kolejne moduły (finanse, magazyn, aplikacja dla ekip) i integracje — KSeF, Subiekt, sklep — wyceniamy po rozmowie.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PWA: indywidualnie -->
+      <div class="size-group" id="sg-pwa">
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2);border-radius:10px">
+          <span style="font-size:20px">📱</span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#fff;font-family:var(--font-display)">Wycena indywidualna</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.68);margin-top:2px">Aplikacja z zadaniami dla ekipy to inna praca niż aplikacja dla klientów z kontem i płatnościami — cenę podajemy po rozmowie.</div>
           </div>
         </div>
       </div>
@@ -1144,8 +1174,8 @@ initPage();
 // ════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════
-type ProjectType = 'landing' | 'firmowa' | 'sklep' | 'custom';
-type TechType    = 'wp' | 'next';
+type ProjectType = 'landing' | 'firmowa' | 'sklep' | 'custom' | 'crm' | 'pwa';
+type TechType    = 'wp' | 'presta';
 
 const state = {
   type:         'landing' as ProjectType,
@@ -1175,6 +1205,9 @@ const SKLEP_TIERS: Record<string,number> = {
 // Custom: base
 const CUSTOM_BASE = 12000;
 
+// Panel CRM: start wdrożenia; PWA zawsze indywidualnie
+const CRM_BASE = 18000;
+
 // ════════════════════════════════════════════
 // HELPERS
 // ════════════════════════════════════════════
@@ -1190,12 +1223,14 @@ function getActiveSizePrice(): number {
   if (state.type === 'landing') return LANDING_BASE.low;
   if (state.type === 'firmowa') return FIRMOWA_DATA[firmowaSizeIdx]?.price ?? 4000;
   if (state.type === 'sklep')   return SKLEP_DATA[sklepSizeIdx]?.price ?? 8000;
+  if (state.type === 'crm')     return CRM_BASE;
   return CUSTOM_BASE;
 }
 function getSizeLabel(): string {
   if (state.type === 'landing')  return 'One-page';
   if (state.type === 'firmowa') return FIRMOWA_DATA[firmowaSizeIdx]?.label ?? '1–3 podstrony';
   if (state.type === 'sklep')   return SKLEP_DATA[sklepSizeIdx]?.label ?? '1–3 podstrony';
+  if (state.type === 'crm')     return 'Moduły podstawowe';
   return 'Indywidualny';
 }
 
@@ -1205,11 +1240,15 @@ function getSizeLabel(): string {
 function calc() {
   const base   = getActiveSizePrice();
   const isInd  = (state.type === 'custom')
+    || (state.type === 'pwa')
     || (state.type === 'sklep'   && SKLEP_DATA[sklepSizeIdx]?.individual === true)
     || (state.type === 'firmowa' && FIRMOWA_DATA[firmowaSizeIdx]?.individual === true);
   state.isIndividual = isInd;
 
-  const techMult = state.tech === 'next' ? 1.6 : state.tech === 'presta' ? 1.2 : 1.0;
+  /* Panel CRM i PWA piszemy w Next.js z definicji — ich cena bazowa już to uwzględnia,
+     więc nie doliczamy mnożnika za technologię. */
+  const isApp = state.type === 'crm' || state.type === 'pwa';
+  const techMult = isApp ? 1.0 : state.tech === 'presta' ? 1.2 : 1.0;
 
   const low = Math.round(base * techMult / 100) * 100;
   const high  = Math.round(low * 1.25 / 100) * 100;
@@ -1235,11 +1274,14 @@ function calc() {
 
   // Row labels
   const typeNames: Record<string,string> = {
-    landing: 'Landing Page', firmowa: 'Strona firmowa', sklep: 'Sklep internetowy', custom: 'Custom / Aplikacja'
+    landing: 'Landing Page', firmowa: 'Strona firmowa', sklep: 'Sklep internetowy', custom: 'Custom / Aplikacja',
+    crm: 'Panel CRM', pwa: 'Aplikacja PWA'
   };
   animVal(document.getElementById('r-type')!,   typeNames[state.type]);
-  const techNames: Record<string,string> = { next: 'Next.js / Astro.js', presta: 'PrestaShop', wp: 'WordPress' };
-  animVal(document.getElementById('r-tech')!,   techNames[state.tech] ?? 'WordPress');
+  /* Panel CRM i aplikacja PWA powstają w Next.js — technologii się przy nich nie wybiera,
+     więc w podsumowaniu pokazujemy ją jako stałą zamiast pustego pola. */
+  const techNames: Record<string,string> = { presta: 'PrestaShop', wp: 'WordPress' };
+  animVal(document.getElementById('r-tech')!, isApp ? 'Next.js' : (techNames[state.tech] ?? 'WordPress'));
   animVal(document.getElementById('r-size')!,   getSizeLabel());
 
   // Addons
@@ -1256,21 +1298,18 @@ function calc() {
 // SIZE GROUP VISIBILITY
 // ════════════════════════════════════════════
 function showSizeGroup(type: ProjectType) {
-  ['landing','firmowa','sklep','custom'].forEach(t => {
+  ['landing','firmowa','sklep','custom','crm','pwa'].forEach(t => {
     const el = document.getElementById(`sg-${t}`)!;
     el.classList.toggle('visible', t === type);
   });
   /* Przy projekcie dedykowanym liczba podstron nic nie zmienia w wycenie
      (zawsze wycena indywidualna), więc cały krok wygaszamy zamiast udawać,
      że suwak na coś wpływa. */
-  document.getElementById('step-3')!.classList.toggle('step-muted', type === 'custom');
+  document.getElementById('step-3')!.classList.toggle('step-muted', type === 'custom' || type === 'pwa');
   // Update step title
-  const titles: Record<string,string> = {
-    landing: 'One-page', firmowa: 'Liczba podstron', sklep: 'Liczba podstron', custom: 'Zakres projektu'
-  };
   document.getElementById('size-step-title')!.textContent =
     type === 'landing' ? 'Format projektu' :
-    type === 'custom'  ? 'Zakres projektu'  : 'Liczba podstron';
+    (type === 'custom' || type === 'crm' || type === 'pwa') ? 'Zakres projektu' : 'Liczba podstron';
 }
 
 // ════════════════════════════════════════════
@@ -1286,24 +1325,22 @@ function showSizeGroup(type: ProjectType) {
  *    sugerować wyboru, który nigdy nie ma sensu.
  */
 function updateTechAvailability(type: ProjectType) {
-  const nextOpt   = document.getElementById('opt-next')!;
   const prestaOpt = document.getElementById('opt-presta')!;
-  const optsTech  = document.getElementById('opts-tech')!;
   const wpInput   = document.querySelector<HTMLInputElement>('input[name="tech"][value="wp"]')!;
+  const step      = document.getElementById('step-2')!;
 
+  /* Panel CRM i aplikacja PWA piszemy w Next.js — nie ma tu czego wybierać,
+     więc cały krok chowamy zamiast pokazywać wyszarzone kafelki. */
+  const isApp = type === 'crm' || type === 'pwa';
+  step.style.display = isApp ? 'none' : '';
+  if (isApp) return;
+
+  /* PrestaShop pokazujemy wyłącznie przy sklepie — przy innych typach opcja
+     nie ma sensu, więc ją chowamy, zamiast wyszarzać. */
   const isSklep = type === 'sklep';
-
-  /* Przy sklepie pokazujemy WordPress + PrestaShop, przy pozostałych typach
-     WordPress + Next.js. Opcja niedostępna jest CHOWANA, nie wyszarzana —
-     wyszarzenie sugeruje „da się, ale nie tutaj", a tu po prostu nie ma sensu. */
-  nextOpt.style.display   = isSklep ? 'none' : '';
   prestaOpt.style.display = isSklep ? '' : 'none';
-  optsTech.classList.add('opts-2');
-  optsTech.classList.remove('opts-3');
 
-
-  // Wybrana technologia zniknęła z listy → wracamy na WordPressa
-  if ((isSklep && state.tech === 'next') || (!isSklep && state.tech === 'presta')) {
+  if (!isSklep && state.tech === 'presta') {
     wpInput.checked = true;
     state.tech = 'wp';
   }

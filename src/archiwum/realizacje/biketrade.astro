@@ -1,6 +1,6 @@
 ---
 /**
- * REALIZACJA W TOKU — biketrade.pl
+ * REALIZACJA URUCHOMIONA — hurt.biketrade.pl (23.09.2026)
  *
  * UWAGA: projekt jest w trakcie realizacji i klient nie życzy sobie
  * publikowania szczegółów handlowych. Świadomie NIE podajemy:
@@ -13,6 +13,8 @@
  * Przed dopisaniem czegokolwiek do tej strony: zapytać klienta.
  */
 import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { Image } from 'astro:assets';
+import { img } from '../../data/images';
 ---
 <ProjectLayout
   title="BikeTrade — platforma sprzedaży B2B na PrestaShop"
@@ -20,10 +22,12 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro';
   cat="E-commerce B2B · PrestaShop"
   year="2026"
   tags={['PrestaShop','B2B','4 rynki','Dwa magazyny','Integracja Subiekt','SubSync','Wielokoszykowość']}
-  result="Projekt w realizacji — wdrożenie w toku"
+  result="Platforma działa pod adresem hurt.biketrade.pl"
   bgClass="pbg-17"
   glowClass="pg-17"
   glowColor="rgba(220,38,38,.25)"
+  heroImage="biketrade-platforma.webp"
+  heroImageAlt="Strona główna platformy B2B BikeTrade — wybór rynku, katalog marek i logowanie dla hurtowników"
   prevSlug="magdent"
   prevName="MagDent"
   nextSlug="modeka"
@@ -32,9 +36,24 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro';
 
 <h2>O projekcie</h2>
 
-<p>BikeTrade to platforma sprzedaży hurtowej budowana obecnie na PrestaShop. Projekt jest w trakcie realizacji, a jego zakres nie sprowadza się do uruchomienia sklepu — to <strong>narzędzie handlowe dla hurtowników</strong>, które musi odwzorować sposób, w jaki firma realnie prowadzi sprzedaż: na kilku rynkach, z dwóch magazynów i z zamkniętym dostępem do cen.</p>
+<p>BikeTrade to platforma sprzedaży hurtowej zbudowana na PrestaShop. Jej zakres nie sprowadza się do uruchomienia sklepu — to <strong>narzędzie handlowe dla hurtowników</strong>, które musi odwzorować sposób, w jaki firma realnie prowadzi sprzedaż: na kilku rynkach, z dwóch magazynów i z zamkniętym dostępem do cen.</p>
 
 <p>Ze względu na charakter danych handlowych opisujemy tu wyłącznie architekturę rozwiązania, bez szczegółów asortymentu, kontrahentów i warunków współpracy.</p>
+
+<p>Platforma jest dostępna pod adresem <a href="https://hurt.biketrade.pl/" target="_blank" rel="noopener">hurt.biketrade.pl</a> — katalog i ceny widzą wyłącznie zalogowani hurtownicy z zatwierdzonym kontem.</p>
+
+<Image
+  src={img('biketrade-platforma.webp')!}
+  alt="Strona główna BikeTrade B2B: przełącznik rynku CZ / PL / SK, menu marek, wyszukiwarka katalogu i logowanie dla hurtowników"
+  widths={[640, 960, 1400]}
+  sizes="(max-width: 900px) 94vw, 900px"
+  quality={78}
+  loading="lazy"
+  decoding="async"
+  style="width:100%;height:auto;border-radius:14px;border:1px solid rgba(255,255,255,.08);margin:26px 0"
+/>
+
+<p>Wejście na platformę zaczyna się od wyboru rynku — kontrahent od razu trafia na swoją wersję językową, z własnym cennikiem i regułami wysyłki. Menu prowadzi po markach z oferty, a wyszukiwarka katalogu działa także przed zalogowaniem, choć bez cen i przycisku zamówienia.</p>
 
 <div class="proj-results-grid">
   <div class="proj-result-card"><div class="prc-num">4</div><div class="prc-label">rynki obsługiwane z jednej instalacji</div></div>
@@ -89,7 +108,7 @@ import ProjectLayout from '../../layouts/ProjectLayout.astro';
 
 <h2>Status</h2>
 
-<p>Projekt jest w realizacji. Gdy platforma ruszy, uzupełnimy ten opis o wnioski z wdrożenia — również te niewygodne, bo przy integracjach z ERP zawsze coś wygląda inaczej w praktyce niż w dokumentacji.</p>
+<p>Platforma jest uruchomiona i dostępna pod adresem <a href="https://hurt.biketrade.pl/" target="_blank" rel="noopener">hurt.biketrade.pl</a>. Kolejne elementy — rozbudowa integracji i usprawnienia po stronie handlowców — powstają na bieżąco, więc opis będziemy uzupełniać o wnioski z wdrożenia, również te niewygodne: przy integracjach z ERP zawsze coś wygląda inaczej w praktyce niż w dokumentacji.</p>
 
 <p>Jeśli planujesz podobne wdrożenie, opisaliśmy nasze podejście do tego silnika na stronie <a href="/sklepy-internetowe-prestashop">sklepy internetowe PrestaShop</a>, a całą usługę sprzedaży na kilka rynków — na stronie <a href="/strony-wielojezyczne-dla-eksporterow">strony wielojęzyczne dla eksporterów</a>.</p>
 

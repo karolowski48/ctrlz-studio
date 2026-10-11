@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "build": "node scripts/pobierz-z-panelu.mjs && astro build",
+    "preview": "astro preview",
+    "tresci": "node scripts/pobierz-z-panelu.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.1.6",

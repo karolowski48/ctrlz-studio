@@ -4,7 +4,7 @@ import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
 import { Image } from 'astro:assets';
 import { img } from '../data/images';
-import { PROJECTS } from '../data/projects';
+import { ALL_PROJECTS as PROJECTS } from '../data/panel';
 
 const projects = PROJECTS;
 
@@ -126,7 +126,15 @@ const breadcrumbSchema = {
           data-delay={String((i % 3) * 0.08)}
           data-cat={p.tag}
         >
-          {img(p.img)
+          {p.img.startsWith('panel:')
+            ? <img
+                src={`/panel-media/${p.img.slice(6)}.webp`}
+                alt={`${p.name} — realizacja CtrlZ Studio${p.city ? ', ' + p.city : ''}`}
+                class="port-bg-img"
+                decoding="async"
+                loading={i < 3 ? 'eager' : 'lazy'}
+              />
+            : img(p.img)
             ? <Image
                 src={img(p.img)!}
                 alt={`${p.name} — realizacja CtrlZ Studio${p.city ? ', ' + p.city : ''}`}

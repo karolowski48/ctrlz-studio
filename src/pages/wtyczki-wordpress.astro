@@ -1,0 +1,300 @@
+---
+/**
+ * /wtyczki-wordpress — strona marki taniawtyczka.pl na witrynie CtrlZ Studio.
+ *
+ * Adres brandowy (/taniawtyczka) świadomie pominięty: po nazwie sklepu ludzie
+ * trafiają prosto do sklepu, a ta strona ma łapać frazę „wtyczki WordPress”.
+ * Nie wymieniamy nazw ani cen wtyczek — katalog i cennik żyją w sklepie.
+ */
+import Layout from '../layouts/Layout.astro';
+import SharedNav from '../components/SharedNav.astro';
+import SharedFooter from '../components/SharedFooter.astro';
+import { Image } from 'astro:assets';
+import { img } from '../data/images';
+
+const faq = [
+  {
+    q: 'Czym jest taniawtyczka.pl?',
+    a: 'To sklep z wtyczkami i motywami do WordPressa, prowadzony przez CtrlZ Studio (Karol Jasiówka). Sprzedajemy w nim narzędzia, które powstały przy naszych wdrożeniach dla klientów i działają na prawdziwych stronach — a nie kod napisany pod sam katalog.',
+  },
+  {
+    q: 'Kiedy sklep rusza?',
+    a: 'Start sprzedaży: październik. Sklep i katalog są już dostępne pod adresem taniawtyczka.pl — można się rozejrzeć przed startem.',
+  },
+  {
+    q: 'Czy płaci się co roku?',
+    a: 'Nie. Płacisz raz i pobierasz plik ZIP. Bez klucza licencyjnego, bez limitu domen i bez odnawiania subskrypcji. To była pierwsza decyzja, jaką podjęliśmy przy tym sklepie — dokładnie dlatego, że abonamenty za drobne narzędzia potrafią przerosnąć koszt samej strony.',
+  },
+  {
+    q: 'Czy wtyczka będzie działać z moim motywem?',
+    a: 'Nasze wtyczki robią jedną rzecz i nie wchodzą w wygląd strony, więc działają niezależnie od motywu. Każda karta produktu podaje wymagania — wersję WordPressa, WooCommerce i PHP. Jeśli coś nie zadziała, piszecie do nas i sprawdzamy: wsparcie prowadzi ta sama osoba, która napisała kod.',
+  },
+  {
+    q: 'Potrzebuję funkcji, której nie ma w katalogu. Zrobicie ją?',
+    a: 'Tak, piszemy wtyczki na zamówienie. Zwykle wychodzi taniej niż kombinowanie z kilkoma gotowcami, bo powstaje dokładnie to, czego brakuje — bez trzydziestu funkcji, których nigdy nie włączycie. Napiszcie, czego potrzebujecie, a odpowiemy, czy da się to zrobić i ile zajmie.',
+  },
+  {
+    q: 'Czy klienci CtrlZ Studio mają lepsze warunki?',
+    a: 'Przygotowujemy osobne warunki dla klientów pracowni — szczegóły podamy po starcie sklepu. Niezależnie od tego wtyczki, których używamy przy Waszych wdrożeniach, wliczamy w projekt: nie dopisujemy ich osobno do faktury.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+
+const brandSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'OnlineStore',
+  name: 'taniawtyczka.pl',
+  url: 'https://taniawtyczka.pl/',
+  description: 'Sklep z wtyczkami i motywami do WordPressa. Płatność jednorazowa, bez kluczy licencyjnych i bez limitu domen.',
+  parentOrganization: { '@id': 'https://ctrlzstudio.pl/#localbusiness' },
+  founder: { '@type': 'Person', name: 'Karol Jasiówka' },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: 'https://ctrlzstudio.pl' },
+    { '@type': 'ListItem', position: 2, name: 'Usługi', item: 'https://ctrlzstudio.pl/uslugi' },
+    { '@type': 'ListItem', position: 3, name: 'Wtyczki do WordPressa', item: 'https://ctrlzstudio.pl/wtyczki-wordpress' },
+  ],
+};
+---
+
+<Layout
+  title="Wtyczki do WordPressa — taniawtyczka.pl | CtrlZ Studio"
+  description="Nasz sklep z wtyczkami i motywami do WordPressa: płacisz raz, bez klucza licencyjnego i bez limitu domen. Narzędzia sprawdzone na wdrożeniach klientów. Start w październiku."
+>
+<SharedNav />
+
+<main id="main-content">
+
+<style>
+  .srv-hero { padding: 150px 0 64px; position: relative; overflow: hidden; background: var(--bg-base); }
+  .srv-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+  .srv-lead { font-size: 17px; color: rgba(255,255,255,.62); line-height: 1.75; max-width: 720px; font-weight: 300; }
+  .srv-lead strong { color: rgba(255,255,255,.82); font-weight: 500; }
+  .srv-chips { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+  .srv-chip {
+    font-size: 12px; padding: 7px 16px; border-radius: 100px;
+    background: rgba(163,230,53,.09); border: 1px solid rgba(163,230,53,.25); color: #bef264;
+  }
+  .srv-section { padding: 72px 0; background: var(--bg-base); }
+  .srv-section-alt { background: var(--bg-elevated, rgba(255,255,255,.02)); }
+  .srv-h2 { margin-bottom: 18px; }
+  .srv-p { font-size: 15px; color: rgba(255,255,255,.62); line-height: 1.8; max-width: 760px; margin-bottom: 16px; }
+  .srv-p strong { color: rgba(255,255,255,.8); font-weight: 500; }
+  .srv-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 36px; }
+  .srv-card {
+    background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 16px; padding: 28px; transition: border-color .25s, transform .25s;
+  }
+  .srv-card:hover { border-color: rgba(163,230,53,.28); transform: translateY(-2px); }
+  .srv-card h3 { font-family: var(--font-display); font-size: 16px; color: #fff; margin: 0 0 10px; font-weight: 600; }
+  .srv-card p { font-size: 14px; color: rgba(255,255,255,.68); line-height: 1.7; margin: 0; }
+  .srv-list { max-width: 760px; margin: 24px 0 0; padding: 0; list-style: none; }
+  .srv-list li { font-size: 15px; color: rgba(255,255,255,.62); line-height: 1.75; padding: 0 0 0 26px; margin-bottom: 12px; position: relative; }
+  .srv-list li::before { content: '→'; position: absolute; left: 0; color: #bef264; font-size: 14px; }
+  .srv-shot { width: 100%; height: auto; border-radius: 16px; border: 1px solid rgba(255,255,255,.08); margin-top: 36px; }
+  .srv-split { display: grid; grid-template-columns: minmax(0,1fr) 320px; gap: 48px; align-items: center; margin-top: 36px; }
+  .srv-phone { width: 100%; height: auto; border-radius: 26px; }
+  .tw-box {
+    margin-top: 36px; padding: 26px 28px; border-radius: 16px;
+    background: linear-gradient(135deg, rgba(163,230,53,.09), rgba(124,107,255,.05));
+    border: 1px solid rgba(163,230,53,.22); max-width: 760px;
+  }
+  .tw-box .amt { font-family: var(--font-display); font-size: 30px; font-weight: 800; color: #fff; line-height: 1.15; }
+  .tw-box p { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.7; margin: 10px 0 0; }
+  .tw-owner {
+    max-width: 760px; margin-top: 30px; padding: 18px 22px; border-radius: 14px;
+    background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.07);
+    font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.7;
+  }
+  @media (max-width: 900px) {
+    .srv-inner { padding: 0 22px; }
+    .srv-hero { padding: 120px 0 48px; }
+    .srv-grid, .srv-split { grid-template-columns: 1fr; }
+    .srv-split .srv-phone { max-width: 280px; margin: 0 auto; }
+    .srv-section { padding: 52px 0; }
+  }
+</style>
+
+<section class="srv-hero">
+  <div class="srv-inner">
+    <div class="eyebrow js-reveal" style="margin-bottom:18px">taniawtyczka.pl · sklep CtrlZ Studio</div>
+    <h1 class="display-xl js-reveal" style="margin-bottom:22px">Wtyczki do WordPressa,<br>za które <span class="grad">płacisz raz</span></h1>
+    <p class="srv-lead js-reveal">
+      Małe wtyczki i motywy do WordPressa oraz WooCommerce — każda robi jedną rzecz i robi ją dobrze.
+      <strong>Bez klucza licencyjnego, bez limitu domen i bez odnawiania co roku.</strong>
+      Kupujesz, pobierasz ZIP, wgrywasz na stronę.
+    </p>
+    <div class="srv-chips js-reveal">
+      <span class="srv-chip">Płatność jednorazowa</span>
+      <span class="srv-chip">Bez subskrypcji</span>
+      <span class="srv-chip">WordPress</span>
+      <span class="srv-chip">WooCommerce</span>
+      <span class="srv-chip">Wtyczki na zamówienie</span>
+    </div>
+    <div class="tw-box js-reveal">
+      <div class="amt">Start sprzedaży w październiku</div>
+      <p>Sklep i katalog są już dostępne — można się rozejrzeć przed startem.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
+        <a href="https://taniawtyczka.pl/" target="_blank" rel="noopener" class="btn-primary"><span>Przejdź do sklepu →</span></a>
+        <a href="/kontakt" class="btn-ghost"><span>Wtyczka na zamówienie</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="srv-section">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Dlaczego <span class="grad-v">powstał ten sklep</span></h2>
+    <p class="srv-p">
+      Przy wdrożeniach dla klientów wracała ta sama sytuacja: brakuje jednej drobnej funkcji,
+      a jedyna dostępna wtyczka robi trzydzieści rzeczy naraz, kosztuje w abonamencie
+      i co roku przypomina o sobie mailem „Twoja subskrypcja wygasa”.
+    </p>
+    <p class="srv-p">
+      Zamiast tego pisaliśmy własne, małe narzędzia. <strong>Każde z nich najpierw działało
+      na prawdziwej stronie</strong> — dopiero to, co przetrwało codzienne używanie, trafiło do sprzedaży.
+    </p>
+    <ul class="srv-list">
+      <li>Jedna wtyczka = jedna funkcja. Bez pakietów, w których używacie jednej rzeczy na dwadzieścia.</li>
+      <li>Płacicie raz. Strona nie przestaje działać, gdy nie przedłużycie licencji.</li>
+      <li>Brak klucza licencyjnego i limitu domen — plik jest Wasz.</li>
+      <li>Wsparcie prowadzi osoba, która napisała kod, a nie dział obsługi z gotowymi formułkami.</li>
+    </ul>
+    <Image
+      src={img('taniawtyczka-hero.webp')!}
+      alt="Strona główna sklepu taniawtyczka.pl — hasło „Płacisz raz. Nie płacisz co roku”, katalog i wtyczka na zamówienie"
+      widths={[640, 960, 1400]}
+      sizes="(max-width: 900px) 92vw, 1100px"
+      quality={78}
+      loading="lazy"
+      decoding="async"
+      class="srv-shot"
+    />
+  </div>
+</section>
+
+<section class="srv-section srv-section-alt">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Jak to <span class="grad">działa</span></h2>
+    <div class="srv-grid">
+      <div class="srv-card"><h3>Kupujesz i pobierasz</h3><p>Po zakupie dostajesz plik ZIP. Wgrywasz go w panelu WordPressa jak każdą inną wtyczkę — bez aktywacji kluczem i bez zakładania konta w kolejnym serwisie.</p></div>
+      <div class="srv-card"><h3>Używasz, gdzie chcesz</h3><p>Brak limitu domen. Ta sama wtyczka może działać na stronie firmowej, na sklepie i na wersji testowej, bez dokupywania kolejnych licencji.</p></div>
+      <div class="srv-card"><h3>Aktualizacje bez haraczu</h3><p>Poprawki i nowe wersje udostępniamy w sklepie. Nie wyłączamy wtyczki, jeśli nie zapłacicie ponownie — działa dalej, tak jak w dniu zakupu.</p></div>
+      <div class="srv-card"><h3>Sprawdzone w boju</h3><p>Każde narzędzie pracuje wcześniej na naszych wdrożeniach i na samym sklepie. To nie kod napisany pod katalog, tylko rozwiązanie realnego problemu.</p></div>
+      <div class="srv-card"><h3>Mobile first</h3><p>Sklep zaprojektowany od ekranu telefonu: karta produktu prowadzi do zakupu bez przewijania w bok i bez zgadywania, co jest pod którym przyciskiem.</p></div>
+      <div class="srv-card"><h3>Wtyczka na zamówienie</h3><p>Brakuje czegoś, czego nie ma w katalogu? Piszemy narzędzia na zamówienie — dokładnie pod jeden problem, bez funkcji na zapas.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="srv-section">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Sklep zbudowany <span class="grad-v">na własnych narzędziach</span></h2>
+    <div class="srv-split">
+      <div>
+        <p class="srv-p">
+          taniawtyczka.pl stoi na WordPressie i WooCommerce, ale wygląd nie pochodzi z kupionego szablonu —
+          <strong>motyw jest napisany od zera</strong>. Strona ładuje tylko to, czego realnie używa:
+          bez kreatora stron i bez kilkunastu wtyczek do samego wyglądu.
+        </p>
+        <p class="srv-p">
+          Część narzędzi z katalogu obsługuje ten sklep od środka. Jeśli coś w nich nie działa,
+          pierwsi dowiadujemy się o tym my, a nie klient.
+        </p>
+        <p class="srv-p">
+          Kulisy budowy opisaliśmy w portfolio: <a href="/realizacje/taniawtyczka">realizacja taniawtyczka.pl</a>.
+        </p>
+      </div>
+      <Image
+        src={img('taniawtyczka-produkt.webp')!}
+        alt="Karta produktu w sklepie taniawtyczka.pl na telefonie — opis, galeria zrzutów i cena jednorazowa"
+        widths={[320, 480, 700]}
+        sizes="(max-width: 900px) 60vw, 320px"
+        quality={80}
+        loading="lazy"
+        decoding="async"
+        class="srv-phone"
+      />
+    </div>
+  </div>
+</section>
+
+<section class="srv-section srv-section-alt">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Kto za tym <span class="grad">stoi</span></h2>
+    <p class="srv-p">
+      Sklep prowadzi <strong>CtrlZ Studio</strong> — ta sama pracownia, która buduje strony i sklepy
+      dla firm z Małopolski. Wtyczki powstają przy okazji wdrożeń, a wpływy ze sklepu wracają do ich rozwoju.
+    </p>
+    <div class="tw-owner">
+      Właścicielem sklepu taniawtyczka.pl i pracowni CtrlZ Studio jest <strong style="color:#fff">Karol Jasiówka</strong>.
+      Piszemy o tym wprost, bo polecamy tu własny produkt — chcemy, żebyście wiedzieli, komu płacicie.
+    </div>
+    <p class="srv-p" style="margin-top:26px">
+      Jesteście klientami CtrlZ Studio? Wtyczki, których używamy przy Waszych projektach, wliczamy w wdrożenie.
+      Osobne warunki na zakupy w sklepie przygotowujemy — szczegóły podamy po starcie.
+    </p>
+  </div>
+</section>
+
+<section class="srv-section">
+  <div class="srv-inner">
+    <h2 class="display-md srv-h2">Najczęstsze <span class="grad-v">pytania</span></h2>
+    <div class="faq-list" style="margin-top:32px">
+      {faq.map((f, i) => (
+        <>
+          <div class="faq-divider"></div>
+          <div class={`faq-item${i === 0 ? ' open' : ''}`}>
+            <div class="faq-question"><div class="faq-q-text">{f.q}</div><div class="faq-icon">+</div></div>
+            <div class="faq-body"><div class="faq-answer-wrap"><div class="faq-answer">{f.a}</div></div></div>
+          </div>
+        </>
+      ))}
+      <div class="faq-divider"></div>
+    </div>
+  </div>
+</section>
+
+<section class="srv-section srv-section-alt">
+  <div class="srv-inner" style="text-align:center">
+    <h2 class="display-md srv-h2">Zajrzyj do katalogu<br><span class="grad">albo zamów swoją wtyczkę</span></h2>
+    <p class="srv-p" style="margin:0 auto 32px">Sklep jest otwarty do oglądania, sprzedaż startuje w październiku. A jeśli potrzebujecie czegoś, czego nie ma w katalogu — napiszcie, wycenimy.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="https://taniawtyczka.pl/" target="_blank" rel="noopener" class="btn-primary"><span>Przejdź do taniawtyczka.pl →</span></a>
+      <a href="/kontakt" class="btn-ghost"><span>Zamów wtyczkę na miarę</span></a>
+    </div>
+    <p class="srv-p" style="margin:28px auto 0;font-size:14px">Zobacz też: <a href="/realizacje/taniawtyczka" style="color:#bef264">realizacja: budowa sklepu</a> · <a href="/strony-internetowe-wordpress" style="color:#bef264">strony na WordPressie</a> · <a href="/sklepy-internetowe" style="color:#bef264">sklepy internetowe</a> · <a href="/wsparcie-techniczne" style="color:#bef264">opieka techniczna</a></p>
+  </div>
+</section>
+
+</main>
+
+<SharedFooter />
+
+<script type="application/ld+json" set:html={JSON.stringify(brandSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} is:inline />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} is:inline />
+
+<script>
+  import { initPage } from '../utils/pageInit';
+  initPage();
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-question')?.addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
+</script>
+
+</Layout>

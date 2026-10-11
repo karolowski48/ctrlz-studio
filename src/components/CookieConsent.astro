@@ -1,0 +1,225 @@
+---
+/**
+ * Baner zgód cookies (własny, zamiast CookieYes — 24.09.2026). Zasady:
+ * - pierwsza warstwa: „Odrzucam” i „Akceptuję” wyglądają tak samo (wymóg UODO/EROD), „Ustawienia” obok;
+ * - druga warstwa: kategorie niezbędne / analityczne / marketingowe, nic nie jest zaznaczone z góry;
+ * - wybór w ciasteczku `ctrlz_zgoda` (12 mies., wersja banera), odczytuje go skrypt w <head> (Layout.astro),
+ *   który dopiero po zgodzie wczytuje Google Analytics (Consent Mode v2, tryb podstawowy);
+ * - każda decyzja trafia anonimowo do rejestru zgód w panelu (`CONSENT_ENDPOINT`), bez IP i danych osobowych;
+ * - zmiana zdania: każdy element z `data-cookie-settings` (link w stopce) otwiera ustawienia.
+ */
+import { CONSENT_ENDPOINT } from '../data/forms';
+---
+<div class="cz-cc" id="cz-cc" role="region" aria-labelledby="cz-cc-t" data-endpoint={CONSENT_ENDPOINT} hidden>
+  <h2 id="cz-cc-t" class="cz-cc-title">Szanujemy Twoją prywatność</h2>
+  <p class="cz-cc-text">
+    Używamy plików cookies niezbędnych do działania strony. Za Twoją zgodą — także analitycznych
+    (Google Analytics), żeby wiedzieć, co warto poprawić, i marketingowych (Google Ads), żeby mierzyć skuteczność reklam.
+    Zgodę możesz w każdej chwili zmienić w stopce strony. <a href="/polityka-prywatnosci#s7">Polityka prywatności</a>
+  </p>
+  <div class="cz-cc-row">
+    <button type="button" class="cz-cc-choice" data-cc="reject">Odrzucam</button>
+    <button type="button" class="cz-cc-choice" data-cc="accept">Akceptuję</button>
+  </div>
+  <button type="button" class="cz-cc-more" data-cc="settings">Ustawienia</button>
+</div>
+
+<div class="cz-cm-back" id="cz-cm" hidden>
+  <div class="cz-cm" role="dialog" aria-modal="true" aria-labelledby="cz-cm-t" tabindex="-1">
+    <h2 id="cz-cm-t" class="cz-cm-title">Ustawienia cookies</h2>
+    <p class="cz-cm-intro">
+      Wybierz, na co się zgadzasz. Zgodę możesz zmienić lub wycofać w każdej chwili — link „Ustawienia cookies”
+      jest w stopce każdej strony.
+    </p>
+
+    <div class="cz-cat">
+      <div class="cz-cat-head"><strong>Niezbędne</strong><span class="cz-always">Zawsze włączone</span></div>
+      <p>Działanie strony, formularzy i zapamiętanie Twojego wyboru. Nie wymagają zgody.</p>
+      <details><summary>Pliki (1)</summary>
+        <table><tr><th>Nazwa</th><th>Cel</th><th>Czas</th></tr>
+          <tr><td>ctrlz_zgoda</td><td>Twój wybór w tym oknie</td><td>12 miesięcy</td></tr></table>
+      </details>
+    </div>
+
+    <div class="cz-cat">
+      <div class="cz-cat-head"><strong id="cz-l-a">Analityczne</strong>
+        <label class="cz-sw"><input type="checkbox" data-cat="a" aria-labelledby="cz-l-a" /><span></span></label></div>
+      <p>Google Analytics 4 — liczba odwiedzin, popularne podstrony, źródła ruchu. Dane zbiorcze, bez danych kontaktowych.</p>
+      <details><summary>Pliki (2) · dostawca: Google Ireland Ltd.</summary>
+        <table><tr><th>Nazwa</th><th>Cel</th><th>Czas</th></tr>
+          <tr><td>_ga</td><td>Odróżnienie odwiedzających</td><td>2 lata</td></tr>
+          <tr><td>_ga_5LYYREZRZC</td><td>Stan sesji</td><td>2 lata</td></tr></table>
+      </details>
+    </div>
+
+    <div class="cz-cat">
+      <div class="cz-cat-head"><strong id="cz-l-m">Marketingowe</strong>
+        <label class="cz-sw"><input type="checkbox" data-cat="m" aria-labelledby="cz-l-m" /><span></span></label></div>
+      <p>Google Ads — pomiar, czy reklama doprowadziła do kontaktu, i dopasowanie reklam. Pliki pojawią się dopiero po uruchomieniu kampanii.</p>
+      <details><summary>Pliki (2) · dostawca: Google Ireland Ltd.</summary>
+        <table><tr><th>Nazwa</th><th>Cel</th><th>Czas</th></tr>
+          <tr><td>_gcl_au</td><td>Pomiar konwersji z reklam</td><td>90 dni</td></tr>
+          <tr><td>IDE, test_cookie</td><td>Reklamy Google (domena doubleclick.net)</td><td>do 13 miesięcy</td></tr></table>
+      </details>
+    </div>
+
+    <div class="cz-cm-actions">
+      <button type="button" data-cm="reject">Odrzucam wszystkie</button>
+      <button type="button" class="cz-save" data-cm="save">Zapisz wybór</button>
+      <button type="button" data-cm="accept">Akceptuję wszystkie</button>
+    </div>
+    <p class="cz-fine">
+      Administrator: CtrlZ Studio Karol Jasiówka. Dane do Google (USA) trafiają na podstawie EU–US Data Privacy
+      Framework. Szczegóły w <a href="/polityka-prywatnosci#s7">polityce prywatności</a>.
+    </p>
+  </div>
+</div>
+
+<style>
+  /* Kolory strony; przyciski #6552f0 z białym tekstem = kontrast 5,2:1 (WCAG AA) */
+  .cz-cc{position:fixed;left:24px;bottom:24px;z-index:9990;width:430px;max-width:calc(100vw - 32px);background:#0d0d26;border:1px solid rgba(124,107,255,.35);border-radius:18px;padding:20px 20px 18px;box-shadow:0 24px 70px rgba(0,0,0,.6);font:14px/1.55 var(--font-body);color:#c9c9d6}
+  .cz-cc-title,.cz-cm-title{font-family:var(--font-display);color:#fff;margin:0 0 8px;letter-spacing:-.01em;font-size:17px}
+  .cz-cm-title{font-size:21px;margin-bottom:6px}
+  .cz-cc-text{margin:0 0 14px}
+  .cz-cc a,.cz-cm a{color:#b8aaff;text-decoration:underline;text-underline-offset:3px}
+  .cz-cc-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .cz-cc-choice,.cz-cm-actions button{border-radius:12px;padding:12px 10px;font:600 14px var(--font-body);cursor:pointer;background:#6552f0;color:#fff;border:1px solid #6552f0}
+  .cz-cc-choice:hover,.cz-cm-actions button:hover{background:#5a48e0}
+  .cz-cc-more{margin-top:10px;width:100%;background:transparent;border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:12px;padding:10px;font:500 14px var(--font-body);cursor:pointer}
+  .cz-cc :focus-visible,.cz-cm :focus-visible{outline:2px solid #fbbf24;outline-offset:2px}
+  .cz-cm-back{position:fixed;inset:0;z-index:9991;background:rgba(2,2,10,.72);display:flex;align-items:center;justify-content:center;padding:16px}
+  .cz-cm{width:560px;max-width:100%;max-height:calc(100vh - 32px);overflow:auto;background:#0d0d26;border:1px solid rgba(124,107,255,.35);border-radius:20px;padding:24px;color:#c9c9d6;font:14px/1.55 var(--font-body);box-shadow:0 30px 90px rgba(0,0,0,.7)}
+  .cz-cm-intro{margin:0 0 18px}
+  .cz-cat{border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 16px;margin-bottom:10px;background:rgba(255,255,255,.02)}
+  .cz-cat-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .cz-cat-head strong{color:#fff;font-size:15px}
+  .cz-cat p{margin:6px 0 0;font-size:13.5px}
+  .cz-cat details{margin-top:8px;font-size:12.5px;color:#9d9db5}
+  .cz-cat summary{cursor:pointer;color:#b8aaff}
+  .cz-cat table{width:100%;border-collapse:collapse;margin-top:8px}
+  .cz-cat td,.cz-cat th{text-align:left;padding:5px 6px;border-top:1px solid rgba(255,255,255,.1);vertical-align:top}
+  .cz-cat th{color:#c9c9d6;font-weight:600}
+  .cz-always{font-size:12.5px;color:#34d399;font-weight:600}
+  .cz-sw{position:relative;width:46px;height:26px;flex-shrink:0}
+  .cz-sw input{opacity:0;width:100%;height:100%;margin:0;cursor:pointer;position:absolute;z-index:1}
+  .cz-sw span{position:absolute;inset:0;border-radius:99px;background:#2a2a4a;border:1px solid rgba(255,255,255,.3);transition:.2s}
+  .cz-sw span::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+  .cz-sw input:checked+span{background:#6552f0;border-color:#6552f0}
+  .cz-sw input:checked+span::after{left:23px}
+  .cz-sw input:focus-visible+span{outline:2px solid #fbbf24;outline-offset:2px}
+  .cz-cm-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px}
+  .cz-cm-actions .cz-save{background:transparent;border-color:rgba(255,255,255,.35)}
+  .cz-cm-actions .cz-save:hover{background:rgba(255,255,255,.08)}
+  .cz-fine{font-size:12px;color:#9d9db5;margin:12px 0 0}
+  [hidden].cz-cc,[hidden].cz-cm-back{display:none}
+  @media (max-width:640px){
+    .cz-cc{left:12px;right:12px;bottom:12px;width:auto;max-width:none;padding:16px}
+    .cz-cm-actions{grid-template-columns:1fr}
+  }
+</style>
+
+<script>
+  type Choice = { a: boolean; m: boolean };
+  type Stored = Choice & { v: string; id: string; t: number };
+  const w = window as unknown as {
+    czConsent?: { VERSION: string; read: () => Stored | null; apply: (c: Choice) => void };
+  };
+  const banner = document.getElementById('cz-cc')!;
+  const modalBack = document.getElementById('cz-cm')!;
+  const modal = modalBack.querySelector<HTMLElement>('.cz-cm')!;
+  const endpoint = banner.dataset.endpoint || '';
+  const VERSION = w.czConsent?.VERSION ?? 'v1';
+  const current = () => w.czConsent?.read() ?? null;
+  let lastFocus: HTMLElement | null = null;
+
+  function newId(): string {
+    if (crypto.randomUUID) return crypto.randomUUID();
+    return Array.from(crypto.getRandomValues(new Uint8Array(16)), (b) => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  // Wycofanie zgody na analitykę: kasujemy ciasteczka GA dla hosta i domeny nadrzędnej
+  function dropAnalyticsCookies() {
+    const host = location.hostname;
+    const domains = ['', host, '.' + host, '.' + host.split('.').slice(-2).join('.')];
+    document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter((n) => n === '_ga' || n.startsWith('_ga_'))
+      .forEach((name) => domains.forEach((d) => {
+        document.cookie = `${name}=; Max-Age=0; Path=/${d ? '; Domain=' + d : ''}`;
+      }));
+  }
+
+  function save(choice: Choice, action: 'accept_all' | 'reject_all' | 'custom') {
+    const before = current();
+    const stored: Stored = { v: VERSION, id: before?.id ?? newId(), a: choice.a, m: choice.m, t: Date.now() };
+    const secure = location.protocol === 'https:' ? '; Secure' : '';
+    document.cookie = `ctrlz_zgoda=${encodeURIComponent(JSON.stringify(stored))}; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
+    w.czConsent?.apply(choice);
+    if (before?.a && !choice.a) dropAnalyticsCookies();
+    if (endpoint) {
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ id: stored.id, analytics: choice.a, marketing: choice.m, action, version: VERSION }),
+        keepalive: true,
+      }).catch(() => { /* rejestr to potwierdzenie — brak panelu nie może zablokować wyboru */ });
+    }
+    banner.hidden = true;
+    closeModal(false);
+  }
+
+  function openModal() {
+    const c = current();
+    modal.querySelectorAll<HTMLInputElement>('input[data-cat]').forEach((input) => {
+      input.checked = c ? Boolean(c[input.dataset.cat as 'a' | 'm']) : false;
+    });
+    lastFocus = document.activeElement as HTMLElement | null;
+    modalBack.hidden = false;
+    banner.hidden = true;
+    modal.focus();
+  }
+
+  function closeModal(restoreBanner = true) {
+    if (modalBack.hidden) return;
+    modalBack.hidden = true;
+    if (restoreBanner && !current()) banner.hidden = false;
+    lastFocus?.focus?.();
+  }
+
+  banner.addEventListener('click', (e) => {
+    const action = (e.target as HTMLElement).closest<HTMLElement>('[data-cc]')?.dataset.cc;
+    if (action === 'accept') save({ a: true, m: true }, 'accept_all');
+    else if (action === 'reject') save({ a: false, m: false }, 'reject_all');
+    else if (action === 'settings') openModal();
+  });
+
+  modalBack.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target === modalBack) return closeModal();
+    const action = target.closest<HTMLElement>('[data-cm]')?.dataset.cm;
+    if (action === 'accept') save({ a: true, m: true }, 'accept_all');
+    else if (action === 'reject') save({ a: false, m: false }, 'reject_all');
+    else if (action === 'save') {
+      const get = (cat: string) => modal.querySelector<HTMLInputElement>(`input[data-cat="${cat}"]`)!.checked;
+      const choice = { a: get('a'), m: get('m') };
+      save(choice, choice.a && choice.m ? 'accept_all' : !choice.a && !choice.m ? 'reject_all' : 'custom');
+    }
+  });
+
+  // Esc zamyka ustawienia, Tab nie wychodzi poza okno
+  modalBack.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') return closeModal();
+    if (e.key !== 'Tab') return;
+    const focusable = [...modal.querySelectorAll<HTMLElement>('a[href], button, input, summary')].filter((el) => !el.closest('[hidden]'));
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === modal)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as HTMLElement).closest('[data-cookie-settings]');
+    if (!trigger) return;
+    e.preventDefault();
+    openModal();
+  });
+
+  if (!current()) banner.hidden = false;
+</script>

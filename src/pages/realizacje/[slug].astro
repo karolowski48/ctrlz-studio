@@ -1,0 +1,59 @@
+---
+/**
+ * Realizacje prowadzone w panelu CtrlZ Hub (etap 9, krok 3).
+ *
+ * Buduje TYLKO te, których nie ma jako plik `src/pages/realizacje/<slug>.astro`.
+ * Kafelki wyników przychodzą osobnym polem (panel ma na nie własny edytor),
+ * więc składamy je tutaj w tę samą strukturę, której używają pliki w repo.
+ */
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { ALL_PROJECTS, PANEL_PROJECTS, panelBody, panelJsonLd, panelMedia } from '../../data/panel';
+
+export function getStaticPaths() {
+  const filePages = new Set(
+    Object.keys(import.meta.glob('./*.astro', { eager: false })).map((file) =>
+      file.replace('./', '').replace('.astro', ''),
+    ),
+  );
+  return PANEL_PROJECTS.filter((project) => !filePages.has(project.slug)).map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const nameOf = (slug: string | null) => (slug ? (ALL_PROJECTS.find((p) => p.slug === slug)?.name ?? slug) : undefined);
+const results = Array.isArray(project.results) ? project.results : [];
+---
+
+<ProjectLayout
+  title={project.title}
+  description={project.description}
+  cat={project.cat}
+  year={project.year}
+  tags={project.tags}
+  result={project.result}
+  city={project.city}
+  bgClass={project.bgClass}
+  glowClass={project.glowClass}
+  glowColor={project.glowColor}
+  heroSrc={panelMedia(project.heroMediaId) ?? undefined}
+  heroImageAlt={project.name}
+  prevSlug={project.prevSlug ?? undefined}
+  prevName={nameOf(project.prevSlug)}
+  nextSlug={project.nextSlug ?? undefined}
+  nextName={nameOf(project.nextSlug)}
+>
+  {results.length > 0 && (
+    <div class="proj-results-grid">
+      {results.map((item) => (
+        <div class="proj-result-card">
+          <div class="prc-num">{item.value}</div>
+          <div class="prc-label">{item.label}</div>
+        </div>
+      ))}
+    </div>
+  )}
+  <Fragment set:html={panelBody(project.bodyHtml)} />
+  {panelJsonLd(project.schemaJson) && <script type="application/ld+json" set:html={panelJsonLd(project.schemaJson)} is:inline />}
+</ProjectLayout>

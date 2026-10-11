@@ -1,0 +1,103 @@
+---
+/**
+ * PROJEKT WŁASNY — taniawtyczka.pl
+ *
+ * To nie jest wdrożenie dla klienta, tylko sklep prowadzony przez CtrlZ Studio.
+ * Opisujemy go w portfolio jako projekt własny i mówimy o tym wprost —
+ * udawanie zlecenia byłoby nieuczciwe wobec czytelnika.
+ *
+ * Start sprzedaży: październik 2026 (bez konkretnej daty dziennej — decyzja właściciela).
+ * Nie wymieniamy nazw ani cen wtyczek: katalog ma się zmieniać, a cennik żyje w sklepie.
+ */
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { Image } from 'astro:assets';
+import { img } from '../../data/images';
+---
+<ProjectLayout
+  title="taniawtyczka.pl — sklep z wtyczkami do WordPressa"
+  description="Nasz własny sklep z wtyczkami i motywami do WordPressa: dedykowany motyw, mobile first, płatność jednorazowa bez kluczy licencyjnych. Start w październiku."
+  cat="Sklep z wtyczkami · WordPress · Projekt własny"
+  year="2026"
+  tags={['WordPress','WooCommerce','Dedykowany motyw','Mobile first','Własne wtyczki']}
+  result="Sklep gotowy — start sprzedaży w październiku"
+  bgClass="pbg-8"
+  glowClass="pg-8"
+  glowColor="rgba(163,230,53,.22)"
+  heroImage="taniawtyczka-hero.webp"
+  heroImageAlt="Strona główna sklepu taniawtyczka.pl — hasło „Płacisz raz. Nie płacisz co roku” i podgląd kodu wtyczki"
+  prevSlug="wypozyczalnia-wadowice"
+  prevName="Wypożyczalnia Wadowice"
+  nextSlug="psgiu"
+  nextName="PSGiU — stowarzyszenie"
+>
+
+<h2>O projekcie</h2>
+
+<p><strong>taniawtyczka.pl to nasz własny sklep</strong> — prowadzi go CtrlZ Studio (Karol Jasiówka). Sprzedajemy w nim wtyczki i motywy do WordPressa, które wcześniej powstały przy prawdziwych wdrożeniach dla klientów i od miesięcy pracują na działających stronach.</p>
+
+<p>Wpisujemy go do portfolio, bo to również realizacja: sklep na WordPressie z dedykowanym motywem, zaprojektowany od zera i zbudowany na własnych narzędziach. Start sprzedaży: <strong>październik</strong>.</p>
+
+<div class="proj-results-grid">
+  <div class="proj-result-card"><div class="prc-num">0 zł</div><div class="prc-label">kosztów odnowienia — płatność jednorazowa</div></div>
+  <div class="proj-result-card"><div class="prc-num">100%</div><div class="prc-label">dedykowany motyw, bez gotowca z marketplace’u</div></div>
+  <div class="proj-result-card"><div class="prc-num">Mobile</div><div class="prc-label">first — projekt zaczynał się od telefonu</div></div>
+</div>
+
+<h2>Dlaczego ten sklep powstał</h2>
+
+<p>Przy wdrożeniach dla klientów co chwilę wychodziła ta sama historia: brakuje jednej drobnej funkcji, a jedyna dostępna wtyczka robi trzydzieści rzeczy naraz, kosztuje w abonamencie i co roku przypomina o sobie mailem „Twoja subskrypcja wygasa”.</p>
+
+<p>Zamiast tego pisaliśmy własne, małe wtyczki — każda robi jedną rzecz. Po kilkunastu takich narzędziach zrobił się z tego katalog, który szkoda było trzymać w szufladzie. Stąd sklep.</p>
+
+<div class="proj-highlight">
+  <h3>Płacisz raz, nie płacisz co roku</h3>
+  <p>Kupujesz, pobierasz plik ZIP i wgrywasz na stronę. Bez klucza licencyjnego, bez limitu domen i bez odnawiania subskrypcji. To była pierwsza decyzja projektowa, zanim powstał jakikolwiek ekran.</p>
+</div>
+
+<Image
+  src={img('taniawtyczka-hero.webp')!}
+  alt="Strona główna taniawtyczka.pl: hasło „Płacisz raz. Nie płacisz co roku”, przyciski katalogu i wtyczki na zamówienie oraz podgląd kodu"
+  widths={[640, 960, 1400]}
+  sizes="(max-width: 900px) 94vw, 900px"
+  quality={78}
+  loading="lazy"
+  decoding="async"
+  style="width:100%;height:auto;border-radius:14px;border:1px solid rgba(255,255,255,.08);margin:26px 0"
+/>
+
+<h2>Dedykowany motyw zamiast gotowca</h2>
+
+<p>Sklep stoi na WordPressie i WooCommerce, ale wygląd nie pochodzi z kupionego szablonu — motyw jest napisany od zera pod tę markę. Dzięki temu strona ładuje tylko to, czego realnie używa: bez kreatora stron, bez kilkunastu wtyczek do wyglądu i bez skryptów, które nic nie robią.</p>
+
+<p>Projekt zaczynał się od ekranu telefonu, nie od desktopu. Karta produktu na małym ekranie ma prowadzić do zakupu bez przewijania w bok i bez zgadywania, co się kryje pod którym przyciskiem.</p>
+
+<Image
+  src={img('taniawtyczka-produkt.webp')!}
+  alt="Karta produktu w sklepie taniawtyczka.pl na telefonie — opis wtyczki, galeria zrzutów i cena jednorazowa"
+  widths={[320, 480, 700]}
+  sizes="(max-width: 640px) 70vw, 340px"
+  quality={80}
+  loading="lazy"
+  decoding="async"
+  style="width:min(340px,70%);height:auto;border-radius:20px;margin:26px auto;display:block"
+/>
+
+<h2>Wtyczki sprawdzone na własnym sklepie</h2>
+
+<p>Narzędzia z katalogu nie trafiają do sprzedaży prosto z edytora kodu. Najpierw działają na naszych wdrożeniach i na samym sklepie taniawtyczka.pl — dopiero to, co przetrwa codzienne używanie, dostaje kartę produktu.</p>
+
+<p>Taki obieg ma jeszcze jeden skutek: sklep jest własnym poligonem. Każda zmiana w motywie i w koszyku najpierw uderza w nas, a nie w klienta.</p>
+
+<h2>Związek z CtrlZ Studio</h2>
+
+<p>Sklep wspiera pracownię wprost: wpływy z wtyczek finansują rozwój narzędzi, z których korzystają potem klienci CtrlZ Studio. W drugą stronę działa to tak samo — problemy zgłaszane przy wdrożeniach podpowiadają, co dopisać do katalogu.</p>
+
+<p>Więcej o samych wtyczkach i o tym, jak z nich korzystać, napisaliśmy na stronie <a href="/wtyczki-wordpress">wtyczki do WordPressa</a>. Sklep znajdziesz pod adresem <a href="https://taniawtyczka.pl/" target="_blank" rel="noopener">taniawtyczka.pl</a>.</p>
+
+<h2>Status</h2>
+
+<p>Sklep jest gotowy i dostępny, sprzedaż startuje w <strong>październiku</strong>. Po starcie uzupełnimy ten opis o wnioski z pierwszych tygodni — także te niewygodne, bo własny produkt weryfikuje założenia szybciej niż jakakolwiek prezentacja.</p>
+
+<p>Robimy też wtyczki na zamówienie — jeśli w Waszym projekcie brakuje jednej konkretnej funkcji, <a href="/kontakt">napiszcie do nas</a>. Zobacz również: <a href="/strony-internetowe-wordpress">strony na WordPressie</a>.</p>
+
+</ProjectLayout>

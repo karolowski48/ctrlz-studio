@@ -1,0 +1,39 @@
+---
+/**
+ * Wpisy blogowe prowadzone w panelu CtrlZ Hub (etap 9, krok 3).
+ *
+ * Trasa buduje TYLKO te wpisy, których nie ma jako plik `src/pages/blog/<slug>.astro`
+ * — plik zawsze wygrywa, więc stare wpisy z repo działają jak dotąd, a panel dokłada
+ * nowe. Treść przychodzi jako gotowy HTML (sanityzowany po stronie panelu).
+ */
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { PANEL_POSTS, panelBody, panelJsonLd } from '../../data/panel';
+
+export function getStaticPaths() {
+  const filePages = new Set(
+    Object.keys(import.meta.glob('./*.astro', { eager: false })).map((file) =>
+      file.replace('./', '').replace('.astro', ''),
+    ),
+  );
+  return PANEL_POSTS.filter((post) => !filePages.has(post.slug)).map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<ArticleLayout
+  title={post.title}
+  metaTitle={post.metaTitle ?? undefined}
+  description={post.description}
+  cat={post.cat}
+  readTime={post.time}
+  date={post.date}
+  glowColor={post.glowColor}
+  slug={post.slug}
+>
+  <Fragment set:html={panelBody(post.bodyHtml)} />
+  {panelJsonLd(post.schemaJson) && <script type="application/ld+json" set:html={panelJsonLd(post.schemaJson)} is:inline />}
+</ArticleLayout>

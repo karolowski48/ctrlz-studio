@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SharedNav from '../components/SharedNav.astro';
 import SharedFooter from '../components/SharedFooter.astro';
-import { posts } from '../data/posts';
+import { ALL_POSTS as posts } from '../data/panel';
 
 
 const svgIllustrations: Record<string, string> = {
@@ -43,7 +43,7 @@ const breadcrumbSchema = {
 };
 ---
 
-<Layout title="Blog — CtrlZ Studio" description="Artykuły o web designie, SEO, WordPressie i sprzedaży online. Wiedza, którą możesz wdrożyć od razu.">
+<Layout title="Blog o stronach, sklepach i SEO dla firm | CtrlZ Studio" description="Artykuły o web designie, SEO, WordPressie i sprzedaży online. Wiedza, którą możesz wdrożyć od razu.">
 
 <SharedNav />
 

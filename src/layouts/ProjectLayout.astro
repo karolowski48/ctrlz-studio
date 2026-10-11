@@ -12,6 +12,8 @@ interface Props {
   year: string;
   tags: string[];
   result: string;
+  /** Miasto klienta z panelu — służy do podlinkowania podstrony lokalnej. */
+  city?: string;
   bgClass: string;
   glowClass: string;
   glowColor: string;
@@ -21,9 +23,29 @@ interface Props {
   nextName?: string;
   heroImage?: string;
   heroImageAlt?: string;
+  /** Gotowy adres obrazu (realizacje z panelu — pliki leżą w `public/panel-media`). */
+  heroSrc?: string;
 }
 
-const { title, description, cat, year, tags, result, bgClass, glowClass, glowColor, prevSlug, prevName, nextSlug, nextName, heroImage, heroImageAlt } = Astro.props;
+const { title, description, cat, year, tags, result, bgClass, glowClass, glowColor, prevSlug, prevName, nextSlug, nextName, heroImage, heroImageAlt, heroSrc, city } = Astro.props;
+
+/**
+ * Realizacja → podstrona lokalna (10.10.2026). Każda realizacja z miasta, dla którego mamy stronę lokalną,
+ * linkuje do niej z paska bocznego: czytelnik widzi „robimy to też u Ciebie", a strona lokalna dostaje link
+ * z treści. Mniejsze miejscowości stoją wyżej na liście, bo przy „Kraków · Wieliczka" chcemy Wieliczkę.
+ */
+const MIEJSCA: { rdzen: string; nazwa: string; slug: string }[] = [
+  { rdzen: 'izdebnik',  nazwa: 'Izdebniku',           slug: 'izdebnik' },
+  { rdzen: 'sułkowic',  nazwa: 'Sułkowicach',         slug: 'sulkowice' },
+  { rdzen: 'kalwari',   nazwa: 'Kalwarii Zebrzydowskiej', slug: 'kalwaria-zebrzydowska' },
+  { rdzen: 'myślenic',  nazwa: 'Myślenicach',         slug: 'myslenice' },
+  { rdzen: 'skawin',    nazwa: 'Skawinie',            slug: 'skawina' },
+  { rdzen: 'andrych',   nazwa: 'Andrychowie',         slug: 'andrychow' },
+  { rdzen: 'wielicz',   nazwa: 'Wieliczce',           slug: 'wieliczka' },
+  { rdzen: 'wadowic',   nazwa: 'Wadowicach',          slug: 'wadowice' },
+  { rdzen: 'krak',      nazwa: 'Krakowie',            slug: 'krakow' },
+];
+const lokalne = city ? MIEJSCA.find((m) => city.toLowerCase().includes(m.rdzen)) : undefined;
 
 /* Ścieżka nawigacyjna dla każdej realizacji — patrz komentarz w ArticleLayout. */
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, ''), 'https://ctrlzstudio.pl').href;
@@ -275,6 +297,9 @@ const breadcrumbSchema = {
   .prc-label { font-size: 12px; color: rgba(255,255,255,.68); margin-top: 6px; line-height: 1.4; }
 
   /* Sidebar */
+  .proj-local p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.65; margin: 0 0 12px; }
+  .proj-local a { font-size: 13.5px; color: #7dd3fc; text-decoration: none; font-weight: 500; }
+  .proj-local a:hover { text-decoration: underline; }
   .proj-sidebar {
     position: sticky;
     top: 100px;
@@ -406,7 +431,18 @@ const breadcrumbSchema = {
 
   <!-- Project hero: photo or mock -->
   <div style="max-width:1280px;margin:0 auto;padding:0 48px">
-    {img(heroImage) ? (
+    {heroSrc ? (
+      <div class={`proj-screen ${bgClass}`} style="overflow:hidden;padding:0">
+        <img
+          src={heroSrc}
+          alt={heroImageAlt || title}
+          style="width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;opacity:.85"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+    ) : img(heroImage) ? (
       <div class={`proj-screen ${bgClass}`} style="overflow:hidden;padding:0">
         <Image
           src={img(heroImage)!}
@@ -464,6 +500,14 @@ const breadcrumbSchema = {
         {tags.map(t => <span class="proj-tech-tag">{t}</span>)}
       </div>
     </div>
+
+    {lokalne && (
+      <div class="proj-info-card proj-local">
+        <h3>Z tej samej okolicy</h3>
+        <p>Ten projekt powstał dla firmy z okolic, w których pracujemy na co dzień.</p>
+        <a href={`/tworzenie-stron-internetowych-${lokalne.slug}`}>Strony internetowe w {lokalne.nazwa} →</a>
+      </div>
+    )}
 
     <div class="proj-info-card">
       <h3>Inne realizacje</h3>

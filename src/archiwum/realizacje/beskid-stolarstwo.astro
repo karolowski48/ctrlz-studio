@@ -1,0 +1,109 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { Image } from 'astro:assets';
+import { img } from '../../data/images';
+---
+<ProjectLayout
+  title="Beskid Stolarstwo Budowlane — panel CRM i aplikacja PWA"
+  description="System do zarządzania firmą stolarską: zlecenia, ekipy, finanse i magazyn w panelu, zadania dla pracowników w aplikacji PWA na telefonie, integracja z KSeF i Subiektem."
+  cat="Panel CRM · Aplikacja PWA · Next.js"
+  year="2026"
+  tags={['Next.js','PWA','CRM','KSeF','Subiekt','Panel pracownika']}
+  result="Jedno miejsce na zlecenia, ekipy, finanse i magazyn"
+  bgClass="pbg-15"
+  glowClass="pg-15"
+  glowColor="rgba(196,120,60,.25)"
+  heroImage="/beskid-crm-pulpit.webp"
+  heroImageAlt="Pulpit panelu CRM dla Beskid Stolarstwo Budowlane — montaże, zlecenia, płatności i harmonogram ekip"
+  prevSlug="konieczny-konstrukcje"
+  prevName="Konieczny Konstrukcje"
+  nextSlug="gabriela-piwowarska"
+  nextName="Gabriela Piwowarska-Szuba"
+>
+
+<h2>O projekcie</h2>
+
+<p>Beskid Stolarstwo Budowlane z Andrychowa robi więźby dachowe, schody, drzwi, okna, podłogi i tarasy — od pomiaru, przez warsztat, po montaż u klienta. Kilka ekip w terenie, warsztat, biuro i właściciel, który musiał to wszystko trzymać w głowie, w kalendarzu i w rozmowach telefonicznych.</p>
+
+<p>Zamiast kolejnej strony wizytówki zbudowaliśmy <strong>system do prowadzenia firmy</strong>: panel CRM dla właściciela i biura oraz aplikację PWA na telefony dla pracowników. Jedne dane, dwa widoki dopasowane do tego, kto i gdzie z nich korzysta.</p>
+
+<div class="proj-results-grid">
+  <div class="proj-result-card"><div class="prc-num">1×</div><div class="prc-label">dziennie — właściciel rozpisuje zadania i ma spokój</div></div>
+  <div class="proj-result-card"><div class="prc-num">PWA</div><div class="prc-label">aplikacja na telefonie ekipy, bez sklepu z aplikacjami</div></div>
+  <div class="proj-result-card"><div class="prc-num">2</div><div class="prc-label">integracje: KSeF i Subiekt — faktury i magazyn</div></div>
+</div>
+
+<h2>Panel — zarządzanie firmą</h2>
+
+<p>Właściciel wchodzi rano do panelu i widzi jeden ekran: montaże na dziś, zlecenia zagrożone terminem, wyceny bez odpowiedzi i płatności po terminie. Obok harmonogram ekip w formie osi czasu — kto, gdzie i w jakich godzinach pracuje, razem z urlopami i konfliktami terminów.</p>
+
+<Image
+  src={img('beskid-crm-pulpit.webp')!}
+  alt="Pulpit panelu: montaże dziś, zlecenia w toku, wyceny bez odpowiedzi, płatności po terminie i harmonogram ekip"
+  widths={[640, 960, 1400]}
+  sizes="(max-width: 900px) 94vw, 900px"
+  quality={78}
+  loading="lazy"
+  decoding="async"
+  style="width:100%;height:auto;border-radius:14px;border:1px solid rgba(255,255,255,.08);margin:26px 0"
+/>
+
+<p>W panelu siedzi całość pracy biura: klienci, zlecenia, wyceny, protokoły odbioru, materiały i pracownicy. Lista „Co wymaga uwagi” zbiera rzeczy, które same się nie zrobią — brakujący materiał na jutrzejszy montaż, nieopłacona zaliczka przed startem prac, zlecenie bez ruchu od kilkunastu dni.</p>
+
+<div class="proj-highlight">
+  <h3>Wyceny i protokoły bez Worda</h3>
+  <p>Wycena powstaje w panelu na danych zlecenia i wychodzi do klienta jako gotowy dokument. Po zakończeniu prac z tego samego miejsca generuje się protokół odbioru. Nic nie trzeba przepisywać, a każdy dokument zostaje przy zleceniu.</p>
+</div>
+
+<h2>Aplikacja PWA dla ekip</h2>
+
+<p>Pracownik rano odpala aplikację na telefonie i widzi tylko swoje: gdzie dziś jedzie, co ma zrobić i do której godziny. Nawigacja i telefon do klienta są jednym kliknięciem, czas pracy odbija się w aplikacji, a zadania odhacza się po kolei.</p>
+
+<Image
+  src={img('beskid-crm-pwa.webp')!}
+  alt="Aplikacja PWA pracownika: bieżące zlecenie, czas pracy, zgłoszenie zdjęcia, materiału i usterki oraz lista zadań na dziś"
+  widths={[320, 480, 742]}
+  sizes="(max-width: 640px) 70vw, 340px"
+  quality={80}
+  loading="lazy"
+  decoding="async"
+  style="width:min(340px,70%);height:auto;border-radius:20px;margin:26px auto;display:block"
+/>
+
+<p>Z terenu wracają trzy rzeczy, na których firmie zależy najbardziej: <strong>zdjęcia z montażu</strong>, <strong>zgłoszenie brakującego materiału</strong> i <strong>usterka</strong> — wszystko trafia prosto do panelu, zamiast ginąć w wiadomościach na komunikatorze. Do tego wewnętrzny czat firmowy, żeby ustalenia zostawały przy zleceniu.</p>
+
+<p>Aplikacja jest w technologii PWA: instaluje się z przeglądarki na ekran główny telefonu, działa jak zwykła aplikacja i nie wymaga publikacji w sklepach Google i Apple.</p>
+
+<h2>Finanse, magazyn i integracje</h2>
+
+<p>Biuro ma w panelu przychody i rozchody towaru oraz podgląd finansów firmy. Panel łączy się z <strong>KSeF</strong> — faktury zaciągają się automatycznie i wiążą ze zleceniami — oraz z <strong>Subiektem</strong>, żeby stany magazynowe i dokumenty nie były prowadzone dwa razy.</p>
+
+<div class="proj-highlight">
+  <h3>Dane raz, w jednym miejscu</h3>
+  <p>Zlecenie, ekipa, materiał, faktura i protokół to ten sam rekord oglądany z różnych stron. Dzięki temu pytanie „czy to zlecenie zarobiło?” ma odpowiedź w panelu, a nie w arkuszu zbieranym na koniec miesiąca.</p>
+</div>
+
+<h2>Nowa strona w Next.js</h2>
+
+<p>Równolegle powstaje nowa strona firmowa — pisana w Next.js, tak jak panel, i z nim połączona. Wygląda i działa jak aplikacja: przyciski kontaktu przyklejone na dole ekranu, szybkie ładowanie i układ przygotowany pod telefon, bo stamtąd przychodzi większość zapytań.</p>
+
+<Image
+  src={img('beskid-crm-strona.webp')!}
+  alt="Nowa strona firmowa Beskid w Next.js — widok na telefonie z przyciskami kontaktu na dole ekranu"
+  widths={[320, 480, 578]}
+  sizes="(max-width: 640px) 70vw, 320px"
+  quality={80}
+  loading="lazy"
+  decoding="async"
+  style="width:min(320px,66%);height:auto;border-radius:20px;margin:26px auto;display:block"
+/>
+
+<p>Strona korzysta z tych samych danych co panel, więc zapytanie z formularza od razu staje się zleceniem do obsługi, a nie mailem do przepisania ręcznie.</p>
+
+<h2>Co z tego wyszło</h2>
+
+<p>Właściciel ma jedno wejście dziennie zamiast kilkunastu telefonów, ekipy wiedzą, co robią, bez porannej odprawy, a biuro nie przepisuje tych samych danych do trzech miejsc.</p>
+
+<p>Robimy takie systemy również dla innych firm — zobacz <a href="/panel-crm-dla-firm">panele CRM dla firm</a> i <a href="/aplikacje-pwa">aplikacje PWA</a>. Obsługujemy Andrychów, Wadowice i okolice: <a href="/tworzenie-stron-internetowych-wadowice">tworzenie stron internetowych Wadowice</a>.</p>
+
+</ProjectLayout>

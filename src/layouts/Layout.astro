@@ -1,4 +1,5 @@
 ---
+import CookieConsent from '../components/CookieConsent.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -37,19 +38,12 @@ const FONT_CSS =
 <!doctype html>
 <html lang="pl">
 <head>
-  <!-- CookieYes MUSI być pierwszym skryptem i MUSI być synchroniczny.
-       Auto-blokowanie działa tak, że skrypt przechwytuje pozostałe znaczniki <script>
-       ZANIM się wykonają. Dodanie defer/async psuje tę kolejność i grozi tym,
-       że skrypty śledzące odpalą się przed zgodą użytkownika (RODO + Prawo
-       komunikacji elektronicznej). Kosztuje ~150 ms i tak ma zostać. -->
-  <link rel="preconnect" href="https://cdn-cookieyes.com" crossorigin />
-  <link rel="dns-prefetch" href="https://cdn-cookieyes.com" />
-  <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/11d2bbed245d91117cb418202a033abc/script.js"></script>
-  <!-- Google Analytics — ładowany po pierwszym renderze, ale ZAWSZE po CookieYes,
-       który steruje zgodą. Consent Mode ustawiony domyślnie na odmowę:
-       do czasu zgody GA nie zapisuje cookies ani identyfikatorów.
-       CookieYes podnosi te zgody automatycznie po kliknięciu „Akceptuję". -->
-  <script>
+  <!-- Zgody cookies: własny baner (src/components/CookieConsent.astro) zamiast CookieYes — 24.09.2026.
+       Consent Mode v2 w trybie podstawowym: domyślnie wszystko „denied”, a skrypt Google Analytics
+       wczytujemy DOPIERO po zgodzie (analityka albo marketing). Bez zgody do Google nic nie wychodzi —
+       także pingi bez ciasteczek (wytyczne EROD 2/2023 do art. 5 ust. 3 dyrektywy ePrivacy, w Polsce art. 399 PKE).
+       Wybór leży w ciasteczku `ctrlz_zgoda` (12 mies.) i jest stosowany tu, zanim cokolwiek się wczyta. -->
+  <script is:inline>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('consent', 'default', {
@@ -59,19 +53,59 @@ const FONT_CSS =
       analytics_storage: 'denied',
       functionality_storage: 'denied',
       personalization_storage: 'denied',
-      security_storage: 'granted',
-      wait_for_update: 2000
+      security_storage: 'granted'
     });
-    gtag('js', new Date());
-    gtag('config', 'G-5LYYREZRZC');
+    gtag('set', 'ads_data_redaction', true);
+
+    (function () {
+      var GA_ID = 'G-5LYYREZRZC';
+      var VERSION = 'v1';
+      var loaded = false;
+      function read() {
+        var m = document.cookie.match(/(?:^|;\s*)ctrlz_zgoda=([^;]+)/);
+        if (!m) return null;
+        try {
+          var v = JSON.parse(decodeURIComponent(m[1]));
+          return v && v.v === VERSION && typeof v.id === 'string' ? v : null;
+        } catch (e) { return null; }
+      }
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        gtag('js', new Date());
+        gtag('config', GA_ID);
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+        document.head.appendChild(s);
+      }
+      window.czConsent = {
+        VERSION: VERSION,
+        read: read,
+        apply: function (c) {
+          gtag('consent', 'update', {
+            analytics_storage: c.a ? 'granted' : 'denied',
+            ad_storage: c.m ? 'granted' : 'denied',
+            ad_user_data: c.m ? 'granted' : 'denied',
+            ad_personalization: c.m ? 'granted' : 'denied'
+          });
+          if (c.a || c.m) {
+            if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 3000 });
+            else window.addEventListener('load', load);
+          }
+        }
+      };
+      var saved = read();
+      if (saved) window.czConsent.apply(saved);
+    })();
 
     /* ── ZDARZENIA KONWERSJI ──────────────────────────────────────────
        Jeden globalny helper + jeden delegowany listener na cały serwis.
        Celowo NIE wpinamy zdarzeń osobno na 94 podstronach — nowa podstrona
        ma być automatycznie objęta pomiarem, bez pamiętania o niczym.
 
-       Zdarzenia jadą przez gtag, więc podlegają Consent Mode: do czasu zgody
-       nie zapisują identyfikatorów. Nie omijamy tym CookieYes.
+       Zdarzenia jadą przez gtag, więc podlegają Consent Mode: bez zgody skrypt GA
+       się nie wczytuje i zdarzenia zostają w kolejce dataLayer, nigdzie nie wychodzą.
 
        W panelu GA4 oznacz jako kluczowe (key events):
          generate_lead · phone_click · affiliate_code_copy
@@ -95,16 +129,6 @@ const FONT_CSS =
         window.czTrack('affiliate_click', { link_url: href, affiliate: 'LH.pl' });
       }
     }, true);
-    (function () {
-      var load = function () {
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-5LYYREZRZC';
-        document.head.appendChild(s);
-      };
-      if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 3000 });
-      else window.addEventListener('load', load);
-    })();
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -261,5 +285,6 @@ const FONT_CSS =
     <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
   <slot />
+  <CookieConsent />
 </body>
 </html>
